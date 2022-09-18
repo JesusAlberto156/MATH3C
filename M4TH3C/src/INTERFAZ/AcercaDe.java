@@ -209,7 +209,7 @@ public class AcercaDe extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
-            Desktop.getDesktop().browse(new URI("https://docs.google.com/document/d/1ATbcOFaC3XIuLdtuXnTO_9l9nA7E_zDzXuice7lW8_U/edit"));
+            Desktop.getDesktop().browse(new URI("https://docs.google.com/document/d/1hBWtvvIobzF0wSOHiamL5pqqfqo42QNr/edit?usp=sharing&ouid=108969182756608460180&rtpof=true&sd=true"));
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null,"ERROR, no se puede ejecutar la acción");
         }
@@ -217,7 +217,7 @@ public class AcercaDe extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         try {
-            Desktop.getDesktop().browse(new URI("https://github.com/carlosangulom/M4TH3C"));
+            Desktop.getDesktop().browse(new URI("https://github.com/JesusAlberto156/MATH3C.git"));
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null,"ERROR, no se puede ejecutar la acción");
         }
