@@ -1,7 +1,7 @@
 Metodo &Prueba{
-	Entero num1 = + Verde;
+	Entero num1 = + 20;
 	Entero num2;
-	Decimal num3 = - 20.40;
+	Decimal num1 = - 20.40;
 	Decimal num4;
 	Resultado #res1;
 	Cadena cad1 = 'Hola';
