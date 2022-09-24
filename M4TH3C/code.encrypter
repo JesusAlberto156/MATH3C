@@ -1,5 +1,5 @@
 Metodo &Prueba{
-	Entero num1 = + 20;
+	Entero num1 = + Verde;
 	Entero num2;
 	Decimal num3 = - 20.40;
 	Decimal num4;

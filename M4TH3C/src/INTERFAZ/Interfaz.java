@@ -52,7 +52,16 @@ public class Interfaz extends javax.swing.JFrame {
     private ArrayList<ErrorLSSL> errors;
     private ArrayList<TextColor> textsColor;
     private Timer timerKeyReleased;
-    private ArrayList<Production> identProd;
+    private ArrayList<Production> identProdD1;
+    private ArrayList<Production> identProdD2;
+    private ArrayList<Production> identProdA1;
+    private ArrayList<Production> identProdF11;
+    private ArrayList<Production> identProdF12;
+    private ArrayList<Production> identProdF13;
+    private ArrayList<Production> identProdF14;
+    private ArrayList<Production> identProdF2;
+    private ArrayList<Production> identProdF3;
+    private ArrayList<Production> identProdM1;
     private HashMap<String, String> identificadores;
     private boolean codeHasBeenCompiled = false;
     private Directory directorio;
@@ -95,7 +104,16 @@ public class Interfaz extends javax.swing.JFrame {
         tokens = new ArrayList<>();
         errors = new ArrayList<>();
         textsColor = new ArrayList<>();
-        identProd = new ArrayList<>();
+        identProdD1 = new ArrayList<>();
+        identProdD2 = new ArrayList<>();
+        identProdA1 = new ArrayList<>();
+        identProdF11 = new ArrayList<>();
+        identProdF12 = new ArrayList<>();
+        identProdF13 = new ArrayList<>();
+        identProdF14 = new ArrayList<>();
+        identProdF2 = new ArrayList<>();
+        identProdF3 = new ArrayList<>();
+        identProdM1 = new ArrayList<>();
         identificadores = new HashMap<>();
         Functions.setAutocompleterJTextComponent(new String[]{"Sumar('VARIABLES')<\n\n\t      'Variable Resultado'\n\n>;",
             "Restar('VARIABLES')<\n\n\t      'Variable Resultado'\n\n>;","Multiplicar('VARIABLES')<\n\n\t      'Variable Resultado'\n\n>;",
@@ -116,7 +134,16 @@ public class Interfaz extends javax.swing.JFrame {
         PanelSalida.setText("");
         tokens.clear();
         errors.clear();
-        identProd.clear();
+        identProdD1.clear();
+        identProdD2.clear();
+        identProdA1.clear();
+        identProdF11.clear();
+        identProdF12.clear();
+        identProdF13.clear();
+        identProdF14.clear();
+        identProdF2.clear();
+        identProdF3.clear();
+        identProdM1.clear();
         identificadores.clear();
         codeHasBeenCompiled = false;
     }
@@ -153,6 +180,7 @@ public class Interfaz extends javax.swing.JFrame {
         lexicalAnalysis();
         fillTableTokens();
         syntacticAnalysis();
+        semanticAnalysis();
         printConsole();
         codeHasBeenCompiled = true;
     }
@@ -222,33 +250,33 @@ public class Interfaz extends javax.swing.JFrame {
         gramatica.group("ASIGNAR", "(Operador_De_Asignacion)");
         
         /*DECLARACION ENTERO*/
-        gramatica.group("DECLARACION_ENTERO_1","(PE)(VARIABLE)(ASIGNAR)(OPERADOR)(VALOR_NUMEROE)(FINAL)");
-        gramatica.group("DECLARACION_ENTERO_2","(PE)(VARIABLE)(FINAL)");
+        gramatica.group("DECLARACION_ENTERO_1","(PE)(VARIABLE)(ASIGNAR)(OPERADOR)(VALOR_NUMEROE|VALOR_NUMEROD|VALOR_COLOR|VALOR_FIGURA|VALOR_CADENA)(FINAL)",true,identProdD1);
+        gramatica.group("DECLARACION_ENTERO_2","(PE)(VARIABLE)(FINAL)",true,identProdD2);
         /*DECLARACION DECIMAL*/
-        gramatica.group("DECLARACION_DECIMAL_1","(PD)(VARIABLE)(ASIGNAR)(OPERADOR)(VALOR_NUMEROD)(FINAL)");
-        gramatica.group("DECLARACION_DECIMAL_2","(PD)(VARIABLE)(FINAL)");
+        gramatica.group("DECLARACION_DECIMAL_1","(PD)(VARIABLE)(ASIGNAR)(OPERADOR)(VALOR_NUMEROE|VALOR_NUMEROD|VALOR_COLOR|VALOR_FIGURA|VALOR_CADENA)(FINAL)",true,identProdD1);
+        gramatica.group("DECLARACION_DECIMAL_2","(PD)(VARIABLE)(FINAL)",true,identProdD2);
         /*DECLARACION RESULTADO*/
-        gramatica.group("DECLARACION_RESULTADO", "(PR)(RESULTADO)(FINAL)");
+        gramatica.group("DECLARACION_RESULTADO", "(PR)(RESULTADO)(FINAL)",true,identProdD2);
         /*DECLARACION CADENA*/
-        gramatica.group("DECLARACION_CADENA_1", "(PC)(VARIABLE)(ASIGNAR)(VALOR_CADENA)(FINAL)");
-        gramatica.group("DECLARACION_CADENA_2", "(PC)(VARIABLE)(FINAL)");
+        gramatica.group("DECLARACION_CADENA_1", "(PC)(VARIABLE)(ASIGNAR)(VALOR_NUMEROE|VALOR_NUMEROD|VALOR_COLOR|VALOR_FIGURA|VALOR_CADENA)(FINAL)",true,identProdD1);
+        gramatica.group("DECLARACION_CADENA_2", "(PC)(VARIABLE)(FINAL)",true,identProdD2);
         /*DECLARACION FIGURA*/
-        gramatica.group("DECLARACION_FIGURA_1", "(PF)(VARIABLE)(ASIGNAR)(VALOR_FIGURA)(FINAL)");
-        gramatica.group("DECLARACION_FIGURA_2", "(PF)(VARIABLE)(FINAL)");
+        gramatica.group("DECLARACION_FIGURA_1", "(PF)(VARIABLE)(ASIGNAR)(VALOR_NUMEROE|VALOR_NUMEROD|VALOR_COLOR|VALOR_FIGURA|VALOR_CADENA)(FINAL)",true,identProdD1);
+        gramatica.group("DECLARACION_FIGURA_2", "(PF)(VARIABLE)(FINAL)",true,identProdD2);
         /*DECLARACION COLOR*/
-        gramatica.group("DECLARACION_COLOR_1", "(PCO)(VARIABLE)(ASIGNAR)(VALOR_COLOR)(FINAL)");
-        gramatica.group("DECLARACION_COLOR_2", "(PCO)(VARIABLE)(FINAL)");
+        gramatica.group("DECLARACION_COLOR_1", "(PCO)(VARIABLE)(ASIGNAR)(VALOR_NUMEROE|VALOR_NUMEROD|VALOR_COLOR|VALOR_FIGURA|VALOR_CADENA)(FINAL)",true,identProdD1);
+        gramatica.group("DECLARACION_COLOR_2", "(PCO)(VARIABLE)(FINAL)",true,identProdD2);
         
         /*ASIGNACION ENTERO*/
-        gramatica.group("ASIGNACION_ENTERO","(VARIABLE)(ASIGNAR)(OPERADOR)(VALOR_NUMEROE)(FINAL)");
+        gramatica.group("ASIGNACION_ENTERO","(VARIABLE)(ASIGNAR)(OPERADOR)(VALOR_NUMEROE|VALOR_NUMEROD|VALOR_COLOR|VALOR_FIGURA|VALOR_CADENA)(FINAL)",true,identProdA1);
         /*ASIGNACION DECIMAL*/
-        gramatica.group("ASIGNACION_DECIMAL","(VARIABLE)(ASIGNAR)(OPERADOR)(VALOR_NUMEROD)(FINAL)");
+        gramatica.group("ASIGNACION_DECIMAL","(VARIABLE)(ASIGNAR)(OPERADOR)(VALOR_NUMEROE|VALOR_NUMEROD|VALOR_COLOR|VALOR_FIGURA|VALOR_CADENA)(FINAL)",true,identProdA1);
         /*ASIGNACION CADENA*/
-        gramatica.group("ASIGNACION_CADENA","(VARIABLE)(ASIGNAR)(VALOR_CADENA)(FINAL)");
+        gramatica.group("ASIGNACION_CADENA","(VARIABLE)(ASIGNAR)(VALOR_NUMEROE|VALOR_NUMEROD|VALOR_COLOR|VALOR_FIGURA|VALOR_CADENA)(FINAL)",true,identProdA1);
         /*ASIGNACION FIGURA*/
-        gramatica.group("ASIGNACION_FIGURA","(VARIABLE)(ASIGNAR)(VALOR_FIGURA)(FINAL)");
+        gramatica.group("ASIGNACION_FIGURA","(VARIABLE)(ASIGNAR)(VALOR_NUMEROE|VALOR_NUMEROD|VALOR_COLOR|VALOR_FIGURA|VALOR_CADENA)(FINAL)",true,identProdA1);
         /*ASIGNACION COLOR*/
-        gramatica.group("ASIGNACION_COLOR","(VARIABLE)(ASIGNAR)(VALOR_COLOR)(FINAL)");
+        gramatica.group("ASIGNACION_COLOR","(VARIABLE)(ASIGNAR)(VALOR_NUMEROE|VALOR_NUMEROD|VALOR_COLOR|VALOR_FIGURA|VALOR_CADENA)(FINAL)",true,identProdA1);
         
         /*ERRORES DECLARATIVOS*/
         gramatica.finalLineColumn();
@@ -382,10 +410,10 @@ public class Interfaz extends javax.swing.JFrame {
         gramatica.group("COMA", "(Separador)");
         
         /*FUNCIONES OPERACIONES*/
-        gramatica.group("FUNCION_COMPLETA_5", "(FUNCION)(AGRUPAR_1)((VARIABLE)(COMA)(VARIABLE)(COMA)(VARIABLE)(COMA)(VARIABLE)(COMA)(VARIABLE))(AGRUPAR_2)(AGRUPAR_3)(RESULTADO)(AGRUPAR_4)(FINAL)");
-        gramatica.group("FUNCION_COMPLETA_4", "(FUNCION)(AGRUPAR_1)((VARIABLE)(COMA)(VARIABLE)(COMA)(VARIABLE)(COMA)(VARIABLE))(AGRUPAR_2)(AGRUPAR_3)(RESULTADO)(AGRUPAR_4)(FINAL)");
-        gramatica.group("FUNCION_COMPLETA_3", "(FUNCION)(AGRUPAR_1)((VARIABLE)(COMA)(VARIABLE)(COMA)(VARIABLE))(AGRUPAR_2)(AGRUPAR_3)(RESULTADO)(AGRUPAR_4)(FINAL)");
-        gramatica.group("FUNCION_COMPLETA_2", "(FUNCION)(AGRUPAR_1)((VARIABLE)(COMA)(VARIABLE))(AGRUPAR_2)(AGRUPAR_3)(RESULTADO)(AGRUPAR_4)(FINAL)");
+        gramatica.group("FUNCION_COMPLETA_5", "(FUNCION)(AGRUPAR_1)((VARIABLE)(COMA)(VARIABLE)(COMA)(VARIABLE)(COMA)(VARIABLE)(COMA)(VARIABLE))(AGRUPAR_2)(AGRUPAR_3)(RESULTADO)(AGRUPAR_4)(FINAL)",true,identProdF14);
+        gramatica.group("FUNCION_COMPLETA_4", "(FUNCION)(AGRUPAR_1)((VARIABLE)(COMA)(VARIABLE)(COMA)(VARIABLE)(COMA)(VARIABLE))(AGRUPAR_2)(AGRUPAR_3)(RESULTADO)(AGRUPAR_4)(FINAL)",true,identProdF13);
+        gramatica.group("FUNCION_COMPLETA_3", "(FUNCION)(AGRUPAR_1)((VARIABLE)(COMA)(VARIABLE)(COMA)(VARIABLE))(AGRUPAR_2)(AGRUPAR_3)(RESULTADO)(AGRUPAR_4)(FINAL)",true,identProdF12);
+        gramatica.group("FUNCION_COMPLETA_2", "(FUNCION)(AGRUPAR_1)((VARIABLE)(COMA)(VARIABLE))(AGRUPAR_2)(AGRUPAR_3)(RESULTADO)(AGRUPAR_4)(FINAL)",true,identProdF11);
         
         gramatica.finalLineColumn();
         
@@ -614,9 +642,9 @@ public class Interfaz extends javax.swing.JFrame {
         /*FUNCION MOSTRAR*/
         gramatica.group("FUNCION_COMPLETA_6","(FUNCION_M)(AGRUPAR_1)((VARIABLE)(COMA)(RESULTADO)"
                       + "(COMA)(VARIABLE)(COMA)(VARIABLE)(COMA)(VARIABLE)(COMA)(VARIABLE)(COMA)(VARIABLE)"
-                      + "(COMA)(VARIABLE)(COMA)(VARIABLE)(COMA)(VARIABLE)(COMA)(VARIABLE)(COMA)(VARIABLE))(AGRUPAR_2)(FINAL)");
+                      + "(COMA)(VARIABLE)(COMA)(VARIABLE)(COMA)(VARIABLE)(COMA)(VARIABLE)(COMA)(VARIABLE))(AGRUPAR_2)(FINAL)",true,identProdF2);
         gramatica.group("FUNCION_COMPLETA_7","(FUNCION_M)(AGRUPAR_1)((VARIABLE)(COMA)(RESULTADO)"
-                      + "(COMA)(VARIABLE)(COMA)(VARIABLE))(AGRUPAR_2)(FINAL)");
+                      + "(COMA)(VARIABLE)(COMA)(VARIABLE))(AGRUPAR_2)(FINAL)",true,identProdF3);
         
         gramatica.finalLineColumn();
         /*ERRORES DE MOSTRAR*/
@@ -1021,7 +1049,7 @@ public class Interfaz extends javax.swing.JFrame {
                       + "DECLARACION_COLOR_2 | ASIGNACION_ENTERO | ASIGNACION_DECIMAL | ASIGNACION_CADENA | ASIGNACION_FIGURA | "
                       + "ASIGNACION_COLOR | FUNCION_COMPLETA_1 | FUNCION_COMPLETA_2 | FUNCION_COMPLETA_3 | FUNCION_COMPLETA_4 | "
                       + "FUNCION_COMPLETA_5 | FUNCION_COMPLETA_6 | FUNCION_COMPLETA_7 | FUNCION_COMPLETA_8 | FUNCION_COMPLETA_9 | "
-                      + "FUNCION_COMPLETA_10)))?(AGRUPAR_6)");
+                      + "FUNCION_COMPLETA_10)))?(AGRUPAR_6)",true,identProdM1);
         
         gramatica.group("METODO_2", "(PM)(VARIABLE_METODO)(AGRUPAR_5)(((DECLARACION_ENTERO_1 | DECLARACION_ENTERO_2 | "
                       + "DECLARACION_DECIMAL_1 | DECLARACION_DECIMAL_2 | DECLARACION_RESULTADO | DECLARACION_CADENA_1 | "
@@ -1035,7 +1063,7 @@ public class Interfaz extends javax.swing.JFrame {
                       + "DECLARACION_COLOR_2 | ASIGNACION_ENTERO | ASIGNACION_DECIMAL | ASIGNACION_CADENA | ASIGNACION_FIGURA | "
                       + "ASIGNACION_COLOR | FUNCION_COMPLETA_1 | FUNCION_COMPLETA_2 | FUNCION_COMPLETA_3 | FUNCION_COMPLETA_4 | "
                       + "FUNCION_COMPLETA_5 | FUNCION_COMPLETA_6 | FUNCION_COMPLETA_7 | FUNCION_COMPLETA_8 | FUNCION_COMPLETA_9 | "
-                      + "FUNCION_COMPLETA_10)))?(AGRUPAR_6)");
+                      + "FUNCION_COMPLETA_10)))?(AGRUPAR_6)",true,identProdM1);
         
         gramatica.group("METODO_3", "(PM)(VARIABLE_METODO)(AGRUPAR_5)(((DECLARACION_ENTERO_1 | DECLARACION_ENTERO_2 | "
                       + "DECLARACION_DECIMAL_1 | DECLARACION_DECIMAL_2 | DECLARACION_RESULTADO | DECLARACION_CADENA_1 | "
@@ -1055,7 +1083,7 @@ public class Interfaz extends javax.swing.JFrame {
                       + "DECLARACION_COLOR_2 | ASIGNACION_ENTERO | ASIGNACION_DECIMAL | ASIGNACION_CADENA | ASIGNACION_FIGURA | "
                       + "ASIGNACION_COLOR | FUNCION_COMPLETA_1 | FUNCION_COMPLETA_2 | FUNCION_COMPLETA_3 | FUNCION_COMPLETA_4 | "
                       + "FUNCION_COMPLETA_5 | FUNCION_COMPLETA_6 | FUNCION_COMPLETA_7 | FUNCION_COMPLETA_8 | FUNCION_COMPLETA_9 | "
-                      + "FUNCION_COMPLETA_10)))?(AGRUPAR_6)");
+                      + "FUNCION_COMPLETA_10)))?(AGRUPAR_6)",true,identProdM1);
         
         gramatica.group("METODO_4", "(PM)(VARIABLE_METODO)(AGRUPAR_5)(((DECLARACION_ENTERO_1 | DECLARACION_ENTERO_2 | "
                       + "DECLARACION_DECIMAL_1 | DECLARACION_DECIMAL_2 | DECLARACION_RESULTADO | DECLARACION_CADENA_1 | "
@@ -1081,7 +1109,7 @@ public class Interfaz extends javax.swing.JFrame {
                       + "DECLARACION_COLOR_2 | ASIGNACION_ENTERO | ASIGNACION_DECIMAL | ASIGNACION_CADENA | ASIGNACION_FIGURA | "
                       + "ASIGNACION_COLOR | FUNCION_COMPLETA_1 | FUNCION_COMPLETA_2 | FUNCION_COMPLETA_3 | FUNCION_COMPLETA_4 | "
                       + "FUNCION_COMPLETA_5 | FUNCION_COMPLETA_6 | FUNCION_COMPLETA_7 | FUNCION_COMPLETA_8 | FUNCION_COMPLETA_9 | "
-                      + "FUNCION_COMPLETA_10)))?(AGRUPAR_6)");
+                      + "FUNCION_COMPLETA_10)))?(AGRUPAR_6)",true,identProdM1);
         
         gramatica.group("METODO_5", "(PM)(VARIABLE_METODO)(AGRUPAR_5)(((DECLARACION_ENTERO_1 | DECLARACION_ENTERO_2 | "
                       + "DECLARACION_DECIMAL_1 | DECLARACION_DECIMAL_2 | DECLARACION_RESULTADO | DECLARACION_CADENA_1 | "
@@ -1113,7 +1141,7 @@ public class Interfaz extends javax.swing.JFrame {
                       + "DECLARACION_COLOR_2 | ASIGNACION_ENTERO | ASIGNACION_DECIMAL | ASIGNACION_CADENA | ASIGNACION_FIGURA | "
                       + "ASIGNACION_COLOR | FUNCION_COMPLETA_1 | FUNCION_COMPLETA_2 | FUNCION_COMPLETA_3 | FUNCION_COMPLETA_4 | "
                       + "FUNCION_COMPLETA_5 | FUNCION_COMPLETA_6 | FUNCION_COMPLETA_7 | FUNCION_COMPLETA_8 | FUNCION_COMPLETA_9 | "
-                      + "FUNCION_COMPLETA_10)))?(AGRUPAR_6)");
+                      + "FUNCION_COMPLETA_10)))?(AGRUPAR_6)",true,identProdM1);
         
         gramatica.group("METODO_6", "(PM)(VARIABLE_METODO)(AGRUPAR_5)(((DECLARACION_ENTERO_1 | DECLARACION_ENTERO_2 | "
                       + "DECLARACION_DECIMAL_1 | DECLARACION_DECIMAL_2 | DECLARACION_RESULTADO | DECLARACION_CADENA_1 | "
@@ -1151,7 +1179,7 @@ public class Interfaz extends javax.swing.JFrame {
                       + "DECLARACION_COLOR_2 | ASIGNACION_ENTERO | ASIGNACION_DECIMAL | ASIGNACION_CADENA | ASIGNACION_FIGURA | "
                       + "ASIGNACION_COLOR | FUNCION_COMPLETA_1 | FUNCION_COMPLETA_2 | FUNCION_COMPLETA_3 | FUNCION_COMPLETA_4 | "
                       + "FUNCION_COMPLETA_5 | FUNCION_COMPLETA_6 | FUNCION_COMPLETA_7 | FUNCION_COMPLETA_8 | FUNCION_COMPLETA_9 | "
-                      + "FUNCION_COMPLETA_10)))?(AGRUPAR_6)");
+                      + "FUNCION_COMPLETA_10)))?(AGRUPAR_6)",true,identProdM1);
         
         gramatica.group("METODO_7", "(PM)(VARIABLE_METODO)(AGRUPAR_5)(((DECLARACION_ENTERO_1 | DECLARACION_ENTERO_2 | "
                       + "DECLARACION_DECIMAL_1 | DECLARACION_DECIMAL_2 | DECLARACION_RESULTADO | DECLARACION_CADENA_1 | "
@@ -1195,7 +1223,7 @@ public class Interfaz extends javax.swing.JFrame {
                       + "DECLARACION_COLOR_2 | ASIGNACION_ENTERO | ASIGNACION_DECIMAL | ASIGNACION_CADENA | ASIGNACION_FIGURA | "
                       + "ASIGNACION_COLOR | FUNCION_COMPLETA_1 | FUNCION_COMPLETA_2 | FUNCION_COMPLETA_3 | FUNCION_COMPLETA_4 | "
                       + "FUNCION_COMPLETA_5 | FUNCION_COMPLETA_6 | FUNCION_COMPLETA_7 | FUNCION_COMPLETA_8 | FUNCION_COMPLETA_9 | "
-                      + "FUNCION_COMPLETA_10)))?(AGRUPAR_6)");
+                      + "FUNCION_COMPLETA_10)))?(AGRUPAR_6)",true,identProdM1);
         
         gramatica.group("METODO_8", "(PM)(VARIABLE_METODO)(AGRUPAR_5)(((DECLARACION_ENTERO_1 | DECLARACION_ENTERO_2 | "
                       + "DECLARACION_DECIMAL_1 | DECLARACION_DECIMAL_2 | DECLARACION_RESULTADO | DECLARACION_CADENA_1 | "
@@ -1245,7 +1273,7 @@ public class Interfaz extends javax.swing.JFrame {
                       + "DECLARACION_COLOR_2 | ASIGNACION_ENTERO | ASIGNACION_DECIMAL | ASIGNACION_CADENA | ASIGNACION_FIGURA | "
                       + "ASIGNACION_COLOR | FUNCION_COMPLETA_1 | FUNCION_COMPLETA_2 | FUNCION_COMPLETA_3 | FUNCION_COMPLETA_4 | "
                       + "FUNCION_COMPLETA_5 | FUNCION_COMPLETA_6 | FUNCION_COMPLETA_7 | FUNCION_COMPLETA_8 | FUNCION_COMPLETA_9 | "
-                      + "FUNCION_COMPLETA_10)))?(AGRUPAR_6)");
+                      + "FUNCION_COMPLETA_10)))?(AGRUPAR_6)",true,identProdM1);
         
         gramatica.group("METODO_9", "(PM)(VARIABLE_METODO)(AGRUPAR_5)(((DECLARACION_ENTERO_1 | DECLARACION_ENTERO_2 | "
                       + "DECLARACION_DECIMAL_1 | DECLARACION_DECIMAL_2 | DECLARACION_RESULTADO | DECLARACION_CADENA_1 | "
@@ -1301,7 +1329,7 @@ public class Interfaz extends javax.swing.JFrame {
                       + "DECLARACION_COLOR_2 | ASIGNACION_ENTERO | ASIGNACION_DECIMAL | ASIGNACION_CADENA | ASIGNACION_FIGURA | "
                       + "ASIGNACION_COLOR | FUNCION_COMPLETA_1 | FUNCION_COMPLETA_2 | FUNCION_COMPLETA_3 | FUNCION_COMPLETA_4 | "
                       + "FUNCION_COMPLETA_5 | FUNCION_COMPLETA_6 | FUNCION_COMPLETA_7 | FUNCION_COMPLETA_8 | FUNCION_COMPLETA_9 | "
-                      + "FUNCION_COMPLETA_10)))?(AGRUPAR_6)");
+                      + "FUNCION_COMPLETA_10)))?(AGRUPAR_6)",true,identProdM1);
         
         gramatica.group("METODO_10", "(PM)(VARIABLE_METODO)(AGRUPAR_5)(((DECLARACION_ENTERO_1 | DECLARACION_ENTERO_2 | "
                       + "DECLARACION_DECIMAL_1 | DECLARACION_DECIMAL_2 | DECLARACION_RESULTADO | DECLARACION_CADENA_1 | "
@@ -1363,7 +1391,7 @@ public class Interfaz extends javax.swing.JFrame {
                       + "DECLARACION_COLOR_2 | ASIGNACION_ENTERO | ASIGNACION_DECIMAL | ASIGNACION_CADENA | ASIGNACION_FIGURA | "
                       + "ASIGNACION_COLOR | FUNCION_COMPLETA_1 | FUNCION_COMPLETA_2 | FUNCION_COMPLETA_3 | FUNCION_COMPLETA_4 | "
                       + "FUNCION_COMPLETA_5 | FUNCION_COMPLETA_6 | FUNCION_COMPLETA_7 | FUNCION_COMPLETA_8 | FUNCION_COMPLETA_9 | "
-                      + "FUNCION_COMPLETA_10)))?(AGRUPAR_6)");
+                      + "FUNCION_COMPLETA_10)))?(AGRUPAR_6)",true,identProdM1);
         
         gramatica.group("METODO_11", "(PM)(VARIABLE_METODO)(AGRUPAR_5)(((DECLARACION_ENTERO_1 | DECLARACION_ENTERO_2 | "
                       + "DECLARACION_DECIMAL_1 | DECLARACION_DECIMAL_2 | DECLARACION_RESULTADO | DECLARACION_CADENA_1 | "
@@ -1431,7 +1459,7 @@ public class Interfaz extends javax.swing.JFrame {
                       + "DECLARACION_COLOR_2 | ASIGNACION_ENTERO | ASIGNACION_DECIMAL | ASIGNACION_CADENA | ASIGNACION_FIGURA | "
                       + "ASIGNACION_COLOR | FUNCION_COMPLETA_1 | FUNCION_COMPLETA_2 | FUNCION_COMPLETA_3 | FUNCION_COMPLETA_4 | "
                       + "FUNCION_COMPLETA_5 | FUNCION_COMPLETA_6 | FUNCION_COMPLETA_7 | FUNCION_COMPLETA_8 | FUNCION_COMPLETA_9 | "
-                      + "FUNCION_COMPLETA_10)))?(AGRUPAR_6)");
+                      + "FUNCION_COMPLETA_10)))?(AGRUPAR_6)",true,identProdM1);
         
         gramatica.group("METODO_12", "(PM)(VARIABLE_METODO)(AGRUPAR_5)(((DECLARACION_ENTERO_1 | DECLARACION_ENTERO_2 | "
                       + "DECLARACION_DECIMAL_1 | DECLARACION_DECIMAL_2 | DECLARACION_RESULTADO | DECLARACION_CADENA_1 | "
@@ -1505,7 +1533,7 @@ public class Interfaz extends javax.swing.JFrame {
                       + "DECLARACION_COLOR_2 | ASIGNACION_ENTERO | ASIGNACION_DECIMAL | ASIGNACION_CADENA | ASIGNACION_FIGURA | "
                       + "ASIGNACION_COLOR | FUNCION_COMPLETA_1 | FUNCION_COMPLETA_2 | FUNCION_COMPLETA_3 | FUNCION_COMPLETA_4 | "
                       + "FUNCION_COMPLETA_5 | FUNCION_COMPLETA_6 | FUNCION_COMPLETA_7 | FUNCION_COMPLETA_8 | FUNCION_COMPLETA_9 | "
-                      + "FUNCION_COMPLETA_10)))?(AGRUPAR_6)");
+                      + "FUNCION_COMPLETA_10)))?(AGRUPAR_6)",true,identProdM1);
         
         gramatica.group("METODO_13", "(PM)(VARIABLE_METODO)(AGRUPAR_5)(((DECLARACION_ENTERO_1 | DECLARACION_ENTERO_2 | "
                       + "DECLARACION_DECIMAL_1 | DECLARACION_DECIMAL_2 | DECLARACION_RESULTADO | DECLARACION_CADENA_1 | "
@@ -1585,7 +1613,7 @@ public class Interfaz extends javax.swing.JFrame {
                       + "DECLARACION_COLOR_2 | ASIGNACION_ENTERO | ASIGNACION_DECIMAL | ASIGNACION_CADENA | ASIGNACION_FIGURA | "
                       + "ASIGNACION_COLOR | FUNCION_COMPLETA_1 | FUNCION_COMPLETA_2 | FUNCION_COMPLETA_3 | FUNCION_COMPLETA_4 | "
                       + "FUNCION_COMPLETA_5 | FUNCION_COMPLETA_6 | FUNCION_COMPLETA_7 | FUNCION_COMPLETA_8 | FUNCION_COMPLETA_9 | "
-                      + "FUNCION_COMPLETA_10)))?(AGRUPAR_6)");
+                      + "FUNCION_COMPLETA_10)))?(AGRUPAR_6)",true,identProdM1);
         
         gramatica.group("METODO_14", "(PM)(VARIABLE_METODO)(AGRUPAR_5)(((DECLARACION_ENTERO_1 | DECLARACION_ENTERO_2 | "
                       + "DECLARACION_DECIMAL_1 | DECLARACION_DECIMAL_2 | DECLARACION_RESULTADO | DECLARACION_CADENA_1 | "
@@ -1671,7 +1699,7 @@ public class Interfaz extends javax.swing.JFrame {
                       + "DECLARACION_COLOR_2 | ASIGNACION_ENTERO | ASIGNACION_DECIMAL | ASIGNACION_CADENA | ASIGNACION_FIGURA | "
                       + "ASIGNACION_COLOR | FUNCION_COMPLETA_1 | FUNCION_COMPLETA_2 | FUNCION_COMPLETA_3 | FUNCION_COMPLETA_4 | "
                       + "FUNCION_COMPLETA_5 | FUNCION_COMPLETA_6 | FUNCION_COMPLETA_7 | FUNCION_COMPLETA_8 | FUNCION_COMPLETA_9 | "
-                      + "FUNCION_COMPLETA_10)))?(AGRUPAR_6)");
+                      + "FUNCION_COMPLETA_10)))?(AGRUPAR_6)",true,identProdM1);
         
         gramatica.group("METODO_15", "(PM)(VARIABLE_METODO)(AGRUPAR_5)(((DECLARACION_ENTERO_1 | DECLARACION_ENTERO_2 | "
                       + "DECLARACION_DECIMAL_1 | DECLARACION_DECIMAL_2 | DECLARACION_RESULTADO | DECLARACION_CADENA_1 | "
@@ -1763,7 +1791,7 @@ public class Interfaz extends javax.swing.JFrame {
                       + "DECLARACION_COLOR_2 | ASIGNACION_ENTERO | ASIGNACION_DECIMAL | ASIGNACION_CADENA | ASIGNACION_FIGURA | "
                       + "ASIGNACION_COLOR | FUNCION_COMPLETA_1 | FUNCION_COMPLETA_2 | FUNCION_COMPLETA_3 | FUNCION_COMPLETA_4 | "
                       + "FUNCION_COMPLETA_5 | FUNCION_COMPLETA_6 | FUNCION_COMPLETA_7 | FUNCION_COMPLETA_8 | FUNCION_COMPLETA_9 | "
-                      + "FUNCION_COMPLETA_10)))?(AGRUPAR_6)");
+                      + "FUNCION_COMPLETA_10)))?(AGRUPAR_6)",true,identProdM1);
         
         gramatica.group("METODO_16", "(PM)(VARIABLE_METODO)(AGRUPAR_5)(((DECLARACION_ENTERO_1 | DECLARACION_ENTERO_2 | "
                       + "DECLARACION_DECIMAL_1 | DECLARACION_DECIMAL_2 | DECLARACION_RESULTADO | DECLARACION_CADENA_1 | "
@@ -1861,7 +1889,7 @@ public class Interfaz extends javax.swing.JFrame {
                       + "DECLARACION_COLOR_2 | ASIGNACION_ENTERO | ASIGNACION_DECIMAL | ASIGNACION_CADENA | ASIGNACION_FIGURA | "
                       + "ASIGNACION_COLOR | FUNCION_COMPLETA_1 | FUNCION_COMPLETA_2 | FUNCION_COMPLETA_3 | FUNCION_COMPLETA_4 | "
                       + "FUNCION_COMPLETA_5 | FUNCION_COMPLETA_6 | FUNCION_COMPLETA_7 | FUNCION_COMPLETA_8 | FUNCION_COMPLETA_9 | "
-                      + "FUNCION_COMPLETA_10)))?(AGRUPAR_6)");
+                      + "FUNCION_COMPLETA_10)))?(AGRUPAR_6)",true,identProdM1);
         
         gramatica.group("METODO_17", "(PM)(VARIABLE_METODO)(AGRUPAR_5)(((DECLARACION_ENTERO_1 | DECLARACION_ENTERO_2 | "
                       + "DECLARACION_DECIMAL_1 | DECLARACION_DECIMAL_2 | DECLARACION_RESULTADO | DECLARACION_CADENA_1 | "
@@ -1965,7 +1993,7 @@ public class Interfaz extends javax.swing.JFrame {
                       + "DECLARACION_COLOR_2 | ASIGNACION_ENTERO | ASIGNACION_DECIMAL | ASIGNACION_CADENA | ASIGNACION_FIGURA | "
                       + "ASIGNACION_COLOR | FUNCION_COMPLETA_1 | FUNCION_COMPLETA_2 | FUNCION_COMPLETA_3 | FUNCION_COMPLETA_4 | "
                       + "FUNCION_COMPLETA_5 | FUNCION_COMPLETA_6 | FUNCION_COMPLETA_7 | FUNCION_COMPLETA_8 | FUNCION_COMPLETA_9 | "
-                      + "FUNCION_COMPLETA_10)))?(AGRUPAR_6)");
+                      + "FUNCION_COMPLETA_10)))?(AGRUPAR_6)",true,identProdM1);
         
         gramatica.group("METODO_18", "(PM)(VARIABLE_METODO)(AGRUPAR_5)(((DECLARACION_ENTERO_1 | DECLARACION_ENTERO_2 | "
                       + "DECLARACION_DECIMAL_1 | DECLARACION_DECIMAL_2 | DECLARACION_RESULTADO | DECLARACION_CADENA_1 | "
@@ -2075,7 +2103,7 @@ public class Interfaz extends javax.swing.JFrame {
                       + "DECLARACION_COLOR_2 | ASIGNACION_ENTERO | ASIGNACION_DECIMAL | ASIGNACION_CADENA | ASIGNACION_FIGURA | "
                       + "ASIGNACION_COLOR | FUNCION_COMPLETA_1 | FUNCION_COMPLETA_2 | FUNCION_COMPLETA_3 | FUNCION_COMPLETA_4 | "
                       + "FUNCION_COMPLETA_5 | FUNCION_COMPLETA_6 | FUNCION_COMPLETA_7 | FUNCION_COMPLETA_8 | FUNCION_COMPLETA_9 | "
-                      + "FUNCION_COMPLETA_10)))?(AGRUPAR_6)");
+                      + "FUNCION_COMPLETA_10)))?(AGRUPAR_6)",true,identProdM1);
         
         gramatica.group("METODO_19", "(PM)(VARIABLE_METODO)(AGRUPAR_5)(((DECLARACION_ENTERO_1 | DECLARACION_ENTERO_2 | "
                       + "DECLARACION_DECIMAL_1 | DECLARACION_DECIMAL_2 | DECLARACION_RESULTADO | DECLARACION_CADENA_1 | "
@@ -2191,7 +2219,7 @@ public class Interfaz extends javax.swing.JFrame {
                       + "DECLARACION_COLOR_2 | ASIGNACION_ENTERO | ASIGNACION_DECIMAL | ASIGNACION_CADENA | ASIGNACION_FIGURA | "
                       + "ASIGNACION_COLOR | FUNCION_COMPLETA_1 | FUNCION_COMPLETA_2 | FUNCION_COMPLETA_3 | FUNCION_COMPLETA_4 | "
                       + "FUNCION_COMPLETA_5 | FUNCION_COMPLETA_6 | FUNCION_COMPLETA_7 | FUNCION_COMPLETA_8 | FUNCION_COMPLETA_9 | "
-                      + "FUNCION_COMPLETA_10)))?(AGRUPAR_6)");
+                      + "FUNCION_COMPLETA_10)))?(AGRUPAR_6)",true,identProdM1);
         
         gramatica.group("METODO_20", "(PM)(VARIABLE_METODO)(AGRUPAR_5)(((DECLARACION_ENTERO_1 | DECLARACION_ENTERO_2 | "
                       + "DECLARACION_DECIMAL_1 | DECLARACION_DECIMAL_2 | DECLARACION_RESULTADO | DECLARACION_CADENA_1 | "
@@ -2313,7 +2341,7 @@ public class Interfaz extends javax.swing.JFrame {
                       + "DECLARACION_COLOR_2 | ASIGNACION_ENTERO | ASIGNACION_DECIMAL | ASIGNACION_CADENA | ASIGNACION_FIGURA | "
                       + "ASIGNACION_COLOR | FUNCION_COMPLETA_1 | FUNCION_COMPLETA_2 | FUNCION_COMPLETA_3 | FUNCION_COMPLETA_4 | "
                       + "FUNCION_COMPLETA_5 | FUNCION_COMPLETA_6 | FUNCION_COMPLETA_7 | FUNCION_COMPLETA_8 | FUNCION_COMPLETA_9 | "
-                      + "FUNCION_COMPLETA_10)))?(AGRUPAR_6)");
+                      + "FUNCION_COMPLETA_10)))?(AGRUPAR_6)",true,identProdM1);
         
         gramatica.group("METODO_21", "(PM)(VARIABLE_METODO)(AGRUPAR_5)(((DECLARACION_ENTERO_1 | DECLARACION_ENTERO_2 | "
                       + "DECLARACION_DECIMAL_1 | DECLARACION_DECIMAL_2 | DECLARACION_RESULTADO | DECLARACION_CADENA_1 | "
@@ -2441,7 +2469,7 @@ public class Interfaz extends javax.swing.JFrame {
                       + "DECLARACION_COLOR_2 | ASIGNACION_ENTERO | ASIGNACION_DECIMAL | ASIGNACION_CADENA | ASIGNACION_FIGURA | "
                       + "ASIGNACION_COLOR | FUNCION_COMPLETA_1 | FUNCION_COMPLETA_2 | FUNCION_COMPLETA_3 | FUNCION_COMPLETA_4 | "
                       + "FUNCION_COMPLETA_5 | FUNCION_COMPLETA_6 | FUNCION_COMPLETA_7 | FUNCION_COMPLETA_8 | FUNCION_COMPLETA_9 | "
-                      + "FUNCION_COMPLETA_10)))?(AGRUPAR_6)");
+                      + "FUNCION_COMPLETA_10)))?(AGRUPAR_6)",true,identProdM1);
         
         gramatica.group("METODO_22", "(PM)(VARIABLE_METODO)(AGRUPAR_5)(((DECLARACION_ENTERO_1 | DECLARACION_ENTERO_2 | "
                       + "DECLARACION_DECIMAL_1 | DECLARACION_DECIMAL_2 | DECLARACION_RESULTADO | DECLARACION_CADENA_1 | "
@@ -2575,7 +2603,7 @@ public class Interfaz extends javax.swing.JFrame {
                       + "DECLARACION_COLOR_2 | ASIGNACION_ENTERO | ASIGNACION_DECIMAL | ASIGNACION_CADENA | ASIGNACION_FIGURA | "
                       + "ASIGNACION_COLOR | FUNCION_COMPLETA_1 | FUNCION_COMPLETA_2 | FUNCION_COMPLETA_3 | FUNCION_COMPLETA_4 | "
                       + "FUNCION_COMPLETA_5 | FUNCION_COMPLETA_6 | FUNCION_COMPLETA_7 | FUNCION_COMPLETA_8 | FUNCION_COMPLETA_9 | "
-                      + "FUNCION_COMPLETA_10)))?(AGRUPAR_6)");
+                      + "FUNCION_COMPLETA_10)))?(AGRUPAR_6)",true,identProdM1);
         
         gramatica.group("METODO_23", "(PM)(VARIABLE_METODO)(AGRUPAR_5)(((DECLARACION_ENTERO_1 | DECLARACION_ENTERO_2 | "
                       + "DECLARACION_DECIMAL_1 | DECLARACION_DECIMAL_2 | DECLARACION_RESULTADO | DECLARACION_CADENA_1 | "
@@ -2715,7 +2743,7 @@ public class Interfaz extends javax.swing.JFrame {
                       + "DECLARACION_COLOR_2 | ASIGNACION_ENTERO | ASIGNACION_DECIMAL | ASIGNACION_CADENA | ASIGNACION_FIGURA | "
                       + "ASIGNACION_COLOR | FUNCION_COMPLETA_1 | FUNCION_COMPLETA_2 | FUNCION_COMPLETA_3 | FUNCION_COMPLETA_4 | "
                       + "FUNCION_COMPLETA_5 | FUNCION_COMPLETA_6 | FUNCION_COMPLETA_7 | FUNCION_COMPLETA_8 | FUNCION_COMPLETA_9 | "
-                      + "FUNCION_COMPLETA_10)))?(AGRUPAR_6)");
+                      + "FUNCION_COMPLETA_10)))?(AGRUPAR_6)",true,identProdM1);
         
         gramatica.group("METODO_24", "(PM)(VARIABLE_METODO)(AGRUPAR_5)(((DECLARACION_ENTERO_1 | DECLARACION_ENTERO_2 | "
                       + "DECLARACION_DECIMAL_1 | DECLARACION_DECIMAL_2 | DECLARACION_RESULTADO | DECLARACION_CADENA_1 | "
@@ -2861,7 +2889,7 @@ public class Interfaz extends javax.swing.JFrame {
                       + "DECLARACION_COLOR_2 | ASIGNACION_ENTERO | ASIGNACION_DECIMAL | ASIGNACION_CADENA | ASIGNACION_FIGURA | "
                       + "ASIGNACION_COLOR | FUNCION_COMPLETA_1 | FUNCION_COMPLETA_2 | FUNCION_COMPLETA_3 | FUNCION_COMPLETA_4 | "
                       + "FUNCION_COMPLETA_5 | FUNCION_COMPLETA_6 | FUNCION_COMPLETA_7 | FUNCION_COMPLETA_8 | FUNCION_COMPLETA_9 | "
-                      + "FUNCION_COMPLETA_10)))?(AGRUPAR_6)");
+                      + "FUNCION_COMPLETA_10)))?(AGRUPAR_6)",true,identProdM1);
         
         gramatica.group("METODO_25", "(PM)(VARIABLE_METODO)(AGRUPAR_5)(((DECLARACION_ENTERO_1 | DECLARACION_ENTERO_2 | "
                       + "DECLARACION_DECIMAL_1 | DECLARACION_DECIMAL_2 | DECLARACION_RESULTADO | DECLARACION_CADENA_1 | "
@@ -3013,7 +3041,7 @@ public class Interfaz extends javax.swing.JFrame {
                       + "DECLARACION_COLOR_2 | ASIGNACION_ENTERO | ASIGNACION_DECIMAL | ASIGNACION_CADENA | ASIGNACION_FIGURA | "
                       + "ASIGNACION_COLOR | FUNCION_COMPLETA_1 | FUNCION_COMPLETA_2 | FUNCION_COMPLETA_3 | FUNCION_COMPLETA_4 | "
                       + "FUNCION_COMPLETA_5 | FUNCION_COMPLETA_6 | FUNCION_COMPLETA_7 | FUNCION_COMPLETA_8 | FUNCION_COMPLETA_9 | "
-                      + "FUNCION_COMPLETA_10)))?(AGRUPAR_6)");
+                      + "FUNCION_COMPLETA_10)))?(AGRUPAR_6)",true,identProdM1);
         
         gramatica.group("METODO_26", "(PM)(VARIABLE_METODO)(AGRUPAR_5)(((DECLARACION_ENTERO_1 | DECLARACION_ENTERO_2 | "
                       + "DECLARACION_DECIMAL_1 | DECLARACION_DECIMAL_2 | DECLARACION_RESULTADO | DECLARACION_CADENA_1 | "
@@ -3171,7 +3199,7 @@ public class Interfaz extends javax.swing.JFrame {
                       + "DECLARACION_COLOR_2 | ASIGNACION_ENTERO | ASIGNACION_DECIMAL | ASIGNACION_CADENA | ASIGNACION_FIGURA | "
                       + "ASIGNACION_COLOR | FUNCION_COMPLETA_1 | FUNCION_COMPLETA_2 | FUNCION_COMPLETA_3 | FUNCION_COMPLETA_4 | "
                       + "FUNCION_COMPLETA_5 | FUNCION_COMPLETA_6 | FUNCION_COMPLETA_7 | FUNCION_COMPLETA_8 | FUNCION_COMPLETA_9 | "
-                      + "FUNCION_COMPLETA_10)))?(AGRUPAR_6)");
+                      + "FUNCION_COMPLETA_10)))?(AGRUPAR_6)",true,identProdM1);
         
         gramatica.group("METODO_27", "(PM)(VARIABLE_METODO)(AGRUPAR_5)(((DECLARACION_ENTERO_1 | DECLARACION_ENTERO_2 | "
                       + "DECLARACION_DECIMAL_1 | DECLARACION_DECIMAL_2 | DECLARACION_RESULTADO | DECLARACION_CADENA_1 | "
@@ -3335,7 +3363,7 @@ public class Interfaz extends javax.swing.JFrame {
                       + "DECLARACION_COLOR_2 | ASIGNACION_ENTERO | ASIGNACION_DECIMAL | ASIGNACION_CADENA | ASIGNACION_FIGURA | "
                       + "ASIGNACION_COLOR | FUNCION_COMPLETA_1 | FUNCION_COMPLETA_2 | FUNCION_COMPLETA_3 | FUNCION_COMPLETA_4 | "
                       + "FUNCION_COMPLETA_5 | FUNCION_COMPLETA_6 | FUNCION_COMPLETA_7 | FUNCION_COMPLETA_8 | FUNCION_COMPLETA_9 | "
-                      + "FUNCION_COMPLETA_10)))?(AGRUPAR_6)");
+                      + "FUNCION_COMPLETA_10)))?(AGRUPAR_6)",true,identProdM1);
         
         gramatica.group("METODO_28", "(PM)(VARIABLE_METODO)(AGRUPAR_5)(((DECLARACION_ENTERO_1 | DECLARACION_ENTERO_2 | "
                       + "DECLARACION_DECIMAL_1 | DECLARACION_DECIMAL_2 | DECLARACION_RESULTADO | DECLARACION_CADENA_1 | "
@@ -3505,7 +3533,7 @@ public class Interfaz extends javax.swing.JFrame {
                       + "DECLARACION_COLOR_2 | ASIGNACION_ENTERO | ASIGNACION_DECIMAL | ASIGNACION_CADENA | ASIGNACION_FIGURA | "
                       + "ASIGNACION_COLOR | FUNCION_COMPLETA_1 | FUNCION_COMPLETA_2 | FUNCION_COMPLETA_3 | FUNCION_COMPLETA_4 | "
                       + "FUNCION_COMPLETA_5 | FUNCION_COMPLETA_6 | FUNCION_COMPLETA_7 | FUNCION_COMPLETA_8 | FUNCION_COMPLETA_9 | "
-                      + "FUNCION_COMPLETA_10)))?(AGRUPAR_6)");
+                      + "FUNCION_COMPLETA_10)))?(AGRUPAR_6)",true,identProdM1);
         
         gramatica.group("METODO_29", "(PM)(VARIABLE_METODO)(AGRUPAR_5)(((DECLARACION_ENTERO_1 | DECLARACION_ENTERO_2 | "
                       + "DECLARACION_DECIMAL_1 | DECLARACION_DECIMAL_2 | DECLARACION_RESULTADO | DECLARACION_CADENA_1 | "
@@ -3681,7 +3709,7 @@ public class Interfaz extends javax.swing.JFrame {
                       + "DECLARACION_COLOR_2 | ASIGNACION_ENTERO | ASIGNACION_DECIMAL | ASIGNACION_CADENA | ASIGNACION_FIGURA | "
                       + "ASIGNACION_COLOR | FUNCION_COMPLETA_1 | FUNCION_COMPLETA_2 | FUNCION_COMPLETA_3 | FUNCION_COMPLETA_4 | "
                       + "FUNCION_COMPLETA_5 | FUNCION_COMPLETA_6 | FUNCION_COMPLETA_7 | FUNCION_COMPLETA_8 | FUNCION_COMPLETA_9 | "
-                      + "FUNCION_COMPLETA_10)))?(AGRUPAR_6)");
+                      + "FUNCION_COMPLETA_10)))?(AGRUPAR_6)",true,identProdM1);
         
         gramatica.group("METODO_30", "(PM)(VARIABLE_METODO)(AGRUPAR_5)(((DECLARACION_ENTERO_1 | DECLARACION_ENTERO_2 | "
                       + "DECLARACION_DECIMAL_1 | DECLARACION_DECIMAL_2 | DECLARACION_RESULTADO | DECLARACION_CADENA_1 | "
@@ -3863,7 +3891,7 @@ public class Interfaz extends javax.swing.JFrame {
                       + "DECLARACION_COLOR_2 | ASIGNACION_ENTERO | ASIGNACION_DECIMAL | ASIGNACION_CADENA | ASIGNACION_FIGURA | "
                       + "ASIGNACION_COLOR | FUNCION_COMPLETA_1 | FUNCION_COMPLETA_2 | FUNCION_COMPLETA_3 | FUNCION_COMPLETA_4 | "
                       + "FUNCION_COMPLETA_5 | FUNCION_COMPLETA_6 | FUNCION_COMPLETA_7 | FUNCION_COMPLETA_8 | FUNCION_COMPLETA_9 | "
-                      + "FUNCION_COMPLETA_10)))?(AGRUPAR_6)");
+                      + "FUNCION_COMPLETA_10)))?(AGRUPAR_6)",true,identProdM1);
         
         gramatica.finalLineColumn();
         /*ERRORES DE CLASES*/
@@ -18255,6 +18283,33 @@ public class Interfaz extends javax.swing.JFrame {
         /* Mostrar gramáticas */
         gramatica.show();
         
+    }
+    
+    private void semanticAnalysis(){
+        HashMap<String,String> identDataType = new HashMap<>();
+        identDataType.put("Entero","Numero_Entero");
+        identDataType.put("Decimal","Numero_Decimal");
+        identDataType.put("Cadena","Identificador_Cadena");
+        identDataType.put("Color","Palabra_Reservada_12");
+        identDataType.put("Color","Palabra_Reservada_13");
+        identDataType.put("Color","Palabra_Reservada_14");
+        identDataType.put("Color","Palabra_Reservada_15");
+        identDataType.put("Color","Palabra_Reservada_16");
+        identDataType.put("Figura","Palabra_Reservada_17");
+        identDataType.put("Figura","Palabra_Reservada_18");
+        identDataType.put("Figura","Palabra_Reservada_19");
+        identDataType.put("Figura","Palabra_Reservada_20");
+        identDataType.put("Figura","Palabra_Reservada_21");
+        for(Production id: identProd){
+            if(id.equals("Entero")){
+                if(!identDataType.get(id.lexemeRank(0)).equals(id.lexicalCompRank(-2))){
+                    errors.add(new ErrorLSSL(1,"Error semantico",id,true));
+                }
+            }
+            System.out.println(id);
+            System.out.println(id.lexemeRank(-2));
+            System.out.println("-->");
+        }
     }
     
     private void fillTableTokens(){
