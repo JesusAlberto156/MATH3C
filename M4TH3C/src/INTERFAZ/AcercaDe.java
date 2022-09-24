@@ -59,7 +59,7 @@ public class AcercaDe extends javax.swing.JFrame {
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/Logo Tec.png"))); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel3.setText("DESARROLLADORES");
+        jLabel3.setText("DESARROLLADORESSS");
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel4.setText("MARLETT ALESSANDRA MARÍN BAUTISTA");
