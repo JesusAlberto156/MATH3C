@@ -18300,13 +18300,13 @@ public class Interfaz extends javax.swing.JFrame {
         identDataType.put("Figura","Palabra_Reservada_19");
         identDataType.put("Figura","Palabra_Reservada_20");
         identDataType.put("Figura","Palabra_Reservada_21");
-        for(Production id: identProdD1){
-                if(!id.lexemeRank(1).equals(identProdD1.get(1))){
-                    errors.add(new ErrorLSSL(1,"Error semantico Linea[#]",id,true));
-                }
+        for(Production id1: identProdD1){
+            for (Production id2: identProdD1){
             
-            System.out.println(id);
-            System.out.println(id.lexemeRank(1));
+            }
+            
+            System.out.println(id1);
+            System.out.println(id1.lexemeRank(1));
             System.out.println("-->");
         }
     }

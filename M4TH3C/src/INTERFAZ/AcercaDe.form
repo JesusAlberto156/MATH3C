@@ -110,7 +110,7 @@
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="jLabel3" min="-2" pref="268" max="-2" attributes="0"/>
+                          <Component id="jLabel3" min="-2" pref="243" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
@@ -181,7 +181,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="24" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="DESARROLLADORESSS"/>
+            <Property name="text" type="java.lang.String" value="DESARROLLADORES"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel4">
