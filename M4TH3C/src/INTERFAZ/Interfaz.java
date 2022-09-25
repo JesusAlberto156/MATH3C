@@ -18351,11 +18351,15 @@ public class Interfaz extends javax.swing.JFrame {
             if(!identDataType.containsKey(id.lexemeRank(0))){
                 errors.add(new ErrorLSSL(60,"----------> ERROR_57:  La variable no ha sido declarada, Linea [#] Columna [%]",id,true));
             }
-        }
+        }//Error 57
         //Error 58
         
         //Error 58
+        //Error 59
+        
+        //Error 59
         //Error 60 y Error 61
+        //Funciones de Sumar, Restar, Multiplicar y Dividir
         //2 Variables
         for(Production id: identProdF11){
             if(!identDataType.containsKey(id.lexemeRank(2))){
@@ -18443,20 +18447,56 @@ public class Interfaz extends javax.swing.JFrame {
         //5 Variables
         for(Production id: identProdF14){
             if(!identDataType.containsKey(id.lexemeRank(2))){
-                if(!identDataType.containsKey(id.lexemeRank(4))){
-                    errors.add(new ErrorLSSL(61,"----------> ERROR_61:  Varias variables empleadas en la función no han sido declaradas, Linea [#] Columna [%]",id,true));
+                if(identDataType.containsKey(id.lexemeRank(4)) && identDataType.containsKey(id.lexemeRank(6)) && identDataType.containsKey(id.lexemeRank(8)) && identDataType.containsKey(id.lexemeRank(10))){
+                    errors.add(new ErrorLSSL(60,"----------> ERROR_60:  Una de las variables empleadas en la función no ha sido declarada, Linea [#] Columna [%]",id,true));
+                }else if(!identDataType.containsKey(id.lexemeRank(4))){
+                    if(!identDataType.containsKey(id.lexemeRank(6))){
+                        if(!identDataType.containsKey(id.lexemeRank(8))){
+                            if(!identDataType.containsKey(id.lexemeRank(10))){
+                                errors.add(new ErrorLSSL(61,"----------> ERROR_61:  Varias variables empleadas en la función no han sido declaradas, Linea [#] Columna [%]",id,true));
+                            }else{
+                                errors.add(new ErrorLSSL(61,"----------> ERROR_61:  Varias variables empleadas en la función no han sido declaradas, Linea [#] Columna [%]",id,true));
+                            }
+                        }else if(!identDataType.containsKey(id.lexemeRank(10))){
+                            errors.add(new ErrorLSSL(61,"----------> ERROR_61:  Varias variables empleadas en la función no han sido declaradas, Linea [#] Columna [%]",id,true));
+                        }else{
+                            errors.add(new ErrorLSSL(61,"----------> ERROR_61:  Varias variables empleadas en la función no han sido declaradas, Linea [#] Columna [%]",id,true));
+                        }
+                    }else if(!identDataType.containsKey(id.lexemeRank(8))){
+                        if(!identDataType.containsKey(id.lexemeRank(10))){
+                            errors.add(new ErrorLSSL(61,"----------> ERROR_61:  Varias variables empleadas en la función no han sido declaradas, Linea [#] Columna [%]",id,true));
+                        }else{
+                            errors.add(new ErrorLSSL(61,"----------> ERROR_61:  Varias variables empleadas en la función no han sido declaradas, Linea [#] Columna [%]",id,true));
+                        }
+                    }else if(!identDataType.containsKey(id.lexemeRank(10))){
+                        errors.add(new ErrorLSSL(61,"----------> ERROR_61:  Varias variables empleadas en la función no han sido declaradas, Linea [#] Columna [%]",id,true));
+                    }else{
+                        errors.add(new ErrorLSSL(61,"----------> ERROR_61:  Varias variables empleadas en la función no han sido declaradas, Linea [#] Columna [%]",id,true));
+                    }
+                }else if(){
+                
                 }
             }else if(!identDataType.containsKey(id.lexemeRank(2))){
-                errors.add(new ErrorLSSL(60,"----------> ERROR_60:  Una de las variables empleadas en la función no ha sido declarada, Linea [#] Columna [%]",id,true));
+                
             }else if(!identDataType.containsKey(id.lexemeRank(4))){
                 errors.add(new ErrorLSSL(60,"----------> ERROR_60:  Una de las variables empleadas en la función no ha sido declarada, Linea [#] Columna [%]",id,true));
             }
-        }//Error 60 y Error 61
+        }
+        //Funciones de Sumar, Restar, Multiplicar y Dividir
+        //Funciones de Mostrar (Entero)
         
-        //Error 63
+        //Funciones de Mostrar (Entero)
+        //Funciones de Mostrar (Decimal)
         
-        //Error 63
+        //Funciones de Mostrar (Decimal)
+        //Error 60 y Error 61
         
+        //Error 62 y Error 63
+        
+        //Error 62 y Error 63
+        //Error 64
+        
+        //Error 64
         //Error 65
         for(Production id1: identProdM1){
             for(Production id2: identProdM1){
