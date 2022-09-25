@@ -53,9 +53,8 @@ public class Interfaz extends javax.swing.JFrame {
     private ArrayList<TextColor> textsColor;
     private Timer timerKeyReleased;
     private ArrayList<Production> identProdD1;
-    private ArrayList<Production> identProdD11;
     private ArrayList<Production> identProdD2;
-    private ArrayList<Production> identProdD22;
+    private ArrayList<Production> identProdD3;
     private ArrayList<Production> identProdA1;
     private ArrayList<Production> identProdF11;
     private ArrayList<Production> identProdF12;
@@ -107,9 +106,8 @@ public class Interfaz extends javax.swing.JFrame {
         errors = new ArrayList<>();
         textsColor = new ArrayList<>();
         identProdD1 = new ArrayList<>();
-        identProdD11 = new ArrayList<>();
         identProdD2 = new ArrayList<>();
-        identProdD22 = new ArrayList<>();
+        identProdD3 = new ArrayList<>();
         identProdA1 = new ArrayList<>();
         identProdF11 = new ArrayList<>();
         identProdF12 = new ArrayList<>();
@@ -18290,6 +18288,27 @@ public class Interfaz extends javax.swing.JFrame {
     }
     
     private void semanticAnalysis(){
+        //Error 55
+        HashMap<String,String> identDataType = new HashMap<>();
+        for(Production id1: identProdD1){
+            if(identDataType == null){
+                identDataType.put(id1.lexemeRank(1),id1.lexicalCompRank(-2));
+            }
+            if(identDataType.containsKey(id1.lexemeRank(1))){
+                errors.add(new ErrorLSSL(55,"----------> ERROR_55:  La variable ya ha sido declarada en la clase, Linea [#] Columna [%]",id1,true));
+            }
+            identDataType.put(id1.lexemeRank(1),id1.lexicalCompRank(-2));
+        }
+        for(Production id2: identProdD2){
+            if(identDataType == null){
+                identDataType.put(id2.lexemeRank(1),id2.lexicalCompRank(-2));
+            }
+            if(identDataType.containsKey(id2.lexemeRank(1))){
+                errors.add(new ErrorLSSL(55,"----------> ERROR_55:  La variable ya ha sido declarada en la clase, Linea [#] Columna [%]",id2,true));
+            }
+            identDataType.put(id2.lexemeRank(1),id2.lexicalCompRank(-2));
+        }//Error 55 
+        //Error 56
         HashMap<String,String> identDataType1 = new HashMap<>();
         HashMap<String,String> identDataType2 = new HashMap<>();
         HashMap<String,String> identDataType3 = new HashMap<>();
@@ -18320,9 +18339,7 @@ public class Interfaz extends javax.swing.JFrame {
         identDataType3.put("Figura","Palabra_Reservada_19");
         identDataType4.put("Figura","Palabra_Reservada_20");
         identDataType5.put("Figura","Palabra_Reservada_21");
-        //Error 56
         for(Production id: identProdD1){
-            System.out.println(identDataType1.get(id.lexemeRank(0)));
             if(!identDataType1.get(id.lexemeRank(0)).equals(id.lexicalCompRank(-2)) &&
                !identDataType2.get(id.lexemeRank(0)).equals(id.lexicalCompRank(-2)) &&
                !identDataType3.get(id.lexemeRank(0)).equals(id.lexicalCompRank(-2)) &&
@@ -18330,8 +18347,19 @@ public class Interfaz extends javax.swing.JFrame {
                !identDataType5.get(id.lexemeRank(0)).equals(id.lexicalCompRank(-2))){
                 errors.add(new ErrorLSSL(56,"----------> ERROR_56:  El valor de la variable declarada no esta permitido, Linea [#] Columna [%]",id,true));
             }
-        }
+        }//Error 56
         //Los demas errores
+        
+        //Error 65
+        for(Production id1: identProdM1){
+            for(Production id2: identProdM1){
+                if(id1.getLine()< id2.getLine()){
+                    
+                }else if(id1.lexemeRank(1).equals(id2.lexemeRank(1)) && id1.getLine() != id2.getLine()){
+                    errors.add(new ErrorLSSL(65,"----------> ERROR_65:  La clase ya existe, Linea [#] Columna [%]",id1,true));
+                }
+            }
+        }//Error 65
     }
     
     private void fillTableTokens(){

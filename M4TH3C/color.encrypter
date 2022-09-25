@@ -1,11 +1,11 @@
 Metodo &Prueba{
 	Entero num1 = + 20;
-	Entero num1;
-	Decimal num1 = - 20.43;
+	Entero num2;
+	Decimal num3 = - 20.43;
 	Decimal num4;
 	Resultado #res1;
 	Cadena cad1 = 'Hola';
-	Cadena num1;
+	Cadena cad2;
 	Figura fig1 = Circulo;
 	Figura fig2;
 	Color col1 = Azul;
