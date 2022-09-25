@@ -15,7 +15,7 @@ Metodo &Prueba{
 	cad2 = 'El resultado:';
 	fig2= Cuadrado;
 	col2 = Verde;
-	Sumar(num1,num2)<
+	Sumar(num5,num5,num5)<
 		#res1
 	>;
 	Restar(num3,num4)<
