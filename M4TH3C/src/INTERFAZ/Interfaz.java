@@ -53,7 +53,9 @@ public class Interfaz extends javax.swing.JFrame {
     private ArrayList<TextColor> textsColor;
     private Timer timerKeyReleased;
     private ArrayList<Production> identProdD1;
+    private ArrayList<Production> identProdD11;
     private ArrayList<Production> identProdD2;
+    private ArrayList<Production> identProdD22;
     private ArrayList<Production> identProdA1;
     private ArrayList<Production> identProdF11;
     private ArrayList<Production> identProdF12;
@@ -105,7 +107,9 @@ public class Interfaz extends javax.swing.JFrame {
         errors = new ArrayList<>();
         textsColor = new ArrayList<>();
         identProdD1 = new ArrayList<>();
+        identProdD11 = new ArrayList<>();
         identProdD2 = new ArrayList<>();
+        identProdD22 = new ArrayList<>();
         identProdA1 = new ArrayList<>();
         identProdF11 = new ArrayList<>();
         identProdF12 = new ArrayList<>();
@@ -18286,29 +18290,48 @@ public class Interfaz extends javax.swing.JFrame {
     }
     
     private void semanticAnalysis(){
-        HashMap<String,String> identDataType = new HashMap<>();
-        identDataType.put("Entero","Numero_Entero");
-        identDataType.put("Decimal","Numero_Decimal");
-        identDataType.put("Cadena","Identificador_Cadena");
-        identDataType.put("Color","Palabra_Reservada_12");
-        identDataType.put("Color","Palabra_Reservada_13");
-        identDataType.put("Color","Palabra_Reservada_14");
-        identDataType.put("Color","Palabra_Reservada_15");
-        identDataType.put("Color","Palabra_Reservada_16");
-        identDataType.put("Figura","Palabra_Reservada_17");
-        identDataType.put("Figura","Palabra_Reservada_18");
-        identDataType.put("Figura","Palabra_Reservada_19");
-        identDataType.put("Figura","Palabra_Reservada_20");
-        identDataType.put("Figura","Palabra_Reservada_21");
-        for(Production id1: identProdD1){
-            for (Production id2: identProdD1){
-            
+        HashMap<String,String> identDataType1 = new HashMap<>();
+        HashMap<String,String> identDataType2 = new HashMap<>();
+        HashMap<String,String> identDataType3 = new HashMap<>();
+        HashMap<String,String> identDataType4 = new HashMap<>();
+        HashMap<String,String> identDataType5 = new HashMap<>();
+        identDataType1.put("Entero","Numero_Entero");
+        identDataType2.put("Entero","Numero_Entero");
+        identDataType3.put("Entero","Numero_Entero");
+        identDataType4.put("Entero","Numero_Entero");
+        identDataType5.put("Entero","Numero_Entero");
+        identDataType1.put("Decimal","Numero_Decimal");
+        identDataType2.put("Decimal","Numero_Decimal");
+        identDataType3.put("Decimal","Numero_Decimal");
+        identDataType4.put("Decimal","Numero_Decimal");
+        identDataType5.put("Decimal","Numero_Decimal");
+        identDataType1.put("Cadena","Identificador_Cadena");
+        identDataType2.put("Cadena","Identificador_Cadena");
+        identDataType3.put("Cadena","Identificador_Cadena");
+        identDataType4.put("Cadena","Identificador_Cadena");
+        identDataType5.put("Cadena","Identificador_Cadena");
+        identDataType1.put("Color","Palabra_Reservada_12");
+        identDataType2.put("Color","Palabra_Reservada_13");
+        identDataType3.put("Color","Palabra_Reservada_14");
+        identDataType4.put("Color","Palabra_Reservada_15");
+        identDataType5.put("Color","Palabra_Reservada_16");
+        identDataType1.put("Figura","Palabra_Reservada_17");
+        identDataType2.put("Figura","Palabra_Reservada_18");
+        identDataType3.put("Figura","Palabra_Reservada_19");
+        identDataType4.put("Figura","Palabra_Reservada_20");
+        identDataType5.put("Figura","Palabra_Reservada_21");
+        //Error 56
+        for(Production id: identProdD1){
+            System.out.println(identDataType1.get(id.lexemeRank(0)));
+            if(!identDataType1.get(id.lexemeRank(0)).equals(id.lexicalCompRank(-2)) &&
+               !identDataType2.get(id.lexemeRank(0)).equals(id.lexicalCompRank(-2)) &&
+               !identDataType3.get(id.lexemeRank(0)).equals(id.lexicalCompRank(-2)) &&
+               !identDataType4.get(id.lexemeRank(0)).equals(id.lexicalCompRank(-2)) &&
+               !identDataType5.get(id.lexemeRank(0)).equals(id.lexicalCompRank(-2))){
+                errors.add(new ErrorLSSL(56,"----------> ERROR_56:  El valor de la variable declarada no esta permitido, Linea [#] Columna [%]",id,true));
             }
-            
-            System.out.println(id1);
-            System.out.println(id1.lexemeRank(1));
-            System.out.println("-->");
         }
+        //Los demas errores
     }
     
     private void fillTableTokens(){
