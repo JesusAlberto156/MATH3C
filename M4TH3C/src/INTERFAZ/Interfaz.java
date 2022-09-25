@@ -18286,6 +18286,7 @@ public class Interfaz extends javax.swing.JFrame {
     }
     
     private void semanticAnalysis(){
+       
         //Error 55
         HashMap<String,String> identDataType = new HashMap<>();
         for(Production id1: identProdD1){
@@ -18347,7 +18348,12 @@ public class Interfaz extends javax.swing.JFrame {
             }
         }//Error 56
         //Los demas errores
-        
+        //Error 57
+        for(Production id: identProdA1){
+            if(!identDataType.containsKey(id.lexemeRank(0))){
+                errors.add(new ErrorLSSL(60,"----------> ERROR_57:  La variable no ha sido declarada, Linea [#] Columna [%]",id,true));
+            }
+        }
         //Error 60 y Error 61
         //2 Variables
         for(Production id: identProdF11){

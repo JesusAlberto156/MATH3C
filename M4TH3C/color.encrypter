@@ -1,31 +1,22 @@
 Metodo &Prueba{
-	Entero num1 = + 20;
 	Entero num2;
-	Decimal num3 = - 20.43;
-	Decimal num4;
-	Resultado #res1;
-	Cadena cad1 = 'Hola';
-	Cadena cad2;
-	Figura fig1 = Circulo;
+	Entero num1;
+	Entero num5;
+	Figura fig1;
 	Figura fig2;
-	Color col1 = Azul;
-	Color col2;
-	num2 = - 30;
-	num4 = + 30.45;
-	cad2 = 'El resultado:';
-	fig2= Cuadrado;
-	col2 = Verde;
-	Sumar(num5,num5,num5)<
+	
+	
+}
+Metodo &Prueba1{
+	num2 = + 10;
+	fig1 = Circulo;
+	num1 = + 5;
+	fig2 = Triangulo;
+	num5 = + 8;
+	
+}
+Metodo &Prueba2{
+	Sumar(num1,num2)<
 		#res1
 	>;
-	Restar(num3,num4)<
-		#res1
-	>;
-	Multiplicar(num1,num2)<
-		#res1
-	>;
-	Dividir(num3,num4)<
-		#res1
-	>;
-	Mostrar(cad1,#res1,fig1,col1);
 }
