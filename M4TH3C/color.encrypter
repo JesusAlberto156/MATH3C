@@ -15,7 +15,7 @@ Metodo &Prueba{
 	cad2 = 'El resultado:';
 	fig2= Rojo;
 	col2 = Verde;
-	Sumar(num1,num1,num1,num1)<
+	Sumar(num1,num1,num1,num1,num1)<
 		#res1
 	>;
 	Restar(num3,num4)<
@@ -27,5 +27,5 @@ Metodo &Prueba{
 	Dividir(num3,num4)<
 		#res1
 	>;
-	Mostrar(cad1,#res1,fig1,col1);
+	Mostrar(cad1,#res1,fig1,col1,col1,fig1,col1,fig1,col1,fig1,col1,fig1);
 }
