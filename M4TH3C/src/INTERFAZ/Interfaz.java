@@ -18352,6 +18352,110 @@ public class Interfaz extends javax.swing.JFrame {
 
         //Error 58
         //Error 59
+        //2 Variables
+        for(Production id: identProdF11){
+                if(!identDataType.get(id.lexemeRank(2)).equals(identDataType.get(id.lexemeRank(4)))){
+                    errors.add(new ErrorLSSL(59,"----------> ERROR_59: Se están empleando variables de tipos de datos distintos para la función , Linea [#] Columna [%]",id,true));
+                }else if(!identDataType.get(id.lexemeRank(4)).equals(identDataType.get(id.lexemeRank(2)))){
+                    errors.add(new ErrorLSSL(59,"----------> ERROR_59: Se están empleando variables de tipos de datos distintos para la función , Linea [#] Columna [%]",id,true));
+                }
+        }
+        //3 Variables
+        for(Production id: identProdF12){
+                if(!identDataType.get(id.lexemeRank(2)).equals(identDataType.get(id.lexemeRank(4)))){
+                    if(identDataType.get(id.lexemeRank(4)).equals(identDataType.get(id.lexemeRank(6)))){
+                    errors.add(new ErrorLSSL(59,"----------> ERROR_59: Se están empleando variables de tipos de datos distintos para la función , Linea [#] Columna [%]",id,true));
+                    }else if(identDataType.get(id.lexemeRank(2)).equals(identDataType.get(id.lexemeRank(6)))){
+                    errors.add(new ErrorLSSL(59,"----------> ERROR_59: Se están empleando variables de tipos de datos distintos para la función , Linea [#] Columna [%]",id,true));
+                    }else if(!identDataType.get(id.lexemeRank(2)).equals(identDataType.get(id.lexemeRank(6)))){
+                    errors.add(new ErrorLSSL(59,"----------> ERROR_59: Se están empleando variables de tipos de datos distintos para la función , Linea [#] Columna [%]",id,true));
+                    }
+                }else if(!identDataType.get(id.lexemeRank(2)).equals(identDataType.get(id.lexemeRank(6)))){
+                    if(identDataType.get(id.lexemeRank(2)).equals(identDataType.get(id.lexemeRank(4)))){
+                    errors.add(new ErrorLSSL(59,"----------> ERROR_59: Se están empleando variables de tipos de datos distintos para la función , Linea [#] Columna [%]",id,true));
+                }}
+        }
+        //4 Variables
+        for(Production id: identProdF13){
+                if(identDataType.get(id.lexemeRank(2)).equals(identDataType.get(id.lexemeRank(4)))){
+                    if(!identDataType.get(id.lexemeRank(2)).equals(identDataType.get(id.lexemeRank(6))) && identDataType.get(id.lexemeRank(6)).equals(identDataType.get(id.lexemeRank(8)))){
+                        errors.add(new ErrorLSSL(59,"----------> ERROR_59: Se están empleando variables de tipos de datos distintos para la función , Linea [#] Columna [%]",id,true));
+                    }else if(identDataType.get(id.lexemeRank(4)).equals(identDataType.get(id.lexemeRank(6))) && !identDataType.get(id.lexemeRank(4)).equals(identDataType.get(id.lexemeRank(8)))){
+                        errors.add(new ErrorLSSL(59,"----------> ERROR_59: Se están empleando variables de tipos de datos distintos para la función , Linea [#] Columna [%]",id,true));
+                    }else if(identDataType.get(id.lexemeRank(2)).equals(identDataType.get(id.lexemeRank(8))) && !identDataType.get(id.lexemeRank(4)).equals(identDataType.get(id.lexemeRank(6)))){
+                        errors.add(new ErrorLSSL(59,"----------> ERROR_59: Se están empleando variables de tipos de datos distintos para la función , Linea [#] Columna [%]",id,true));
+                    }    
+                }else if(!identDataType.get(id.lexemeRank(2)).equals(identDataType.get(id.lexemeRank(4)))){
+                    if(identDataType.get(id.lexemeRank(2)).equals(identDataType.get(id.lexemeRank(6))) && !identDataType.get(id.lexemeRank(6)).equals(identDataType.get(id.lexemeRank(8)))){
+                        errors.add(new ErrorLSSL(59,"----------> ERROR_59: Se están empleando variables de tipos de datos distintos para la función , Linea [#] Columna [%]",id,true));
+                    }else if(identDataType.get(id.lexemeRank(2)).equals(identDataType.get(id.lexemeRank(6))) && identDataType.get(id.lexemeRank(6)).equals(identDataType.get(id.lexemeRank(8)))){
+                        errors.add(new ErrorLSSL(59,"----------> ERROR_59: Se están empleando variables de tipos de datos distintos para la función , Linea [#] Columna [%]",id,true));
+                    }else if(identDataType.get(id.lexemeRank(2)).equals(identDataType.get(id.lexemeRank(8))) && !identDataType.get(id.lexemeRank(8)).equals(identDataType.get(id.lexemeRank(6)))){
+                        errors.add(new ErrorLSSL(59,"----------> ERROR_59: Se están empleando variables de tipos de datos distintos para la función , Linea [#] Columna [%]",id,true));
+                    }else if(identDataType.get(id.lexemeRank(4)).equals(identDataType.get(id.lexemeRank(6))) && identDataType.get(id.lexemeRank(6)).equals(identDataType.get(id.lexemeRank(8))) && !identDataType.get(id.lexemeRank(2)).equals(identDataType.get(id.lexemeRank(8)))){
+                        errors.add(new ErrorLSSL(59,"----------> ERROR_59: Se están empleando variables de tipos de datos distintos para la función , Linea [#] Columna [%]",id,true));
+                    }else if(identDataType.get(id.lexemeRank(4)).equals(identDataType.get(id.lexemeRank(8))) && !identDataType.get(id.lexemeRank(8)).equals(identDataType.get(id.lexemeRank(6)))){
+                        errors.add(new ErrorLSSL(59,"----------> ERROR_59: Se están empleando variables de tipos de datos distintos para la función , Linea [#] Columna [%]",id,true));
+                    }else if(identDataType.get(id.lexemeRank(4)).equals(identDataType.get(id.lexemeRank(6))) && !identDataType.get(id.lexemeRank(6)).equals(identDataType.get(id.lexemeRank(8)))){
+                        errors.add(new ErrorLSSL(59,"----------> ERROR_59: Se están empleando variables de tipos de datos distintos para la función , Linea [#] Columna [%]",id,true));
+                    }else if(identDataType.get(id.lexemeRank(6)).equals(identDataType.get(id.lexemeRank(8))) && !identDataType.get(id.lexemeRank(8)).equals(identDataType.get(id.lexemeRank(2)))){
+                        errors.add(new ErrorLSSL(59,"----------> ERROR_59: Se están empleando variables de tipos de datos distintos para la función , Linea [#] Columna [%]",id,true));
+                    }else if(identDataType.get(id.lexemeRank(2)).equals(identDataType.get(id.lexemeRank(8))) && !identDataType.get(id.lexemeRank(8)).equals(identDataType.get(id.lexemeRank(6)))){
+                        errors.add(new ErrorLSSL(59,"----------> ERROR_59: Se están empleando variables de tipos de datos distintos para la función , Linea [#] Columna [%]",id,true));
+                    }
+                }       
+        }
+        //5 Variables
+        for(Production id: identProdF14){
+                if(identDataType.get(id.lexemeRank(2)).equals(identDataType.get(id.lexemeRank(4)))){
+                    if(!identDataType.get(id.lexemeRank(4)).equals(identDataType.get(id.lexemeRank(6))) && identDataType.get(id.lexemeRank(8)).equals(identDataType.get(id.lexemeRank(10)))){
+                        errors.add(new ErrorLSSL(59,"----------> ERROR_59: Se están empleando variables de tipos de datos distintos para la función , Linea [#] Columna [%]",id,true));
+                    }else if(identDataType.get(id.lexemeRank(4)).equals(identDataType.get(id.lexemeRank(6))) && identDataType.get(id.lexemeRank(8)).equals(identDataType.get(id.lexemeRank(10)))){
+                        errors.add(new ErrorLSSL(59,"----------> ERROR_59: Se están empleando variables de tipos de datos distintos para la función , Linea [#] Columna [%]",id,true));
+                    }else if(!identDataType.get(id.lexemeRank(4)).equals(identDataType.get(id.lexemeRank(6))) && identDataType.get(id.lexemeRank(2)).equals(identDataType.get(id.lexemeRank(8))) && !identDataType.get(id.lexemeRank(8)).equals(identDataType.get(id.lexemeRank(10)))){
+                        errors.add(new ErrorLSSL(59,"----------> ERROR_59: Se están empleando variables de tipos de datos distintos para la función , Linea [#] Columna [%]",id,true));
+                    }else if(identDataType.get(id.lexemeRank(6)).equals(identDataType.get(id.lexemeRank(8))) && identDataType.get(id.lexemeRank(2)).equals(identDataType.get(id.lexemeRank(8))) && !identDataType.get(id.lexemeRank(8)).equals(identDataType.get(id.lexemeRank(10)))){
+                        errors.add(new ErrorLSSL(59,"----------> ERROR_59: Se están empleando variables de tipos de datos distintos para la función , Linea [#] Columna [%]",id,true));
+                    }else if(identDataType.get(id.lexemeRank(6)).equals(identDataType.get(id.lexemeRank(8))) && !identDataType.get(id.lexemeRank(2)).equals(identDataType.get(id.lexemeRank(8))) && !identDataType.get(id.lexemeRank(8)).equals(identDataType.get(id.lexemeRank(10)))){
+                        errors.add(new ErrorLSSL(59,"----------> ERROR_59: Se están empleando variables de tipos de datos distintos para la función , Linea [#] Columna [%]",id,true));
+                    }else if(identDataType.get(id.lexemeRank(4)).equals(identDataType.get(id.lexemeRank(6))) && !identDataType.get(id.lexemeRank(6)).equals(identDataType.get(id.lexemeRank(8))) && identDataType.get(id.lexemeRank(6)).equals(identDataType.get(id.lexemeRank(10)))){
+                        errors.add(new ErrorLSSL(59,"----------> ERROR_59: Se están empleando variables de tipos de datos distintos para la función , Linea [#] Columna [%]",id,true));
+                    }else if(!identDataType.get(id.lexemeRank(4)).equals(identDataType.get(id.lexemeRank(6))) && identDataType.get(id.lexemeRank(4)).equals(identDataType.get(id.lexemeRank(8))) && identDataType.get(id.lexemeRank(8)).equals(identDataType.get(id.lexemeRank(10)))){
+                        errors.add(new ErrorLSSL(59,"----------> ERROR_59: Se están empleando variables de tipos de datos distintos para la función , Linea [#] Columna [%]",id,true));
+                    }
+                }else if(!identDataType.get(id.lexemeRank(2)).equals(identDataType.get(id.lexemeRank(4)))){
+                    if(identDataType.get(id.lexemeRank(2)).equals(identDataType.get(id.lexemeRank(6))) && !identDataType.get(id.lexemeRank(6)).equals(identDataType.get(id.lexemeRank(8))) && identDataType.get(id.lexemeRank(8)).equals(identDataType.get(id.lexemeRank(10)))){
+                        errors.add(new ErrorLSSL(59,"----------> ERROR_59: Se están empleando variables de tipos de datos distintos para la función , Linea [#] Columna [%]",id,true));
+                    }else if(!identDataType.get(id.lexemeRank(2)).equals(identDataType.get(id.lexemeRank(6))) && identDataType.get(id.lexemeRank(2)).equals(identDataType.get(id.lexemeRank(8))) && !identDataType.get(id.lexemeRank(8)).equals(identDataType.get(id.lexemeRank(10)))){
+                        errors.add(new ErrorLSSL(59,"----------> ERROR_59: Se están empleando variables de tipos de datos distintos para la función , Linea [#] Columna [%]",id,true));
+                    }else if(identDataType.get(id.lexemeRank(4)).equals(identDataType.get(id.lexemeRank(6))) && identDataType.get(id.lexemeRank(6)).equals(identDataType.get(id.lexemeRank(8))) && identDataType.get(id.lexemeRank(2)).equals(identDataType.get(id.lexemeRank(10)))){
+                        errors.add(new ErrorLSSL(59,"----------> ERROR_59: Se están empleando variables de tipos de datos distintos para la función , Linea [#] Columna [%]",id,true));
+                    }else if(identDataType.get(id.lexemeRank(2)).equals(identDataType.get(id.lexemeRank(6))) && !identDataType.get(id.lexemeRank(6)).equals(identDataType.get(id.lexemeRank(8))) && identDataType.get(id.lexemeRank(8)).equals(identDataType.get(id.lexemeRank(10)))){
+                        errors.add(new ErrorLSSL(59,"----------> ERROR_59: Se están empleando variables de tipos de datos distintos para la función , Linea [#] Columna [%]",id,true));
+                    }else if(identDataType.get(id.lexemeRank(2)).equals(identDataType.get(id.lexemeRank(6))) && identDataType.get(id.lexemeRank(6)).equals(identDataType.get(id.lexemeRank(8))) && !identDataType.get(id.lexemeRank(8)).equals(identDataType.get(id.lexemeRank(10)))){
+                        errors.add(new ErrorLSSL(59,"----------> ERROR_59: Se están empleando variables de tipos de datos distintos para la función , Linea [#] Columna [%]",id,true));
+                    }else if(!identDataType.get(id.lexemeRank(2)).equals(identDataType.get(id.lexemeRank(6))) && !identDataType.get(id.lexemeRank(6)).equals(identDataType.get(id.lexemeRank(8))) && identDataType.get(id.lexemeRank(8)).equals(identDataType.get(id.lexemeRank(10)))){
+                        errors.add(new ErrorLSSL(59,"----------> ERROR_59: Se están empleando variables de tipos de datos distintos para la función , Linea [#] Columna [%]",id,true));
+                    }else if(identDataType.get(id.lexemeRank(2)).equals(identDataType.get(id.lexemeRank(6))) && !identDataType.get(id.lexemeRank(6)).equals(identDataType.get(id.lexemeRank(8))) && !identDataType.get(id.lexemeRank(8)).equals(identDataType.get(id.lexemeRank(10)))){
+                        errors.add(new ErrorLSSL(59,"----------> ERROR_59: Se están empleando variables de tipos de datos distintos para la función , Linea [#] Columna [%]",id,true));
+                    }else if(!identDataType.get(id.lexemeRank(2)).equals(identDataType.get(id.lexemeRank(6))) && !identDataType.get(id.lexemeRank(6)).equals(identDataType.get(id.lexemeRank(8))) && !identDataType.get(id.lexemeRank(8)).equals(identDataType.get(id.lexemeRank(10)))){
+                        errors.add(new ErrorLSSL(59,"----------> ERROR_59: Se están empleando variables de tipos de datos distintos para la función , Linea [#] Columna [%]",id,true));
+                    }//
+                    else if(!identDataType.get(id.lexemeRank(2)).equals(identDataType.get(id.lexemeRank(6))) && !identDataType.get(id.lexemeRank(6)).equals(identDataType.get(id.lexemeRank(8))) && identDataType.get(id.lexemeRank(8)).equals(identDataType.get(id.lexemeRank(10)))){
+                        errors.add(new ErrorLSSL(59,"----------> ERROR_59: Se están empleando variables de tipos de datos distintos para la función , Linea [#] Columna [%]",id,true));
+                    }else if(!identDataType.get(id.lexemeRank(2)).equals(identDataType.get(id.lexemeRank(6))) && identDataType.get(id.lexemeRank(6)).equals(identDataType.get(id.lexemeRank(8))) && !identDataType.get(id.lexemeRank(8)).equals(identDataType.get(id.lexemeRank(10)))){
+                        errors.add(new ErrorLSSL(59,"----------> ERROR_59: Se están empleando variables de tipos de datos distintos para la función , Linea [#] Columna [%]",id,true));
+                    }else if(identDataType.get(id.lexemeRank(2)).equals(identDataType.get(id.lexemeRank(6))) && identDataType.get(id.lexemeRank(6)).equals(identDataType.get(id.lexemeRank(8))) && !identDataType.get(id.lexemeRank(8)).equals(identDataType.get(id.lexemeRank(10)))){
+                        errors.add(new ErrorLSSL(59,"----------> ERROR_59: Se están empleando variables de tipos de datos distintos para la función , Linea [#] Columna [%]",id,true));
+                    }else if(identDataType.get(id.lexemeRank(2)).equals(identDataType.get(id.lexemeRank(6))) && !identDataType.get(id.lexemeRank(6)).equals(identDataType.get(id.lexemeRank(8))) && identDataType.get(id.lexemeRank(8)).equals(identDataType.get(id.lexemeRank(10)))){
+                        errors.add(new ErrorLSSL(59,"----------> ERROR_59: Se están empleando variables de tipos de datos distintos para la función , Linea [#] Columna [%]",id,true));
+                    }else if(!identDataType.get(id.lexemeRank(2)).equals(identDataType.get(id.lexemeRank(6))) && identDataType.get(id.lexemeRank(6)).equals(identDataType.get(id.lexemeRank(8))) && identDataType.get(id.lexemeRank(8)).equals(identDataType.get(id.lexemeRank(10)))){
+                        errors.add(new ErrorLSSL(59,"----------> ERROR_59: Se están empleando variables de tipos de datos distintos para la función , Linea [#] Columna [%]",id,true));
+                    }else if(!identDataType.get(id.lexemeRank(2)).equals(identDataType.get(id.lexemeRank(6))) && !identDataType.get(id.lexemeRank(6)).equals(identDataType.get(id.lexemeRank(8))) && !identDataType.get(id.lexemeRank(8)).equals(identDataType.get(id.lexemeRank(10)))){
+                        errors.add(new ErrorLSSL(59,"----------> ERROR_59: Se están empleando variables de tipos de datos distintos para la función , Linea [#] Columna [%]",id,true));
+                    }
+                }
+        }
         //Error 59
         //Error 60 y Error 61
         //Funciones de Sumar, Restar, Multiplicar y Dividir
