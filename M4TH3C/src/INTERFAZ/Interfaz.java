@@ -18819,15 +18819,16 @@ public class Interfaz extends javax.swing.JFrame {
                 errors.add(new ErrorLSSL(60,"----------> ERROR_60:  Una de las variables empleadas en la función no ha sido declarada, Linea [#] Columna [%]",id,true));
             }
         }//6 Variables
-
-        //6 Variables
         //Funciones de Sumar, Restar, Multiplicar y Dividir
         //Funciones de Mostrar (Entero)
+        
         //Funciones de Mostrar (Entero)
         //Funciones de Mostrar (Decimal)
+        
         //Funciones de Mostrar (Decimal)
         //Error 60 y Error 61
         //Error 62 y Error 63
+        
         //Error 62 y Error 63
         //Error 64
         //2 Variables
