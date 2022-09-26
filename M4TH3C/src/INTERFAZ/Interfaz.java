@@ -18344,13 +18344,75 @@ public class Interfaz extends javax.swing.JFrame {
         }//Error 56
         //Error 57
         for (Production id : identProdA1) {
+            identDataType.put(id.lexemeRank(0),id.lexicalCompRank(-2));
             if (!identDataType.containsKey(id.lexemeRank(0))) {
-                errors.add(new ErrorLSSL(60, "----------> ERROR_57:  La variable no ha sido declarada, Linea [#] Columna [%]", id, true));
+                errors.add(new ErrorLSSL(57, "----------> ERROR_57:  La variable no ha sido declarada, Linea [#] Columna [%]", id, true));
             }
         }//Error 57
         //Error 58
-
-        //Error 58
+        for(Production id: identProdD2){
+            for(Production id2: identProdA1){
+                if(id.lexemeRank(1).equals(id2.lexemeRank(0))){
+                    if(id.lexemeRank(0).equals("Entero")){  
+                            if(!id2.lexicalCompRank(2).equals("Operador_Aritmetico_Mas") && !id2.lexicalCompRank(3).equals("Numero_Entero")){
+                                errors.add(new ErrorLSSL(58,"----------> ERROR_58: El valor que se le asigna a la variable no esta permitido, Linea [#] Columna [%]",id2,true));
+                            }else if(!id2.lexicalCompRank(2).equals("Operador_Aritmetico_Menos") && !id2.lexicalCompRank(3).equals("Numero_Entero")){
+                                errors.add(new ErrorLSSL(58,"----------> ERROR_58: El valor que se le asigna a la variable no esta permitido, Linea [#] Columna [%]",id2,true));
+                            }
+                    }
+                    if(id.lexemeRank(0).equals("Decimal")){
+                        if(!id2.lexicalCompRank(2).equals("Operador_Aritmetico_Mas") && !id2.lexicalCompRank(3).equals("Numero_Decimal")){
+                                errors.add(new ErrorLSSL(58,"----------> ERROR_58: El valor que se le asigna a la variable no esta permitido, Linea [#] Columna [%]",id2,true));
+                        }else if(!id2.lexicalCompRank(2).equals("Operador_Aritmetico_Menos") && !id2.lexicalCompRank(3).equals("Numero_Decimal")){
+                                errors.add(new ErrorLSSL(58,"----------> ERROR_58: El valor que se le asigna a la variable no esta permitido, Linea [#] Columna [%]",id2,true));
+                        }
+                    }
+                    if(id.lexemeRank(0).equals("Cadena")){
+                        if(!id2.lexicalCompRank(2).equals("Identificador_Cadena")){
+                                errors.add(new ErrorLSSL(58,"----------> ERROR_58: El valor que se le asigna a la variable no esta permitido, Linea [#] Columna [%]",id2,true));
+                        }
+                    }
+                    if(id.lexemeRank(0).equals("Figura")){
+                        System.out.println(id2.lexicalCompRank(2)+"\n");
+                        String componenteLexico = id2.lexicalCompRank(2);
+                        switch(componenteLexico){
+                            case "Palabra_Reservada_17":
+                                    break;
+                            case "Palabra_Reservada_18":
+                                    break;
+                            case "Palabra_Reservada_19":
+                                    break;
+                            case "Palabra_Reservada_20":
+                                    break;
+                            case "Palabra_Reservada_21":
+                                    break;
+                            default:
+                                errors.add(new ErrorLSSL(58,"----------> ERROR_58: El valor que se le asigna a la variable no esta permitido, Linea [#] Columna [%]",id2,true));
+                                break;
+                        }
+                    }
+                    if(id.lexemeRank(0).equals("Color")){
+                        System.out.println(id2.lexicalCompRank(2)+"\n");
+                        String componenteLexico = id2.lexicalCompRank(2);
+                        switch(componenteLexico){
+                            case "Palabra_Reservada_12":
+                                    break;
+                            case "Palabra_Reservada_13":
+                                    break;
+                            case "Palabra_Reservada_14":
+                                    break;
+                            case "Palabra_Reservada_15":
+                                    break;
+                            case "Palabra_Reservada_16":
+                                    break;
+                            default:
+                                errors.add(new ErrorLSSL(58,"----------> ERROR_58: El valor que se le asigna a la variable no esta permitido, Linea [#] Columna [%]",id2,true));
+                                break;
+                        }
+                    }
+                }
+            }
+        }//Error 58
         //Error 59
         //2 Variables
         for(Production id: identProdF11){
@@ -18832,6 +18894,7 @@ public class Interfaz extends javax.swing.JFrame {
         //Error 62 y Error 63
         //Error 64
         //2 Variables
+        /*
         for (Production idF : identProdF11) {
             int i = 0;
             int validA1 = 0;
@@ -18983,6 +19046,7 @@ public class Interfaz extends javax.swing.JFrame {
                 }
             }
         }//Error 64
+        */
         //Error 65
         for (Production id1 : identProdM1) {
             for (Production id2 : identProdM1) {
