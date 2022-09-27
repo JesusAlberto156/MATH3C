@@ -5,16 +5,16 @@ Metodo &Prueba{
 	Decimal num4;
 	Resultado #res1;
 	Cadena cad1 = 'Hola';
-	Cadena cad2;
+	Cadena cad4;
 	Figura fig1 = Circulo;
 	Figura fig2;
 	Color col1 = Azul;
 	Color col2;
 	num1 = - 30;
-	num4 = + 30.45;
-	cad2 = 'El resultado:';
-	fig2= Rojo;
-	col2 = Verde;
+	num4 = + 30.30;
+	cad4 = 'El resultado:';
+	fig2 = Circulo;
+	col2 = Rojo;
 	Sumar(num1,num1,num1,num1,num1)<
 		#res1
 	>;
