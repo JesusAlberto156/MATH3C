@@ -1,31 +1,35 @@
 Metodo &Prueba{
-	Entero num1 = + 20;
+	Entero num1 = - 20;
 	Entero num2;
-	Decimal num3 = - 20.43;
+	Entero num5;
+	Decimal num3 = + 20.43;
 	Decimal num4;
 	Resultado #res1;
+	Resultado #res2;
+	Resultado #res3;
+	Resultado #res4;
 	Cadena cad1 = 'Hola';
 	Cadena cad4;
 	Figura fig1 = Circulo;
 	Figura fig2;
 	Color col1 = Azul;
 	Color col2;
-	num1 = - 30;
+	num2 = + 30;
 	num4 = + 30.30;
 	cad4 = 'El resultado:';
 	fig2 = Circulo;
 	col2 = Rojo;
-	Sumar(num1,num2,num1,num1,num2)<
+	Sumar(num1,num2)<
 		#res1
 	>;
 	Restar(num3,num4)<
-		#res1
+		 #res2
 	>;
-	Multiplicar(num1,num2)<
-		#res1
+	Multiplicar(num1,num1)<
+		#res3
 	>;
 	Dividir(num3,num4)<
-		#res1
+		#res4
 	>;
 	Mostrar(cad1,#res1,fig1,col1,col1,fig1,col1,fig1,col1,fig1,col1,fig1);
 }

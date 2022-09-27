@@ -18284,14 +18284,20 @@ public class Interfaz extends javax.swing.JFrame {
     private void semanticAnalysis() {
         //Error 55
         HashMap<String, String> identDataType = new HashMap<>();
+        HashMap<String, String> identDataTypeV = new HashMap<>();
+        HashMap<String, String> identDataTypeE = new HashMap<>();
         for (Production id1 : identProdD1) {
             if (identDataType == null) {
                 identDataType.put(id1.lexemeRank(1), id1.lexicalCompRank(-2));
+                identDataTypeV.put(id1.lexemeRank(1), id1.lexemeRank(-2));
+                identDataTypeE.put(id1.lexemeRank(1), id1.lexemeRank(-3));
             }
             if (identDataType.containsKey(id1.lexemeRank(1))) {
                 errors.add(new ErrorLSSL(55, "----------> ERROR_55:  La variable ya ha sido declarada en la clase, Linea [#] Columna [%]", id1, true));
             }
             identDataType.put(id1.lexemeRank(1), id1.lexicalCompRank(-2));
+            identDataTypeV.put(id1.lexemeRank(1), id1.lexemeRank(-2));
+            identDataTypeE.put(id1.lexemeRank(1), id1.lexemeRank(-3));
         }
         for (Production id2 : identProdD2) {
             if (identDataType == null) {
@@ -18360,14 +18366,14 @@ public class Interfaz extends javax.swing.JFrame {
             }
         }//Error 56
         //Error 57
-        for (Production id : identProdA1) {
+        for (Production id : identProdA1){
             if (!identDataType.containsKey(id.lexemeRank(0))) {
                 errors.add(new ErrorLSSL(57, "----------> ERROR_57:  La variable no ha sido declarada, Linea [#] Columna [%]", id, true));
             }
         }//Error 57
+        
         //Error 58
         for(Production id: identProdA1){
-            System.out.println(identDataType.get(id.lexemeRank(0)));
             if(!id.lexicalCompRank(-2).equals(identDataType.get(id.lexemeRank(0)))){
                 if(identDataType.get(id.lexemeRank(0)).equals("Figura")){
                     if(!id.lexicalCompRank(-2).equals("Palabra_Reservada_17") && !id.lexicalCompRank(-2).equals("Palabra_Reservada_18") && !id.lexicalCompRank(-2).equals("Palabra_Reservada_19") && !id.lexicalCompRank(-2).equals("Palabra_Reservada_20") && !id.lexicalCompRank(-2).equals("Palabra_Reservada_21")){
@@ -18380,8 +18386,12 @@ public class Interfaz extends javax.swing.JFrame {
                 }else{
                     errors.add(new ErrorLSSL(58,"----------> ERROR_58:   El valor que se le asigna a la variable no esta permitido, Linea [#] Columna [%]",id,true));
                 }
+            }else{
+                identDataTypeV.put(id.lexemeRank(0),id.lexemeRank(-2)); 
+                identDataTypeE.put(id.lexemeRank(0),id.lexemeRank(-3));
             }
         }//Error 58
+        
         //Error 59
         //2 Variables
         for(Production id: identProdF11){
@@ -18582,11 +18592,188 @@ public class Interfaz extends javax.swing.JFrame {
         }
         //Funciones de Mostrar (Decimal)
         //Error 60 y Error 61
-        //Error 62 y Error 63
-        
-        //Error 62 y Error 63
-        //Error 64
+        //Error 62 y Error 63 (Primera Parte)
+        //Funciones de Sumar, Restar, Multiplicar y Dividir
         //2 Variables
+        for(Production id: identProdF11){
+            int i = 0;
+            if(!identDataTypeV.containsKey(id.lexemeRank(2))){
+                i++;
+            }
+            if(!identDataTypeV.containsKey(id.lexemeRank(4))){
+                i++;
+            }
+            if(i == 1){
+                errors.add(new ErrorLSSL(62, "----------> ERROR_62:  Una de las variables empleadas en la función no tiene valor asignado, Linea [#] Columna [%]", id, true));
+            }else if(i > 1){
+                errors.add(new ErrorLSSL(63, "----------> ERROR_63:  Varias variables empleadas en la función no tienen valor asignado, Linea [#] Columna [%]", id, true));
+            }
+        }//2 Variables
+        //3 Variables
+        for(Production id: identProdF12){
+            int i = 0;
+            if(!identDataTypeV.containsKey(id.lexemeRank(2))){
+                i++;
+            }
+            if(!identDataTypeV.containsKey(id.lexemeRank(4))){
+                i++;
+            }
+            if(!identDataTypeV.containsKey(id.lexemeRank(6))){
+                i++;
+            }
+            if(i == 1){
+                errors.add(new ErrorLSSL(62, "----------> ERROR_62:  Una de las variables empleadas en la función no tiene valor asignado, Linea [#] Columna [%]", id, true));
+            }else if(i > 1){
+                errors.add(new ErrorLSSL(63, "----------> ERROR_63:  Varias variables empleadas en la función no tienen valor asignado, Linea [#] Columna [%]", id, true));
+            }
+        }//3 Variables
+        //4 Variables
+        for(Production id: identProdF13){
+            int i = 0;
+            if(!identDataTypeV.containsKey(id.lexemeRank(2))){
+                i++;
+            }
+            if(!identDataTypeV.containsKey(id.lexemeRank(4))){
+                i++;
+            }
+            if(!identDataTypeV.containsKey(id.lexemeRank(6))){
+                i++;
+            }
+            if(!identDataTypeV.containsKey(id.lexemeRank(8))){
+                i++;
+            }
+            if(i == 1){
+                errors.add(new ErrorLSSL(62, "----------> ERROR_62:  Una de las variables empleadas en la función no tiene valor asignado, Linea [#] Columna [%]", id, true));
+            }else if(i > 1){
+                errors.add(new ErrorLSSL(63, "----------> ERROR_63:  Varias variables empleadas en la función no tienen valor asignado, Linea [#] Columna [%]", id, true));
+            }
+        }//4 Variables
+        //5 Variables
+        for(Production id: identProdF14){
+            int i = 0;
+            if(!identDataTypeV.containsKey(id.lexemeRank(2))){
+                i++;
+            }
+            if(!identDataTypeV.containsKey(id.lexemeRank(4))){
+                i++;
+            }
+            if(!identDataTypeV.containsKey(id.lexemeRank(6))){
+                i++;
+            }
+            if(!identDataTypeV.containsKey(id.lexemeRank(8))){
+                i++;
+            }
+            if(!identDataTypeV.containsKey(id.lexemeRank(10))){
+                i++;
+            }
+            if(i == 1){
+                errors.add(new ErrorLSSL(62, "----------> ERROR_62:  Una de las variables empleadas en la función no tiene valor asignado, Linea [#] Columna [%]", id, true));
+            }else if(i > 1){
+                errors.add(new ErrorLSSL(63, "----------> ERROR_63:  Varias variables empleadas en la función no tienen valor asignado, Linea [#] Columna [%]", id, true));
+            }
+        }//5 Variables
+        //Funciones de Sumar, Restar, Multiplicar y Dividir
+        //Error 62 y Error 63 (Primera Parte)
+
+
+        //Error 66
+        //Funciones de Sumar, Restar, Multiplicar y Dividir
+        HashMap<String, String> identDataTypeR = new HashMap<>();
+        //2 Variables/
+        for(Production id: identProdF11){
+            if(id.lexemeRank(0).equals("Sumar")){
+                if(identDataType.get(id.lexemeRank(2)).equals("Numero_Entero")){
+                    int val1 = Integer.parseInt(identDataTypeV.get(id.lexemeRank(2)));
+                    int val2 = Integer.parseInt(identDataTypeV.get(id.lexemeRank(4)));
+                    int res;
+                    if(identDataTypeE.get(id.lexemeRank(2)).equals("+")){
+                        if(identDataTypeE.get(id.lexemeRank(4)).equals("+")){
+                            res = val1+val2;
+                            identDataTypeR.put(id.lexemeRank(7),Integer.toString(res));
+                            identDataType.put(id.lexemeRank(7),Integer.toString(res));
+                        }else{
+                            res = val1-val2;
+                            identDataTypeR.put(id.lexemeRank(7),Integer.toString(res));
+                        }
+                    }else{
+                        if(identDataTypeE.get(id.lexemeRank(4)).equals("+")){
+                            res = -val1+val2;
+                            identDataTypeR.put(id.lexemeRank(7),Integer.toString(res));
+                        }else{
+                            res = -val1-val2;
+                            identDataTypeR.put(id.lexemeRank(7),Integer.toString(res));
+                        }
+                    } 
+                }else{
+                    double val1 = Double.parseDouble(identDataTypeV.get(id.lexemeRank(2)));
+                    double val2 = Double.parseDouble(identDataTypeV.get(id.lexemeRank(4)));
+                    double res;
+                    if(identDataTypeE.get(id.lexemeRank(2)).equals("+")){
+                        if(identDataTypeE.get(id.lexemeRank(4)).equals("+")){
+                            res = val1+val2;
+                            identDataTypeR.put(id.lexemeRank(7),Double.toString(res));
+                        }else{
+                            res = val1-val2;
+                            identDataTypeR.put(id.lexemeRank(7),Double.toString(res));
+                        }
+                    }else{
+                        if(identDataTypeE.get(id.lexemeRank(4)).equals("+")){
+                            res = -val1+val2;
+                            identDataTypeR.put(id.lexemeRank(7),Double.toString(res));
+                        }else{
+                            res = -val1-val2;
+                            identDataTypeR.put(id.lexemeRank(7),Double.toString(res));
+                        }
+                    }
+                }  
+            }else if(id.lexemeRank(0).equals("Restar")){
+                if(identDataType.get(id.lexemeRank(2)).equals("Numero_Entero")){
+                    int val1 = Integer.parseInt(identDataTypeV.get(id.lexemeRank(2)));
+                    int val2 = Integer.parseInt(identDataTypeV.get(id.lexemeRank(4)));
+                    int res;
+                    if(identDataTypeE.get(id.lexemeRank(2)).equals("+")){
+                        if(identDataTypeE.get(id.lexemeRank(4)).equals("+")){
+                            res = val1-val2;
+                            identDataTypeR.put(id.lexemeRank(7),Integer.toString(res));
+                        }else{
+                            res = val1+val2;
+                            identDataTypeR.put(id.lexemeRank(7),Integer.toString(res));
+                        }
+                    }else{
+                        if(identDataTypeE.get(id.lexemeRank(4)).equals("+")){
+                            res = -val1-val2;
+                            identDataTypeR.put(id.lexemeRank(7),Integer.toString(res));
+                        }else{
+                            res = -val1+val2;
+                            identDataTypeR.put(id.lexemeRank(7),Integer.toString(res));
+                        }
+                    }
+                }else{
+                    double val1 = Double.parseDouble(identDataTypeV.get(id.lexemeRank(2)));
+                    double val2 = Double.parseDouble(identDataTypeV.get(id.lexemeRank(4)));
+                    double res;
+                    if(identDataTypeE.get(id.lexemeRank(2)).equals("+")){
+                        if(identDataTypeE.get(id.lexemeRank(4)).equals("+")){
+                            res = val1-val2;
+                            identDataTypeR.put(id.lexemeRank(7),Double.toString(res));
+                        }else{
+                            res = val1+val2;
+                            identDataTypeR.put(id.lexemeRank(7),Double.toString(res));
+                        }
+                    }else{
+                        if(identDataTypeE.get(id.lexemeRank(4)).equals("+")){
+                            res = -val1-val2;
+                            identDataTypeR.put(id.lexemeRank(7),Double.toString(res));
+                        }else{
+                            res = -val1+val2;
+                            identDataTypeR.put(id.lexemeRank(7),Double.toString(res));
+                        }
+                    }
+                }
+            }   
+        }//2 Variables
+        
+        //Funciones de Sumar, Restar, Multiplicar y Dividir
         /*
         for (Production idF : identProdF11) {
             int i = 0;
@@ -18738,18 +18925,18 @@ public class Interfaz extends javax.swing.JFrame {
                     errors.add(new ErrorLSSL(64, "----------> ERROR_64:  El valor del resultado de la operación realizada en la función no está en el rango permitido", idF, true));
                 }
             }
-        }//Error 64
+        }//Error 66
         */
-        //Error 65
+        //Error 67
         for (Production id1 : identProdM1) {
             for (Production id2 : identProdM1) {
                 if (id1.getLine() < id2.getLine()) {
 
                 } else if (id1.lexemeRank(1).equals(id2.lexemeRank(1)) && id1.getLine() != id2.getLine()) {
-                    errors.add(new ErrorLSSL(65, "----------> ERROR_65:  La clase ya existe, Linea [#] Columna [%]", id1, true));
+                    errors.add(new ErrorLSSL(67, "----------> ERROR_67:  La clase ya existe, Linea [#] Columna [%]", id1, true));
                 }
             }
-        }//Error 65
+        }//Error 67
     }
 
     private void fillTableTokens() {
