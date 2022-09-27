@@ -15,7 +15,7 @@ Metodo &Prueba{
 	cad4 = 'El resultado:';
 	fig2 = Circulo;
 	col2 = Rojo;
-	Sumar(num1,num1,num1,num1,num1)<
+	Sumar(num1,num2,num1,num1,num2)<
 		#res1
 	>;
 	Restar(num3,num4)<
