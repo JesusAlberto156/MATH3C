@@ -1,5 +1,5 @@
 Metodo &Prueba{
-	Entero num1 = - 99;
+	Entero num1 = - 1000;
 	Entero num2;
 	Entero num5;
 	Decimal num3 = + 9.9;
@@ -16,11 +16,11 @@ Metodo &Prueba{
 	Color col2;
 	Color col3;
 	num2 = + 3;
-	num7 = + 10.0;
+	num4 = + 10.0;
 	cad4 = 'El resultado:';
 	fig2 = Circulo;
 	col2 = Rojo;
-	Sumar(num1,num1)<
+	Sumar(num1,num1,num1,num1,num1)<
 		#res2
 	>;
 	Restar(num3,num4)<
