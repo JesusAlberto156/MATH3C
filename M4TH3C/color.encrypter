@@ -1,8 +1,8 @@
 Metodo &Prueba{
-	Entero num1 = - 20;
+	Entero num1 = - 99;
 	Entero num2;
 	Entero num5;
-	Decimal num3 = + 20.43;
+	Decimal num3 = + 9.9;
 	Decimal num4;
 	Resultado #res1;
 	Resultado #res2;
@@ -14,13 +14,14 @@ Metodo &Prueba{
 	Figura fig2;
 	Color col1 = Azul;
 	Color col2;
-	num2 = + 30;
-	num4 = + 30.30;
+	Color col3;
+	num2 = + 3;
+	num4 = + 10.0;
 	cad4 = 'El resultado:';
 	fig2 = Circulo;
 	col2 = Rojo;
-	Sumar(num1,num2)<
-		#res1
+	Sumar(num1,num1,num2)<
+		#res2
 	>;
 	Restar(num3,num4)<
 		 #res2
@@ -31,5 +32,6 @@ Metodo &Prueba{
 	Dividir(num3,num4)<
 		#res4
 	>;
-	Mostrar(cad1,#res1,fig1,col1,col1,fig1,col1,fig1,col1,fig1,col1,fig1);
+	Mostrar(cad1,#res1,fig1,col1,fig1,col1,fig1,col1,fig1,col1,fig1,col1);
+	Mostrar(cad1,#res1,fig1,col3);
 }
