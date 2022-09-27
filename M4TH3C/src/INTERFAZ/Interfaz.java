@@ -18399,18 +18399,29 @@ public class Interfaz extends javax.swing.JFrame {
                 }else{
                     identDataTypeV.put(id.lexemeRank(0),id.lexemeRank(-2)); 
                     identDataTypeE.put(id.lexemeRank(0),id.lexemeRank(-3));
+                    identDataType.put(id.lexemeRank(0),id.lexicalCompRank(-2));
                 }
             }
         }
         for(Production id: identProdA1){
-            if(identDataType.get(id.lexemeRank(0)).equals("Numero_Entero")){
-                if(Integer.parseInt(id.lexemeRank(-2)) > 100000){
-                    errors.add(new ErrorLSSL(56, "----------> ERROR_56:  El valor de la variable declarada no esta permitido, Linea [#] Columna [%]", id, true));
+            if(identDataType.containsKey(id.lexemeRank(0))){
+                if(identDataType.get(id.lexemeRank(0)).equals("Numero_Entero")){
+                    if(Integer.parseInt(id.lexemeRank(-2)) > 100000){
+                        errors.add(new ErrorLSSL(56, "----------> ERROR_56:  El valor de la variable declarada no esta permitido, Linea [#] Columna [%]", id, true));
+                    }
+                }else{
+                    identDataTypeV.put(id.lexemeRank(0),id.lexemeRank(-2)); 
+                    identDataTypeE.put(id.lexemeRank(0),id.lexemeRank(-3));
+                    identDataType.put(id.lexemeRank(0),id.lexicalCompRank(-2));
                 }
-            }
-            if(identDataType.get(id.lexemeRank(0)).equals("Numero_Decimal")){
-                if(Double.parseDouble(id.lexemeRank(-2)) > 99.9999){
-                    errors.add(new ErrorLSSL(56, "----------> ERROR_56:  El valor de la variable declarada no esta permitido, Linea [#] Columna [%]", id, true));
+                if(identDataType.get(id.lexemeRank(0)).equals("Numero_Decimal")){
+                    if(Double.parseDouble(id.lexemeRank(-2)) > 99.9999){
+                        errors.add(new ErrorLSSL(56, "----------> ERROR_56:  El valor de la variable declarada no esta permitido, Linea [#] Columna [%]", id, true));
+                    }
+                }else{
+                    identDataTypeV.put(id.lexemeRank(0),id.lexemeRank(-2)); 
+                    identDataTypeE.put(id.lexemeRank(0),id.lexemeRank(-3));
+                    identDataType.put(id.lexemeRank(0),id.lexicalCompRank(-2));
                 }
             }
         }//Error 58
@@ -18893,11 +18904,13 @@ public class Interfaz extends javax.swing.JFrame {
         HashMap<String, String> identDataTypeV2 = new HashMap<>();
         //2 Variables/
         for(Production id: identProdF11){
-            identDataTypeV2.put(id.lexemeRank(2), identDataTypeE.get(id.lexemeRank(2))+identDataTypeV.get(id.lexemeRank(2)));
-            identDataTypeV2.put(id.lexemeRank(4), identDataTypeE.get(id.lexemeRank(4))+identDataTypeV.get(id.lexemeRank(4)));
+            if(identDataTypeV.containsKey(id.lexemeRank(2)) && identDataTypeV.containsKey(id.lexemeRank(4)) && identDataTypeE.containsKey(id.lexemeRank(2)) && identDataTypeE.containsKey(id.lexemeRank(4))){
+                identDataTypeV2.put(id.lexemeRank(2), identDataTypeE.get(id.lexemeRank(2))+identDataTypeV.get(id.lexemeRank(2)));
+                identDataTypeV2.put(id.lexemeRank(4), identDataTypeE.get(id.lexemeRank(4))+identDataTypeV.get(id.lexemeRank(4)));
+            }
         }
         for(Production id: identProdF11){
-            if(identDataType.containsKey(id.lexemeRank(2)) && identDataType.containsKey(id.lexemeRank(4))){
+            if(identDataTypeV2.containsKey(id.lexemeRank(2)) && identDataTypeV2.containsKey(id.lexemeRank(4))){
                 if(identDataType.get(id.lexemeRank(2)).equals("Numero_Entero")){
                     int val1 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(2)));
                     int val2 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(4)));
@@ -18940,12 +18953,14 @@ public class Interfaz extends javax.swing.JFrame {
         }//2 Variables
         //3 Variables
         for(Production id: identProdF12){
-            identDataTypeV2.put(id.lexemeRank(2), identDataTypeE.get(id.lexemeRank(2))+identDataTypeV.get(id.lexemeRank(2)));
-            identDataTypeV2.put(id.lexemeRank(4), identDataTypeE.get(id.lexemeRank(4))+identDataTypeV.get(id.lexemeRank(4)));
-            identDataTypeV2.put(id.lexemeRank(6), identDataTypeE.get(id.lexemeRank(4))+identDataTypeV.get(id.lexemeRank(6)));
+            if(identDataTypeV.containsKey(id.lexemeRank(2)) && identDataTypeV.containsKey(id.lexemeRank(4)) && identDataTypeV.containsKey(id.lexemeRank(6)) && identDataTypeE.containsKey(id.lexemeRank(2)) && identDataTypeE.containsKey(id.lexemeRank(4)) && identDataTypeE.containsKey(id.lexemeRank(6))){
+                identDataTypeV2.put(id.lexemeRank(2), identDataTypeE.get(id.lexemeRank(2))+identDataTypeV.get(id.lexemeRank(2)));
+                identDataTypeV2.put(id.lexemeRank(4), identDataTypeE.get(id.lexemeRank(4))+identDataTypeV.get(id.lexemeRank(4)));
+                identDataTypeV2.put(id.lexemeRank(6), identDataTypeE.get(id.lexemeRank(4))+identDataTypeV.get(id.lexemeRank(6)));
+            }
         }
         for(Production id: identProdF12){
-            if(identDataType.containsKey(id.lexemeRank(2)) && identDataType.containsKey(id.lexemeRank(4)) && identDataType.containsKey(id.lexemeRank(6))){
+            if(identDataTypeV2.containsKey(id.lexemeRank(2)) && identDataTypeV2.containsKey(id.lexemeRank(4)) && identDataTypeV2.containsKey(id.lexemeRank(6))){
                 if(identDataType.get(id.lexemeRank(2)).equals("Numero_Entero")){
                     int val1 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(2)));
                     int val2 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(4)));
@@ -18989,13 +19004,15 @@ public class Interfaz extends javax.swing.JFrame {
         }//3 Variables
         //4 Variables
         for(Production id: identProdF13){
-            identDataTypeV2.put(id.lexemeRank(2), identDataTypeE.get(id.lexemeRank(2))+identDataTypeV.get(id.lexemeRank(2)));
-            identDataTypeV2.put(id.lexemeRank(4), identDataTypeE.get(id.lexemeRank(4))+identDataTypeV.get(id.lexemeRank(4)));
-            identDataTypeV2.put(id.lexemeRank(4), identDataTypeE.get(id.lexemeRank(6))+identDataTypeV.get(id.lexemeRank(6)));
-            identDataTypeV2.put(id.lexemeRank(4), identDataTypeE.get(id.lexemeRank(8))+identDataTypeV.get(id.lexemeRank(8)));
+            if(identDataTypeV.containsKey(id.lexemeRank(2)) && identDataTypeV.containsKey(id.lexemeRank(4)) && identDataTypeV.containsKey(id.lexemeRank(6)) && identDataTypeV.containsKey(id.lexemeRank(8)) && identDataTypeE.containsKey(id.lexemeRank(2)) && identDataTypeE.containsKey(id.lexemeRank(4)) && identDataTypeE.containsKey(id.lexemeRank(6)) && identDataTypeE.containsKey(id.lexemeRank(8))){
+                identDataTypeV2.put(id.lexemeRank(2), identDataTypeE.get(id.lexemeRank(2))+identDataTypeV.get(id.lexemeRank(2)));
+                identDataTypeV2.put(id.lexemeRank(4), identDataTypeE.get(id.lexemeRank(4))+identDataTypeV.get(id.lexemeRank(4)));
+                identDataTypeV2.put(id.lexemeRank(4), identDataTypeE.get(id.lexemeRank(6))+identDataTypeV.get(id.lexemeRank(6)));
+                identDataTypeV2.put(id.lexemeRank(4), identDataTypeE.get(id.lexemeRank(8))+identDataTypeV.get(id.lexemeRank(8)));
+            }
         }
         for(Production id: identProdF13){
-            if(identDataType.containsKey(id.lexemeRank(2)) && identDataType.containsKey(id.lexemeRank(4)) && identDataType.containsKey(id.lexemeRank(6)) && identDataType.containsKey(id.lexemeRank(8))){
+            if(identDataTypeV2.containsKey(id.lexemeRank(2)) && identDataTypeV2.containsKey(id.lexemeRank(4)) && identDataTypeV2.containsKey(id.lexemeRank(6)) && identDataTypeV2.containsKey(id.lexemeRank(8))){
                 if(identDataType.get(id.lexemeRank(2)).equals("Numero_Entero")){
                     int val1 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(2)));
                     int val2 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(4)));
@@ -19041,14 +19058,16 @@ public class Interfaz extends javax.swing.JFrame {
         }//4 Variables
         //5 Variables
         for(Production id: identProdF14){
-            identDataTypeV2.put(id.lexemeRank(2), identDataTypeE.get(id.lexemeRank(2))+identDataTypeV.get(id.lexemeRank(2)));
-            identDataTypeV2.put(id.lexemeRank(4), identDataTypeE.get(id.lexemeRank(4))+identDataTypeV.get(id.lexemeRank(4)));
-            identDataTypeV2.put(id.lexemeRank(4), identDataTypeE.get(id.lexemeRank(4))+identDataTypeV.get(id.lexemeRank(6)));
-            identDataTypeV2.put(id.lexemeRank(4), identDataTypeE.get(id.lexemeRank(4))+identDataTypeV.get(id.lexemeRank(8)));
-            identDataTypeV2.put(id.lexemeRank(4), identDataTypeE.get(id.lexemeRank(4))+identDataTypeV.get(id.lexemeRank(10)));
+            if(identDataTypeV.containsKey(id.lexemeRank(2)) && identDataTypeV.containsKey(id.lexemeRank(4)) && identDataTypeV.containsKey(id.lexemeRank(6)) && identDataTypeV.containsKey(id.lexemeRank(8)) && identDataTypeV.containsKey(id.lexemeRank(10)) && identDataTypeE.containsKey(id.lexemeRank(2)) && identDataTypeE.containsKey(id.lexemeRank(4)) && identDataTypeE.containsKey(id.lexemeRank(6)) && identDataTypeE.containsKey(id.lexemeRank(8)) && identDataTypeE.containsKey(id.lexemeRank(10))){
+                identDataTypeV2.put(id.lexemeRank(2), identDataTypeE.get(id.lexemeRank(2))+identDataTypeV.get(id.lexemeRank(2)));
+                identDataTypeV2.put(id.lexemeRank(4), identDataTypeE.get(id.lexemeRank(4))+identDataTypeV.get(id.lexemeRank(4)));
+                identDataTypeV2.put(id.lexemeRank(4), identDataTypeE.get(id.lexemeRank(4))+identDataTypeV.get(id.lexemeRank(6)));
+                identDataTypeV2.put(id.lexemeRank(4), identDataTypeE.get(id.lexemeRank(4))+identDataTypeV.get(id.lexemeRank(8)));
+                identDataTypeV2.put(id.lexemeRank(4), identDataTypeE.get(id.lexemeRank(4))+identDataTypeV.get(id.lexemeRank(10)));
+            }
         }
         for(Production id: identProdF14){
-            if(identDataType.containsKey(id.lexemeRank(2)) && identDataType.containsKey(id.lexemeRank(4)) && identDataType.containsKey(id.lexemeRank(6)) && identDataType.containsKey(id.lexemeRank(8)) && identDataType.containsKey(id.lexemeRank(10))){
+            if(identDataTypeV2.containsKey(id.lexemeRank(2)) && identDataTypeV2.containsKey(id.lexemeRank(4)) && identDataTypeV2.containsKey(id.lexemeRank(6)) && identDataTypeV2.containsKey(id.lexemeRank(8)) && identDataTypeV2.containsKey(id.lexemeRank(10))){
                 if(identDataType.get(id.lexemeRank(2)).equals("Numero_Entero")){
                     int val1 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(2)));
                     int val2 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(4)));
@@ -19164,7 +19183,6 @@ public class Interfaz extends javax.swing.JFrame {
             }
         }//Funcion de mostrar (Decimal)
         //Error 62 y Error 63 (Segunda Parte)
-        System.out.println(identDataTypeR);
         //Error 67
         for (Production id1 : identProdM1) {
             for (Production id2 : identProdM1) {
