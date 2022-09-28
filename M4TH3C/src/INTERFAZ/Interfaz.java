@@ -18408,38 +18408,44 @@ public class Interfaz extends javax.swing.JFrame {
                         if(!id.lexicalCompRank(-2).equals("Palabra_Reservada_12") && !id.lexicalCompRank(-2).equals("Palabra_Reservada_13") && !id.lexicalCompRank(-2).equals("Palabra_Reservada_14") && !id.lexicalCompRank(-2).equals("Palabra_Reservada_15") && !id.lexicalCompRank(-2).equals("Palabra_Reservada_16")){
                             errors.add(new ErrorLSSL(58,"----------> ERROR_58:   El valor que se le asigna a la variable no esta permitido, Linea [#] Columna [%]",id,true));
                         }
-                    }else{
+                    }else if(identDataType.get(id.lexemeRank(0)).equals("Numero_Entero")){
+                        if(id.lexicalCompRank(-2).equals("Numero_Decimal")){
+                            errors.add(new ErrorLSSL(58,"----------> ERROR_58:   El valor que se le asigna a la variable no esta permitido, Linea [#] Columna [%]",id,true));
+                        }
+                    }else if(identDataType.get(id.lexemeRank(0)).equals("Numero_Decimal")){
+                        if(id.lexicalCompRank(-2).equals("Numero_Entero")){
+                            errors.add(new ErrorLSSL(58,"----------> ERROR_58:   El valor que se le asigna a la variable no esta permitido, Linea [#] Columna [%]",id,true));
+                        }
+                    }
+                    else{
                         errors.add(new ErrorLSSL(58,"----------> ERROR_58:   El valor que se le asigna a la variable no esta permitido, Linea [#] Columna [%]",id,true));
                     }
                 }else{
-                    identDataTypeV.put(id.lexemeRank(0),id.lexemeRank(-2)); 
-                    identDataTypeE.put(id.lexemeRank(0),id.lexemeRank(-3));
-                    identDataType.put(id.lexemeRank(0),id.lexicalCompRank(-2));
+                    if(identDataType.get(id.lexemeRank(0)).equals("Numero_Entero")){
+                        if(Integer.parseInt(id.lexemeRank(-2)) > 100000){
+                            errors.add(new ErrorLSSL(58,"----------> ERROR_58:   El valor que se le asigna a la variable no esta permitido, Linea [#] Columna [%]",id,true));
+                        }else{
+                            identDataTypeV.put(id.lexemeRank(0), id.lexemeRank(-2));
+                            identDataTypeE.put(id.lexemeRank(0), id.lexemeRank(-3));
+                            identDataType.put(id.lexemeRank(0),id.lexicalCompRank(-2));
+                        }
+                    }else if(identDataType.get(id.lexemeRank(0)).equals("Numero_Decimal")){
+                        if(Double.parseDouble(id.lexemeRank(-2)) > 99.9999){
+                            errors.add(new ErrorLSSL(58,"----------> ERROR_58:   El valor que se le asigna a la variable no esta permitido, Linea [#] Columna [%]",id,true));
+                        }else{
+                            identDataTypeV.put(id.lexemeRank(0), id.lexemeRank(-2));
+                            identDataTypeE.put(id.lexemeRank(0), id.lexemeRank(-3));
+                            identDataType.put(id.lexemeRank(0),id.lexicalCompRank(-2));
+                        }
+                    }else{
+                        identDataTypeV.put(id.lexemeRank(0),id.lexemeRank(-2)); 
+                        identDataTypeE.put(id.lexemeRank(0),id.lexemeRank(-3));
+                        identDataType.put(id.lexemeRank(0),id.lexicalCompRank(-2));
+                    }
                 }
             }
         }
-        for(Production id: identProdA1){
-            if(identDataType.containsKey(id.lexemeRank(0))){
-                if(identDataType.get(id.lexemeRank(0)).equals("Numero_Entero")){
-                    if(Integer.parseInt(id.lexemeRank(-2)) > 100000){
-                        errors.add(new ErrorLSSL(58,"----------> ERROR_58:   El valor que se le asigna a la variable no esta permitido, Linea [#] Columna [%]",id,true));
-                    }
-                }else{
-                    identDataTypeV.put(id.lexemeRank(0),id.lexemeRank(-2)); 
-                    identDataTypeE.put(id.lexemeRank(0),id.lexemeRank(-3));
-                    identDataType.put(id.lexemeRank(0),id.lexicalCompRank(-2));
-                }
-                if(identDataType.get(id.lexemeRank(0)).equals("Numero_Decimal")){
-                    if(Double.parseDouble(id.lexemeRank(-2)) > 99.9999){
-                        errors.add(new ErrorLSSL(58,"----------> ERROR_58:   El valor que se le asigna a la variable no esta permitido, Linea [#] Columna [%]",id,true));
-                    }
-                }else{
-                    identDataTypeV.put(id.lexemeRank(0),id.lexemeRank(-2)); 
-                    identDataTypeE.put(id.lexemeRank(0),id.lexemeRank(-3));
-                    identDataType.put(id.lexemeRank(0),id.lexicalCompRank(-2));
-                }
-            }
-        }//Error 58
+        //Error 58
         //Error 64 y Error 65 (Primera Parte)
         //Funciones de Sumar, Restar, Multiplicar y Dividir
         //2 Variables
