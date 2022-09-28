@@ -1,8 +1,8 @@
 Metodo &Prueba{
-	Entero num1 = - 1000;
+	Entero num1 = - 10000;
 	Entero num2;
 	Entero num5;
-	Decimal num3 = + 9.9;
+	Decimal num3 = + 19.00;
 	Decimal num4;
 	Resultado #res1;
 	Resultado #res2;
@@ -10,13 +10,13 @@ Metodo &Prueba{
 	Resultado #res4;
 	Cadena cad1 = 'Hola';
 	Cadena cad4;
-	Figura fig1 = Circulo;
+	Figura fig1 = Cuadrado;
 	Figura fig2;
-	Color col1 = Azul;
+	Color col1 = Blanco;
 	Color col2;
 	Color col3;
 	num2 = + 3;
-	num4 = + 10.0;
+	num4 = + 10;
 	cad4 = 'El resultado:';
 	fig2 = Circulo;
 	col2 = Rojo;

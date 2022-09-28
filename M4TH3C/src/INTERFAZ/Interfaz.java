@@ -18289,15 +18289,11 @@ public class Interfaz extends javax.swing.JFrame {
         for (Production id1 : identProdD1) {
             if (identDataType == null) {
                 identDataType.put(id1.lexemeRank(1), id1.lexicalCompRank(-2));
-                identDataTypeV.put(id1.lexemeRank(1), id1.lexemeRank(-2));
-                identDataTypeE.put(id1.lexemeRank(1), id1.lexemeRank(-3));
             }
             if (identDataType.containsKey(id1.lexemeRank(1))) {
                 errors.add(new ErrorLSSL(55, "----------> ERROR_55:  La variable ya ha sido declarada en la clase, Linea [#] Columna [%]", id1, true));
             }
             identDataType.put(id1.lexemeRank(1), id1.lexicalCompRank(-2));
-            identDataTypeV.put(id1.lexemeRank(1), id1.lexemeRank(-2));
-            identDataTypeE.put(id1.lexemeRank(1), id1.lexemeRank(-3));
         }
         for (Production id2 : identProdD2) {
             if (identDataType == null) {
@@ -18362,19 +18358,38 @@ public class Interfaz extends javax.swing.JFrame {
                     && !identDataType3.get(id.lexemeRank(0)).equals(id.lexicalCompRank(-2))
                     && !identDataType4.get(id.lexemeRank(0)).equals(id.lexicalCompRank(-2))
                     && !identDataType5.get(id.lexemeRank(0)).equals(id.lexicalCompRank(-2))) {
-                errors.add(new ErrorLSSL(56, "----------> ERROR_56:  El valor de la variable declarada no esta permitido, Linea [#] Columna [%]", id, true));
-            }
-            if(id.lexemeRank(0).equals("Entero")){
-                if(Integer.parseInt(id.lexemeRank(-2)) > 100000){
-                    errors.add(new ErrorLSSL(56, "----------> ERROR_56:  El valor de la variable declarada no esta permitido, Linea [#] Columna [%]", id, true));
+                    if(id.lexemeRank(0).equals("Entero")){
+                        if(id.lexicalCompRank(-2).equals("Numero_Decimal")){
+                            errors.add(new ErrorLSSL(56, "----------> ERROR_56:   El valor de la variable declarada no esta permitido, Linea [#] Columna [%]", id, true));
+                        }
+                    }else if(id.lexemeRank(0).equals("Decimal")){
+                        if(id.lexicalCompRank(-2).equals("Numero_Entero")){
+                            errors.add(new ErrorLSSL(56, "----------> ERROR_56:   El valor de la variable declarada no esta permitido, Linea [#] Columna [%]", id, true));
+                        }
+                    }else{
+                        errors.add(new ErrorLSSL(56, "----------> ERROR_56:   El valor de la variable declarada no esta permitido, Linea [#] Columna [%]", id, true));
+                    }
+            }else{
+                if(id.lexemeRank(0).equals("Entero")){
+                    if(Integer.parseInt(id.lexemeRank(-2)) > 100000){
+                        errors.add(new ErrorLSSL(56, "----------> ERROR_56:   El valor de la variable declarada no esta permitido, Linea [#] Columna [%]", id, true));
+                    }else{
+                        identDataTypeV.put(id.lexemeRank(1), id.lexemeRank(-2));
+                        identDataTypeE.put(id.lexemeRank(1), id.lexemeRank(-3));
+                    }
+                }else if(id.lexemeRank(0).equals("Decimal")){
+                    if(Double.parseDouble(id.lexemeRank(-2)) > 99.9999){
+                        errors.add(new ErrorLSSL(56, "----------> ERROR_56:   El valor de la variable declarada no esta permitido, Linea [#] Columna [%]", id, true));
+                    }else{
+                        identDataTypeV.put(id.lexemeRank(1), id.lexemeRank(-2));
+                        identDataTypeE.put(id.lexemeRank(1), id.lexemeRank(-3));
+                    }
+                }else{
+                    identDataTypeV.put(id.lexemeRank(1), id.lexemeRank(-2));
+                    identDataTypeE.put(id.lexemeRank(1), id.lexemeRank(-3));
                 }
             }
-            if(id.lexemeRank(0).equals("Decimal")){
-                if(Double.parseDouble(id.lexemeRank(-2)) > 99.9999){
-                    errors.add(new ErrorLSSL(56, "----------> ERROR_56:  El valor de la variable declarada no esta permitido, Linea [#] Columna [%]", id, true));
-                }
-            }
-        }//Error 56
+        }///Error 56
         //Error 57
         for (Production id : identProdA1){
             if (!identDataType.containsKey(id.lexemeRank(0))) {
@@ -18407,7 +18422,7 @@ public class Interfaz extends javax.swing.JFrame {
             if(identDataType.containsKey(id.lexemeRank(0))){
                 if(identDataType.get(id.lexemeRank(0)).equals("Numero_Entero")){
                     if(Integer.parseInt(id.lexemeRank(-2)) > 100000){
-                        errors.add(new ErrorLSSL(56, "----------> ERROR_56:  El valor de la variable declarada no esta permitido, Linea [#] Columna [%]", id, true));
+                        errors.add(new ErrorLSSL(58,"----------> ERROR_58:   El valor que se le asigna a la variable no esta permitido, Linea [#] Columna [%]",id,true));
                     }
                 }else{
                     identDataTypeV.put(id.lexemeRank(0),id.lexemeRank(-2)); 
@@ -18416,7 +18431,7 @@ public class Interfaz extends javax.swing.JFrame {
                 }
                 if(identDataType.get(id.lexemeRank(0)).equals("Numero_Decimal")){
                     if(Double.parseDouble(id.lexemeRank(-2)) > 99.9999){
-                        errors.add(new ErrorLSSL(56, "----------> ERROR_56:  El valor de la variable declarada no esta permitido, Linea [#] Columna [%]", id, true));
+                        errors.add(new ErrorLSSL(58,"----------> ERROR_58:   El valor que se le asigna a la variable no esta permitido, Linea [#] Columna [%]",id,true));
                     }
                 }else{
                     identDataTypeV.put(id.lexemeRank(0),id.lexemeRank(-2)); 
@@ -18591,9 +18606,9 @@ public class Interfaz extends javax.swing.JFrame {
         for(Production id: identProdF11){
             if(identDataType.containsKey(id.lexemeRank(2)) && identDataType.containsKey(id.lexemeRank(4))){
                 if(identDataType.get(id.lexemeRank(2)).equals("Numero_Entero") && identDataType.get(id.lexemeRank(4)).equals("Numero_Decimal")){
-                    errors.add(new ErrorLSSL(59,"----------> ERROR_59:   Se están empleando variables de tipos de datos distintos para la función, Linea [#] Columna [%]",id,true));
+                    errors.add(new ErrorLSSL(59,"----------> ERROR_59:  Se están empleando variables de tipos de datos distintos para la función, Linea [#] Columna [%]",id,true));
                 }else if(identDataType.get(id.lexemeRank(4)).equals("Numero_Entero") && identDataType.get(id.lexemeRank(2)).equals("Numero_Decimal")){
-                    errors.add(new ErrorLSSL(59,"----------> ERROR_59:   Se están empleando variables de tipos de datos distintos para la función, Linea [#] Columna [%]",id,true));
+                    errors.add(new ErrorLSSL(59,"----------> ERROR_59:  Se están empleando variables de tipos de datos distintos para la función, Linea [#] Columna [%]",id,true));
                 }
             }
         }//2 Variables
@@ -18602,11 +18617,11 @@ public class Interfaz extends javax.swing.JFrame {
             if(identDataType.containsKey(id.lexemeRank(2)) && identDataType.containsKey(id.lexemeRank(4)) && identDataType.containsKey(id.lexemeRank(6))){
                 if(identDataType.get(id.lexemeRank(2)).equals("Numero_Entero")){
                     if(identDataType.get(id.lexemeRank(4)).equals("Numero_Decimal") || identDataType.get(id.lexemeRank(6)).equals("Numero_Decimal")){
-                        errors.add(new ErrorLSSL(59,"----------> ERROR_59:   Se están empleando variables de tipos de datos distintos para la función, Linea [#] Columna [%]",id,true));
+                        errors.add(new ErrorLSSL(59,"----------> ERROR_59:  Se están empleando variables de tipos de datos distintos para la función, Linea [#] Columna [%]",id,true));
                     }
                 }else if(identDataType.get(id.lexemeRank(2)).equals("Numero_Decimal")){
                     if(identDataType.get(id.lexemeRank(4)).equals("Numero_Entero") || identDataType.get(id.lexemeRank(6)).equals("Numero_Entero")){
-                        errors.add(new ErrorLSSL(59,"----------> ERROR_59:   Se están empleando variables de tipos de datos distintos para la función, Linea [#] Columna [%]",id,true));
+                        errors.add(new ErrorLSSL(59,"----------> ERROR_59:  Se están empleando variables de tipos de datos distintos para la función, Linea [#] Columna [%]",id,true));
                     }
                 }
             }
@@ -18616,11 +18631,11 @@ public class Interfaz extends javax.swing.JFrame {
             if(identDataType.containsKey(id.lexemeRank(2)) && identDataType.containsKey(id.lexemeRank(4)) && identDataType.containsKey(id.lexemeRank(6)) && identDataType.containsKey(id.lexemeRank(8))){
                 if(identDataType.get(id.lexemeRank(2)).equals("Numero_Entero")){
                     if(identDataType.get(id.lexemeRank(4)).equals("Numero_Decimal") || identDataType.get(id.lexemeRank(6)).equals("Numero_Decimal") || identDataType.get(id.lexemeRank(8)).equals("Numero_Decimal")){
-                        errors.add(new ErrorLSSL(59,"----------> ERROR_59:   Se están empleando variables de tipos de datos distintos para la función, Linea [#] Columna [%]",id,true));
+                        errors.add(new ErrorLSSL(59,"----------> ERROR_59:  Se están empleando variables de tipos de datos distintos para la función, Linea [#] Columna [%]",id,true));
                     }
                 }else if(identDataType.get(id.lexemeRank(2)).equals("Numero_Decimal")){
                     if(identDataType.get(id.lexemeRank(4)).equals("Numero_Entero") || identDataType.get(id.lexemeRank(6)).equals("Numero_Entero") || identDataType.get(id.lexemeRank(8)).equals("Numero_Entero")){
-                        errors.add(new ErrorLSSL(59,"----------> ERROR_59:   Se están empleando variables de tipos de datos distintos para la función, Linea [#] Columna [%]",id,true));     
+                        errors.add(new ErrorLSSL(59,"----------> ERROR_59:  Se están empleando variables de tipos de datos distintos para la función, Linea [#] Columna [%]",id,true));     
                     }
                 }
             }     
@@ -18630,11 +18645,11 @@ public class Interfaz extends javax.swing.JFrame {
             if(identDataType.containsKey(id.lexemeRank(2)) && identDataType.containsKey(id.lexemeRank(4)) && identDataType.containsKey(id.lexemeRank(6)) && identDataType.containsKey(id.lexemeRank(8)) && identDataType.containsKey(id.lexemeRank(10))){
                 if(identDataType.get(id.lexemeRank(2)).equals("Numero_Entero")){
                     if(identDataType.get(id.lexemeRank(4)).equals("Numero_Decimal") || identDataType.get(id.lexemeRank(6)).equals("Numero_Decimal") || identDataType.get(id.lexemeRank(8)).equals("Numero_Decimal") || identDataType.get(id.lexemeRank(10)).equals("Numero_Decimal")){
-                        errors.add(new ErrorLSSL(59,"----------> ERROR_59:   Se están empleando variables de tipos de datos distintos para la función, Linea [#] Columna [%]",id,true));
+                        errors.add(new ErrorLSSL(59,"----------> ERROR_59:  Se están empleando variables de tipos de datos distintos para la función, Linea [#] Columna [%]",id,true));
                     }
                 }else if(identDataType.get(id.lexemeRank(2)).equals("Numero_Decimal")){
                     if(identDataType.get(id.lexemeRank(4)).equals("Numero_Entero") || identDataType.get(id.lexemeRank(6)).equals("Numero_Entero") || identDataType.get(id.lexemeRank(8)).equals("Numero_Entero") || identDataType.get(id.lexemeRank(10)).equals("Numero_Entero")){
-                        errors.add(new ErrorLSSL(59,"----------> ERROR_59:   Se están empleando variables de tipos de datos distintos para la función, Linea [#] Columna [%]",id,true));     
+                        errors.add(new ErrorLSSL(59,"----------> ERROR_59:  Se están empleando variables de tipos de datos distintos para la función, Linea [#] Columna [%]",id,true));     
                     }
                 }
             } 
