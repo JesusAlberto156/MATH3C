@@ -61,7 +61,12 @@ public class Interfaz extends javax.swing.JFrame {
     private ArrayList<Production> identProdF2;
     private ArrayList<Production> identProdF3;
     private ArrayList<Production> identProdM1;
-    private HashMap<String, String> identificadores;
+    private HashMap<String, String> identDataType;
+    private HashMap<String, String> identDataTypeV;
+    private HashMap<String, String> identDataTypeE;
+    private HashMap<String, String> identDataTypeR;
+    private HashMap<String, String> identDataTypeV2;
+    private HashMap<String, String> identDataTypeV3;
     private boolean codeHasBeenCompiled = false;
     private Directory directorio;
 
@@ -114,7 +119,12 @@ public class Interfaz extends javax.swing.JFrame {
         identProdF2 = new ArrayList<>();
         identProdF3 = new ArrayList<>();
         identProdM1 = new ArrayList<>();
-        identificadores = new HashMap<>();
+        identDataType = new HashMap<>();
+        identDataTypeV = new HashMap<>();
+        identDataTypeE = new HashMap<>();
+        identDataTypeR = new HashMap<>();
+        identDataTypeV2 = new HashMap<>();
+        identDataTypeV3 = new HashMap<>();
         Functions.setAutocompleterJTextComponent(new String[]{"Sumar('VARIABLES')<\n\n\t      'Variable Resultado'\n\n>;",
             "Restar('VARIABLES')<\n\n\t      'Variable Resultado'\n\n>;", "Multiplicar('VARIABLES')<\n\n\t      'Variable Resultado'\n\n>;",
             "Dividir('VARIABLES')<\n\n\t      'Variable Resultado'\n\n>;", "Entero 'Nombre Variable' = 'Valor';", "Entero 'Nombre Variable';",
@@ -144,7 +154,12 @@ public class Interfaz extends javax.swing.JFrame {
         identProdF2.clear();
         identProdF3.clear();
         identProdM1.clear();
-        identificadores.clear();
+        identDataType.clear();
+        identDataTypeV.clear();
+        identDataTypeE.clear();
+        identDataTypeR.clear();
+        identDataTypeV2.clear();
+        identDataTypeV3.clear();
         codeHasBeenCompiled = false;
     }
 
@@ -18283,9 +18298,6 @@ public class Interfaz extends javax.swing.JFrame {
 
     private void semanticAnalysis() {
         //Error 55
-        HashMap<String, String> identDataType = new HashMap<>();
-        HashMap<String, String> identDataTypeV = new HashMap<>();
-        HashMap<String, String> identDataTypeE = new HashMap<>();
         for (Production id1 : identProdD1) {
             if (identDataType == null) {
                 identDataType.put(id1.lexemeRank(1), id1.lexicalCompRank(-2));
@@ -18376,6 +18388,7 @@ public class Interfaz extends javax.swing.JFrame {
                     }else{
                         identDataTypeV.put(id.lexemeRank(1), id.lexemeRank(-2));
                         identDataTypeE.put(id.lexemeRank(1), id.lexemeRank(-3));
+                        
                     }
                 }else if(id.lexemeRank(0).equals("Decimal")){
                     if(Double.parseDouble(id.lexemeRank(-2)) > 99.9999){
@@ -18396,17 +18409,33 @@ public class Interfaz extends javax.swing.JFrame {
                 errors.add(new ErrorLSSL(57, "----------> ERROR_57:  La variable no ha sido declarada, Linea [#] Columna [%]", id, true));
             }
         }//Error 57
-        //Error 58
+        //Error 58 y Error 67
         for(Production id: identProdA1){
             if(identDataType.containsKey(id.lexemeRank(0))){
                 if(!id.lexicalCompRank(-2).equals(identDataType.get(id.lexemeRank(0)))){
                     if(identDataType.get(id.lexemeRank(0)).equals("Figura")){
                         if(!id.lexicalCompRank(-2).equals("Palabra_Reservada_17") && !id.lexicalCompRank(-2).equals("Palabra_Reservada_18") && !id.lexicalCompRank(-2).equals("Palabra_Reservada_19") && !id.lexicalCompRank(-2).equals("Palabra_Reservada_20") && !id.lexicalCompRank(-2).equals("Palabra_Reservada_21")){
                             errors.add(new ErrorLSSL(58,"----------> ERROR_58:   El valor que se le asigna a la variable no esta permitido, Linea [#] Columna [%]",id,true));
+                        }else{
+                            if(identDataTypeV.containsKey(id.lexemeRank(0))){
+                                errors.add(new ErrorLSSL(67, "----------> ERROR_67:  La variable ya tiene un valor asignado, Linea [#] Columna [%]", id, true));
+                            }else{
+                                identDataTypeV.put(id.lexemeRank(0), id.lexemeRank(-2));
+                                identDataTypeE.put(id.lexemeRank(0), id.lexemeRank(-3));
+                                identDataType.put(id.lexemeRank(0),id.lexicalCompRank(-2));
+                            }
                         }
                     }else if(identDataType.get(id.lexemeRank(0)).equals("Color")){
                         if(!id.lexicalCompRank(-2).equals("Palabra_Reservada_12") && !id.lexicalCompRank(-2).equals("Palabra_Reservada_13") && !id.lexicalCompRank(-2).equals("Palabra_Reservada_14") && !id.lexicalCompRank(-2).equals("Palabra_Reservada_15") && !id.lexicalCompRank(-2).equals("Palabra_Reservada_16")){
                             errors.add(new ErrorLSSL(58,"----------> ERROR_58:   El valor que se le asigna a la variable no esta permitido, Linea [#] Columna [%]",id,true));
+                        }else{
+                            if(identDataTypeV.containsKey(id.lexemeRank(0))){
+                                errors.add(new ErrorLSSL(67, "----------> ERROR_67:  La variable ya tiene un valor asignado, Linea [#] Columna [%]", id, true));
+                            }else{
+                                identDataTypeV.put(id.lexemeRank(0), id.lexemeRank(-2));
+                                identDataTypeE.put(id.lexemeRank(0), id.lexemeRank(-3));
+                                identDataType.put(id.lexemeRank(0),id.lexicalCompRank(-2));
+                            }
                         }
                     }else if(identDataType.get(id.lexemeRank(0)).equals("Numero_Entero")){
                         if(id.lexicalCompRank(-2).equals("Numero_Decimal")){
@@ -18425,27 +18454,39 @@ public class Interfaz extends javax.swing.JFrame {
                         if(Integer.parseInt(id.lexemeRank(-2)) > 100000){
                             errors.add(new ErrorLSSL(58,"----------> ERROR_58:   El valor que se le asigna a la variable no esta permitido, Linea [#] Columna [%]",id,true));
                         }else{
-                            identDataTypeV.put(id.lexemeRank(0), id.lexemeRank(-2));
-                            identDataTypeE.put(id.lexemeRank(0), id.lexemeRank(-3));
-                            identDataType.put(id.lexemeRank(0),id.lexicalCompRank(-2));
+                            if(identDataTypeV.containsKey(id.lexemeRank(0))){
+                                errors.add(new ErrorLSSL(67, "----------> ERROR_67:  La variable ya tiene un valor asignado, Linea [#] Columna [%]", id, true));
+                            }else{
+                                identDataTypeV.put(id.lexemeRank(0), id.lexemeRank(-2));
+                                identDataTypeE.put(id.lexemeRank(0), id.lexemeRank(-3));
+                                identDataType.put(id.lexemeRank(0),id.lexicalCompRank(-2));
+                            }
                         }
                     }else if(identDataType.get(id.lexemeRank(0)).equals("Numero_Decimal")){
                         if(Double.parseDouble(id.lexemeRank(-2)) > 99.9999){
                             errors.add(new ErrorLSSL(58,"----------> ERROR_58:   El valor que se le asigna a la variable no esta permitido, Linea [#] Columna [%]",id,true));
                         }else{
-                            identDataTypeV.put(id.lexemeRank(0), id.lexemeRank(-2));
-                            identDataTypeE.put(id.lexemeRank(0), id.lexemeRank(-3));
-                            identDataType.put(id.lexemeRank(0),id.lexicalCompRank(-2));
+                            if(identDataTypeV.containsKey(id.lexemeRank(0))){
+                                errors.add(new ErrorLSSL(67, "----------> ERROR_67:  La variable ya tiene un valor asignado, Linea [#] Columna [%]", id, true));
+                            }else{
+                                identDataTypeV.put(id.lexemeRank(0), id.lexemeRank(-2));
+                                identDataTypeE.put(id.lexemeRank(0), id.lexemeRank(-3));
+                                identDataType.put(id.lexemeRank(0),id.lexicalCompRank(-2));
+                            }
                         }
                     }else{
-                        identDataTypeV.put(id.lexemeRank(0),id.lexemeRank(-2)); 
-                        identDataTypeE.put(id.lexemeRank(0),id.lexemeRank(-3));
-                        identDataType.put(id.lexemeRank(0),id.lexicalCompRank(-2));
-                    }
+                        if(identDataTypeV.containsKey(id.lexemeRank(0))){
+                            errors.add(new ErrorLSSL(67, "----------> ERROR_67:  La variable ya tiene un valor asignado, Linea [#] Columna [%]", id, true));
+                        }else{
+                            identDataTypeV.put(id.lexemeRank(0),id.lexemeRank(-2)); 
+                            identDataTypeE.put(id.lexemeRank(0),id.lexemeRank(-3));
+                            identDataType.put(id.lexemeRank(0),id.lexicalCompRank(-2));
+                        }
+                    }   
                 }
             }
         }
-        //Error 58
+        //Error 58 y Error 67
         //Error 64 y Error 65 (Primera Parte)
         //Funciones de Sumar, Restar, Multiplicar y Dividir
         //2 Variables
@@ -18535,77 +18576,6 @@ public class Interfaz extends javax.swing.JFrame {
             }
         }//5 Variables
         //Funciones de Sumar, Restar, Multiplicar y Dividir
-        //Funciones de Mostrar (Entero)
-        for(Production id: identProdF3){
-            if(identDataType.containsKey(id.lexemeRank(2)) && identDataType.containsKey(id.lexemeRank(4)) && identDataType.containsKey(id.lexemeRank(6)) && identDataType.containsKey(id.lexemeRank(8))){
-                int i = 0;
-                if(!identDataType.get(id.lexemeRank(2)).equals("Identificador_Cadena")){
-                    i++;
-                }
-                if(!identDataType.get(id.lexemeRank(4)).equals("Resultado")){
-                    i++;
-                }
-                if(!identDataType.get(id.lexemeRank(6)).equals("Palabra_Reservada_17") && !identDataType.get(id.lexemeRank(6)).equals("Palabra_Reservada_18") && !identDataType.get(id.lexemeRank(6)).equals("Palabra_Reservada_19") && !identDataType.get(id.lexemeRank(6)).equals("Palabra_Reservada_20") && !identDataType.get(id.lexemeRank(6)).equals("Palabra_Reservada_21")){
-                    i++;
-                }
-                if(!identDataType.get(id.lexemeRank(8)).equals("Palabra_Reservada_12") && !identDataType.get(id.lexemeRank(8)).equals("Palabra_Reservada_13") && !identDataType.get(id.lexemeRank(8)).equals("Palabra_Reservada_14") && !identDataType.get(id.lexemeRank(8)).equals("Palabra_Reservada_15") && !identDataType.get(id.lexemeRank(8)).equals("Palabra_Reservada_16")){
-                    i++;
-                }
-                if(i == 1){
-                    errors.add(new ErrorLSSL(64, "----------> ERROR_64:  El valor de una variable empleada en la función no está permitido, Linea [#] Columna [%]", id, true));
-                }else if(i > 1){
-                    errors.add(new ErrorLSSL(65, "----------> ERROR_65:  El valor de varias variables empleadas en la función no están permitidos, Linea [#] Columna [%]", id, true));
-                }
-            }
-        }//Funciones de Mostrar (Entero)
-        //Funciones de Mostrar (Decimal)
-        for(Production id: identProdF2){
-            if(identDataType.containsKey(id.lexemeRank(2)) && identDataType.containsKey(id.lexemeRank(4)) && identDataType.containsKey(id.lexemeRank(6)) && identDataType.containsKey(id.lexemeRank(8)) && identDataType.containsKey(id.lexemeRank(10)) && identDataType.containsKey(id.lexemeRank(12)) && identDataType.containsKey(id.lexemeRank(14)) && identDataType.containsKey(id.lexemeRank(16)) && identDataType.containsKey(id.lexemeRank(18)) && identDataType.containsKey(id.lexemeRank(20)) && identDataType.containsKey(id.lexemeRank(22)) && identDataType.containsKey(id.lexemeRank(24))){
-                int i = 0;
-                if(!identDataType.get(id.lexemeRank(2)).equals("Identificador_Cadena")){
-                    i++;
-                }
-                if(!identDataType.get(id.lexemeRank(4)).equals("Resultado")){
-                    i++;
-                }
-                if(!identDataType.get(id.lexemeRank(6)).equals("Palabra_Reservada_17") && !identDataType.get(id.lexemeRank(6)).equals("Palabra_Reservada_18") && !identDataType.get(id.lexemeRank(6)).equals("Palabra_Reservada_19") && !identDataType.get(id.lexemeRank(6)).equals("Palabra_Reservada_20") && !identDataType.get(id.lexemeRank(6)).equals("Palabra_Reservada_21")){
-                    i++;
-                }
-                if(!identDataType.get(id.lexemeRank(8)).equals("Palabra_Reservada_12") && !identDataType.get(id.lexemeRank(8)).equals("Palabra_Reservada_13") && !identDataType.get(id.lexemeRank(8)).equals("Palabra_Reservada_14") && !identDataType.get(id.lexemeRank(8)).equals("Palabra_Reservada_15") && !identDataType.get(id.lexemeRank(8)).equals("Palabra_Reservada_16")){
-                    i++;
-                }
-                if(!identDataType.get(id.lexemeRank(10)).equals("Palabra_Reservada_17") && !identDataType.get(id.lexemeRank(10)).equals("Palabra_Reservada_18") && !identDataType.get(id.lexemeRank(10)).equals("Palabra_Reservada_19") && !identDataType.get(id.lexemeRank(10)).equals("Palabra_Reservada_20") && !identDataType.get(id.lexemeRank(10)).equals("Palabra_Reservada_21")){
-                    i++;
-                }
-                if(!identDataType.get(id.lexemeRank(12)).equals("Palabra_Reservada_12") && !identDataType.get(id.lexemeRank(12)).equals("Palabra_Reservada_13") && !identDataType.get(id.lexemeRank(12)).equals("Palabra_Reservada_14") && !identDataType.get(id.lexemeRank(12)).equals("Palabra_Reservada_15") && !identDataType.get(id.lexemeRank(12)).equals("Palabra_Reservada_16")){
-                    i++;
-                }
-                if(!identDataType.get(id.lexemeRank(14)).equals("Palabra_Reservada_17") && !identDataType.get(id.lexemeRank(14)).equals("Palabra_Reservada_18") && !identDataType.get(id.lexemeRank(14)).equals("Palabra_Reservada_19") && !identDataType.get(id.lexemeRank(14)).equals("Palabra_Reservada_20") && !identDataType.get(id.lexemeRank(14)).equals("Palabra_Reservada_21")){
-                    i++;
-                }
-                if(!identDataType.get(id.lexemeRank(16)).equals("Palabra_Reservada_12") && !identDataType.get(id.lexemeRank(16)).equals("Palabra_Reservada_13") && !identDataType.get(id.lexemeRank(16)).equals("Palabra_Reservada_14") && !identDataType.get(id.lexemeRank(16)).equals("Palabra_Reservada_15") && !identDataType.get(id.lexemeRank(16)).equals("Palabra_Reservada_16")){
-                    i++;
-                }
-                if(!identDataType.get(id.lexemeRank(18)).equals("Palabra_Reservada_17") && !identDataType.get(id.lexemeRank(18)).equals("Palabra_Reservada_18") && !identDataType.get(id.lexemeRank(18)).equals("Palabra_Reservada_19") && !identDataType.get(id.lexemeRank(18)).equals("Palabra_Reservada_20") && !identDataType.get(id.lexemeRank(18)).equals("Palabra_Reservada_21")){
-                    i++;
-                }
-                if(!identDataType.get(id.lexemeRank(20)).equals("Palabra_Reservada_12") && !identDataType.get(id.lexemeRank(20)).equals("Palabra_Reservada_13") && !identDataType.get(id.lexemeRank(20)).equals("Palabra_Reservada_14") && !identDataType.get(id.lexemeRank(20)).equals("Palabra_Reservada_15") && !identDataType.get(id.lexemeRank(20)).equals("Palabra_Reservada_16")){
-                    i++;
-                }
-                if(!identDataType.get(id.lexemeRank(22)).equals("Palabra_Reservada_17") && !identDataType.get(id.lexemeRank(22)).equals("Palabra_Reservada_18") && !identDataType.get(id.lexemeRank(22)).equals("Palabra_Reservada_19") && !identDataType.get(id.lexemeRank(22)).equals("Palabra_Reservada_20") && !identDataType.get(id.lexemeRank(22)).equals("Palabra_Reservada_21")){
-                    i++;
-                }
-                if(!identDataType.get(id.lexemeRank(24)).equals("Palabra_Reservada_12") && !identDataType.get(id.lexemeRank(24)).equals("Palabra_Reservada_13") && !identDataType.get(id.lexemeRank(24)).equals("Palabra_Reservada_14") && !identDataType.get(id.lexemeRank(24)).equals("Palabra_Reservada_15") && !identDataType.get(id.lexemeRank(24)).equals("Palabra_Reservada_16")){
-                    i++;
-                }
-                if(i == 1){
-                    errors.add(new ErrorLSSL(64, "----------> ERROR_64:  El valor de una variable empleada en la función no está permitido, Linea [#] Columna [%]", id, true));
-                }else if(i > 1){
-                    errors.add(new ErrorLSSL(65, "----------> ERROR_65:  El valor de varias variables empleadas en la función no están permitidos, Linea [#] Columna [%]", id, true));
-                }
-            }
-        }
-        //Funciones de Mostrar (Decimal)
         //Error 64 y Error 65 (Primera Parte)
         //Error 59
         //2 Variables
@@ -18905,10 +18875,8 @@ public class Interfaz extends javax.swing.JFrame {
         }//5 Variables
         //Funciones de Sumar, Restar, Multiplicar y Dividir
         //Error 62 y Error 63 (Primera Parte)
-        //Error 66
+        //Error 66 y Error 67
         //Funciones de Sumar, Restar, Multiplicar y Dividir
-        HashMap<String, String> identDataTypeR = new HashMap<>();
-        HashMap<String, String> identDataTypeV2 = new HashMap<>();
         //2 Variables/
         for(Production id: identProdF11){
             if(identDataTypeV.containsKey(id.lexemeRank(2)) && identDataTypeV.containsKey(id.lexemeRank(4)) && identDataTypeE.containsKey(id.lexemeRank(2)) && identDataTypeE.containsKey(id.lexemeRank(4))){
@@ -18935,7 +18903,12 @@ public class Interfaz extends javax.swing.JFrame {
                         if(res > 200000 || res < -200000){
                             errors.add(new ErrorLSSL(66, "----------> ERROR_66:  El valor del resultado de la operación realizada en la función no está en el rango permitido, Linea [#] Columna [%]", id, true));
                         }else{
-                            identDataTypeR.put(id.lexemeRank(7),Integer.toString(res));
+                            if(identDataTypeR.containsKey(id.lexemeRank(7))){
+                                errors.add(new ErrorLSSL(67, "----------> ERROR_67:  La variable ya tiene un valor asignado, Linea [#] Columna [%]", id, true));
+                            }else{
+                                identDataTypeR.put(id.lexemeRank(7),Integer.toString(res));
+                                identDataType.put(id.lexemeRank(7),"Numero_Entero");
+                            }
                         }
                     }else{
                         double val1 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(2)));
@@ -18953,7 +18926,12 @@ public class Interfaz extends javax.swing.JFrame {
                         if(res > 199.9999 || res < -199.9999){
                             errors.add(new ErrorLSSL(66, "----------> ERROR_66:  El valor del resultado de la operación realizada en la función no está en el rango permitido, Linea [#] Columna [%]", id, true));
                         }else{
-                            identDataTypeR.put(id.lexemeRank(7),Double.toString(res));
+                            if(identDataTypeR.containsKey(id.lexemeRank(7))){
+                                errors.add(new ErrorLSSL(67, "----------> ERROR_67:  La variable ya tiene un valor asignado, Linea [#] Columna [%]", id, true));
+                            }else{
+                                identDataTypeR.put(id.lexemeRank(7),Double.toString(res));
+                                identDataType.put(id.lexemeRank(7),"Numero_Decimal");
+                            }
                         }
                     }
                 }
@@ -18987,7 +18965,12 @@ public class Interfaz extends javax.swing.JFrame {
                         if(res > 200000 || res < -200000){
                             errors.add(new ErrorLSSL(66, "----------> ERROR_66:  El valor del resultado de la operación realizada en la función no está en el rango permitido, Linea [#] Columna [%]", id, true));
                         }else{
-                            identDataTypeR.put(id.lexemeRank(9),Integer.toString(res));
+                            if(identDataTypeR.containsKey(id.lexemeRank(9))){
+                                errors.add(new ErrorLSSL(67, "----------> ERROR_67:  La variable ya tiene un valor asignado, Linea [#] Columna [%]", id, true));
+                            }else{
+                                identDataTypeR.put(id.lexemeRank(9),Integer.toString(res));
+                                identDataType.put(id.lexemeRank(9),"Numero_Entero");
+                            }
                         }
                     }else{
                         double val1 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(2)));
@@ -19006,7 +18989,12 @@ public class Interfaz extends javax.swing.JFrame {
                         if(res > 199.9999 || res < -199.9999){
                             errors.add(new ErrorLSSL(66, "----------> ERROR_66:  El valor del resultado de la operación realizada en la función no está en el rango permitido, Linea [#] Columna [%]", id, true));
                         }else{
-                            identDataTypeR.put(id.lexemeRank(9),Double.toString(res));
+                            if(identDataTypeR.containsKey(id.lexemeRank(9))){
+                                errors.add(new ErrorLSSL(67, "----------> ERROR_67:  La variable ya tiene un valor asignado, Linea [#] Columna [%]", id, true));
+                            }else{
+                                identDataTypeR.put(id.lexemeRank(9),Double.toString(res));
+                                identDataType.put(id.lexemeRank(9),"Numero_Decimal");
+                            }
                         }
                     }
                 }
@@ -19042,7 +19030,12 @@ public class Interfaz extends javax.swing.JFrame {
                         if(res > 200000 || res < -200000){
                             errors.add(new ErrorLSSL(66, "----------> ERROR_66:  El valor del resultado de la operación realizada en la función no está en el rango permitido, Linea [#] Columna [%]", id, true));
                         }else{
-                            identDataTypeR.put(id.lexemeRank(11),Integer.toString(res));
+                            if(identDataTypeR.containsKey(id.lexemeRank(11))){
+                                errors.add(new ErrorLSSL(67, "----------> ERROR_67:  La variable ya tiene un valor asignado, Linea [#] Columna [%]", id, true));
+                            }else{
+                                identDataTypeR.put(id.lexemeRank(11),Integer.toString(res));
+                                identDataType.put(id.lexemeRank(11),"Numero_Entero");
+                            }
                         }
                     }else{
                         double val1 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(2)));
@@ -19062,7 +19055,12 @@ public class Interfaz extends javax.swing.JFrame {
                         if(res > 199.9999 || res < -199.9999){
                             errors.add(new ErrorLSSL(66, "----------> ERROR_66:  El valor del resultado de la operación realizada en la función no está en el rango permitido, Linea [#] Columna [%]", id, true));
                         }else{
-                           identDataTypeR.put(id.lexemeRank(11),Double.toString(res));     
+                            if(identDataTypeR.containsKey(id.lexemeRank(11))){
+                                errors.add(new ErrorLSSL(67, "----------> ERROR_67:  La variable ya tiene un valor asignado, Linea [#] Columna [%]", id, true));
+                            }else{
+                                identDataTypeR.put(id.lexemeRank(11),Double.toString(res));
+                                identDataType.put(id.lexemeRank(11),"Numero_Decimal");
+                            }
                         }
                     }
                 }
@@ -19100,7 +19098,12 @@ public class Interfaz extends javax.swing.JFrame {
                         if(res > 200000 || res < -200000){
                             errors.add(new ErrorLSSL(66, "----------> ERROR_66:  El valor del resultado de la operación realizada en la función no está en el rango permitido, Linea [#] Columna [%]", id, true));
                         }else{
-                            identDataTypeR.put(id.lexemeRank(13),Integer.toString(res));
+                            if(identDataTypeR.containsKey(id.lexemeRank(13))){
+                                errors.add(new ErrorLSSL(67, "----------> ERROR_67:  La variable ya tiene un valor asignado, Linea [#] Columna [%]", id, true));
+                            }else{
+                                identDataTypeR.put(id.lexemeRank(13),Integer.toString(res));
+                                identDataType.put(id.lexemeRank(13),"Numero_Entero");
+                            }
                         }
                     }else{
                         double val1 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(2)));
@@ -19121,14 +19124,19 @@ public class Interfaz extends javax.swing.JFrame {
                         if(res > 199.9999 || res < -199.9999){
                             errors.add(new ErrorLSSL(66, "----------> ERROR_66:  El valor del resultado de la operación realizada en la función no está en el rango permitido, Linea [#] Columna [%]", id, true));
                         }else{
-                            identDataTypeR.put(id.lexemeRank(13),Double.toString(res));
+                            if(identDataTypeR.containsKey(id.lexemeRank(13))){
+                                errors.add(new ErrorLSSL(67, "----------> ERROR_67:  La variable ya tiene un valor asignado, Linea [#] Columna [%]", id, true));
+                            }else{
+                                identDataTypeR.put(id.lexemeRank(13),Double.toString(res));
+                                identDataType.put(id.lexemeRank(13),"Numero_Decimal");
+                            }
                         }
                     }
                 }
             }    
         }//5 Variables
         //Funciones de Sumar, Restar, Multiplicar y Dividir
-        //Error 66
+        //Error 66 y Error 67
         //Error 62 y Error 63 (Segunda Parte)
         //Funcion de mostrar (Entero)
         for(Production id: identProdF3){
@@ -19197,13 +19205,87 @@ public class Interfaz extends javax.swing.JFrame {
             }
         }//Funcion de mostrar (Decimal)
         //Error 62 y Error 63 (Segunda Parte)
+        //Error 64 y Error 65 (Segunda Parte)
+        //Funciones de Mostrar (Entero)
+        for(Production id: identProdF3){
+            if(identDataType.containsKey(id.lexemeRank(2)) && identDataType.containsKey(id.lexemeRank(4)) && identDataType.containsKey(id.lexemeRank(6)) && identDataType.containsKey(id.lexemeRank(8))){
+                int i = 0;
+                if(!identDataType.get(id.lexemeRank(2)).equals("Identificador_Cadena")){
+                    i++;
+                }
+                if(!identDataType.get(id.lexemeRank(4)).equals("Numero_Entero")){
+                    i++;
+                }
+                if(!identDataType.get(id.lexemeRank(6)).equals("Palabra_Reservada_17") && !identDataType.get(id.lexemeRank(6)).equals("Palabra_Reservada_18") && !identDataType.get(id.lexemeRank(6)).equals("Palabra_Reservada_19") && !identDataType.get(id.lexemeRank(6)).equals("Palabra_Reservada_20") && !identDataType.get(id.lexemeRank(6)).equals("Palabra_Reservada_21")){
+                    i++;
+                }
+                if(!identDataType.get(id.lexemeRank(8)).equals("Palabra_Reservada_12") && !identDataType.get(id.lexemeRank(8)).equals("Palabra_Reservada_13") && !identDataType.get(id.lexemeRank(8)).equals("Palabra_Reservada_14") && !identDataType.get(id.lexemeRank(8)).equals("Palabra_Reservada_15") && !identDataType.get(id.lexemeRank(8)).equals("Palabra_Reservada_16")){
+                    i++;
+                }
+                if(i == 1){
+                    errors.add(new ErrorLSSL(64, "----------> ERROR_64:  El valor de una variable empleada en la función no está permitido, Linea [#] Columna [%]", id, true));
+                }else if(i > 1){
+                    errors.add(new ErrorLSSL(65, "----------> ERROR_65:  El valor de varias variables empleadas en la función no están permitidos, Linea [#] Columna [%]", id, true));
+                }
+            }
+        }//Funciones de Mostrar (Entero)
+        System.out.println(identDataType);
+        //Funciones de Mostrar (Decimal)
+        for(Production id: identProdF2){
+            if(identDataType.containsKey(id.lexemeRank(2)) && identDataType.containsKey(id.lexemeRank(4)) && identDataType.containsKey(id.lexemeRank(6)) && identDataType.containsKey(id.lexemeRank(8)) && identDataType.containsKey(id.lexemeRank(10)) && identDataType.containsKey(id.lexemeRank(12)) && identDataType.containsKey(id.lexemeRank(14)) && identDataType.containsKey(id.lexemeRank(16)) && identDataType.containsKey(id.lexemeRank(18)) && identDataType.containsKey(id.lexemeRank(20)) && identDataType.containsKey(id.lexemeRank(22)) && identDataType.containsKey(id.lexemeRank(24))){
+                int i = 0;
+                if(!identDataType.get(id.lexemeRank(2)).equals("Identificador_Cadena")){
+                    i++;
+                }
+                if(!identDataType.get(id.lexemeRank(4)).equals("Numero_Decimal")){
+                    i++;
+                }
+                if(!identDataType.get(id.lexemeRank(6)).equals("Palabra_Reservada_17") && !identDataType.get(id.lexemeRank(6)).equals("Palabra_Reservada_18") && !identDataType.get(id.lexemeRank(6)).equals("Palabra_Reservada_19") && !identDataType.get(id.lexemeRank(6)).equals("Palabra_Reservada_20") && !identDataType.get(id.lexemeRank(6)).equals("Palabra_Reservada_21")){
+                    i++;
+                }
+                if(!identDataType.get(id.lexemeRank(8)).equals("Palabra_Reservada_12") && !identDataType.get(id.lexemeRank(8)).equals("Palabra_Reservada_13") && !identDataType.get(id.lexemeRank(8)).equals("Palabra_Reservada_14") && !identDataType.get(id.lexemeRank(8)).equals("Palabra_Reservada_15") && !identDataType.get(id.lexemeRank(8)).equals("Palabra_Reservada_16")){
+                    i++;
+                }
+                if(!identDataType.get(id.lexemeRank(10)).equals("Palabra_Reservada_17") && !identDataType.get(id.lexemeRank(10)).equals("Palabra_Reservada_18") && !identDataType.get(id.lexemeRank(10)).equals("Palabra_Reservada_19") && !identDataType.get(id.lexemeRank(10)).equals("Palabra_Reservada_20") && !identDataType.get(id.lexemeRank(10)).equals("Palabra_Reservada_21")){
+                    i++;
+                }
+                if(!identDataType.get(id.lexemeRank(12)).equals("Palabra_Reservada_12") && !identDataType.get(id.lexemeRank(12)).equals("Palabra_Reservada_13") && !identDataType.get(id.lexemeRank(12)).equals("Palabra_Reservada_14") && !identDataType.get(id.lexemeRank(12)).equals("Palabra_Reservada_15") && !identDataType.get(id.lexemeRank(12)).equals("Palabra_Reservada_16")){
+                    i++;
+                }
+                if(!identDataType.get(id.lexemeRank(14)).equals("Palabra_Reservada_17") && !identDataType.get(id.lexemeRank(14)).equals("Palabra_Reservada_18") && !identDataType.get(id.lexemeRank(14)).equals("Palabra_Reservada_19") && !identDataType.get(id.lexemeRank(14)).equals("Palabra_Reservada_20") && !identDataType.get(id.lexemeRank(14)).equals("Palabra_Reservada_21")){
+                    i++;
+                }
+                if(!identDataType.get(id.lexemeRank(16)).equals("Palabra_Reservada_12") && !identDataType.get(id.lexemeRank(16)).equals("Palabra_Reservada_13") && !identDataType.get(id.lexemeRank(16)).equals("Palabra_Reservada_14") && !identDataType.get(id.lexemeRank(16)).equals("Palabra_Reservada_15") && !identDataType.get(id.lexemeRank(16)).equals("Palabra_Reservada_16")){
+                    i++;
+                }
+                if(!identDataType.get(id.lexemeRank(18)).equals("Palabra_Reservada_17") && !identDataType.get(id.lexemeRank(18)).equals("Palabra_Reservada_18") && !identDataType.get(id.lexemeRank(18)).equals("Palabra_Reservada_19") && !identDataType.get(id.lexemeRank(18)).equals("Palabra_Reservada_20") && !identDataType.get(id.lexemeRank(18)).equals("Palabra_Reservada_21")){
+                    i++;
+                }
+                if(!identDataType.get(id.lexemeRank(20)).equals("Palabra_Reservada_12") && !identDataType.get(id.lexemeRank(20)).equals("Palabra_Reservada_13") && !identDataType.get(id.lexemeRank(20)).equals("Palabra_Reservada_14") && !identDataType.get(id.lexemeRank(20)).equals("Palabra_Reservada_15") && !identDataType.get(id.lexemeRank(20)).equals("Palabra_Reservada_16")){
+                    i++;
+                }
+                if(!identDataType.get(id.lexemeRank(22)).equals("Palabra_Reservada_17") && !identDataType.get(id.lexemeRank(22)).equals("Palabra_Reservada_18") && !identDataType.get(id.lexemeRank(22)).equals("Palabra_Reservada_19") && !identDataType.get(id.lexemeRank(22)).equals("Palabra_Reservada_20") && !identDataType.get(id.lexemeRank(22)).equals("Palabra_Reservada_21")){
+                    i++;
+                }
+                if(!identDataType.get(id.lexemeRank(24)).equals("Palabra_Reservada_12") && !identDataType.get(id.lexemeRank(24)).equals("Palabra_Reservada_13") && !identDataType.get(id.lexemeRank(24)).equals("Palabra_Reservada_14") && !identDataType.get(id.lexemeRank(24)).equals("Palabra_Reservada_15") && !identDataType.get(id.lexemeRank(24)).equals("Palabra_Reservada_16")){
+                    i++;
+                }
+                if(i == 1){
+                    errors.add(new ErrorLSSL(64, "----------> ERROR_64:  El valor de una variable empleada en la función no está permitido, Linea [#] Columna [%]", id, true));
+                }else if(i > 1){
+                    errors.add(new ErrorLSSL(65, "----------> ERROR_65:  El valor de varias variables empleadas en la función no están permitidos, Linea [#] Columna [%]", id, true));
+                }
+            }
+        }
+        //Funciones de Mostrar (Decimal)
+        //Error 64 y Error 65 (Segunda Parte)
         //Error 67
         for (Production id1 : identProdM1) {
             for (Production id2 : identProdM1) {
                 if (id1.getLine() < id2.getLine()) {
 
                 } else if (id1.lexemeRank(1).equals(id2.lexemeRank(1)) && id1.getLine() != id2.getLine()) {
-                    errors.add(new ErrorLSSL(67, "----------> ERROR_67:  La clase ya existe, Linea [#] Columna [%]", id1, true));
+                    errors.add(new ErrorLSSL(68, "----------> ERROR_68:  La clase ya existe, Linea [#] Columna [%]", id1, true));
                 }
             }
         }//Error 67
@@ -19227,7 +19309,7 @@ public class Interfaz extends javax.swing.JFrame {
             }
             PanelSalida.setText("Compilación terminada...\n\n\t" + strErrors + "\n\nLa compilación terminó con errores...");
         } else {
-            PanelSalida.setText("Compilación terminada...\n\nLa compilacion termino sin errores...");
+            PanelSalida.setText("Compilación terminada...\n\nLa compilacion termino sin errores...\n\n");
         }
         PanelSalida.setCaretPosition(0);
     }
@@ -19250,7 +19332,8 @@ public class Interfaz extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        btnCompilar = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         PanelFuente = new javax.swing.JTextPane();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -19272,12 +19355,11 @@ public class Interfaz extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
-        jMenuItem9 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
-        jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem8 = new javax.swing.JMenuItem();
+        jMenuItem7 = new javax.swing.JMenuItem();
 
         jMenu2.setText("jMenu2");
 
@@ -19336,15 +19418,26 @@ public class Interfaz extends javax.swing.JFrame {
         });
         jToolBar1.add(jButton4);
 
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/compilar-select.png"))); // NOI18N
-        jButton6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton6.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        btnCompilar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/compilar-select.png"))); // NOI18N
+        btnCompilar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnCompilar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnCompilar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                btnCompilarActionPerformed(evt);
             }
         });
-        jToolBar1.add(jButton6);
+        jToolBar1.add(btnCompilar);
+
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/Ejecutar_Select.jpg"))); // NOI18N
+        jButton5.setFocusable(false);
+        jButton5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton5.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jButton5);
 
         jScrollPane1.setViewportView(PanelFuente);
 
@@ -19478,23 +19571,20 @@ public class Interfaz extends javax.swing.JFrame {
 
         jMenu6.setText("Funcionamiento");
 
-        jMenuItem9.setText("Color");
-        jMenu6.add(jMenuItem9);
-
-        jMenuItem4.setText("Sumar");
+        jMenuItem4.setText("Declaraciones");
         jMenu6.add(jMenuItem4);
 
-        jMenuItem5.setText("Restar");
+        jMenuItem5.setText("Asignaciones");
         jMenu6.add(jMenuItem5);
 
-        jMenuItem6.setText("Dividir");
+        jMenuItem6.setText("Funciones <Primera parte>");
         jMenu6.add(jMenuItem6);
 
-        jMenuItem7.setText("Multiplicar");
-        jMenu6.add(jMenuItem7);
-
-        jMenuItem8.setText("Mostrar");
+        jMenuItem8.setText("Funciones <Segunda parte>");
         jMenu6.add(jMenuItem8);
+
+        jMenuItem7.setText("Clases");
+        jMenu6.add(jMenuItem7);
 
         jMenuBar1.add(jMenu6);
 
@@ -19552,7 +19642,7 @@ public class Interfaz extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void btnCompilarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompilarActionPerformed
         if (getTitle().contains("*") || getTitle().equals(title)) {
             if (directorio.Save()) {
                 compilar();
@@ -19560,7 +19650,7 @@ public class Interfaz extends javax.swing.JFrame {
         } else {
             compilar();
         }
-    }//GEN-LAST:event_jButton6ActionPerformed
+    }//GEN-LAST:event_btnCompilarActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         directorio.New();
@@ -19579,6 +19669,201 @@ public class Interfaz extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        btnCompilar.doClick();
+        if(codeHasBeenCompiled){
+            if(!errors.isEmpty()){
+                JOptionPane.showMessageDialog(this, "No se puede ejecutar el código ya que se encontró uno o más errores");
+            }else{
+                CodeBlock codeBlock = Functions.splitCodeInCodeBlocks(tokens, "{", "}", ";");
+                ArrayList<String> blocksOfCode = codeBlock.getBlocksOfCodeInOrderOfExec();
+                executeCode(blocksOfCode,1);
+            }
+        }
+    }//GEN-LAST:event_jButton5ActionPerformed
+    
+    private void executeCode(ArrayList<String> blocksOfCode,int repeats){
+        for(int j = 1;j <= repeats; j++){
+            int repeatCode = -1;
+            for(int i = 0; i < blocksOfCode.size(); i++){
+                String blockOfCode = blocksOfCode.get(i);
+                if(repeatCode != -1){
+                    int[] posicionMarcador = CodeBlock.getPositionOfBothMarkers(blocksOfCode, blockOfCode);
+                    executeCode(new ArrayList<>(blocksOfCode.subList(posicionMarcador[0], posicionMarcador[1])),repeatCode);
+                    repeatCode = -1;
+                    i = posicionMarcador[1];
+                }else{
+                    String[] sentences = blockOfCode.split(";");
+                    for(String sentence: sentences){
+                        sentence = sentence.trim();
+                        for(Production id: identProdM1){
+                            if(sentence.startsWith(id.lexemeRank(0))){
+                                PanelSalida.append("-->   Se ha creado una Clase llamada " + id.lexemeRank(1) + ".........\n");
+                            }
+                        }
+                        if(sentence.startsWith("Entero")){
+                            if(sentence.contains("=")){
+                                String variable = "";
+                                String valor = "";
+                                for(Production id: identProdD1){
+                                    if(sentence.contains(id.lexemeRank(1))){
+                                        variable = id.lexemeRank(1);
+                                        valor = id.lexemeRank(-3)+id.lexemeRank(-2);
+                                    }
+                                }
+                                PanelSalida.append("-->   Se ha declarado una variable de tipo Entero llamada " + variable + " con valor " + valor + ".........\n");
+                            }else{
+                                String variable = sentence.substring(7,sentence.length());
+                                PanelSalida.append("-->   Se ha declarado una variable de tipo Entero llamada " + variable + ".........\n");
+                            }
+                        }
+                        if(sentence.startsWith("Decimal")){
+                            if(sentence.contains("=")){
+                                String variable = "";
+                                String valor = "";
+                                for(Production id: identProdD1){
+                                    if(sentence.contains(id.lexemeRank(1))){
+                                        variable = id.lexemeRank(1);
+                                        valor = id.lexemeRank(-3)+id.lexemeRank(-2);
+                                    }
+                                }
+                                PanelSalida.append("-->   Se ha declarado una variable de tipo Decimal llamada " + variable + " con valor " + valor + ".........\n");
+                            }else{
+                                String variable = sentence.substring(8,sentence.length());
+                                PanelSalida.append("-->   Se ha declarado una variable de tipo Decimal llamada " + variable + ".........\n");
+                            }
+                        }
+                        if(sentence.startsWith("Cadena")){
+                            if(sentence.contains("=")){
+                                String variable = "";
+                                String valor = "";
+                                for(Production id: identProdD1){
+                                    if(sentence.contains(id.lexemeRank(1))){
+                                        variable = id.lexemeRank(1);
+                                        valor = id.lexemeRank(-2);
+                                    }
+                                }
+                                PanelSalida.append("-->   Se ha declarado una variable de tipo Cadena llamada " + variable + " con valor " + valor + ".........\n");
+                            }else{
+                                String variable = sentence.substring(7,sentence.length());
+                                PanelSalida.append("-->   Se ha declarado una variable de tipo Cadena llamada " + variable + ".........\n");
+                            }
+                        }
+                        if(sentence.startsWith("Figura")){
+                            if(sentence.contains("=")){
+                                String variable = "";
+                                String valor = "";
+                                for(Production id: identProdD1){
+                                    if(sentence.contains(id.lexemeRank(1))){
+                                        variable = id.lexemeRank(1);
+                                        valor = id.lexemeRank(-2);
+                                    }
+                                }
+                                PanelSalida.append("-->   Se ha declarado una variable de tipo Figura llamada " + variable + " con valor " + valor + ".........\n");
+                            }else{
+                                String variable = sentence.substring(7,sentence.length());
+                                PanelSalida.append("-->   Se ha declarado una variable de tipo Figura llamada " + variable + ".........\n");
+                            }
+                        }
+                        if(sentence.startsWith("Color")){
+                            if(sentence.contains("=")){
+                                String variable = "";
+                                String valor = "";
+                                for(Production id: identProdD1){
+                                    if(sentence.contains(id.lexemeRank(1))){
+                                        variable = id.lexemeRank(1);
+                                        valor = id.lexemeRank(-2);
+                                    }
+                                }
+                                PanelSalida.append("-->   Se ha declarado una variable de tipo Color llamada " + variable + " con valor " + valor + ".........\n");
+                            }else{
+                                String variable = sentence.substring(6,sentence.length());
+                                PanelSalida.append("-->   Se ha declarado una variable de tipo Color llamada " + variable + ".........\n");
+                            }
+                        }
+                        if(sentence.startsWith("Resultado")){
+                            String variable = sentence.substring(10,sentence.length());
+                            PanelSalida.append("-->   Se ha declarado una variable de tipo Resultado llamada " + variable + ".........\n");
+                        }
+                        for(Production id: identProdA1){
+                            if(sentence.startsWith(id.lexemeRank(0))){
+                                String tipo = "";
+                                if(id.lexicalCompRank(-2).equals("Numero_Entero")){
+                                    tipo = "Entero";
+                                    PanelSalida.append("-->   Se le esta asignando a la variable " + id.lexemeRank(0) + " de tipo " + tipo + " un nuevo valor de " + id.lexemeRank(-3) + id.lexemeRank(-2) + ".........\n");
+                                }else if(id.lexicalCompRank(-2).equals("Numero_Decimal")){
+                                    tipo = "Decimal";
+                                    PanelSalida.append("-->   Se le esta asignando a la variable " + id.lexemeRank(0) + " de tipo " + tipo + " un nuevo valor de " + id.lexemeRank(-3) + id.lexemeRank(-2) + ".........\n");
+                                }else if(id.lexicalCompRank(-2).equals("Identificador_Cadena")){
+                                    tipo = "Cadena";
+                                    PanelSalida.append("-->   Se le esta asignando a la variable " + id.lexemeRank(0) + " de tipo " + tipo + " un nuevo valor de " + id.lexemeRank(-2) + ".........\n");
+                                }else if(id.lexicalCompRank(-2).equals("Palabra_Reservada_12") || id.lexicalCompRank(-2).equals("Palabra_Reservada_13") || id.lexicalCompRank(-2).equals("Palabra_Reservada_14") || id.lexicalCompRank(-2).equals("Palabra_Reservada_15") || id.lexicalCompRank(-2).equals("Palabra_Reservada_16")){
+                                    tipo = "Color";
+                                    PanelSalida.append("-->   Se le esta asignando a la variable " + id.lexemeRank(0) + " de tipo " + tipo + " un nuevo valor de " + id.lexemeRank(-2) + ".........\n");
+                                }else if(id.lexicalCompRank(-2).equals("Palabra_Reservada_17") || id.lexicalCompRank(-2).equals("Palabra_Reservada_18") || id.lexicalCompRank(-2).equals("Palabra_Reservada_19") || id.lexicalCompRank(-2).equals("Palabra_Reservada_20") || id.lexicalCompRank(-2).equals("Palabra_Reservada_21")){
+                                    tipo = "Figura";
+                                    PanelSalida.append("-->   Se le esta asignando a la variable " + id.lexemeRank(0) + " de tipo " + tipo + " un nuevo valor de " + id.lexemeRank(-2) + ".........\n");
+                                }
+                            }
+                        }
+                        for(Production id: identProdF11){
+                            if(sentence.startsWith(id.lexemeRank(0))){
+                                if(id.lexemeRank(0).equals("Sumar")){
+                                    PanelSalida.append("-->   Se ha utlizado la funcion de Sumar, que tiene como parametros a:        " + id.lexemeRank(2) + " = " + identDataTypeV2.get(id.lexemeRank(2)) + " , " + id.lexemeRank(4) + " = " + identDataTypeV2.get(id.lexemeRank(4)) + "\nDonde el resultado de la operación es: " + identDataTypeR.get(id.lexemeRank(7)) + " , y se guardó en: " + id.lexemeRank(7) + ".........\n");
+                                }else if(id.lexemeRank(0).equals("Restar")){
+                                    PanelSalida.append("-->   Se ha utlizado la funcion de Restar, que tiene como parametros a:       " + id.lexemeRank(2) + " = " + identDataTypeV2.get(id.lexemeRank(2)) + " , " + id.lexemeRank(4) + " = " + identDataTypeV2.get(id.lexemeRank(4)) + "\nDonde el resultado de la operación es: " + identDataTypeR.get(id.lexemeRank(7)) + " , y se guardó en: " + id.lexemeRank(7) + ".........\n");
+                                }else if(id.lexemeRank(0).equals("Multiplicar")){
+                                    PanelSalida.append("-->   Se ha utlizado la funcion de Multiplicar, que tiene como parametros a:  " + id.lexemeRank(2) + " = " + identDataTypeV2.get(id.lexemeRank(2)) + " , " + id.lexemeRank(4) + " = " + identDataTypeV2.get(id.lexemeRank(4)) + "\nDonde el resultado de la operación es: " + identDataTypeR.get(id.lexemeRank(7)) + " , y se guardó en: " + id.lexemeRank(7) + ".........\n");
+                                }else if(id.lexemeRank(0).equals("Dividir")){
+                                    PanelSalida.append("-->   Se ha utlizado la funcion de Dividir, que tiene como parametros a:      " + id.lexemeRank(2) + " = " + identDataTypeV2.get(id.lexemeRank(2)) + " , " + id.lexemeRank(4) + " = " + identDataTypeV2.get(id.lexemeRank(4)) + "\nDonde el resultado de la operación es: " + identDataTypeR.get(id.lexemeRank(7)) + " , y se guardó en: " + id.lexemeRank(7) + ".........\n");
+                                }
+                            }
+                        }
+                        for(Production id: identProdF12){
+                            if(sentence.startsWith(id.lexemeRank(0))){
+                                if(id.lexemeRank(0).equals("Sumar")){
+                                    PanelSalida.append("-->   Se ha utlizado la funcion de Sumar, que tiene como parametros a:        " + id.lexemeRank(2) + " = " + identDataTypeV2.get(id.lexemeRank(2)) + " , " + id.lexemeRank(4) + " = " + identDataTypeV2.get(id.lexemeRank(4)) + " , " + id.lexemeRank(6) + " = " + identDataTypeV2.get(id.lexemeRank(6)) +  "\nDonde el resultado de la operación es: " + identDataTypeR.get(id.lexemeRank(9)) + " , y se guardó en: " + id.lexemeRank(9) + ".........\n");
+                                }else if(id.lexemeRank(0).equals("Restar")){
+                                    PanelSalida.append("-->   Se ha utlizado la funcion de Restar, que tiene como parametros a:       " + id.lexemeRank(2) + " = " + identDataTypeV2.get(id.lexemeRank(2)) + " , " + id.lexemeRank(4) + " = " + identDataTypeV2.get(id.lexemeRank(4)) + " , " + id.lexemeRank(6) + " = " + identDataTypeV2.get(id.lexemeRank(6)) +  "\nDonde el resultado de la operación es: " + identDataTypeR.get(id.lexemeRank(9)) + " , y se guardó en: " + id.lexemeRank(9) + ".........\n");
+                                }else if(id.lexemeRank(0).equals("Multiplicar")){
+                                    PanelSalida.append("-->   Se ha utlizado la funcion de Multiplicar, que tiene como parametros a:  " + id.lexemeRank(2) + " = " + identDataTypeV2.get(id.lexemeRank(2)) + " , " + id.lexemeRank(4) + " = " + identDataTypeV2.get(id.lexemeRank(4)) + " , " + id.lexemeRank(6) + " = " + identDataTypeV2.get(id.lexemeRank(6)) +  "\nDonde el resultado de la operación es: " + identDataTypeR.get(id.lexemeRank(9)) + " , y se guardó en: " + id.lexemeRank(9) + ".........\n");
+                                }else if(id.lexemeRank(0).equals("Dividir")){
+                                    PanelSalida.append("-->   Se ha utlizado la funcion de Dividir, que tiene como parametros a:      " + id.lexemeRank(2) + " = " + identDataTypeV2.get(id.lexemeRank(2)) + " , " + id.lexemeRank(4) + " = " + identDataTypeV2.get(id.lexemeRank(4))  + " , " + id.lexemeRank(6) + " = " + identDataTypeV2.get(id.lexemeRank(6)) + "\nDonde el resultado de la operación es: " + identDataTypeR.get(id.lexemeRank(9)) + " , y se guardó en: " + id.lexemeRank(9) + ".........\n");
+                                }
+                            }
+                        }
+                        for(Production id: identProdF13){
+                            if(sentence.startsWith(id.lexemeRank(0))){
+                                if(id.lexemeRank(0).equals("Sumar")){
+                                    PanelSalida.append("-->   Se ha utlizado la funcion de Sumar, que tiene como parametros a:        " + id.lexemeRank(2) + " = " + identDataTypeV2.get(id.lexemeRank(2)) + " , " + id.lexemeRank(4) + " = " + identDataTypeV2.get(id.lexemeRank(4)) + " , " + id.lexemeRank(6) + " = " + identDataTypeV2.get(id.lexemeRank(6)) + " , " + id.lexemeRank(8) + " = " + identDataTypeV2.get(id.lexemeRank(8)) + "\nDonde el resultado de la operación es: " + identDataTypeR.get(id.lexemeRank(11)) + " , y se guardó en: " + id.lexemeRank(11) + ".........\n");
+                                }else if(id.lexemeRank(0).equals("Restar")){
+                                    PanelSalida.append("-->   Se ha utlizado la funcion de Restar, que tiene como parametros a:       " + id.lexemeRank(2) + " = " + identDataTypeV2.get(id.lexemeRank(2)) + " , " + id.lexemeRank(4) + " = " + identDataTypeV2.get(id.lexemeRank(4)) + " , " + id.lexemeRank(6) + " = " + identDataTypeV2.get(id.lexemeRank(6)) + " , " + id.lexemeRank(8) + " = " + identDataTypeV2.get(id.lexemeRank(8)) + "\nDonde el resultado de la operación es: " + identDataTypeR.get(id.lexemeRank(11)) + " , y se guardó en: " + id.lexemeRank(11) + ".........\n");
+                                }else if(id.lexemeRank(0).equals("Multiplicar")){
+                                    PanelSalida.append("-->   Se ha utlizado la funcion de Multiplicar, que tiene como parametros a:  " + id.lexemeRank(2) + " = " + identDataTypeV2.get(id.lexemeRank(2)) + " , " + id.lexemeRank(4) + " = " + identDataTypeV2.get(id.lexemeRank(4)) + " , " + id.lexemeRank(6) + " = " + identDataTypeV2.get(id.lexemeRank(6)) + " , " + id.lexemeRank(8) + " = " + identDataTypeV2.get(id.lexemeRank(8)) + "\nDonde el resultado de la operación es: " + identDataTypeR.get(id.lexemeRank(11)) + " , y se guardó en: " + id.lexemeRank(11) + ".........\n");
+                                }else if(id.lexemeRank(0).equals("Dividir")){
+                                    PanelSalida.append("-->   Se ha utlizado la funcion de Dividir, que tiene como parametros a:      " + id.lexemeRank(2) + " = " + identDataTypeV2.get(id.lexemeRank(2)) + " , " + id.lexemeRank(4) + " = " + identDataTypeV2.get(id.lexemeRank(4)) + " , " + id.lexemeRank(6) + " = " + identDataTypeV2.get(id.lexemeRank(6)) + " , " + id.lexemeRank(8) + " = " + identDataTypeV2.get(id.lexemeRank(8)) + "\nDonde el resultado de la operación es: " + identDataTypeR.get(id.lexemeRank(11)) + " , y se guardó en: " + id.lexemeRank(11) + ".........\n");
+                                }
+                            }
+                        }
+                        for(Production id: identProdF14){
+                            if(sentence.startsWith(id.lexemeRank(0))){
+                                if(id.lexemeRank(0).equals("Sumar")){
+                                    PanelSalida.append("-->   Se ha utlizado la funcion de Sumar, que tiene como parametros a:        " + id.lexemeRank(2) + " = " + identDataTypeV2.get(id.lexemeRank(2)) + " , " + id.lexemeRank(4) + " = " + identDataTypeV2.get(id.lexemeRank(4)) + " , " + id.lexemeRank(6) + " = " + identDataTypeV2.get(id.lexemeRank(6)) + " , " + id.lexemeRank(8) + " = " + identDataTypeV2.get(id.lexemeRank(8)) + " , " + id.lexemeRank(10) + " = " + identDataTypeV2.get(id.lexemeRank(10)) + "\ndonde el resultado de la operación es: " + identDataTypeR.get(id.lexemeRank(13)) + " , y se guardó en: " + id.lexemeRank(13) + ".........\n");
+                                }else if(id.lexemeRank(0).equals("Restar")){
+                                    PanelSalida.append("-->   Se ha utlizado la funcion de Restar, que tiene como parametros a:       " + id.lexemeRank(2) + " = " + identDataTypeV2.get(id.lexemeRank(2)) + " , " + id.lexemeRank(4) + " = " + identDataTypeV2.get(id.lexemeRank(4)) + " , " + id.lexemeRank(6) + " = " + identDataTypeV2.get(id.lexemeRank(6)) + " , " + id.lexemeRank(8) + " = " + identDataTypeV2.get(id.lexemeRank(8)) + " , " + id.lexemeRank(10) + " = " + identDataTypeV2.get(id.lexemeRank(10)) + "\ndonde el resultado de la operación es: " + identDataTypeR.get(id.lexemeRank(13)) + " , y se guardó en: " + id.lexemeRank(13) + ".........\n");
+                                }else if(id.lexemeRank(0).equals("Multiplicar")){
+                                    PanelSalida.append("-->   Se ha utlizado la funcion de Multiplicar, que tiene como parametros a:  " + id.lexemeRank(2) + " = " + identDataTypeV2.get(id.lexemeRank(2)) + " , " + id.lexemeRank(4) + " = " + identDataTypeV2.get(id.lexemeRank(4)) + " , " + id.lexemeRank(6) + " = " + identDataTypeV2.get(id.lexemeRank(6)) + " , " + id.lexemeRank(8) + " = " + identDataTypeV2.get(id.lexemeRank(8)) + " , " + id.lexemeRank(10) + " = " + identDataTypeV2.get(id.lexemeRank(10)) + "\ndonde el resultado de la operación es: " + identDataTypeR.get(id.lexemeRank(13)) + " , y se guardó en: " + id.lexemeRank(13) + ".........\n");
+                                }else if(id.lexemeRank(0).equals("Dividir")){
+                                    PanelSalida.append("-->   Se ha utlizado la funcion de Dividir, que tiene como parametros a:      " + id.lexemeRank(2) + " = " + identDataTypeV2.get(id.lexemeRank(2)) + " , " + id.lexemeRank(4) + " = " + identDataTypeV2.get(id.lexemeRank(4)) + " , " + id.lexemeRank(6) + " = " + identDataTypeV2.get(id.lexemeRank(6)) + " , " + id.lexemeRank(8) + " = " + identDataTypeV2.get(id.lexemeRank(8)) + " , " + id.lexemeRank(10) + " = " + identDataTypeV2.get(id.lexemeRank(10)) + "\ndonde el resultado de la operación es: " + identDataTypeR.get(id.lexemeRank(13)) + " , y se guardó en: " + id.lexemeRank(13) + ".........\n");
+                                }
+                            }
+                        }
+                        
+                    }
+                }
+            }
+        }
+    }
     /**
      * @param args the command line arguments
      */
@@ -19586,6 +19871,7 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JTextPane PanelFuente;
     private javax.swing.JTextArea PanelSalida;
     private javax.swing.JTable Tokens;
+    private javax.swing.JButton btnCompilar;
     private javax.swing.JMenuItem btnMenuLEATE;
     private javax.swing.JMenuItem btnmenuAbrir;
     private javax.swing.JMenuItem btnmenuGuardar;
@@ -19595,7 +19881,7 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -19612,7 +19898,6 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
-    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
