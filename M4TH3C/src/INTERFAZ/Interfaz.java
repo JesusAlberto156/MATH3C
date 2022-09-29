@@ -183,8 +183,10 @@ public class Interfaz extends javax.swing.JFrame {
                 textsColor.add(textColor);
             }
         } catch (FileNotFoundException ex) {
+            JOptionPane.showMessageDialog(this,"El archivo no pudo ser encontrado... " + ex.getMessage(),"¡ERROR!",JOptionPane.ERROR_MESSAGE);
             System.out.println("El archivo no pudo ser encontrado... " + ex.getMessage());
         } catch (IOException ex) {
+            JOptionPane.showMessageDialog(this,"Error al escribir en el archivo... " + ex.getMessage(),"¡ERROR!",JOptionPane.ERROR_MESSAGE);
             System.out.println("Error al escribir en el archivo... " + ex.getMessage());
         }
         Functions.colorTextPane(textsColor, PanelFuente, new Color(40, 40, 40));
@@ -220,8 +222,10 @@ public class Interfaz extends javax.swing.JFrame {
                 tokens.add(token);
             }
         } catch (FileNotFoundException ex) {
+            JOptionPane.showMessageDialog(this,"El archivo no pudo ser encontrado... " + ex.getMessage(),"¡ERROR!",JOptionPane.ERROR_MESSAGE);
             System.out.println("El archivo no pudo ser encontrado... " + ex.getMessage());
         } catch (IOException ex) {
+            JOptionPane.showMessageDialog(this,"Error al escribir en el archivo... " + ex.getMessage(),"¡ERROR!",JOptionPane.ERROR_MESSAGE);
             System.out.println("Error al escribir en el archivo... " + ex.getMessage());
         }
     }
@@ -19572,9 +19576,19 @@ public class Interfaz extends javax.swing.JFrame {
         jMenu6.setText("Funcionamiento");
 
         jMenuItem4.setText("Declaraciones");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
         jMenu6.add(jMenuItem4);
 
         jMenuItem5.setText("Asignaciones");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
         jMenu6.add(jMenuItem5);
 
         jMenuItem6.setText("Funciones <Primera parte>");
@@ -19673,7 +19687,7 @@ public class Interfaz extends javax.swing.JFrame {
         btnCompilar.doClick();
         if(codeHasBeenCompiled){
             if(!errors.isEmpty()){
-                JOptionPane.showMessageDialog(this, "No se puede ejecutar el código ya que se encontró uno o más errores");
+                JOptionPane.showMessageDialog(this, "No se puede ejecutar el código ya que se encontró uno o más errores","¡ERROR!",JOptionPane.ERROR_MESSAGE);
             }else{
                 CodeBlock codeBlock = Functions.splitCodeInCodeBlocks(tokens, "{", "}", ";");
                 ArrayList<String> blocksOfCode = codeBlock.getBlocksOfCodeInOrderOfExec();
@@ -19681,6 +19695,18 @@ public class Interfaz extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        JOptionPane.showMessageDialog(this,"Este método nos ayuda a poder declarar las variables de acuerdo al tipo de dato que necesitemos,"
+                                         + " y podemos declarar las variables con valor o sin el, la manera en como funciona es la siguiente:\n\n"
+                                         + "Sin valor: TIPO_DE_DATO (IDENTIFICADOR_VARIABLE|IDENTIFICADOR_RESULTADO) DELIMITADOR\n\n"
+                                         + "Con valor: TIPO_DE_DATO IDENTIFICADOR_VARIABLE OPERADOR_DE_ASIGNACIÓN VALOR_VARIABLE DELIMITADOR\n\n"
+                                         + "En el caso de con valor, si la declaracion es de un número, se le agregara un OPERADOR ARITMETICO entre el OPERADOR_DE_ASIGNACION y el VALOR_VARIABLE, y al tipo de dato RESULTADO no se le puede asignar valor de esta manera.","SOBRE DECLARACIONES...",JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
     
     private void executeCode(ArrayList<String> blocksOfCode,int repeats){
         for(int j = 1;j <= repeats; j++){
@@ -19858,7 +19884,18 @@ public class Interfaz extends javax.swing.JFrame {
                                 }
                             }
                         }
-                        
+                        for(Production id: identProdF3){
+                            if(sentence.startsWith(id.lexemeRank(0))){
+                                MostrarE me = new MostrarE();
+                                me.setVisible(true);
+                            }
+                        }
+                        for(Production id: identProdF2){
+                            if(sentence.startsWith(id.lexemeRank(0))){
+                                MostrarD md = new MostrarD();
+                                md.setVisible(true);
+                            }
+                        }
                     }
                 }
             }
