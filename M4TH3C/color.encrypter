@@ -2,7 +2,7 @@ Metodo &Prueba{
 	Entero num1 = - 100;
 	Entero num2;
 	Entero num5;
-	Decimal num3 = - 10.61;
+	Decimal num3 = - 9.0;
 	Decimal num4;
 	Resultado #res1;
 	Resultado #res2;

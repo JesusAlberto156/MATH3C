@@ -285,7 +285,6 @@ public class MostrarD extends javax.swing.JFrame {
                 DD1.setText(Character.toString(valResultado.charAt(1)));
             }
         }
-
     }
     //RESULTADO
     //FIGURA
