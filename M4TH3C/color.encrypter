@@ -10,9 +10,9 @@ Metodo &Prueba{
 	Resultado #res4;
 	Cadena cad1 = 'Hola';
 	Cadena cad4;
-	Figura fig1 = Cuadrado;
+	Figura fig1 = Circulo;
 	Figura fig2;
-	Color col1 = Blanco;
+	Color col1 = Azul;
 	Color col2;
 	Color col3;
 	num2 = + 300;
@@ -20,7 +20,7 @@ Metodo &Prueba{
 	cad4 = 'El resultado:';
 	fig2 = Circulo;
 	col2 = Rojo;
-	Sumar(num1,num1,num1,num1,num1)<
+	Sumar(num2,num2,num2,num2,num2)<
 		#res1
 	>;
 	Restar(num3,num3)<
@@ -32,5 +32,5 @@ Metodo &Prueba{
 	Dividir(num3,num4)<
 		#res4
 	>;
-	Mostrar(cad4,#res1,fig2,col1);
+	Mostrar(cad4,#res1,fig1,col1);
 }

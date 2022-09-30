@@ -13,71 +13,121 @@ import java.awt.Graphics;
  * @author Lenovo
  */
 public class Dibujar {
-    public static void Cuadrado(Graphics g) {
+    
+    public static void Cuadrado(Graphics g,String color,int y1, int y2) {
         int[] xPoints = new int[4]; // Las coordenadas funcionan en Arrays
         int[] yPoints = new int[4];
-        xPoints[0] = 2;  // Inferior izquierda
-        xPoints[1] = 2;  // Superior izquierda
-        xPoints[2] = 50; // Superior derecha
-        xPoints[3] = 50; // Inferior derecha
-        yPoints[0] = 2;  // Inferior izquierda
-        yPoints[1] = 50; // Superior izquierda
-        yPoints[2] = 50; // Superior derecha
-        yPoints[3] = 2;  // Inferior derecha
-
-        g.setColor(Color.red);
+        xPoints[0] = 22;  // Inferior izquierda
+        xPoints[1] = 22;  // Superior izquierda
+        xPoints[2] = 72; // Superior derecha
+        xPoints[3] = 72; // Inferior derecha
+        yPoints[0] = y1;  // Inferior izquierda
+        yPoints[1] = y2; // Superior izquierda
+        yPoints[2] = y2; // Superior derecha
+        yPoints[3] = y1;  // Inferior derecha
+        if(color.equals("Rojo")){
+            g.setColor(new Color(255, 0, 0));
+        }else if(color.equals("Azul")){
+            g.setColor(new Color(0, 0, 255));
+        }else if(color.equals("Verde")){
+            g.setColor(new Color(0, 255, 0));
+        }else if(color.equals("Blanco")){
+            g.setColor(new Color(255, 255, 210));
+        }else if(color.equals("Negro")){
+            g.setColor(new Color(0, 0, 0));
+        }
         g.fillPolygon(xPoints, yPoints, 4); // El último valor es el número de puntos del polígono
     }
 
-    public static void Triangulo(Graphics g) {
+    public static void Triangulo(Graphics g,String color,int y1,int y2) {
         int[] xPoints = new int[3];
         int[] yPoints = new int[3];
-        xPoints[0] = 2;  // Inferior izquierda
-        xPoints[1] = 25; // Superior
-        xPoints[2] = 50; // Inferior derecha
-        yPoints[0] = 50; // Inferior izquierda
-        yPoints[1] = 2;  // Superior
-        yPoints[2] = 50; // Superior derecha
+        xPoints[0] = 22;  // Inferior izquierda
+        xPoints[1] = 47; // Superior
+        xPoints[2] = 72; // Inferior derecha
+        yPoints[0] = y2; // Inferior izquierda
+        yPoints[1] = y1;  // Superior
+        yPoints[2] = y2; // Superior derecha
 
-        g.setColor(Color.blue);
+        if(color.equals("Rojo")){
+            g.setColor(new Color(255, 0, 0));
+        }else if(color.equals("Azul")){
+            g.setColor(new Color(0, 0, 255));
+        }else if(color.equals("Verde")){
+            g.setColor(new Color(0, 255, 0));
+        }else if(color.equals("Blanco")){
+            g.setColor(new Color(255, 255, 210));
+        }else if(color.equals("Negro")){
+            g.setColor(new Color(0, 0, 0));
+        }
         g.fillPolygon(xPoints, yPoints, 3);
     }
 
-    public static void Rectangulo(Graphics g) {
+    public static void Rectangulo(Graphics g,String color,int y1,int y2) {
         int[] xPoints = new int[4];
         int[] yPoints = new int[4];
-        xPoints[0] = 2;  // Inferior izquierda
-        xPoints[1] = 2;  // Superior izquierda
-        xPoints[2] = 50; // Superior derecha
-        xPoints[3] = 50; // Inferior derecha
-        yPoints[0] = 2;  // Inferior izquierda
-        yPoints[1] = 30; // Superior izquierda
-        yPoints[2] = 30; // Superior derecha
-        yPoints[3] = 2; // Inferior derecha
+        xPoints[0] = 22;  // Inferior izquierda
+        xPoints[1] = 22;  // Superior izquierda
+        xPoints[2] = 72; // Superior derecha
+        xPoints[3] = 72; // Inferior derecha
+        yPoints[0] = y1;  // Inferior izquierda
+        yPoints[1] = y2; // Superior izquierda
+        yPoints[2] = y2; // Superior derecha
+        yPoints[3] = y1; // Inferior derecha
 
-        g.setColor(Color.green);
+        if(color.equals("Rojo")){
+            g.setColor(new Color(255, 0, 0));
+        }else if(color.equals("Azul")){
+            g.setColor(new Color(0, 0, 255));
+        }else if(color.equals("Verde")){
+            g.setColor(new Color(0, 255, 0));
+        }else if(color.equals("Blanco")){
+            g.setColor(new Color(255, 255, 210));
+        }else if(color.equals("Negro")){
+            g.setColor(new Color(0, 0, 0));
+        }
         g.fillPolygon(xPoints, yPoints, 4);
     }
 
-    public static void Rombo(Graphics g) {
+    public static void Rombo(Graphics g,String color,int y1,int y2,int y3) {
         int[] xPoints = new int[4];
         int[] yPoints = new int[4];
-        xPoints[0] = 25; // Inferior
-        xPoints[1] = 2;  // Izquierda
-        xPoints[2] = 25; // Superior
-        xPoints[3] = 50; // Derecha
-        yPoints[0] = 2;  // Inferior
-        yPoints[1] = 25; // Izquierda
-        yPoints[2] = 50; // Superior
-        yPoints[3] = 25;  // Derecha
+        xPoints[0] = 48; // Inferior
+        xPoints[1] = 22;  // Izquierda
+        xPoints[2] = 48; // Superior
+        xPoints[3] = 72; // Derecha
+        yPoints[0] = y1;  // Inferior
+        yPoints[1] = y2; // Izquierda
+        yPoints[2] = y3; // Superior
+        yPoints[3] = y2;  // Derecha
 
-        g.setColor(Color.white);
+        if(color.equals("Rojo")){
+            g.setColor(new Color(255, 0, 0));
+        }else if(color.equals("Azul")){
+            g.setColor(new Color(0, 0, 255));
+        }else if(color.equals("Verde")){
+            g.setColor(new Color(0, 255, 0));
+        }else if(color.equals("Blanco")){
+            g.setColor(new Color(255, 255, 210));
+        }else if(color.equals("Negro")){
+            g.setColor(new Color(0, 0, 0));
+        }
         g.fillPolygon(xPoints, yPoints, 4);
     }
 
-    public static void Circulo(Graphics g) {
-        g.setColor(Color.black);
-        g.fillOval(2, 2, 50, 50); // Coordenada X, Coordenada Y de la esquina superior izquierda del círculo
+    public static void Circulo(Graphics g,String color,int y) {
+        if(color.equals("Rojo")){
+            g.setColor(new Color(255, 0, 0));
+        }else if(color.equals("Azul")){
+            g.setColor(new Color(0, 0, 255));
+        }else if(color.equals("Verde")){
+            g.setColor(new Color(0, 255, 0));
+        }else if(color.equals("Blanco")){
+            g.setColor(new Color(255, 255, 210));
+        }else if(color.equals("Negro")){
+            g.setColor(new Color(0, 0, 0));
+        }
+        g.fillOval(22, y, 50, 50); // Coordenada X, Coordenada Y de la esquina superior izquierda del círculo
     }                             // Los 50 son, respectivamente ancho y alto
     
 }

@@ -479,11 +479,7 @@ public class MostrarD extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDibujarDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDibujarDActionPerformed
-     Dibujar.Cuadrado(F13.getGraphics());
-        Dibujar.Triangulo(F12.getGraphics());
-        Dibujar.Rectangulo(F11.getGraphics());
-        Dibujar.Rombo(F2.getGraphics());
-        Dibujar.Circulo(F3.getGraphics());
+     
     }//GEN-LAST:event_btnDibujarDActionPerformed
 
     /**

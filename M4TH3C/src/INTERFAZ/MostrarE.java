@@ -15,8 +15,8 @@ public class MostrarE extends javax.swing.JFrame {
     private String valCadena;
     private String varResultado;
     private String valResultado;
-    public String varFigura;
-    public String valFigura;
+    private String varFigura;
+    private String valFigura;
     private String varColor;
     private String valColor;
     /**
@@ -367,12 +367,11 @@ public class MostrarE extends javax.swing.JFrame {
             .addGroup(jPanel12Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextField5)
                     .addGroup(jPanel12Layout.createSequentialGroup()
-                        .addComponent(jTextField5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnDibujar))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createSequentialGroup()
-                        .addComponent(E, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(E, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
+                            .addComponent(btnDibujar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createSequentialGroup()
@@ -405,10 +404,8 @@ public class MostrarE extends javax.swing.JFrame {
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel12Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnDibujar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(9, 9, 9)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(D4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -419,13 +416,16 @@ public class MostrarE extends javax.swing.JFrame {
                         .addComponent(D1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(D5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(F12, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(F13, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(F16, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(F15, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(F14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(F11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(F12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(F13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(F16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(F15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(F14, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(F11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel12Layout.createSequentialGroup()
+                        .addComponent(btnDibujar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -470,11 +470,222 @@ public class MostrarE extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDibujarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDibujarActionPerformed
-       Dibujar.Cuadrado(F13.getGraphics());
-        Dibujar.Triangulo(F11.getGraphics());
-        Dibujar.Rectangulo(F14.getGraphics());
-        Dibujar.Rombo(F15.getGraphics());
-        Dibujar.Circulo(F16.getGraphics());
+        if(valFigura.equals("Cuadrado")){
+            int y1 = 5;
+            int y2 = 55;
+            for(int i = 0; i < Integer.parseInt(D1.getText());i++){
+                Dibujar.Cuadrado(F11.getGraphics(),valColor,y1,y2);
+                y1 += 55;
+                y2 += 55;
+            }
+            y1 = 5;
+            y2 = 55;
+            for(int i = 0; i < Integer.parseInt(D2.getText());i++){
+                Dibujar.Cuadrado(F12.getGraphics(),valColor,y1,y2);
+                y1 += 55;
+                y2 += 55;
+            }
+            y1 = 5;
+            y2 = 55;
+            for(int i = 0; i < Integer.parseInt(D3.getText());i++){
+                Dibujar.Cuadrado(F13.getGraphics(),valColor,y1,y2);
+                y1 += 55;
+                y2 += 55;
+            }
+            y1 = 5;
+            y2 = 55;
+            for(int i = 0; i < Integer.parseInt(D4.getText());i++){
+                Dibujar.Cuadrado(F14.getGraphics(),valColor,y1,y2);
+                y1 += 55;
+                y2 += 55;
+            }
+            y1 = 5;
+            y2 = 55;
+            for(int i = 0; i < Integer.parseInt(D5.getText());i++){
+                Dibujar.Cuadrado(F15.getGraphics(),valColor,y1,y2);
+                y1 += 55;
+                y2 += 55;
+            }
+            y1 = 5;
+            y2 = 55;
+            for(int i = 0; i < Integer.parseInt(D6.getText());i++){
+                Dibujar.Cuadrado(F16.getGraphics(),valColor,y1,y2);
+                y1 += 55;
+                y2 += 55;
+            }
+        }else if(valFigura.equals("Triangulo")){
+            int y1 = 5;
+            int y2 = 55;
+            for(int i = 0; i < Integer.parseInt(D1.getText());i++){
+                Dibujar.Triangulo(F11.getGraphics(),valColor,y1,y2);
+                y1 += 55;
+                y2 += 55;
+            }
+            y1 = 5;
+            y2 = 55;
+            for(int i = 0; i < Integer.parseInt(D2.getText());i++){
+                Dibujar.Triangulo(F12.getGraphics(),valColor,y1,y2);
+                y1 += 55;
+                y2 += 55;
+            }
+            y1 = 5;
+            y2 = 55;
+            for(int i = 0; i < Integer.parseInt(D3.getText());i++){
+                Dibujar.Triangulo(F13.getGraphics(),valColor,y1,y2);
+                y1 += 55;
+                y2 += 55;
+            }
+            y1 = 5;
+            y2 = 55;
+            for(int i = 0; i < Integer.parseInt(D4.getText());i++){
+                Dibujar.Triangulo(F14.getGraphics(),valColor,y1,y2);
+                y1 += 55;
+                y2 += 55;
+            }
+            y1 = 5;
+            y2 = 55;
+            for(int i = 0; i < Integer.parseInt(D5.getText());i++){
+                Dibujar.Triangulo(F15.getGraphics(),valColor,y1,y2);
+                y1 += 55;
+                y2 += 55;
+            }
+            y1 = 5;
+            y2 = 55;
+            for(int i = 0; i < Integer.parseInt(D6.getText());i++){
+                Dibujar.Triangulo(F16.getGraphics(),valColor,y1,y2);
+                y1 += 55;
+                y2 += 55;
+            }
+        }else if(valFigura.equals("Rectangulo")){
+            int y1 = 15;
+            int y2 = 45;
+            for(int i = 0; i < Integer.parseInt(D1.getText());i++){
+                Dibujar.Rectangulo(F11.getGraphics(),valColor,y1,y2);
+                y1 += 55;
+                y2 += 55;
+            }
+            y1 = 15;
+            y2 = 45;
+            for(int i = 0; i < Integer.parseInt(D2.getText());i++){
+                Dibujar.Rectangulo(F12.getGraphics(),valColor,y1,y2);
+                y1 += 55;
+                y2 += 55;
+            }
+            y1 = 15;
+            y2 = 45;
+            for(int i = 0; i < Integer.parseInt(D3.getText());i++){
+                Dibujar.Rectangulo(F13.getGraphics(),valColor,y1,y2);
+                y1 += 55;
+                y2 += 55;
+            }
+            y1 = 15;
+            y2 = 45;
+            for(int i = 0; i < Integer.parseInt(D4.getText());i++){
+                Dibujar.Rectangulo(F14.getGraphics(),valColor,y1,y2);
+                y1 += 55;
+                y2 += 55;
+            }
+            y1 = 15;
+            y2 = 45;
+            for(int i = 0; i < Integer.parseInt(D5.getText());i++){
+                Dibujar.Rectangulo(F15.getGraphics(),valColor,y1,y2);
+                y1 += 55;
+                y2 += 55;
+            }
+            y1 = 15;
+            y2 = 45;
+            for(int i = 0; i < Integer.parseInt(D6.getText());i++){
+                Dibujar.Rectangulo(F16.getGraphics(),valColor,y1,y2);
+                y1 += 55;
+                y2 += 55;
+            }
+        }else if(valFigura.equals("Rombo")){
+            int y1 = 5;
+            int y2 = 30;
+            int y3 = 55;
+            for(int i = 0; i < Integer.parseInt(D1.getText());i++){
+                Dibujar.Rombo(F11.getGraphics(),valColor,y1,y2,y3);
+                y1 += 55;
+                y2 += 55;
+                y3 += 55;
+            }
+            y1 = 5;
+            y2 = 30;
+            y3 = 55;
+            for(int i = 0; i < Integer.parseInt(D2.getText());i++){
+                Dibujar.Rombo(F12.getGraphics(),valColor,y1,y2,y3);
+                y1 += 55;
+                y2 += 55;
+                y3 += 55;
+            }
+            y1 = 5;
+            y2 = 30;
+            y3 = 55;
+            for(int i = 0; i < Integer.parseInt(D3.getText());i++){
+                Dibujar.Rombo(F13.getGraphics(),valColor,y1,y2,y3);
+                y1 += 55;
+                y2 += 55;
+                y3 += 55;
+            }
+            y1 = 5;
+            y2 = 30;
+            y3 = 55;
+            for(int i = 0; i < Integer.parseInt(D4.getText());i++){
+                Dibujar.Rombo(F14.getGraphics(),valColor,y1,y2,y3);
+                y1 += 55;
+                y2 += 55;
+                y3 += 55;
+            }
+            y1 = 5;
+            y2 = 30;
+            y3 = 55;
+            for(int i = 0; i < Integer.parseInt(D5.getText());i++){
+                Dibujar.Rombo(F15.getGraphics(),valColor,y1,y2,y3);
+                y1 += 55;
+                y2 += 55;
+                y3 += 55;
+            }
+            y1 = 5;
+            y2 = 30;
+            y3 = 55;
+            for(int i = 0; i < Integer.parseInt(D6.getText());i++){
+                Dibujar.Rombo(F16.getGraphics(),valColor,y1,y2,y3);
+                y1 += 55;
+                y2 += 55;
+                y3 += 55;
+            }
+        }else if(valFigura.equals("Circulo")){
+            int y1 = 5;
+            for(int i = 0; i < Integer.parseInt(D1.getText());i++){
+                Dibujar.Circulo(F11.getGraphics(),valColor,y1);
+                y1 += 55;
+            }
+            y1 = 5;
+            for(int i = 0; i < Integer.parseInt(D2.getText());i++){
+                Dibujar.Circulo(F12.getGraphics(),valColor,y1);
+                y1 += 55;
+            }
+            y1 = 5;
+            for(int i = 0; i < Integer.parseInt(D3.getText());i++){
+                Dibujar.Circulo(F13.getGraphics(),valColor,y1);
+                y1 += 55;
+            }
+            y1 = 5;
+            for(int i = 0; i < Integer.parseInt(D4.getText());i++){
+                Dibujar.Circulo(F14.getGraphics(),valColor,y1);
+                y1 += 55;
+            }
+            y1 = 5;
+            for(int i = 0; i < Integer.parseInt(D5.getText());i++){
+                Dibujar.Circulo(F15.getGraphics(),valColor,y1);
+                y1 += 55;
+            }
+            y1 = 5;
+            for(int i = 0; i < Integer.parseInt(D6.getText());i++){
+                Dibujar.Circulo(F16.getGraphics(),valColor,y1);
+                y1 += 55;
+            }
+        }
     }//GEN-LAST:event_btnDibujarActionPerformed
 
     /**
@@ -517,13 +728,87 @@ public class MostrarE extends javax.swing.JFrame {
         this.valCadena = valc;
     }
     public void Cadena(){
-        Cadena.append("Variable: "+varCadena+"\nValor: "+valCadena);
+        Cadena.append("---> Variable: "+varCadena+"\n\n--->Valor: "+valCadena);
     }
     //CADENA
     //RESULTADO
     public void setResultado(String varr,String valr){
         this.varResultado = varr;
         this.valResultado = valr;
+    }
+    public void Resultado(){
+        if(valResultado.contains("-")){
+            if(valResultado.chars().count() == 7){
+                E.setText(Character.toString(valResultado.charAt(0)));
+                D6.setText(Character.toString(valResultado.charAt(1)));
+                D5.setText(Character.toString(valResultado.charAt(2)));
+                D4.setText(Character.toString(valResultado.charAt(3)));
+                D4.setText(Character.toString(valResultado.charAt(4)));
+                D2.setText(Character.toString(valResultado.charAt(5)));
+                D1.setText(Character.toString(valResultado.charAt(6)));
+            }else if(valResultado.chars().count() == 6){
+                E.setText(Character.toString(valResultado.charAt(0)));
+                D5.setText(Character.toString(valResultado.charAt(1)));
+                D4.setText(Character.toString(valResultado.charAt(2)));
+                D3.setText(Character.toString(valResultado.charAt(3)));
+                D2.setText(Character.toString(valResultado.charAt(4)));
+                D1.setText(Character.toString(valResultado.charAt(5)));
+            }else if(valResultado.chars().count() == 5){
+                E.setText(Character.toString(valResultado.charAt(0)));
+                D4.setText(Character.toString(valResultado.charAt(1)));
+                D3.setText(Character.toString(valResultado.charAt(2)));
+                D2.setText(Character.toString(valResultado.charAt(3)));
+                D1.setText(Character.toString(valResultado.charAt(4)));
+            }else if(valResultado.chars().count() == 4){
+                E.setText(Character.toString(valResultado.charAt(0)));
+                D3.setText(Character.toString(valResultado.charAt(1)));
+                D2.setText(Character.toString(valResultado.charAt(2)));
+                D1.setText(Character.toString(valResultado.charAt(3)));
+            }else if(valResultado.chars().count() == 3){
+                E.setText(Character.toString(valResultado.charAt(0)));
+                D2.setText(Character.toString(valResultado.charAt(1)));
+                D1.setText(Character.toString(valResultado.charAt(2)));
+            }else if(valResultado.chars().count() == 2){
+                E.setText(Character.toString(valResultado.charAt(0)));
+                D1.setText(Character.toString(valResultado.charAt(1)));
+            }
+        }else{
+            if(valResultado.chars().count() == 6){
+                E.setText("+");
+                D6.setText(Character.toString(valResultado.charAt(0)));
+                D5.setText(Character.toString(valResultado.charAt(1)));
+                D4.setText(Character.toString(valResultado.charAt(2)));
+                D4.setText(Character.toString(valResultado.charAt(3)));
+                D2.setText(Character.toString(valResultado.charAt(4)));
+                D1.setText(Character.toString(valResultado.charAt(5)));
+            }else if(valResultado.chars().count() == 5){
+                E.setText("+");
+                D5.setText(Character.toString(valResultado.charAt(0)));
+                D4.setText(Character.toString(valResultado.charAt(1)));
+                D3.setText(Character.toString(valResultado.charAt(2)));
+                D2.setText(Character.toString(valResultado.charAt(3)));
+                D1.setText(Character.toString(valResultado.charAt(4)));
+            }else if(valResultado.chars().count() == 4){
+                E.setText("+");
+                D4.setText(Character.toString(valResultado.charAt(0)));
+                D3.setText(Character.toString(valResultado.charAt(1)));
+                D2.setText(Character.toString(valResultado.charAt(2)));
+                D1.setText(Character.toString(valResultado.charAt(3)));
+            }else if(valResultado.chars().count() == 3){
+                E.setText("+");
+                D3.setText(Character.toString(valResultado.charAt(0)));
+                D2.setText(Character.toString(valResultado.charAt(1)));
+                D1.setText(Character.toString(valResultado.charAt(2)));
+            }else if(valResultado.chars().count() == 2){
+                E.setText("+");
+                D2.setText(Character.toString(valResultado.charAt(0)));
+                D1.setText(Character.toString(valResultado.charAt(1)));
+            }else if(valResultado.chars().count() == 1){
+                E.setText("+");
+                D1.setText(Character.toString(valResultado.charAt(0)));
+            }
+        }
+
     }
     //RESULTADO
     //FIGURA
@@ -532,7 +817,7 @@ public class MostrarE extends javax.swing.JFrame {
         this.valFigura = valf;
     }
     public void Figura(){
-        Figura.append("Variable: "+varFigura+"\nValor: "+valFigura);
+        Figura.append("---> Variable: "+varFigura+"\n\n---> Valor: "+valFigura);
     }
     //FIGURA
     //COLOR
@@ -541,7 +826,7 @@ public class MostrarE extends javax.swing.JFrame {
         this.valColor = valc;
     }
     public void Color(){
-        Color.append("Variable: "+varColor+"\nValor: "+valColor);
+        Color.append("---> Variable: "+varColor+"\n\n---> Valor: "+valColor);
     }
     //COLOR
 

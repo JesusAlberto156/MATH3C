@@ -19233,7 +19233,6 @@ public class Interfaz extends javax.swing.JFrame {
                 }
             }
         }//Funciones de Mostrar (Entero)
-        System.out.println(identDataType);
         //Funciones de Mostrar (Decimal)
         for(Production id: identProdF2){
             if(identDataType.containsKey(id.lexemeRank(2)) && identDataType.containsKey(id.lexemeRank(4)) && identDataType.containsKey(id.lexemeRank(6)) && identDataType.containsKey(id.lexemeRank(8)) && identDataType.containsKey(id.lexemeRank(10)) && identDataType.containsKey(id.lexemeRank(12)) && identDataType.containsKey(id.lexemeRank(14)) && identDataType.containsKey(id.lexemeRank(16)) && identDataType.containsKey(id.lexemeRank(18)) && identDataType.containsKey(id.lexemeRank(20)) && identDataType.containsKey(id.lexemeRank(22)) && identDataType.containsKey(id.lexemeRank(24))){
@@ -19984,10 +19983,15 @@ public class Interfaz extends javax.swing.JFrame {
                                 PanelSalida.append("-->   Se ha utlizado la función de Mostrar en su forma de tipo Entero, del cual se crea la siguiente interfaz.........\n");
                                 MostrarE me = new MostrarE();
                                 me.setVisible(true);
+                                me.setCadena(id.lexemeRank(2),identDataTypeV.get(id.lexemeRank(2)).replace("'",""));
+                                me.setResultado(id.lexemeRank(4),identDataTypeR.get(id.lexemeRank(4)));
                                 me.setFigura(id.lexemeRank(6),identDataTypeV.get(id.lexemeRank(6)));
+                                me.setColor(id.lexemeRank(8),identDataTypeV.get(id.lexemeRank(8)));
                                 me.Figura();
                                 me.Cadena();
                                 me.Color();
+                                me.Resultado();
+                                
                             }
                         }
                         for(Production id: identProdF2){
