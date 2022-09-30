@@ -19358,6 +19358,7 @@ public class Interfaz extends javax.swing.JFrame {
         jMenu5 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem9 = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
@@ -19565,11 +19566,29 @@ public class Interfaz extends javax.swing.JFrame {
         jMenu5.setText("Tablas");
         jMenu5.setActionCommand("");
 
-        jMenuItem2.setText("De Símbolos");
+        jMenuItem2.setText("De Componentes Léxicos");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu5.add(jMenuItem2);
 
-        jMenuItem3.setText("De Token");
+        jMenuItem3.setText("De Símbolos");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         jMenu5.add(jMenuItem3);
+
+        jMenuItem9.setText("De Tipos de Datos");
+        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem9ActionPerformed(evt);
+            }
+        });
+        jMenu5.add(jMenuItem9);
 
         jMenuBar1.add(jMenu5);
 
@@ -19592,12 +19611,27 @@ public class Interfaz extends javax.swing.JFrame {
         jMenu6.add(jMenuItem5);
 
         jMenuItem6.setText("Funciones <Primera parte>");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
         jMenu6.add(jMenuItem6);
 
         jMenuItem8.setText("Funciones <Segunda parte>");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
         jMenu6.add(jMenuItem8);
 
         jMenuItem7.setText("Clases");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
         jMenu6.add(jMenuItem7);
 
         jMenuBar1.add(jMenu6);
@@ -19698,15 +19732,76 @@ public class Interfaz extends javax.swing.JFrame {
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         JOptionPane.showMessageDialog(this,"Este método nos ayuda a poder declarar las variables de acuerdo al tipo de dato que necesitemos,"
-                                         + " y podemos declarar las variables con valor o sin el, la manera en como funciona es la siguiente:\n\n"
+                                         + " y podemos declarar las variables con valor o sin el, la manera en como declara es la siguiente:\n\n"
                                          + "Sin valor: TIPO_DE_DATO (IDENTIFICADOR_VARIABLE|IDENTIFICADOR_RESULTADO) DELIMITADOR\n\n"
                                          + "Con valor: TIPO_DE_DATO IDENTIFICADOR_VARIABLE OPERADOR_DE_ASIGNACIÓN VALOR_VARIABLE DELIMITADOR\n\n"
-                                         + "En el caso de con valor, si la declaracion es de un número, se le agregara un OPERADOR ARITMETICO entre el OPERADOR_DE_ASIGNACION y el VALOR_VARIABLE, y al tipo de dato RESULTADO no se le puede asignar valor de esta manera.","SOBRE DECLARACIONES...",JOptionPane.INFORMATION_MESSAGE);
+                                         + "En el caso de con valor, si la declaracion es de un número, se le agregará un OPERADOR ARITMETICO entre el OPERADOR_DE_ASIGNACION y el VALOR_VARIABLE, y al tipo de dato RESULTADO no se le puede asignar valor de esta manera.","SOBRE DECLARACIONES... (M4TH3C)",JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(this,"Este método nos ayuda a asignarle un nuevo valor a las variables que ya han sido declaradas, pero"
+                                         + " algo a tener en cuenta, es que si ya cuenta con un valor la variable, ya no se le podrá asignar "
+                                         + "un nuevo valor, la manera de como se asigna es la siguiente:\n\n"
+                                         + "IDENTIFICADOR_VARIABLE OPERADOR_DE_ASIGNACIÓN VALOR_VARIABLE DELIMITADOR\n\n"
+                                         + "si la asignación es de un número, se le agregará un OPERADOR ARITMETICO entre el OPERADOR_DE_ASIGNACION y el VALOR_VARIABLE.","SOBRE ASIGNACIONES... (M4TH3C)",JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        JOptionPane.showMessageDialog(this,"Este método se divide en dos partes, porque hay dos estructuras diferentes en este método, en esta"
+                                         + " ocasión hablaremos de las funciones de Sumar, Restar, Multiplicar y Dividir, estas funciones realizan"
+                                         + ", dependiendo la que se utilice, la operación entre las variables que se especifiquen para la función"
+                                         + ", dicho resultado se guardará en la variable de tipo resultado que se utlice en la función, hay tres cosas "
+                                         + "a tener en cuanta sobre estos métodos, la primera es de que solo acepta un total de 5 variables como máximo, "
+                                         + "un mínimo de 2, la segunda es que solo acepta variables que su valor sea un número, claro esto es para "
+                                         + "las variables que se utlizarán para realizar la operación, para la variables donde se guardará el resultado de"
+                                         + " la operación deberá de ser de tipo Resultado, y por ultimo el valor de cada variable debera de ser del mismo tipo"
+                                         + " de número, o puros Enteros o puros Decimales, la manera de como recibe los parametros la función es la siguiente:\n\n"
+                                         + "(SUMAR|RESTAR|MULTIPLICAR|DIVIDIR) OPERADOR_DE_AGRUPACIÓN_( IDENTIFICADOR_VARIABLE SEPARADOR IDENTIFICADOR_VARIABLE SEPARADOR IDENTIFICADOR_VARIABLE SEPARADOR IDENTIFICADOR_VARIABLE SEPARADOR IDENTIFICADOR_VARIABLE OPERADOR_DE_AGRUPACIÓN_) OPERADOR_DE_AGRUPACIÓN_< IDENTIFICADOR_RESULTADO OPERADOR_DE_AGRUPACIÓN_> DELIMITADOR\n\n"
+                                         + "Dependiendo cuantas variables requieras son los IDENTIFICADOR_VARIABLE que utilices, en este caso es para una función, "
+                                         + "que recibe 5 variables como parametro. Otro dato a tener en cuenta es que todas las variables utilizadas tienen que tener un valor asignado, excepto la variable de tipo Resultado.","SOBRE FUNCIONES <PRIMERA PARTE>... (M4TH3C)",JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
+
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+        JOptionPane.showMessageDialog(this,"Esta segunda parte sobre el método de funciones será sobre la función de Mostrar, está función se divide"
+                                         + " en dos, una que es para números Enteros y otra para Decimales, en el caso del funcionamiento de la función "
+                                         + "que recibe un número Entero, creará una interfaz donde en esta se mostrará en formas de figuras el número que"
+                                         + " recibio como parametro, el cual la forma y el color de las figuras se especificarán por medio de los paramatres que "
+                                         + "acepta la función, y un pequeño mensaje tambien se mostrará donde eso lo define el usuario y lo pone en los paramatros,"
+                                         + " por medio de una variable que contenga el mensaje personalizado del usuario, en este caso para los tipo entero solo se podrá"
+                                         + " definir la forma y el color de la figura una vez, ya que esta se utlizará para representar todo el número Entero, "
+                                         + "en caso de la que recibe un número Decimal, lo único que cambia es los parametros de forma y color de la figura, debido a "
+                                         + "que se le agregan poder definir cuatro veces mas tanto el color como la forma, y la primera definción de derecha a izquierda en "
+                                         + " la funcion, representará los números enteros del número Decimal, la segunda definición sera el primer digito decimal del "
+                                         + "número Decimal de izquierda a derecha, la tercera definción sera el segundo digito Decimal, la cuarta definición sera para el "
+                                         + "tercer digito Decimal y la quinta y ultima definción sera para el cuarto digito Decimal, la manera de como recibe los parametros "
+                                         + "la funcón es la siguiente:\n\n"
+                                         + "Para Entero:  MOSTRAR OPERADOR_DE_AGRUPACIÓN_( IDENTIFICADOR_VARIABLE_CADENA SEPARADOR IDENTIFICADOR_RESULTADO SEPARADOR IDENTIFICADOR_VARIABLE_FIGURA SEPARADOR IDENTIFICADOR_VARIABLE_COLOR OPERADOR_DE_AGRUPACIÓN_) DELIMITADOR\n\n"
+                                         + "Para Decimal:  MOSTRAR OPERADOR_DE_AGRUPACIÓN_( IDENTIFICADOR_VARIABLE_CADENA SEPARADOR IDENTIFICADOR_RESULTADO SEPARADOR IDENTIFICADOR_VARIABLE_FIGURA SEPARADOR IDENTIFICADOR_VARIABLE_COLOR SEPARADOR IDENTIFICADOR_VARIABLE_FIGURA SEPARADOR IDENTIFICADOR_VARIABLE_COLOR SEPARADOR IDENTIFICADOR_VARIABLE_FIGURA SEPARADOR IDENTIFICADOR_VARIABLE_COLOR SEPARADOR IDENTIFICADOR_VARIABLE_FIGURA SEPARADOR IDENTIFICADOR_VARIABLE_COLOR SEPARADOR IDENTIFICADOR_VARIABLE_FIGURA SEPARADOR IDENTIFICADOR_VARIABLE_COLOR OPERADOR_DE_AGRUPACIÓN_) DELIMITADOR\n\n"
+                                         + "Algo a tener en cuanta para estos métodos es que toda variable tiene que tener un valor asignado.","SOBRE FUNCIONES <SEGUNDA PARTE>... (M4TH3C)",JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
+
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        JOptionPane.showMessageDialog(this,"Este método nos ayuda a almacenar las delaraciones, asignaciones o funciones dentro de una clase"
+                                          + ", en total puede almacenar 30 de los métodos mencionados anteriormente, algo a tener en cuenta es que,"
+                                          + " si alguna declaración, asignación o función no se encuentra dentro de una clase, será incorrecto, la manera"
+                                          + " en como se utiliza el método es el siguiente:\n\n"
+                                          + "METODO IDENTIFICADOR_METODO OPERADOR_DE_AGRUPACIÓN_{ (DECLARACIÓN|ASIGNACIÓN|FUNCIÓN) OPERADOR_DE_AGRUPACIÓN_}","SOBRE CLASES... (M4TH3C)",JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        ComponentesLexicos s = new ComponentesLexicos();
+        s.setVisible(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        Simbolos t = new Simbolos();
+        t.setVisible(true);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+        TiposDeDatos tdd = new TiposDeDatos();
+        tdd.setVisible(true);
+    }//GEN-LAST:event_jMenuItem9ActionPerformed
     
     private void executeCode(ArrayList<String> blocksOfCode,int repeats){
         for(int j = 1;j <= repeats; j++){
@@ -19935,6 +20030,7 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
+    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;

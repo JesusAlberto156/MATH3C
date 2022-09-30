@@ -20,7 +20,7 @@ public class AcercaDe extends javax.swing.JFrame {
     public AcercaDe() {
         initComponents();
 
-        this.setTitle("Acerca de");
+        this.setTitle("Acerca de (M4TH3C)");
         this.setLocationRelativeTo(null);
     }
 

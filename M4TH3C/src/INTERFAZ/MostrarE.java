@@ -16,7 +16,7 @@ public class MostrarE extends javax.swing.JFrame {
     public MostrarE() {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.setTitle("Mostrar (Entero)");
+        this.setTitle("Mostrar (Entero) - M4TH3C");
     }
 
     /**

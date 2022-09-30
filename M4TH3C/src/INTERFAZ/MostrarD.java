@@ -16,7 +16,7 @@ public class MostrarD extends javax.swing.JFrame {
     public MostrarD() {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.setTitle("Mostrar (Decimal)");
+        this.setTitle("Mostrar (Decimal) - M4TH3C");
     }
 
     /**
