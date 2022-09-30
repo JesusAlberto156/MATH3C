@@ -19984,6 +19984,10 @@ public class Interfaz extends javax.swing.JFrame {
                                 PanelSalida.append("-->   Se ha utlizado la función de Mostrar en su forma de tipo Entero, del cual se crea la siguiente interfaz.........\n");
                                 MostrarE me = new MostrarE();
                                 me.setVisible(true);
+                                me.setFigura(id.lexemeRank(6),identDataTypeV.get(id.lexemeRank(6)));
+                                me.Figura();
+                                me.Cadena();
+                                me.Color();
                             }
                         }
                         for(Production id: identProdF2){
@@ -19991,6 +19995,7 @@ public class Interfaz extends javax.swing.JFrame {
                                 PanelSalida.append("-->   Se ha utlizado la función de Mostrar en su forma de tipo Decimal, del cual se crea la siguiente interfaz.........\n");
                                 MostrarD md = new MostrarD();
                                 md.setVisible(true);
+                                
                             }
                         }
                     }

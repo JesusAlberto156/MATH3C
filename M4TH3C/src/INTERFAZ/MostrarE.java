@@ -4,12 +4,21 @@
  */
 package INTERFAZ;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author chuy4
  */
 public class MostrarE extends javax.swing.JFrame {
-
+    private String varCadena;
+    private String valCadena;
+    private String varResultado;
+    private String valResultado;
+    public String varFigura;
+    public String valFigura;
+    private String varColor;
+    private String valColor;
     /**
      * Creates new form MostrarE
      */
@@ -60,6 +69,7 @@ public class MostrarE extends javax.swing.JFrame {
         F13 = new javax.swing.JPanel();
         F12 = new javax.swing.JPanel();
         F11 = new javax.swing.JPanel();
+        btnDibujar = new javax.swing.JButton();
 
         jPanel130.setBackground(new java.awt.Color(155, 170, 196));
 
@@ -188,6 +198,7 @@ public class MostrarE extends javax.swing.JFrame {
         Figura.setBackground(new java.awt.Color(255, 255, 255));
         Figura.setColumns(20);
         Figura.setRows(4);
+        Figura.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jScrollPane1.setViewportView(Figura);
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
@@ -342,6 +353,13 @@ public class MostrarE extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
+        btnDibujar.setText("Dibujar");
+        btnDibujar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDibujarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
         jPanel12Layout.setHorizontalGroup(
@@ -349,7 +367,10 @@ public class MostrarE extends javax.swing.JFrame {
             .addGroup(jPanel12Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField5)
+                    .addGroup(jPanel12Layout.createSequentialGroup()
+                        .addComponent(jTextField5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnDibujar))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createSequentialGroup()
                         .addComponent(E, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -384,16 +405,19 @@ public class MostrarE extends javax.swing.JFrame {
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel12Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(E, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(D6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(D3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(D2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(D1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(D4, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(D5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDibujar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(D4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(E, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(D6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(D3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(D2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(D1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(D5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(F12, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -445,6 +469,14 @@ public class MostrarE extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnDibujarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDibujarActionPerformed
+       Dibujar.Cuadrado(F13.getGraphics());
+        Dibujar.Triangulo(F11.getGraphics());
+        Dibujar.Rectangulo(F14.getGraphics());
+        Dibujar.Rombo(F15.getGraphics());
+        Dibujar.Circulo(F16.getGraphics());
+    }//GEN-LAST:event_btnDibujarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -479,6 +511,39 @@ public class MostrarE extends javax.swing.JFrame {
             }
         });
     }
+    //CADENA
+    public void setCadena(String varc,String valc){
+        this.varCadena = varc;
+        this.valCadena = valc;
+    }
+    public void Cadena(){
+        Cadena.append("Variable: "+varCadena+"\nValor: "+valCadena);
+    }
+    //CADENA
+    //RESULTADO
+    public void setResultado(String varr,String valr){
+        this.varResultado = varr;
+        this.valResultado = valr;
+    }
+    //RESULTADO
+    //FIGURA
+    public void setFigura(String varf,String valf){
+        this.varFigura = varf;
+        this.valFigura = valf;
+    }
+    public void Figura(){
+        Figura.append("Variable: "+varFigura+"\nValor: "+valFigura);
+    }
+    //FIGURA
+    //COLOR
+    public void setColor(String varc,String valc){
+        this.varColor = varc;
+        this.valColor = valc;
+    }
+    public void Color(){
+        Color.append("Variable: "+varColor+"\nValor: "+valColor);
+    }
+    //COLOR
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea Cadena;
@@ -497,22 +562,14 @@ public class MostrarE extends javax.swing.JFrame {
     private javax.swing.JPanel F15;
     private javax.swing.JPanel F16;
     private javax.swing.JTextArea Figura;
+    private javax.swing.JButton btnDibujar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
-    private javax.swing.JPanel jPanel126;
-    private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel130;
-    private javax.swing.JPanel jPanel14;
-    private javax.swing.JPanel jPanel18;
-    private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel20;
-    private javax.swing.JPanel jPanel65;
-    private javax.swing.JPanel jPanel66;
     private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel83;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

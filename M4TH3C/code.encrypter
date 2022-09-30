@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Metodo &Prueba{
 	Entero num1 = - 100;
 	Entero num2;
@@ -32,5 +33,7 @@ Metodo &Prueba{
 	Dividir(num3,num4)<
 		#res4
 	>;
-	Mostrar(cad4,#res2,fig2,col1,fig2,col2,fig2,col2,fig2,col2,fig2,col2);
+	Mostrar(cad4,#res1,fig2,col1);
 }
+=======
+>>>>>>> e10c4b0048e38a8be499bff3262211ad560ecac7
