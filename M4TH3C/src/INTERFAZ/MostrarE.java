@@ -686,6 +686,7 @@ public class MostrarE extends javax.swing.JFrame {
                 y1 += 55;
             }
         }
+        btnDibujar.setEnabled(false);
     }//GEN-LAST:event_btnDibujarActionPerformed
 
     /**
