@@ -9,7 +9,30 @@ package INTERFAZ;
  * @author chuy4
  */
 public class MostrarD extends javax.swing.JFrame {
-
+    private String varCadena;
+    private String valCadena;
+    private String varResultado;
+    private String valResultado;
+    private String varFigura1;
+    private String valFigura1;
+    private String varColor1;
+    private String valColor1;
+    private String varFigura2;
+    private String valFigura2;
+    private String varColor2;
+    private String valColor2;
+    private String varFigura3;
+    private String valFigura3;
+    private String varColor3;
+    private String valColor3;
+    private String varFigura4;
+    private String valFigura4;
+    private String varColor4;
+    private String valColor4;
+    private String varFigura5;
+    private String valFigura5;
+    private String varColor5;
+    private String valColor5;
     /**
      * Creates new form MostrarD
      */
@@ -18,7 +41,327 @@ public class MostrarD extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.setTitle("Mostrar (Decimal) - M4TH3C");
     }
+    //CADENA
+    public void setCadena(String varc,String valc){
+        this.varCadena = varc;
+        this.valCadena = valc;
+    }
+    public void Cadena(){
+        Cadena.append("---> Variable: "+varCadena+"\n\n--->Valor: "+valCadena);
+    }
+    //CADENA
+    //RESULTADO
+    public void setResultado(String varr,String valr){
+        this.varResultado = varr;
+        this.valResultado = valr;
+    }
+    public void Resultado(){
+        if(valResultado.contains("-")){
+            if(Character.toString(valResultado.charAt(4)).equals(".")){
+                E.setText(Character.toString(valResultado.charAt(0)));
+                DE3.setText(Character.toString(valResultado.charAt(1)));
+                DE2.setText(Character.toString(valResultado.charAt(2)));
+                DE1.setText(Character.toString(valResultado.charAt(3)));
+                P.setText(Character.toString(valResultado.charAt(4)));
+                DD1.setText(Character.toString(valResultado.charAt(5)));
+                DD2.setText(Character.toString(valResultado.charAt(6)));
+                DD3.setText(Character.toString(valResultado.charAt(7)));
+                DD4.setText(Character.toString(valResultado.charAt(8)));
+            }if(Character.toString(valResultado.charAt(3)).equals(".")){
+                E.setText(Character.toString(valResultado.charAt(0)));
+                DE2.setText(Character.toString(valResultado.charAt(1)));
+                DE1.setText(Character.toString(valResultado.charAt(2)));
+                P.setText(Character.toString(valResultado.charAt(3)));
+                DD1.setText(Character.toString(valResultado.charAt(4)));
+                DD2.setText(Character.toString(valResultado.charAt(5)));
+                DD3.setText(Character.toString(valResultado.charAt(6)));
+                DD4.setText(Character.toString(valResultado.charAt(7)));
+            }if(Character.toString(valResultado.charAt(2)).equals(".")){
+                E.setText(Character.toString(valResultado.charAt(0)));
+                DE1.setText(Character.toString(valResultado.charAt(1)));
+                P.setText(Character.toString(valResultado.charAt(2)));
+                DD1.setText(Character.toString(valResultado.charAt(3)));
+                DD2.setText(Character.toString(valResultado.charAt(4)));
+                DD3.setText(Character.toString(valResultado.charAt(5)));
+                DD4.setText(Character.toString(valResultado.charAt(6)));
+            }if(Character.toString(valResultado.charAt(1)).equals(".")){
+                E.setText(Character.toString(valResultado.charAt(0)));
+                P.setText(Character.toString(valResultado.charAt(1)));
+                DD1.setText(Character.toString(valResultado.charAt(2)));
+                DD2.setText(Character.toString(valResultado.charAt(3)));
+                DD3.setText(Character.toString(valResultado.charAt(4)));
+                DD4.setText(Character.toString(valResultado.charAt(5)));
+            }if(Character.toString(valResultado.charAt(4)).equals(".")){
+                E.setText(Character.toString(valResultado.charAt(0)));
+                DE3.setText(Character.toString(valResultado.charAt(1)));
+                DE2.setText(Character.toString(valResultado.charAt(2)));
+                DE1.setText(Character.toString(valResultado.charAt(3)));
+                P.setText(Character.toString(valResultado.charAt(4)));
+                DD1.setText(Character.toString(valResultado.charAt(5)));
+                DD2.setText(Character.toString(valResultado.charAt(6)));
+                DD3.setText(Character.toString(valResultado.charAt(7)));
+            }if(Character.toString(valResultado.charAt(4)).equals(".")){
+                E.setText(Character.toString(valResultado.charAt(0)));
+                DE3.setText(Character.toString(valResultado.charAt(1)));
+                DE2.setText(Character.toString(valResultado.charAt(2)));
+                DE1.setText(Character.toString(valResultado.charAt(3)));
+                P.setText(Character.toString(valResultado.charAt(4)));
+                DD1.setText(Character.toString(valResultado.charAt(5)));
+                DD2.setText(Character.toString(valResultado.charAt(6)));
+            }if(Character.toString(valResultado.charAt(4)).equals(".")){
+                E.setText(Character.toString(valResultado.charAt(0)));
+                DE3.setText(Character.toString(valResultado.charAt(1)));
+                DE2.setText(Character.toString(valResultado.charAt(2)));
+                DE1.setText(Character.toString(valResultado.charAt(3)));
+                P.setText(Character.toString(valResultado.charAt(4)));
+                DD1.setText(Character.toString(valResultado.charAt(5)));
+            }if(Character.toString(valResultado.charAt(3)).equals(".")){
+                E.setText(Character.toString(valResultado.charAt(0)));
+                DE2.setText(Character.toString(valResultado.charAt(1)));
+                DE1.setText(Character.toString(valResultado.charAt(2)));
+                P.setText(Character.toString(valResultado.charAt(3)));
+                DD1.setText(Character.toString(valResultado.charAt(4)));
+                DD2.setText(Character.toString(valResultado.charAt(5)));
+                DD3.setText(Character.toString(valResultado.charAt(6)));
+            }if(Character.toString(valResultado.charAt(3)).equals(".")){
+                E.setText(Character.toString(valResultado.charAt(0)));
+                DE2.setText(Character.toString(valResultado.charAt(1)));
+                DE1.setText(Character.toString(valResultado.charAt(2)));
+                P.setText(Character.toString(valResultado.charAt(3)));
+                DD1.setText(Character.toString(valResultado.charAt(4)));
+                DD2.setText(Character.toString(valResultado.charAt(5)));
+            }if(Character.toString(valResultado.charAt(3)).equals(".")){
+                E.setText(Character.toString(valResultado.charAt(0)));
+                DE2.setText(Character.toString(valResultado.charAt(1)));
+                DE1.setText(Character.toString(valResultado.charAt(2)));
+                P.setText(Character.toString(valResultado.charAt(3)));
+                DD1.setText(Character.toString(valResultado.charAt(4)));
+            }if(Character.toString(valResultado.charAt(2)).equals(".")){
+                E.setText(Character.toString(valResultado.charAt(0)));
+                DE1.setText(Character.toString(valResultado.charAt(1)));
+                P.setText(Character.toString(valResultado.charAt(2)));
+                DD1.setText(Character.toString(valResultado.charAt(3)));
+                DD2.setText(Character.toString(valResultado.charAt(4)));
+                DD3.setText(Character.toString(valResultado.charAt(5)));
+            }if(Character.toString(valResultado.charAt(2)).equals(".")){
+                E.setText(Character.toString(valResultado.charAt(0)));
+                DE1.setText(Character.toString(valResultado.charAt(1)));
+                P.setText(Character.toString(valResultado.charAt(2)));
+                DD1.setText(Character.toString(valResultado.charAt(3)));
+                DD2.setText(Character.toString(valResultado.charAt(4)));
+            }if(Character.toString(valResultado.charAt(2)).equals(".")){
+                E.setText(Character.toString(valResultado.charAt(0)));
+                DE1.setText(Character.toString(valResultado.charAt(1)));
+                P.setText(Character.toString(valResultado.charAt(2)));
+                DD1.setText(Character.toString(valResultado.charAt(3)));
+            }if(Character.toString(valResultado.charAt(1)).equals(".")){
+                E.setText(Character.toString(valResultado.charAt(0)));
+                P.setText(Character.toString(valResultado.charAt(1)));
+                DD1.setText(Character.toString(valResultado.charAt(2)));
+                DD2.setText(Character.toString(valResultado.charAt(3)));
+                DD3.setText(Character.toString(valResultado.charAt(4)));
+            }if(Character.toString(valResultado.charAt(1)).equals(".")){
+                E.setText(Character.toString(valResultado.charAt(0)));
+                P.setText(Character.toString(valResultado.charAt(1)));
+                DD1.setText(Character.toString(valResultado.charAt(2)));
+                DD2.setText(Character.toString(valResultado.charAt(3)));
+            }if(Character.toString(valResultado.charAt(1)).equals(".")){
+                E.setText(Character.toString(valResultado.charAt(0)));
+                P.setText(Character.toString(valResultado.charAt(1)));
+                DD1.setText(Character.toString(valResultado.charAt(2)));
+            }
+        }else{
+            if(Character.toString(valResultado.charAt(3)).equals(".")){
+                E.setText("+");
+                DE3.setText(Character.toString(valResultado.charAt(0)));
+                DE2.setText(Character.toString(valResultado.charAt(1)));
+                DE1.setText(Character.toString(valResultado.charAt(2)));
+                P.setText(Character.toString(valResultado.charAt(3)));
+                DD1.setText(Character.toString(valResultado.charAt(4)));
+                DD2.setText(Character.toString(valResultado.charAt(5)));
+                DD3.setText(Character.toString(valResultado.charAt(6)));
+                DD4.setText(Character.toString(valResultado.charAt(7)));
+            }if(Character.toString(valResultado.charAt(2)).equals(".")){
+                E.setText("+");
+                DE2.setText(Character.toString(valResultado.charAt(0)));
+                DE1.setText(Character.toString(valResultado.charAt(1)));
+                P.setText(Character.toString(valResultado.charAt(2)));
+                DD1.setText(Character.toString(valResultado.charAt(3)));
+                DD2.setText(Character.toString(valResultado.charAt(4)));
+                DD3.setText(Character.toString(valResultado.charAt(5)));
+                DD4.setText(Character.toString(valResultado.charAt(6)));
+            }if(Character.toString(valResultado.charAt(1)).equals(".")){
+                E.setText("+");
+                DE1.setText(Character.toString(valResultado.charAt(0)));
+                P.setText(Character.toString(valResultado.charAt(1)));
+                DD1.setText(Character.toString(valResultado.charAt(2)));
+                DD2.setText(Character.toString(valResultado.charAt(3)));
+                DD3.setText(Character.toString(valResultado.charAt(4)));
+                DD4.setText(Character.toString(valResultado.charAt(5)));
+            }if(Character.toString(valResultado.charAt(0)).equals(".")){
+                E.setText("+");
+                P.setText(Character.toString(valResultado.charAt(0)));
+                DD1.setText(Character.toString(valResultado.charAt(1)));
+                DD2.setText(Character.toString(valResultado.charAt(2)));
+                DD3.setText(Character.toString(valResultado.charAt(3)));
+                DD4.setText(Character.toString(valResultado.charAt(4)));
+            }if(Character.toString(valResultado.charAt(3)).equals(".")){
+                E.setText("+");
+                DE3.setText(Character.toString(valResultado.charAt(0)));
+                DE2.setText(Character.toString(valResultado.charAt(1)));
+                DE1.setText(Character.toString(valResultado.charAt(2)));
+                P.setText(Character.toString(valResultado.charAt(3)));
+                DD1.setText(Character.toString(valResultado.charAt(4)));
+                DD2.setText(Character.toString(valResultado.charAt(5)));
+                DD3.setText(Character.toString(valResultado.charAt(6)));
+            }if(Character.toString(valResultado.charAt(3)).equals(".")){
+                E.setText("+");
+                DE3.setText(Character.toString(valResultado.charAt(0)));
+                DE2.setText(Character.toString(valResultado.charAt(1)));
+                DE1.setText(Character.toString(valResultado.charAt(2)));
+                P.setText(Character.toString(valResultado.charAt(3)));
+                DD1.setText(Character.toString(valResultado.charAt(4)));
+                DD2.setText(Character.toString(valResultado.charAt(5)));
+            }if(Character.toString(valResultado.charAt(3)).equals(".")){
+                E.setText("+");
+                DE3.setText(Character.toString(valResultado.charAt(0)));
+                DE2.setText(Character.toString(valResultado.charAt(1)));
+                DE1.setText(Character.toString(valResultado.charAt(2)));
+                P.setText(Character.toString(valResultado.charAt(3)));
+                DD1.setText(Character.toString(valResultado.charAt(4)));
+            }if(Character.toString(valResultado.charAt(2)).equals(".")){
+                E.setText("+");
+                DE2.setText(Character.toString(valResultado.charAt(0)));
+                DE1.setText(Character.toString(valResultado.charAt(1)));
+                P.setText(Character.toString(valResultado.charAt(2)));
+                DD1.setText(Character.toString(valResultado.charAt(3)));
+                DD2.setText(Character.toString(valResultado.charAt(4)));
+                DD3.setText(Character.toString(valResultado.charAt(5)));
+            }if(Character.toString(valResultado.charAt(2)).equals(".")){
+                E.setText("+");
+                DE2.setText(Character.toString(valResultado.charAt(0)));
+                DE1.setText(Character.toString(valResultado.charAt(1)));
+                P.setText(Character.toString(valResultado.charAt(2)));
+                DD1.setText(Character.toString(valResultado.charAt(3)));
+                DD2.setText(Character.toString(valResultado.charAt(4)));
+            }if(Character.toString(valResultado.charAt(2)).equals(".")){
+                E.setText("+");
+                DE2.setText(Character.toString(valResultado.charAt(0)));
+                DE1.setText(Character.toString(valResultado.charAt(1)));
+                P.setText(Character.toString(valResultado.charAt(2)));
+                DD1.setText(Character.toString(valResultado.charAt(3)));
+            }if(Character.toString(valResultado.charAt(1)).equals(".")){
+                E.setText("+");
+                DE1.setText(Character.toString(valResultado.charAt(0)));
+                P.setText(Character.toString(valResultado.charAt(1)));
+                DD1.setText(Character.toString(valResultado.charAt(2)));
+                DD2.setText(Character.toString(valResultado.charAt(3)));
+                DD3.setText(Character.toString(valResultado.charAt(4)));
+            }if(Character.toString(valResultado.charAt(1)).equals(".")){
+                E.setText("+");
+                DE1.setText(Character.toString(valResultado.charAt(0)));
+                P.setText(Character.toString(valResultado.charAt(1)));
+                DD1.setText(Character.toString(valResultado.charAt(2)));
+                DD2.setText(Character.toString(valResultado.charAt(3)));
+            }if(Character.toString(valResultado.charAt(1)).equals(".")){
+                E.setText("+");
+                DE1.setText(Character.toString(valResultado.charAt(0)));
+                P.setText(Character.toString(valResultado.charAt(1)));
+                DD1.setText(Character.toString(valResultado.charAt(2)));
+            }if(Character.toString(valResultado.charAt(0)).equals(".")){
+                E.setText("+");
+                P.setText(Character.toString(valResultado.charAt(0)));
+                DD1.setText(Character.toString(valResultado.charAt(1)));
+                DD2.setText(Character.toString(valResultado.charAt(2)));
+                DD3.setText(Character.toString(valResultado.charAt(3)));
+            }if(Character.toString(valResultado.charAt(0)).equals(".")){
+                E.setText("+");
+                P.setText(Character.toString(valResultado.charAt(0)));
+                DD1.setText(Character.toString(valResultado.charAt(1)));
+                DD2.setText(Character.toString(valResultado.charAt(2)));
+            }if(Character.toString(valResultado.charAt(0)).equals(".")){
+                E.setText("+");
+                P.setText(Character.toString(valResultado.charAt(0)));
+                DD1.setText(Character.toString(valResultado.charAt(1)));
+            }
+        }
 
+    }
+    //RESULTADO
+    //FIGURA
+    public void setFigura1(String varf,String valf){
+        this.varFigura1 = varf;
+        this.valFigura1 = valf;
+    }
+    public void Figura1(){
+        Figura.append(" Dígitos Enteros ---> Variable: "+varFigura1+" ---> Valor: "+valFigura1+"\n");
+    }
+    public void setFigura2(String varf,String valf){
+        this.varFigura2 = varf;
+        this.valFigura2 = valf;
+    }
+    public void Figura2(){
+        Figura.append(" Dígito Decimal 1 ---> Variable: "+varFigura2+" ---> Valor: "+valFigura2+"\n");
+    }
+    public void setFigura3(String varf,String valf){
+        this.varFigura3 = varf;
+        this.valFigura3 = valf;
+    }
+    public void Figura3(){
+        Figura.append("  Dígito Decimal 2 ---> Variable: "+varFigura3+" ---> Valor: "+valFigura3+"\n");
+    }
+    public void setFigura4 (String varf,String valf){
+        this.varFigura4 = varf;
+        this.valFigura4 = valf;
+    }
+    public void Figura4(){
+        Figura.append(" Dígito Decimal 3 ---> Variable: "+varFigura4+" ---> Valor: "+valFigura4+"\n");
+    }
+    public void setFigura5(String varf,String valf){
+        this.varFigura5 = varf;
+        this.valFigura5 = valf;
+    }
+    public void Figura5(){
+        Figura.append(" Dígito Decimal 4 ---> Variable: "+varFigura5+" ---> Valor: "+valFigura5+"\n");
+    }
+    //FIGURA
+    //COLOR
+    public void setColor1(String varc,String valc){
+        this.varColor1 = varc;
+        this.valColor1 = valc;
+    }
+    public void Color1(){
+        Color.append(" Dígitos Enteros ---> Variable: "+varColor1+" ---> Valor: "+valColor1+"\n");
+    }
+    public void setColor2(String varc,String valc){
+        this.varColor2 = varc;
+        this.valColor2 = valc;
+    }
+    public void Color2(){
+        Color.append(" Dígito Decimal 1 ---> Variable: "+varColor2+" ---> Valor: "+valColor2+"\n");
+    }
+    public void setColor3(String varc,String valc){
+        this.varColor3 = varc;
+        this.valColor3 = valc;
+    }
+    public void Color3(){
+        Color.append(" Dígito Decimal 2 ---> Variable: "+varColor3+" ---> Valor: "+valColor3+"\n");
+    }
+    public void setColor4(String varc,String valc){
+        this.varColor4 = varc;
+        this.valColor4 = valc;
+    }
+    public void Color4(){
+        Color.append(" Dígito Decimal 3 ---> Variable: "+varColor4+" ---> Valor: "+valColor4+"\n");
+    }
+    public void setColor5(String varc,String valc){
+        this.varColor5 = varc;
+        this.valColor5 = valc;
+    }
+    public void Color5(){
+        Color.append(" Dígito Decimal 4 ---> Variable: "+varColor5+" ---> Valor: "+valColor5+"\n");
+    }
+    //COLOR
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -365,15 +708,14 @@ public class MostrarD extends javax.swing.JFrame {
             .addGroup(jPanel12Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextField5)
                     .addGroup(jPanel12Layout.createSequentialGroup()
-                        .addComponent(jTextField5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnDibujarD))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createSequentialGroup()
-                        .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel12Layout.createSequentialGroup()
-                                .addComponent(E, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                        .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(btnDibujarD, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(E, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                        .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createSequentialGroup()
                                 .addComponent(DE3, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(DE2, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -381,8 +723,7 @@ public class MostrarD extends javax.swing.JFrame {
                                 .addComponent(DE1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(P, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel12Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createSequentialGroup()
                                 .addComponent(F13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(F12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -411,9 +752,7 @@ public class MostrarD extends javax.swing.JFrame {
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel12Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnDibujarD))
+                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(DD1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -427,14 +766,17 @@ public class MostrarD extends javax.swing.JFrame {
                         .addComponent(DE3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(DE2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(F4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(F3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(F11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(F12, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(F2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(F5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(F13, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(F4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(F3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(F11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(F12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(F2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(F5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(F13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel12Layout.createSequentialGroup()
+                        .addComponent(btnDibujarD)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -479,7 +821,282 @@ public class MostrarD extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDibujarDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDibujarDActionPerformed
-     
+        if(valFigura1.equals("Cuadrado")){
+            int y1 = 5;
+            int y2 = 55;
+            for(int i = 0; i < Integer.parseInt(DE1.getText());i++){
+                Dibujar.Cuadrado(F11.getGraphics(),valColor1,y1,y2);
+                y1 += 55;
+                y2 += 55;
+            }
+            y1 = 5;
+            y2 = 55;
+            for(int i = 0; i < Integer.parseInt(DE2.getText());i++){
+                Dibujar.Cuadrado(F12.getGraphics(),valColor1,y1,y2);
+                y1 += 55;
+                y2 += 55;
+            }
+            y1 = 5;
+            y2 = 55;
+            for(int i = 0; i < Integer.parseInt(DE3.getText());i++){
+                Dibujar.Cuadrado(F13.getGraphics(),valColor1,y1,y2);
+                y1 += 55;
+                y2 += 55;
+            }
+        }else if(valFigura1.equals("Triangulo")){
+            int y1 = 5;
+            int y2 = 55;
+            for(int i = 0; i < Integer.parseInt(DE1.getText());i++){
+                Dibujar.Triangulo(F11.getGraphics(),valColor1,y1,y2);
+                y1 += 55;
+                y2 += 55;
+            }
+            y1 = 5;
+            y2 = 55;
+            for(int i = 0; i < Integer.parseInt(DE2.getText());i++){
+                Dibujar.Triangulo(F12.getGraphics(),valColor1,y1,y2);
+                y1 += 55;
+                y2 += 55;
+            }
+            y1 = 5;
+            y2 = 55;
+            for(int i = 0; i < Integer.parseInt(DE3.getText());i++){
+                Dibujar.Triangulo(F13.getGraphics(),valColor1,y1,y2);
+                y1 += 55;
+                y2 += 55;
+            }
+        }else if(valFigura1.equals("Rectangulo")){
+            int y1 = 15;
+            int y2 = 45;
+            for(int i = 0; i < Integer.parseInt(DE1.getText());i++){
+                Dibujar.Rectangulo(F11.getGraphics(),valColor1,y1,y2);
+                y1 += 55;
+                y2 += 55;
+            }
+            y1 = 15;
+            y2 = 45;
+            for(int i = 0; i < Integer.parseInt(DE2.getText());i++){
+                Dibujar.Rectangulo(F12.getGraphics(),valColor1,y1,y2);
+                y1 += 55;
+                y2 += 55;
+            }
+            y1 = 15;
+            y2 = 45;
+            for(int i = 0; i < Integer.parseInt(DE3.getText());i++){
+                Dibujar.Rectangulo(F13.getGraphics(),valColor1,y1,y2);
+                y1 += 55;
+                y2 += 55;
+            }
+        }else if(valFigura1.equals("Rombo")){
+            int y1 = 5;
+            int y2 = 30;
+            int y3 = 55;
+            for(int i = 0; i < Integer.parseInt(DE1.getText());i++){
+                Dibujar.Rombo(F11.getGraphics(),valColor1,y1,y2,y3);
+                y1 += 55;
+                y2 += 55;
+                y3 += 55;
+            }
+            y1 = 5;
+            y2 = 30;
+            y3 = 55;
+            for(int i = 0; i < Integer.parseInt(DE2.getText());i++){
+                Dibujar.Rombo(F12.getGraphics(),valColor1,y1,y2,y3);
+                y1 += 55;
+                y2 += 55;
+                y3 += 55;
+            }
+            y1 = 5;
+            y2 = 30;
+            y3 = 55;
+            for(int i = 0; i < Integer.parseInt(DE3.getText());i++){
+                Dibujar.Rombo(F13.getGraphics(),valColor1,y1,y2,y3);
+                y1 += 55;
+                y2 += 55;
+                y3 += 55;
+            }
+        }else if(valFigura1.equals("Circulo")){
+            int y1 = 5;
+            for(int i = 0; i < Integer.parseInt(DE1.getText());i++){
+                Dibujar.Circulo(F11.getGraphics(),valColor1,y1);
+                y1 += 55;
+            }
+            y1 = 5;
+            for(int i = 0; i < Integer.parseInt(DE2.getText());i++){
+                Dibujar.Circulo(F12.getGraphics(),valColor1,y1);
+                y1 += 55;
+            }
+            y1 = 5;
+            for(int i = 0; i < Integer.parseInt(DE3.getText());i++){
+                Dibujar.Circulo(F13.getGraphics(),valColor1,y1);
+                y1 += 55;
+            }
+        }
+        if(valFigura2.equals("Cuadrado")){
+            int y1 = 5;
+            int y2 = 55;
+            for(int i = 0; i < Integer.parseInt(DD1.getText());i++){
+                Dibujar.Cuadrado(F2.getGraphics(),valColor2,y1,y2);
+                y1 += 55;
+                y2 += 55;
+            }
+        }else if(valFigura2.equals("Triangulo")){
+            int y1 = 5;
+            int y2 = 55;
+            for(int i = 0; i < Integer.parseInt(DD1.getText());i++){
+                Dibujar.Triangulo(F2.getGraphics(),valColor2,y1,y2);
+                y1 += 55;
+                y2 += 55;
+            }
+        }else if(valFigura2.equals("Rectangulo")){
+            int y1 = 15;
+            int y2 = 45;
+            for(int i = 0; i < Integer.parseInt(DD1.getText());i++){
+                Dibujar.Rectangulo(F2.getGraphics(),valColor2,y1,y2);
+                y1 += 55;
+                y2 += 55;
+            }
+        }else if(valFigura2.equals("Rombo")){
+            int y1 = 5;
+            int y2 = 30;
+            int y3 = 55;
+            for(int i = 0; i < Integer.parseInt(DD1.getText());i++){
+                Dibujar.Rombo(F2.getGraphics(),valColor2,y1,y2,y3);
+                y1 += 55;
+                y2 += 55;
+                y3 += 55;
+            }
+        }else if(valFigura2.equals("Circulo")){
+            int y1 = 5;
+            for(int i = 0; i < Integer.parseInt(DD1.getText());i++){
+                Dibujar.Circulo(F2.getGraphics(),valColor2,y1);
+                y1 += 55;
+            }
+        }
+        if(valFigura3.equals("Cuadrado")){
+            int y1 = 5;
+            int y2 = 55;
+            for(int i = 0; i < Integer.parseInt(DD2.getText());i++){
+                Dibujar.Cuadrado(F3.getGraphics(),valColor3,y1,y2);
+                y1 += 55;
+                y2 += 55;
+            }
+        }else if(valFigura3.equals("Triangulo")){
+            int y1 = 5;
+            int y2 = 55;
+            for(int i = 0; i < Integer.parseInt(DD2.getText());i++){
+                Dibujar.Triangulo(F3.getGraphics(),valColor3,y1,y2);
+                y1 += 55;
+                y2 += 55;
+            }
+        }else if(valFigura3.equals("Rectangulo")){
+            int y1 = 15;
+            int y2 = 45;
+            for(int i = 0; i < Integer.parseInt(DD2.getText());i++){
+                Dibujar.Rectangulo(F3.getGraphics(),valColor3,y1,y2);
+                y1 += 55;
+                y2 += 55;
+            }
+        }else if(valFigura3.equals("Rombo")){
+            int y1 = 5;
+            int y2 = 30;
+            int y3 = 55;
+            for(int i = 0; i < Integer.parseInt(DD2.getText());i++){
+                Dibujar.Rombo(F3.getGraphics(),valColor3,y1,y2,y3);
+                y1 += 55;
+                y2 += 55;
+                y3 += 55;
+            }
+        }else if(valFigura3.equals("Circulo")){
+            int y1 = 5;
+            for(int i = 0; i < Integer.parseInt(DD2.getText());i++){
+                Dibujar.Circulo(F3.getGraphics(),valColor3,y1);
+                y1 += 55;
+            }
+        }
+        if(valFigura4.equals("Cuadrado")){
+            int y1 = 5;
+            int y2 = 55;
+            for(int i = 0; i < Integer.parseInt(DD3.getText());i++){
+                Dibujar.Cuadrado(F4.getGraphics(),valColor4,y1,y2);
+                y1 += 55;
+                y2 += 55;
+            }
+        }else if(valFigura4.equals("Triangulo")){
+            int y1 = 5;
+            int y2 = 55;
+            for(int i = 0; i < Integer.parseInt(DD3.getText());i++){
+                Dibujar.Triangulo(F4.getGraphics(),valColor4,y1,y2);
+                y1 += 55;
+                y2 += 55;
+            }
+        }else if(valFigura4.equals("Rectangulo")){
+            int y1 = 15;
+            int y2 = 45;
+            for(int i = 0; i < Integer.parseInt(DD3.getText());i++){
+                Dibujar.Rectangulo(F4.getGraphics(),valColor4,y1,y2);
+                y1 += 55;
+                y2 += 55;
+            }
+        }else if(valFigura4.equals("Rombo")){
+            int y1 = 5;
+            int y2 = 30;
+            int y3 = 55;
+            for(int i = 0; i < Integer.parseInt(DD3.getText());i++){
+                Dibujar.Rombo(F4.getGraphics(),valColor4,y1,y2,y3);
+                y1 += 55;
+                y2 += 55;
+                y3 += 55;
+            }
+        }else if(valFigura4.equals("Circulo")){
+            int y1 = 5;
+            for(int i = 0; i < Integer.parseInt(DD3.getText());i++){
+                Dibujar.Circulo(F4.getGraphics(),valColor4,y1);
+                y1 += 55;
+            }
+        }
+        if(valFigura5.equals("Cuadrado")){
+            int y1 = 5;
+            int y2 = 55;
+            for(int i = 0; i < Integer.parseInt(DD4.getText());i++){
+                Dibujar.Cuadrado(F5.getGraphics(),valColor5,y1,y2);
+                y1 += 55;
+                y2 += 55;
+            }
+        }else if(valFigura5.equals("Triangulo")){
+            int y1 = 5;
+            int y2 = 55;
+            for(int i = 0; i < Integer.parseInt(DD4.getText());i++){
+                Dibujar.Triangulo(F5.getGraphics(),valColor5,y1,y2);
+                y1 += 55;
+                y2 += 55;
+            }
+        }else if(valFigura5.equals("Rectangulo")){
+            int y1 = 15;
+            int y2 = 45;
+            for(int i = 0; i < Integer.parseInt(DD4.getText());i++){
+                Dibujar.Rectangulo(F5.getGraphics(),valColor5,y1,y2);
+                y1 += 55;
+                y2 += 55;
+            }
+        }else if(valFigura5.equals("Rombo")){
+            int y1 = 5;
+            int y2 = 30;
+            int y3 = 55;
+            for(int i = 0; i < Integer.parseInt(DD4.getText());i++){
+                Dibujar.Rombo(F5.getGraphics(),valColor5,y1,y2,y3);
+                y1 += 55;
+                y2 += 55;
+                y3 += 55;
+            }
+        }else if(valFigura5.equals("Circulo")){
+            int y1 = 5;
+            for(int i = 0; i < Integer.parseInt(DD4.getText());i++){
+                Dibujar.Circulo(F5.getGraphics(),valColor5,y1);
+                y1 += 55;
+            }
+        }
+        btnDibujarD.setEnabled(false);
     }//GEN-LAST:event_btnDibujarDActionPerformed
 
     /**

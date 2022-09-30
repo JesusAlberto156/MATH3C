@@ -19999,7 +19999,30 @@ public class Interfaz extends javax.swing.JFrame {
                                 PanelSalida.append("-->   Se ha utlizado la función de Mostrar en su forma de tipo Decimal, del cual se crea la siguiente interfaz.........\n");
                                 MostrarD md = new MostrarD();
                                 md.setVisible(true);
-                                
+                                md.setCadena(id.lexemeRank(2),identDataTypeV.get(id.lexemeRank(2)).replace("'",""));
+                                md.setResultado(id.lexemeRank(4),identDataTypeR.get(id.lexemeRank(4)));
+                                md.setFigura1(id.lexemeRank(6),identDataTypeV.get(id.lexemeRank(6)));
+                                md.setColor1(id.lexemeRank(8),identDataTypeV.get(id.lexemeRank(8)));
+                                md.setFigura2(id.lexemeRank(10),identDataTypeV.get(id.lexemeRank(10)));
+                                md.setColor2(id.lexemeRank(12),identDataTypeV.get(id.lexemeRank(12)));
+                                md.setFigura3(id.lexemeRank(14),identDataTypeV.get(id.lexemeRank(14)));
+                                md.setColor3(id.lexemeRank(16),identDataTypeV.get(id.lexemeRank(16)));
+                                md.setFigura4(id.lexemeRank(18),identDataTypeV.get(id.lexemeRank(18)));
+                                md.setColor4(id.lexemeRank(20),identDataTypeV.get(id.lexemeRank(20)));
+                                md.setFigura5(id.lexemeRank(22),identDataTypeV.get(id.lexemeRank(22)));
+                                md.setColor5(id.lexemeRank(24),identDataTypeV.get(id.lexemeRank(24)));
+                                md.Figura1();
+                                md.Color1();
+                                md.Figura2();
+                                md.Color2();
+                                md.Figura3();
+                                md.Color3();
+                                md.Figura4();
+                                md.Color4();
+                                md.Figura5();
+                                md.Color5();
+                                md.Cadena();
+                                md.Resultado();
                             }
                         }
                     }
