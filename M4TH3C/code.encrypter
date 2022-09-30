@@ -32,5 +32,5 @@ Metodo &Prueba{
 	Dividir(num3,num4)<
 		#res4
 	>;
-	Mostrar(cad4,#res3,fig2,col2);
+	Mostrar(cad4,#res2,fig2,col1,fig2,col2,fig2,col2,fig2,col2,fig2,col2);
 }
