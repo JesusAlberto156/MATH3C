@@ -823,276 +823,346 @@ public class MostrarD extends javax.swing.JFrame {
         if(valFigura1.equals("Cuadrado")){
             int y1 = 5;
             int y2 = 55;
-            for(int i = 0; i < Integer.parseInt(DE1.getText());i++){
-                Dibujar.Cuadrado(F11.getGraphics(),valColor1,y1,y2);
-                y1 += 55;
-                y2 += 55;
+            if(!DE1.getText().equals("")){
+                for(int i = 0; i < Integer.parseInt(DE1.getText());i++){
+                    Dibujar.Cuadrado(F11.getGraphics(),valColor1,y1,y2);
+                    y1 += 55;
+                    y2 += 55;
+                }
             }
             y1 = 5;
             y2 = 55;
-            for(int i = 0; i < Integer.parseInt(DE2.getText());i++){
-                Dibujar.Cuadrado(F12.getGraphics(),valColor1,y1,y2);
-                y1 += 55;
-                y2 += 55;
+            if(!DE2.getText().equals("")){
+                for(int i = 0; i < Integer.parseInt(DE2.getText());i++){
+                    Dibujar.Cuadrado(F12.getGraphics(),valColor1,y1,y2);
+                    y1 += 55;
+                    y2 += 55;
+                }
             }
             y1 = 5;
             y2 = 55;
-            for(int i = 0; i < Integer.parseInt(DE3.getText());i++){
-                Dibujar.Cuadrado(F13.getGraphics(),valColor1,y1,y2);
-                y1 += 55;
-                y2 += 55;
+            if(!DE3.getText().equals("")){
+                for(int i = 0; i < Integer.parseInt(DE3.getText());i++){
+                    Dibujar.Cuadrado(F13.getGraphics(),valColor1,y1,y2);
+                    y1 += 55;
+                    y2 += 55;
+                }
             }
         }else if(valFigura1.equals("Triangulo")){
             int y1 = 5;
             int y2 = 55;
-            for(int i = 0; i < Integer.parseInt(DE1.getText());i++){
-                Dibujar.Triangulo(F11.getGraphics(),valColor1,y1,y2);
-                y1 += 55;
-                y2 += 55;
+            if(!DE1.getText().equals("")){
+                for(int i = 0; i < Integer.parseInt(DE1.getText());i++){
+                    Dibujar.Triangulo(F11.getGraphics(),valColor1,y1,y2);
+                    y1 += 55;
+                    y2 += 55;
+                }
             }
             y1 = 5;
             y2 = 55;
-            for(int i = 0; i < Integer.parseInt(DE2.getText());i++){
-                Dibujar.Triangulo(F12.getGraphics(),valColor1,y1,y2);
-                y1 += 55;
-                y2 += 55;
+            if(!DE2.getText().equals("")){
+                for(int i = 0; i < Integer.parseInt(DE2.getText());i++){
+                    Dibujar.Triangulo(F12.getGraphics(),valColor1,y1,y2);
+                    y1 += 55;
+                    y2 += 55;
+                }
             }
             y1 = 5;
             y2 = 55;
-            for(int i = 0; i < Integer.parseInt(DE3.getText());i++){
-                Dibujar.Triangulo(F13.getGraphics(),valColor1,y1,y2);
-                y1 += 55;
-                y2 += 55;
+            if(!DE3.getText().equals("")){
+                for(int i = 0; i < Integer.parseInt(DE3.getText());i++){
+                    Dibujar.Triangulo(F13.getGraphics(),valColor1,y1,y2);
+                    y1 += 55;
+                    y2 += 55;
+                }
             }
         }else if(valFigura1.equals("Rectangulo")){
             int y1 = 15;
             int y2 = 45;
-            for(int i = 0; i < Integer.parseInt(DE1.getText());i++){
-                Dibujar.Rectangulo(F11.getGraphics(),valColor1,y1,y2);
-                y1 += 55;
-                y2 += 55;
+            if(!DE1.getText().equals("")){
+                for(int i = 0; i < Integer.parseInt(DE1.getText());i++){
+                    Dibujar.Rectangulo(F11.getGraphics(),valColor1,y1,y2);
+                    y1 += 55;
+                    y2 += 55;
+                }
             }
             y1 = 15;
             y2 = 45;
-            for(int i = 0; i < Integer.parseInt(DE2.getText());i++){
-                Dibujar.Rectangulo(F12.getGraphics(),valColor1,y1,y2);
-                y1 += 55;
-                y2 += 55;
+            if(!DE2.getText().equals("")){
+                for(int i = 0; i < Integer.parseInt(DE2.getText());i++){
+                    Dibujar.Rectangulo(F12.getGraphics(),valColor1,y1,y2);
+                    y1 += 55;
+                    y2 += 55;
+                }
             }
             y1 = 15;
             y2 = 45;
-            for(int i = 0; i < Integer.parseInt(DE3.getText());i++){
-                Dibujar.Rectangulo(F13.getGraphics(),valColor1,y1,y2);
-                y1 += 55;
-                y2 += 55;
+            if(!DE3.getText().equals("")){
+                for(int i = 0; i < Integer.parseInt(DE3.getText());i++){
+                    Dibujar.Rectangulo(F13.getGraphics(),valColor1,y1,y2);
+                    y1 += 55;
+                    y2 += 55;
+                }
             }
         }else if(valFigura1.equals("Rombo")){
             int y1 = 5;
             int y2 = 30;
             int y3 = 55;
-            for(int i = 0; i < Integer.parseInt(DE1.getText());i++){
-                Dibujar.Rombo(F11.getGraphics(),valColor1,y1,y2,y3);
-                y1 += 55;
-                y2 += 55;
-                y3 += 55;
+            if(!DE1.getText().equals("")){
+                for(int i = 0; i < Integer.parseInt(DE1.getText());i++){
+                    Dibujar.Rombo(F11.getGraphics(),valColor1,y1,y2,y3);
+                    y1 += 55;
+                    y2 += 55;
+                    y3 += 55;
+                }
             }
             y1 = 5;
             y2 = 30;
             y3 = 55;
-            for(int i = 0; i < Integer.parseInt(DE2.getText());i++){
-                Dibujar.Rombo(F12.getGraphics(),valColor1,y1,y2,y3);
-                y1 += 55;
-                y2 += 55;
-                y3 += 55;
+            if(!DE2.getText().equals("")){
+                for(int i = 0; i < Integer.parseInt(DE2.getText());i++){
+                    Dibujar.Rombo(F12.getGraphics(),valColor1,y1,y2,y3);
+                    y1 += 55;
+                    y2 += 55;
+                    y3 += 55;
+                }
             }
             y1 = 5;
             y2 = 30;
             y3 = 55;
-            for(int i = 0; i < Integer.parseInt(DE3.getText());i++){
-                Dibujar.Rombo(F13.getGraphics(),valColor1,y1,y2,y3);
-                y1 += 55;
-                y2 += 55;
-                y3 += 55;
+            if(!DE3.getText().equals("")){
+                for(int i = 0; i < Integer.parseInt(DE3.getText());i++){
+                    Dibujar.Rombo(F13.getGraphics(),valColor1,y1,y2,y3);
+                    y1 += 55;
+                    y2 += 55;
+                    y3 += 55;
+                }
             }
         }else if(valFigura1.equals("Circulo")){
             int y1 = 5;
-            for(int i = 0; i < Integer.parseInt(DE1.getText());i++){
-                Dibujar.Circulo(F11.getGraphics(),valColor1,y1);
-                y1 += 55;
+            if(!DE1.getText().equals("")){
+                for(int i = 0; i < Integer.parseInt(DE1.getText());i++){
+                    Dibujar.Circulo(F11.getGraphics(),valColor1,y1);
+                    y1 += 55;
+                }
             }
             y1 = 5;
-            for(int i = 0; i < Integer.parseInt(DE2.getText());i++){
-                Dibujar.Circulo(F12.getGraphics(),valColor1,y1);
-                y1 += 55;
+            if(!DE2.getText().equals("")){
+                for(int i = 0; i < Integer.parseInt(DE2.getText());i++){
+                    Dibujar.Circulo(F12.getGraphics(),valColor1,y1);
+                    y1 += 55;
+                }
             }
             y1 = 5;
-            for(int i = 0; i < Integer.parseInt(DE3.getText());i++){
-                Dibujar.Circulo(F13.getGraphics(),valColor1,y1);
-                y1 += 55;
+            if(!DE3.getText().equals("")){
+                for(int i = 0; i < Integer.parseInt(DE3.getText());i++){
+                    Dibujar.Circulo(F13.getGraphics(),valColor1,y1);
+                    y1 += 55;
+                }
             }
         }
         if(valFigura2.equals("Cuadrado")){
             int y1 = 5;
             int y2 = 55;
-            for(int i = 0; i < Integer.parseInt(DD1.getText());i++){
-                Dibujar.Cuadrado(F2.getGraphics(),valColor2,y1,y2);
-                y1 += 55;
-                y2 += 55;
+            if(!DD1.getText().equals("")){
+                for(int i = 0; i < Integer.parseInt(DD1.getText());i++){
+                    Dibujar.Cuadrado(F2.getGraphics(),valColor2,y1,y2);
+                    y1 += 55;
+                    y2 += 55;
+                }
             }
         }else if(valFigura2.equals("Triangulo")){
             int y1 = 5;
             int y2 = 55;
-            for(int i = 0; i < Integer.parseInt(DD1.getText());i++){
-                Dibujar.Triangulo(F2.getGraphics(),valColor2,y1,y2);
-                y1 += 55;
-                y2 += 55;
+            if(!DD1.getText().equals("")){
+                for(int i = 0; i < Integer.parseInt(DD1.getText());i++){
+                    Dibujar.Triangulo(F2.getGraphics(),valColor2,y1,y2);
+                    y1 += 55;
+                    y2 += 55;
+                }
             }
         }else if(valFigura2.equals("Rectangulo")){
             int y1 = 15;
             int y2 = 45;
-            for(int i = 0; i < Integer.parseInt(DD1.getText());i++){
-                Dibujar.Rectangulo(F2.getGraphics(),valColor2,y1,y2);
-                y1 += 55;
-                y2 += 55;
+            if(!DD1.getText().equals("")){
+                for(int i = 0; i < Integer.parseInt(DD1.getText());i++){
+                    Dibujar.Rectangulo(F2.getGraphics(),valColor2,y1,y2);
+                    y1 += 55;
+                    y2 += 55;
+                }
             }
         }else if(valFigura2.equals("Rombo")){
             int y1 = 5;
             int y2 = 30;
             int y3 = 55;
-            for(int i = 0; i < Integer.parseInt(DD1.getText());i++){
-                Dibujar.Rombo(F2.getGraphics(),valColor2,y1,y2,y3);
-                y1 += 55;
-                y2 += 55;
-                y3 += 55;
+            if(!DD1.getText().equals("")){
+                for(int i = 0; i < Integer.parseInt(DD1.getText());i++){
+                    Dibujar.Rombo(F2.getGraphics(),valColor2,y1,y2,y3);
+                    y1 += 55;
+                    y2 += 55;
+                    y3 += 55;
+                }
             }
         }else if(valFigura2.equals("Circulo")){
             int y1 = 5;
-            for(int i = 0; i < Integer.parseInt(DD1.getText());i++){
-                Dibujar.Circulo(F2.getGraphics(),valColor2,y1);
-                y1 += 55;
+            if(!DD1.getText().equals("")){
+                for(int i = 0; i < Integer.parseInt(DD1.getText());i++){
+                    Dibujar.Circulo(F2.getGraphics(),valColor2,y1);
+                    y1 += 55;
+                }
             }
         }
         if(valFigura3.equals("Cuadrado")){
             int y1 = 5;
             int y2 = 55;
-            for(int i = 0; i < Integer.parseInt(DD2.getText());i++){
-                Dibujar.Cuadrado(F3.getGraphics(),valColor3,y1,y2);
-                y1 += 55;
-                y2 += 55;
+            if(!DD2.getText().equals("")){
+                for(int i = 0; i < Integer.parseInt(DD2.getText());i++){
+                    Dibujar.Cuadrado(F3.getGraphics(),valColor3,y1,y2);
+                    y1 += 55;
+                    y2 += 55;
+                }
             }
         }else if(valFigura3.equals("Triangulo")){
             int y1 = 5;
             int y2 = 55;
-            for(int i = 0; i < Integer.parseInt(DD2.getText());i++){
-                Dibujar.Triangulo(F3.getGraphics(),valColor3,y1,y2);
-                y1 += 55;
-                y2 += 55;
+            if(!DD2.getText().equals("")){
+                for(int i = 0; i < Integer.parseInt(DD2.getText());i++){
+                    Dibujar.Triangulo(F3.getGraphics(),valColor3,y1,y2);
+                    y1 += 55;
+                    y2 += 55;
+                }
             }
         }else if(valFigura3.equals("Rectangulo")){
             int y1 = 15;
             int y2 = 45;
-            for(int i = 0; i < Integer.parseInt(DD2.getText());i++){
-                Dibujar.Rectangulo(F3.getGraphics(),valColor3,y1,y2);
-                y1 += 55;
-                y2 += 55;
+            if(!DD2.getText().equals("")){
+                for(int i = 0; i < Integer.parseInt(DD2.getText());i++){
+                    Dibujar.Rectangulo(F3.getGraphics(),valColor3,y1,y2);
+                    y1 += 55;
+                    y2 += 55;
+                }
             }
         }else if(valFigura3.equals("Rombo")){
             int y1 = 5;
             int y2 = 30;
             int y3 = 55;
-            for(int i = 0; i < Integer.parseInt(DD2.getText());i++){
-                Dibujar.Rombo(F3.getGraphics(),valColor3,y1,y2,y3);
-                y1 += 55;
-                y2 += 55;
-                y3 += 55;
+            if(!DD2.getText().equals("")){
+                for(int i = 0; i < Integer.parseInt(DD2.getText());i++){
+                    Dibujar.Rombo(F3.getGraphics(),valColor3,y1,y2,y3);
+                    y1 += 55;
+                    y2 += 55;
+                    y3 += 55;
+                }
             }
         }else if(valFigura3.equals("Circulo")){
             int y1 = 5;
-            for(int i = 0; i < Integer.parseInt(DD2.getText());i++){
-                Dibujar.Circulo(F3.getGraphics(),valColor3,y1);
-                y1 += 55;
+            if(!DD2.getText().equals("")){
+                for(int i = 0; i < Integer.parseInt(DD2.getText());i++){
+                    Dibujar.Circulo(F3.getGraphics(),valColor3,y1);
+                    y1 += 55;
+                }
             }
         }
         if(valFigura4.equals("Cuadrado")){
             int y1 = 5;
             int y2 = 55;
-            for(int i = 0; i < Integer.parseInt(DD3.getText());i++){
-                Dibujar.Cuadrado(F4.getGraphics(),valColor4,y1,y2);
-                y1 += 55;
-                y2 += 55;
+            if(!DD3.getText().equals("")){
+                for(int i = 0; i < Integer.parseInt(DD3.getText());i++){
+                    Dibujar.Cuadrado(F4.getGraphics(),valColor4,y1,y2);
+                    y1 += 55;
+                    y2 += 55;
+                }
             }
         }else if(valFigura4.equals("Triangulo")){
             int y1 = 5;
             int y2 = 55;
-            for(int i = 0; i < Integer.parseInt(DD3.getText());i++){
-                Dibujar.Triangulo(F4.getGraphics(),valColor4,y1,y2);
-                y1 += 55;
-                y2 += 55;
+            if(!DD3.getText().equals("")){
+                for(int i = 0; i < Integer.parseInt(DD3.getText());i++){
+                    Dibujar.Triangulo(F4.getGraphics(),valColor4,y1,y2);
+                    y1 += 55;
+                    y2 += 55;
+                }
             }
         }else if(valFigura4.equals("Rectangulo")){
             int y1 = 15;
             int y2 = 45;
-            for(int i = 0; i < Integer.parseInt(DD3.getText());i++){
-                Dibujar.Rectangulo(F4.getGraphics(),valColor4,y1,y2);
-                y1 += 55;
-                y2 += 55;
+            if(!DD3.getText().equals("")){
+                for(int i = 0; i < Integer.parseInt(DD3.getText());i++){
+                    Dibujar.Rectangulo(F4.getGraphics(),valColor4,y1,y2);
+                    y1 += 55;
+                    y2 += 55;
+                }
             }
         }else if(valFigura4.equals("Rombo")){
             int y1 = 5;
             int y2 = 30;
             int y3 = 55;
-            for(int i = 0; i < Integer.parseInt(DD3.getText());i++){
-                Dibujar.Rombo(F4.getGraphics(),valColor4,y1,y2,y3);
-                y1 += 55;
-                y2 += 55;
-                y3 += 55;
+            if(!DD3.getText().equals("")){
+                for(int i = 0; i < Integer.parseInt(DD3.getText());i++){
+                    Dibujar.Rombo(F4.getGraphics(),valColor4,y1,y2,y3);
+                    y1 += 55;
+                    y2 += 55;
+                    y3 += 55;
+                }
             }
         }else if(valFigura4.equals("Circulo")){
             int y1 = 5;
-            for(int i = 0; i < Integer.parseInt(DD3.getText());i++){
-                Dibujar.Circulo(F4.getGraphics(),valColor4,y1);
-                y1 += 55;
+            if(!DD3.getText().equals("")){
+                for(int i = 0; i < Integer.parseInt(DD3.getText());i++){
+                    Dibujar.Circulo(F4.getGraphics(),valColor4,y1);
+                    y1 += 55;
+                }
             }
         }
         if(valFigura5.equals("Cuadrado")){
             int y1 = 5;
             int y2 = 55;
-            for(int i = 0; i < Integer.parseInt(DD4.getText());i++){
-                Dibujar.Cuadrado(F5.getGraphics(),valColor5,y1,y2);
-                y1 += 55;
-                y2 += 55;
+            if(!DD4.getText().equals("")){
+                for(int i = 0; i < Integer.parseInt(DD4.getText());i++){
+                    Dibujar.Cuadrado(F5.getGraphics(),valColor5,y1,y2);
+                    y1 += 55;
+                    y2 += 55;
+                }
             }
         }else if(valFigura5.equals("Triangulo")){
             int y1 = 5;
             int y2 = 55;
-            for(int i = 0; i < Integer.parseInt(DD4.getText());i++){
-                Dibujar.Triangulo(F5.getGraphics(),valColor5,y1,y2);
-                y1 += 55;
-                y2 += 55;
+            if(!DD4.getText().equals("")){
+                for(int i = 0; i < Integer.parseInt(DD4.getText());i++){
+                    Dibujar.Triangulo(F5.getGraphics(),valColor5,y1,y2);
+                    y1 += 55;
+                    y2 += 55;
+                }
             }
         }else if(valFigura5.equals("Rectangulo")){
             int y1 = 15;
             int y2 = 45;
-            for(int i = 0; i < Integer.parseInt(DD4.getText());i++){
-                Dibujar.Rectangulo(F5.getGraphics(),valColor5,y1,y2);
-                y1 += 55;
-                y2 += 55;
+            if(!DD4.getText().equals("")){
+                for(int i = 0; i < Integer.parseInt(DD4.getText());i++){
+                    Dibujar.Rectangulo(F5.getGraphics(),valColor5,y1,y2);
+                    y1 += 55;
+                    y2 += 55;
+                }
             }
         }else if(valFigura5.equals("Rombo")){
             int y1 = 5;
             int y2 = 30;
             int y3 = 55;
-            for(int i = 0; i < Integer.parseInt(DD4.getText());i++){
-                Dibujar.Rombo(F5.getGraphics(),valColor5,y1,y2,y3);
-                y1 += 55;
-                y2 += 55;
-                y3 += 55;
+            if(!DD4.getText().equals("")){
+                for(int i = 0; i < Integer.parseInt(DD4.getText());i++){
+                    Dibujar.Rombo(F5.getGraphics(),valColor5,y1,y2,y3);
+                    y1 += 55;
+                    y2 += 55;
+                    y3 += 55;
+                }
             }
         }else if(valFigura5.equals("Circulo")){
             int y1 = 5;
-            for(int i = 0; i < Integer.parseInt(DD4.getText());i++){
-                Dibujar.Circulo(F5.getGraphics(),valColor5,y1);
-                y1 += 55;
+            if(!DD4.getText().equals("")){
+                for(int i = 0; i < Integer.parseInt(DD4.getText());i++){
+                    Dibujar.Circulo(F5.getGraphics(),valColor5,y1);
+                    y1 += 55;
+                }
             }
         }
         btnDibujarD.setEnabled(false);

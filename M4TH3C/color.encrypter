@@ -2,7 +2,7 @@ Metodo &Prueba{
 	Entero num1 = - 100;
 	Entero num2;
 	Entero num5;
-	Decimal num3 = - 9.0;
+	Decimal num3 = - 9.29;
 	Decimal num4;
 	Resultado #res1;
 	Resultado #res2;
@@ -18,7 +18,7 @@ Metodo &Prueba{
 	num2 = + 300;
 	num4 = + 10.45;
 	cad4 = 'El resultado:';
-	fig2 = Circulo;
+	fig2 = Cuadrado;
 	col2 = Rojo;
 	Sumar(num2,num2,num2,num2,num2)<
 		#res1
