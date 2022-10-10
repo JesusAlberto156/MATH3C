@@ -19282,7 +19282,7 @@ public class Interfaz extends javax.swing.JFrame {
         }
         //Funciones de Mostrar (Decimal)
         //Error 64 y Error 65 (Segunda Parte)
-        //Error 67
+        //Error 68
         for (Production id1 : identProdM1) {
             for (Production id2 : identProdM1) {
                 if (id1.getLine() < id2.getLine()) {
@@ -19291,7 +19291,7 @@ public class Interfaz extends javax.swing.JFrame {
                     errors.add(new ErrorLSSL(68, "----------> ERROR_68:  La clase ya existe, Linea [#] Columna [%]", id1, true));
                 }
             }
-        }//Error 67
+        }//Error 68
     }
 
     private void fillTableTokens() {

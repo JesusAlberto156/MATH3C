@@ -779,7 +779,7 @@ public class MostrarE extends javax.swing.JFrame {
                 D6.setText(Character.toString(valResultado.charAt(0)));
                 D5.setText(Character.toString(valResultado.charAt(1)));
                 D4.setText(Character.toString(valResultado.charAt(2)));
-                D4.setText(Character.toString(valResultado.charAt(3)));
+                D3.setText(Character.toString(valResultado.charAt(3)));
                 D2.setText(Character.toString(valResultado.charAt(4)));
                 D1.setText(Character.toString(valResultado.charAt(5)));
             }else if(valResultado.chars().count() == 5){
@@ -809,8 +809,9 @@ public class MostrarE extends javax.swing.JFrame {
                 D1.setText(Character.toString(valResultado.charAt(0)));
             }
         }
-
+        System.out.println(valResultado);
     }
+    
     //RESULTADO
     //FIGURA
     public void setFigura(String varf,String valf){
