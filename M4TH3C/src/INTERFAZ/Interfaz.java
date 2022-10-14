@@ -18495,7 +18495,20 @@ public class Interfaz extends javax.swing.JFrame {
         //Funciones de Sumar, Restar, Multiplicar y Dividir
         //2 Variables
         for(Production id: identProdF11){
-            if(identDataType.containsKey(id.lexemeRank(2)) && identDataType.containsKey(id.lexemeRank(4))){
+            if(id.lexemeRank(0).equals("Dividir")){
+                int i = 0;
+                if(!identDataType.get(id.lexemeRank(2)).equals("Numero_Decimal") && !identDataType.get(id.lexemeRank(2)).equals("Numero_Decimal")){
+                    i++;
+                }
+                if(!identDataType.get(id.lexemeRank(4)).equals("Numero_Decimal") && !identDataType.get(id.lexemeRank(4)).equals("Numero_Decimal")){
+                    i++;
+                }
+                if(i == 1){
+                    errors.add(new ErrorLSSL(64, "----------> ERROR_64:  El valor de una variable empleada en la función no está permitido, Linea [#] Columna [%]", id, true));
+                }else if(i > 1){
+                    errors.add(new ErrorLSSL(65, "----------> ERROR_65:  El valor de varias variables empleadas en la función no están permitidos, Linea [#] Columna [%]", id, true));
+                }
+            }else if(identDataType.containsKey(id.lexemeRank(2)) && identDataType.containsKey(id.lexemeRank(4))){
                 int i = 0;
                 if(!identDataType.get(id.lexemeRank(2)).equals("Numero_Entero") && !identDataType.get(id.lexemeRank(2)).equals("Numero_Decimal")){
                     i++;
@@ -18512,7 +18525,23 @@ public class Interfaz extends javax.swing.JFrame {
         }//2 Variables
         //3 Variables
         for(Production id: identProdF12){
-            if(identDataType.containsKey(id.lexemeRank(2)) && identDataType.containsKey(id.lexemeRank(4)) && identDataType.containsKey(id.lexemeRank(6))){
+            if(id.lexemeRank(0).equals("Dividir")){
+                int i = 0;
+                if(!identDataType.get(id.lexemeRank(2)).equals("Numero_Decimal") && !identDataType.get(id.lexemeRank(2)).equals("Numero_Decimal")){
+                    i++;
+                }
+                if(!identDataType.get(id.lexemeRank(4)).equals("Numero_Decimal") && !identDataType.get(id.lexemeRank(4)).equals("Numero_Decimal")){
+                    i++;
+                }
+                if(!identDataType.get(id.lexemeRank(6)).equals("Numero_Decimal") && !identDataType.get(id.lexemeRank(6)).equals("Numero_Decimal")){
+                    i++;
+                }
+                if(i == 1){
+                    errors.add(new ErrorLSSL(64, "----------> ERROR_64:  El valor de una variable empleada en la función no está permitido, Linea [#] Columna [%]", id, true));
+                }else if(i > 1){
+                    errors.add(new ErrorLSSL(65, "----------> ERROR_65:  El valor de varias variables empleadas en la función no están permitidos, Linea [#] Columna [%]", id, true));
+                }
+            }else if(identDataType.containsKey(id.lexemeRank(2)) && identDataType.containsKey(id.lexemeRank(4)) && identDataType.containsKey(id.lexemeRank(6))){
                 int i = 0;
                 if(!identDataType.get(id.lexemeRank(2)).equals("Numero_Entero") && !identDataType.get(id.lexemeRank(2)).equals("Numero_Decimal")){
                     i++;
@@ -18532,7 +18561,26 @@ public class Interfaz extends javax.swing.JFrame {
         }//3 Variables
         //4 Variables
         for(Production id: identProdF13){
-            if(identDataType.containsKey(id.lexemeRank(2)) && identDataType.containsKey(id.lexemeRank(4)) && identDataType.containsKey(id.lexemeRank(6)) && identDataType.containsKey(id.lexemeRank(8))){
+            if(id.lexemeRank(0).equals("Dividir")){
+                int i = 0;
+                if(!identDataType.get(id.lexemeRank(2)).equals("Numero_Decimal") && !identDataType.get(id.lexemeRank(2)).equals("Numero_Decimal")){
+                    i++;
+                }
+                if(!identDataType.get(id.lexemeRank(4)).equals("Numero_Decimal") && !identDataType.get(id.lexemeRank(4)).equals("Numero_Decimal")){
+                    i++;
+                }
+                if(!identDataType.get(id.lexemeRank(6)).equals("Numero_Decimal") && !identDataType.get(id.lexemeRank(6)).equals("Numero_Decimal")){
+                    i++;
+                }
+                if(!identDataType.get(id.lexemeRank(8)).equals("Numero_Decimal") && !identDataType.get(id.lexemeRank(8)).equals("Numero_Decimal")){
+                    i++;
+                }
+                if(i == 1){
+                    errors.add(new ErrorLSSL(64, "----------> ERROR_64:  El valor de una variable empleada en la función no está permitido, Linea [#] Columna [%]", id, true));
+                }else if(i > 1){
+                    errors.add(new ErrorLSSL(65, "----------> ERROR_65:  El valor de varias variables empleadas en la función no están permitidos, Linea [#] Columna [%]", id, true));
+                }
+            }else if(identDataType.containsKey(id.lexemeRank(2)) && identDataType.containsKey(id.lexemeRank(4)) && identDataType.containsKey(id.lexemeRank(6)) && identDataType.containsKey(id.lexemeRank(8))){
                 int i = 0;
                 if(!identDataType.get(id.lexemeRank(2)).equals("Numero_Entero") && !identDataType.get(id.lexemeRank(2)).equals("Numero_Decimal")){
                     i++;
@@ -18555,7 +18603,29 @@ public class Interfaz extends javax.swing.JFrame {
         }//4 Variables
         //5 Variables
         for(Production id: identProdF14){
-            if(identDataType.containsKey(id.lexemeRank(2)) && identDataType.containsKey(id.lexemeRank(4)) && identDataType.containsKey(id.lexemeRank(6)) && identDataType.containsKey(id.lexemeRank(8)) && identDataType.containsKey(id.lexemeRank(10))){
+            if(id.lexemeRank(0).equals("Dividir")){
+                int i = 0;
+                if(!identDataType.get(id.lexemeRank(2)).equals("Numero_Decimal") && !identDataType.get(id.lexemeRank(2)).equals("Numero_Decimal")){
+                    i++;
+                }
+                if(!identDataType.get(id.lexemeRank(4)).equals("Numero_Decimal") && !identDataType.get(id.lexemeRank(4)).equals("Numero_Decimal")){
+                    i++;
+                }
+                if(!identDataType.get(id.lexemeRank(6)).equals("Numero_Decimal") && !identDataType.get(id.lexemeRank(6)).equals("Numero_Decimal")){
+                    i++;
+                }
+                if(!identDataType.get(id.lexemeRank(8)).equals("Numero_Decimal") && !identDataType.get(id.lexemeRank(8)).equals("Numero_Decimal")){
+                    i++;
+                }
+                if(!identDataType.get(id.lexemeRank(10)).equals("Numero_Decimal") && !identDataType.get(id.lexemeRank(10)).equals("Numero_Decimal")){
+                    i++;
+                }
+                if(i == 1){
+                    errors.add(new ErrorLSSL(64, "----------> ERROR_64:  El valor de una variable empleada en la función no está permitido, Linea [#] Columna [%]", id, true));
+                }else if(i > 1){
+                    errors.add(new ErrorLSSL(65, "----------> ERROR_65:  El valor de varias variables empleadas en la función no están permitidos, Linea [#] Columna [%]", id, true));
+                }
+            }else if(identDataType.containsKey(id.lexemeRank(2)) && identDataType.containsKey(id.lexemeRank(4)) && identDataType.containsKey(id.lexemeRank(6)) && identDataType.containsKey(id.lexemeRank(8)) && identDataType.containsKey(id.lexemeRank(10))){
                 int i = 0;
                 if(!identDataType.get(id.lexemeRank(2)).equals("Numero_Entero") && !identDataType.get(id.lexemeRank(2)).equals("Numero_Decimal")){
                     i++;

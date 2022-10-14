@@ -1165,7 +1165,6 @@ public class MostrarD extends javax.swing.JFrame {
                 }
             }
         }
-        btnDibujarD.setEnabled(false);
     }//GEN-LAST:event_btnDibujarDActionPerformed
 
     /**
