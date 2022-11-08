@@ -17,7 +17,6 @@ import compilerTools.Production;
 import compilerTools.TextColor;
 import compilerTools.Token;
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -38,6 +37,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -70,6 +70,7 @@ public class Interfaz extends javax.swing.JFrame {
     private HashMap<String, String> identDataTypeV3;
     private boolean codeHasBeenCompiled = false;
     private Directory directorio;
+    
 
     /**
      * Creates new form Interfaz
@@ -18496,7 +18497,20 @@ public class Interfaz extends javax.swing.JFrame {
         //Funciones de Sumar, Restar, Multiplicar y Dividir
         //2 Variables
         for(Production id: identProdF11){
-            if(identDataType.containsKey(id.lexemeRank(2)) && identDataType.containsKey(id.lexemeRank(4))){
+            if(id.lexemeRank(0).equals("Dividir")){
+                int i = 0;
+                if(!identDataType.get(id.lexemeRank(2)).equals("Numero_Decimal") && !identDataType.get(id.lexemeRank(2)).equals("Numero_Decimal")){
+                    i++;
+                }
+                if(!identDataType.get(id.lexemeRank(4)).equals("Numero_Decimal") && !identDataType.get(id.lexemeRank(4)).equals("Numero_Decimal")){
+                    i++;
+                }
+                if(i == 1){
+                    errors.add(new ErrorLSSL(64, "----------> ERROR_64:  El valor de una variable empleada en la función no está permitido, Linea [#] Columna [%]", id, true));
+                }else if(i > 1){
+                    errors.add(new ErrorLSSL(65, "----------> ERROR_65:  El valor de varias variables empleadas en la función no están permitidos, Linea [#] Columna [%]", id, true));
+                }
+            }else if(identDataType.containsKey(id.lexemeRank(2)) && identDataType.containsKey(id.lexemeRank(4))){
                 int i = 0;
                 if(!identDataType.get(id.lexemeRank(2)).equals("Numero_Entero") && !identDataType.get(id.lexemeRank(2)).equals("Numero_Decimal")){
                     i++;
@@ -18513,7 +18527,23 @@ public class Interfaz extends javax.swing.JFrame {
         }//2 Variables
         //3 Variables
         for(Production id: identProdF12){
-            if(identDataType.containsKey(id.lexemeRank(2)) && identDataType.containsKey(id.lexemeRank(4)) && identDataType.containsKey(id.lexemeRank(6))){
+            if(id.lexemeRank(0).equals("Dividir")){
+                int i = 0;
+                if(!identDataType.get(id.lexemeRank(2)).equals("Numero_Decimal") && !identDataType.get(id.lexemeRank(2)).equals("Numero_Decimal")){
+                    i++;
+                }
+                if(!identDataType.get(id.lexemeRank(4)).equals("Numero_Decimal") && !identDataType.get(id.lexemeRank(4)).equals("Numero_Decimal")){
+                    i++;
+                }
+                if(!identDataType.get(id.lexemeRank(6)).equals("Numero_Decimal") && !identDataType.get(id.lexemeRank(6)).equals("Numero_Decimal")){
+                    i++;
+                }
+                if(i == 1){
+                    errors.add(new ErrorLSSL(64, "----------> ERROR_64:  El valor de una variable empleada en la función no está permitido, Linea [#] Columna [%]", id, true));
+                }else if(i > 1){
+                    errors.add(new ErrorLSSL(65, "----------> ERROR_65:  El valor de varias variables empleadas en la función no están permitidos, Linea [#] Columna [%]", id, true));
+                }
+            }else if(identDataType.containsKey(id.lexemeRank(2)) && identDataType.containsKey(id.lexemeRank(4)) && identDataType.containsKey(id.lexemeRank(6))){
                 int i = 0;
                 if(!identDataType.get(id.lexemeRank(2)).equals("Numero_Entero") && !identDataType.get(id.lexemeRank(2)).equals("Numero_Decimal")){
                     i++;
@@ -18533,7 +18563,26 @@ public class Interfaz extends javax.swing.JFrame {
         }//3 Variables
         //4 Variables
         for(Production id: identProdF13){
-            if(identDataType.containsKey(id.lexemeRank(2)) && identDataType.containsKey(id.lexemeRank(4)) && identDataType.containsKey(id.lexemeRank(6)) && identDataType.containsKey(id.lexemeRank(8))){
+            if(id.lexemeRank(0).equals("Dividir")){
+                int i = 0;
+                if(!identDataType.get(id.lexemeRank(2)).equals("Numero_Decimal") && !identDataType.get(id.lexemeRank(2)).equals("Numero_Decimal")){
+                    i++;
+                }
+                if(!identDataType.get(id.lexemeRank(4)).equals("Numero_Decimal") && !identDataType.get(id.lexemeRank(4)).equals("Numero_Decimal")){
+                    i++;
+                }
+                if(!identDataType.get(id.lexemeRank(6)).equals("Numero_Decimal") && !identDataType.get(id.lexemeRank(6)).equals("Numero_Decimal")){
+                    i++;
+                }
+                if(!identDataType.get(id.lexemeRank(8)).equals("Numero_Decimal") && !identDataType.get(id.lexemeRank(8)).equals("Numero_Decimal")){
+                    i++;
+                }
+                if(i == 1){
+                    errors.add(new ErrorLSSL(64, "----------> ERROR_64:  El valor de una variable empleada en la función no está permitido, Linea [#] Columna [%]", id, true));
+                }else if(i > 1){
+                    errors.add(new ErrorLSSL(65, "----------> ERROR_65:  El valor de varias variables empleadas en la función no están permitidos, Linea [#] Columna [%]", id, true));
+                }
+            }else if(identDataType.containsKey(id.lexemeRank(2)) && identDataType.containsKey(id.lexemeRank(4)) && identDataType.containsKey(id.lexemeRank(6)) && identDataType.containsKey(id.lexemeRank(8))){
                 int i = 0;
                 if(!identDataType.get(id.lexemeRank(2)).equals("Numero_Entero") && !identDataType.get(id.lexemeRank(2)).equals("Numero_Decimal")){
                     i++;
@@ -18556,7 +18605,29 @@ public class Interfaz extends javax.swing.JFrame {
         }//4 Variables
         //5 Variables
         for(Production id: identProdF14){
-            if(identDataType.containsKey(id.lexemeRank(2)) && identDataType.containsKey(id.lexemeRank(4)) && identDataType.containsKey(id.lexemeRank(6)) && identDataType.containsKey(id.lexemeRank(8)) && identDataType.containsKey(id.lexemeRank(10))){
+            if(id.lexemeRank(0).equals("Dividir")){
+                int i = 0;
+                if(!identDataType.get(id.lexemeRank(2)).equals("Numero_Decimal") && !identDataType.get(id.lexemeRank(2)).equals("Numero_Decimal")){
+                    i++;
+                }
+                if(!identDataType.get(id.lexemeRank(4)).equals("Numero_Decimal") && !identDataType.get(id.lexemeRank(4)).equals("Numero_Decimal")){
+                    i++;
+                }
+                if(!identDataType.get(id.lexemeRank(6)).equals("Numero_Decimal") && !identDataType.get(id.lexemeRank(6)).equals("Numero_Decimal")){
+                    i++;
+                }
+                if(!identDataType.get(id.lexemeRank(8)).equals("Numero_Decimal") && !identDataType.get(id.lexemeRank(8)).equals("Numero_Decimal")){
+                    i++;
+                }
+                if(!identDataType.get(id.lexemeRank(10)).equals("Numero_Decimal") && !identDataType.get(id.lexemeRank(10)).equals("Numero_Decimal")){
+                    i++;
+                }
+                if(i == 1){
+                    errors.add(new ErrorLSSL(64, "----------> ERROR_64:  El valor de una variable empleada en la función no está permitido, Linea [#] Columna [%]", id, true));
+                }else if(i > 1){
+                    errors.add(new ErrorLSSL(65, "----------> ERROR_65:  El valor de varias variables empleadas en la función no están permitidos, Linea [#] Columna [%]", id, true));
+                }
+            }else if(identDataType.containsKey(id.lexemeRank(2)) && identDataType.containsKey(id.lexemeRank(4)) && identDataType.containsKey(id.lexemeRank(6)) && identDataType.containsKey(id.lexemeRank(8)) && identDataType.containsKey(id.lexemeRank(10))){
                 int i = 0;
                 if(!identDataType.get(id.lexemeRank(2)).equals("Numero_Entero") && !identDataType.get(id.lexemeRank(2)).equals("Numero_Decimal")){
                     i++;
@@ -19301,7 +19372,181 @@ public class Interfaz extends javax.swing.JFrame {
             Functions.addRowDataInTable(Tokens, data);
         });
     }
-
+    
+    public void cuadruplos(){
+        DefaultTableModel m = (DefaultTableModel) tblCuadruplos.getModel();
+        Object [] f = new Object[4];
+        //LIMPIAR TABLA
+        for (int i = 0; i < tblCuadruplos.getRowCount(); i++) {
+            m.removeRow(i);
+            i-=1;
+        }
+        
+        //FUNCIONES CON 2 OPERANDOS
+        for(Production id1: identProdF11){
+            if(id1.lexemeRank(0).equals("Sumar")){
+                f[0] = "+";
+            }else if(id1.lexemeRank(0).equals("Multiplicar")){
+                f[0] = "*";
+            }else if(id1.lexemeRank(0).equals("Restar")){
+                f[0] = "-";
+            }else if(id1.lexemeRank(0).equals("Dividir")){
+                f[0] = "/";
+            }
+            f[1] = id1.lexemeRank(2);
+            f[2] = id1.lexemeRank(4);
+            f[3] = "T1";
+            m.addRow(f);
+            tblCuadruplos.setModel(m);
+            //System.out.println(id1.lexemeRank(0)+","+id1.lexemeRank(2)+","+id1.lexemeRank(4));
+        }
+        
+        //FUNCIONES CON 3 OPERANDOS
+        for(Production id2: identProdF12){
+            if(id2.lexemeRank(0).equals("Sumar")){
+                f[0] = "+";
+            }else if(id2.lexemeRank(0).equals("Multiplicar")){
+                f[0] = "*";
+            }else if(id2.lexemeRank(0).equals("Restar")){
+                f[0] = "-";
+            }else if(id2.lexemeRank(0).equals("Dividir")){
+                f[0] = "/";
+            }
+            f[1] = id2.lexemeRank(2);
+            f[2] = id2.lexemeRank(4);
+            f[3] = "T1";
+            m.addRow(f);
+            tblCuadruplos.setModel(m);
+            //Temporal 2
+            if(id2.lexemeRank(0).equals("Sumar")){
+                f[0] = "+";
+            }else if(id2.lexemeRank(0).equals("Multiplicar")){
+                f[0] = "*";
+            }else if(id2.lexemeRank(0).equals("Restar")){
+                f[0] = "-";
+            }else if(id2.lexemeRank(0).equals("Dividir")){
+                f[0] = "/";
+            }
+            f[1] = "T1";
+            f[2] = id2.lexemeRank(6);
+            f[3] = "T2";
+            m.addRow(f);
+            tblCuadruplos.setModel(m);   
+        }
+        
+        //FUNCIONES CON 4 OPERANDOS
+        for(Production id2: identProdF13){
+            if(id2.lexemeRank(0).equals("Sumar")){
+                f[0] = "+";
+            }else if(id2.lexemeRank(0).equals("Multiplicar")){
+                f[0] = "*";
+            }else if(id2.lexemeRank(0).equals("Restar")){
+                f[0] = "-";
+            }else if(id2.lexemeRank(0).equals("Dividir")){
+                f[0] = "/";
+            }
+            f[1] = id2.lexemeRank(2);
+            f[2] = id2.lexemeRank(4);
+            f[3] = "T1";
+            m.addRow(f);
+            tblCuadruplos.setModel(m);
+            //Temporal 2
+            if(id2.lexemeRank(0).equals("Sumar")){
+                f[0] = "+";
+            }else if(id2.lexemeRank(0).equals("Multiplicar")){
+                f[0] = "*";
+            }else if(id2.lexemeRank(0).equals("Restar")){
+                f[0] = "-";
+            }else if(id2.lexemeRank(0).equals("Dividir")){
+                f[0] = "/";
+            }
+            f[1] = "T1";
+            f[2] = id2.lexemeRank(6);
+            f[3] = "T2";
+            m.addRow(f);
+            tblCuadruplos.setModel(m);  
+            
+            //Temporal 3
+            if(id2.lexemeRank(0).equals("Sumar")){
+                f[0] = "+";
+            }else if(id2.lexemeRank(0).equals("Multiplicar")){
+                f[0] = "*";
+            }else if(id2.lexemeRank(0).equals("Restar")){
+                f[0] = "-";
+            }else if(id2.lexemeRank(0).equals("Dividir")){
+                f[0] = "/";
+            }
+            f[1] = "T2";
+            f[2] = id2.lexemeRank(8);
+            f[3] = "T3";
+            m.addRow(f);
+            tblCuadruplos.setModel(m);  
+        }
+        //FUNCIONES CON 5 OPERANDOS
+        for(Production id2: identProdF14){
+            if(id2.lexemeRank(0).equals("Sumar")){
+                f[0] = "+";
+            }else if(id2.lexemeRank(0).equals("Multiplicar")){
+                f[0] = "*";
+            }else if(id2.lexemeRank(0).equals("Restar")){
+                f[0] = "-";
+            }else if(id2.lexemeRank(0).equals("Dividir")){
+                f[0] = "/";
+            }
+            f[1] = id2.lexemeRank(2);
+            f[2] = id2.lexemeRank(4);
+            f[3] = "T1";
+            m.addRow(f);
+            tblCuadruplos.setModel(m);
+            //Temporal 2
+            if(id2.lexemeRank(0).equals("Sumar")){
+                f[0] = "+";
+            }else if(id2.lexemeRank(0).equals("Multiplicar")){
+                f[0] = "*";
+            }else if(id2.lexemeRank(0).equals("Restar")){
+                f[0] = "-";
+            }else if(id2.lexemeRank(0).equals("Dividir")){
+                f[0] = "/";
+            }
+            f[1] = "T1";
+            f[2] = id2.lexemeRank(6);
+            f[3] = "T2";
+            m.addRow(f);
+            tblCuadruplos.setModel(m);  
+            
+            //Temporal 3
+            if(id2.lexemeRank(0).equals("Sumar")){
+                f[0] = "+";
+            }else if(id2.lexemeRank(0).equals("Multiplicar")){
+                f[0] = "*";
+            }else if(id2.lexemeRank(0).equals("Restar")){
+                f[0] = "-";
+            }else if(id2.lexemeRank(0).equals("Dividir")){
+                f[0] = "/";
+            }
+            f[1] = "T2";
+            f[2] = id2.lexemeRank(8);
+            f[3] = "T3";
+            m.addRow(f);
+            tblCuadruplos.setModel(m);
+            //Temporal 4
+            if(id2.lexemeRank(0).equals("Sumar")){
+                f[0] = "+";
+            }else if(id2.lexemeRank(0).equals("Multiplicar")){
+                f[0] = "*";
+            }else if(id2.lexemeRank(0).equals("Restar")){
+                f[0] = "-";
+            }else if(id2.lexemeRank(0).equals("Dividir")){
+                f[0] = "/";
+            }
+            f[1] = "T3";
+            f[2] = id2.lexemeRank(10);
+            f[3] = "T4";
+            m.addRow(f);
+            tblCuadruplos.setModel(m); 
+        }
+    }
+    
     private void printConsole() {
         int sizeErrors = errors.size();
         if (sizeErrors > 0) {
@@ -19314,9 +19559,11 @@ public class Interfaz extends javax.swing.JFrame {
             PanelSalida.setText("Compilación terminada...\n\n\t" + strErrors + "\n\nLa compilación terminó con errores...");
         } else {
             PanelSalida.setText("Compilación terminada...\n\nLa compilacion termino sin errores...\n\n");
+            cuadruplos();
         }
         PanelSalida.setCaretPosition(0);
     }
+ 
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -19342,15 +19589,13 @@ public class Interfaz extends javax.swing.JFrame {
         PanelFuente = new javax.swing.JTextPane();
         jScrollPane2 = new javax.swing.JScrollPane();
         PanelSalida = new javax.swing.JTextArea();
-        jLabel1 = new javax.swing.JLabel();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         Tokens = new javax.swing.JTable();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        tblCuadruplos = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         btnmenuNuevo = new javax.swing.JMenuItem();
@@ -19370,8 +19615,6 @@ public class Interfaz extends javax.swing.JFrame {
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
-        jMenu7 = new javax.swing.JMenu();
-        jMenuItem10 = new javax.swing.JMenuItem();
 
         jMenu2.setText("jMenu2");
 
@@ -19457,33 +19700,7 @@ public class Interfaz extends javax.swing.JFrame {
         PanelSalida.setRows(5);
         jScrollPane2.setViewportView(PanelSalida);
 
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/MasZoom.png"))); // NOI18N
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
-            }
-        });
-
-        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/MenosZoom.png"))); // NOI18N
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
-            }
-        });
-
-        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/MenosZoom.png"))); // NOI18N
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
-            }
-        });
-
-        jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/MasZoom.png"))); // NOI18N
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
-            }
-        });
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
         Tokens.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -19495,13 +19712,36 @@ public class Interfaz extends javax.swing.JFrame {
         ));
         jScrollPane3.setViewportView(Tokens);
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Zoom");
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 461, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+        );
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Zoom");
+        tblCuadruplos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Operador", "Argumento 1", "Argumento 2", "Resultado"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, true, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane5.setViewportView(tblCuadruplos);
+
+        jTabbedPane1.addTab("Cuadruplos", jScrollPane5);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -19511,30 +19751,19 @@ public class Interfaz extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton6))
-                    .addComponent(jScrollPane2)
+                        .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 323, Short.MAX_VALUE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(259, 259, 259))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButton8)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButton9))))
-                            .addComponent(jScrollPane1))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane1)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 559, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 387, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jTabbedPane1))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -19543,28 +19772,18 @@ public class Interfaz extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addComponent(jLabel1)
-                        .addGap(11, 11, 11)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton9)
-                            .addComponent(jButton8)
-                            .addComponent(jLabel3))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 433, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton6)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)))
-                    .addComponent(jButton7))
+                        .addGap(31, 31, 31)
+                        .addComponent(jLabel1)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 359, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(584, 584, 584))
         );
 
         jMenuBar1.setBackground(new java.awt.Color(0, 0, 0));
@@ -19692,26 +19911,19 @@ public class Interfaz extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu6);
 
-        jMenu7.setText("Código intermedio");
-
-        jMenuItem10.setText("Cuadruplos");
-        jMenu7.add(jMenuItem10);
-
-        jMenuBar1.add(jMenu7);
-
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 27, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 654, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -19865,42 +20077,6 @@ public class Interfaz extends javax.swing.JFrame {
         TiposDeDatos tdd = new TiposDeDatos();
         tdd.setVisible(true);
     }//GEN-LAST:event_jMenuItem9ActionPerformed
-
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        String fontName = PanelSalida.getFont().getFontName();
-        int fontSize = PanelSalida.getFont().getSize() - 2;
-        
-        Font font = new Font(fontName, 0, fontSize);
-        
-        PanelSalida.setFont(font);
-    }//GEN-LAST:event_jButton7ActionPerformed
-
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        String fontName = PanelFuente.getFont().getFontName();
-        int fontSize = PanelFuente.getFont().getSize() - 2;
-        
-        Font font = new Font(fontName, 0, fontSize);
-        
-        PanelFuente.setFont(font);
-    }//GEN-LAST:event_jButton8ActionPerformed
-
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        String fontName = PanelFuente.getFont().getFontName();
-        int fontSize = PanelFuente.getFont().getSize() + 2;
-        
-        Font font = new Font(fontName, 0, fontSize);
-        
-        PanelFuente.setFont(font);
-    }//GEN-LAST:event_jButton9ActionPerformed
-
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        String fontName = PanelSalida.getFont().getFontName();
-        int fontSize = PanelSalida.getFont().getSize() + 2;
-        
-        Font font = new Font(fontName, 0, fontSize);
-        
-        PanelSalida.setFont(font);
-    }//GEN-LAST:event_jButton6ActionPerformed
     
     private void executeCode(ArrayList<String> blocksOfCode,int repeats){
         for(int j = 1;j <= repeats; j++){
@@ -20133,6 +20309,8 @@ public class Interfaz extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextPane PanelFuente;
     private javax.swing.JTextArea PanelSalida;
@@ -20148,23 +20326,15 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
-    private javax.swing.JMenu jMenu7;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
@@ -20174,10 +20344,14 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JTable tblCuadruplos;
     // End of variables declaration//GEN-END:variables
 }
