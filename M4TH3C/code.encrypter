@@ -1,25 +1,13 @@
 Metodo &Prueba{
-	Decimal num1 = + 40.34;
-	Decimal num2;
-	num2 =  + 2.34;
+	Entero num1 = + 4;
+	Entero num2;
+	num2 =  + 3;
 	Resultado #res1;
 	Figura fig1 = Triangulo;
-	Figura fig2 = Rombo;
-	Figura fig3 = Cuadrado;
-	Figura fig4;
-	Figura fig5;
 	Color col1 = Verde;
-	Color col2 = Rojo;
-	Color col3 = Negro;
-	Color col4;
-	Color col5;
 	Cadena cad1 = 'Funciona el ejemplo';
-	fig4 = Rectangulo;
-	fig5 = Circulo;
-	col4 = Azul;
-	col5 = Blanco;
 	Dividir(num1,num2)<
 		#res1
 	>;
-	Mostrar(cad1,#res1,fig1,col1,fig2,col2,fig3,col3,fig4,col4,fig5,col5);
+	Mostrar(cad1,#res1,fig1,col1);
 }
