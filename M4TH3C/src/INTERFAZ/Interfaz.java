@@ -18,6 +18,7 @@ import compilerTools.TextColor;
 import compilerTools.Token;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -36,6 +37,8 @@ import java.util.HashMap;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
@@ -69,9 +72,10 @@ public class Interfaz extends javax.swing.JFrame {
     private HashMap<String, String> identDataTypeR;
     private HashMap<String, String> identDataTypeV2;
     private HashMap<String, String> identDataTypeV3;
+    private HashMap<String, String> identDataTemp;
     private boolean codeHasBeenCompiled = false;
     private Directory directorio;
-    
+    private Tokens T = new Tokens();
 
     /**
      * Creates new form Interfaz
@@ -81,6 +85,11 @@ public class Interfaz extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.setTitle("M4TH3C");
         this.setResizable(false);
+        ImageIcon img = new ImageIcon("src/IMAGENES/M4TH3C.png");
+        Icon icono1 = new ImageIcon(img.getImage().getScaledInstance(jLabel4.getWidth(), jLabel4.getHeight(), Image.SCALE_SMOOTH));
+        Icon icono2 = new ImageIcon(img.getImage().getScaledInstance(jLabel5.getWidth(), jLabel5.getHeight(), Image.SCALE_SMOOTH));
+        jLabel4.setIcon(icono1);
+        jLabel5.setIcon(icono2);
         init();
     }
 
@@ -128,6 +137,7 @@ public class Interfaz extends javax.swing.JFrame {
         identDataTypeR = new HashMap<>();
         identDataTypeV2 = new HashMap<>();
         identDataTypeV3 = new HashMap<>();
+        identDataTemp = new HashMap<>();
         Functions.setAutocompleterJTextComponent(new String[]{"Sumar('VARIABLES')<\n\n\t      'Variable Resultado'\n\n>;",
             "Restar('VARIABLES')<\n\n\t      'Variable Resultado'\n\n>;", "Multiplicar('VARIABLES')<\n\n\t      'Variable Resultado'\n\n>;",
             "Dividir('VARIABLES')<\n\n\t      'Variable Resultado'\n\n>;", "Entero 'Nombre Variable' = 'Valor';", "Entero 'Nombre Variable';",
@@ -144,6 +154,7 @@ public class Interfaz extends javax.swing.JFrame {
 
     private void clearFields() {
         Functions.clearDataInTable(Tokens);
+        Functions.clearDataInTable(T.Tabla());
         PanelSalida.setText("");
         tokens.clear();
         errors.clear();
@@ -223,6 +234,7 @@ public class Interfaz extends javax.swing.JFrame {
 
                 }
                 tokens.add(token);
+                
             }
         } catch (FileNotFoundException ex) {
             JOptionPane.showMessageDialog(this,"El archivo no pudo ser encontrado... " + ex.getMessage(),"¡ERROR!",JOptionPane.ERROR_MESSAGE);
@@ -19301,6 +19313,7 @@ public class Interfaz extends javax.swing.JFrame {
         tokens.forEach(token -> {
             Object[] data = new Object[]{token.getLexicalComp(), token.getLexeme(), "[Linea " + token.getLine() + ", Columna " + token.getColumn() + "]"};
             Functions.addRowDataInTable(Tokens, data);
+            Functions.addRowDataInTable(T.Tabla(), data);
         });
     }
     
@@ -19528,12 +19541,17 @@ public class Interfaz extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
         tblCuadruplos = new javax.swing.JTable();
+        jPanel4 = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        Tripletas = new javax.swing.JTextArea();
+        jLabel5 = new javax.swing.JLabel();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         btnmenuNuevo = new javax.swing.JMenuItem();
@@ -19670,7 +19688,7 @@ public class Interfaz extends javax.swing.JFrame {
             .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
         );
 
-        jTabbedPane2.addTab("Tabla de Tokens", jPanel2);
+        jTabbedPane2.addTab("Tokens", jPanel2);
 
         tblCuadruplos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -19701,7 +19719,39 @@ public class Interfaz extends javax.swing.JFrame {
             .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
         );
 
-        jTabbedPane2.addTab("Código intermedio (Cuadruplos)", jPanel3);
+        jTabbedPane2.addTab("Cuadruplos", jPanel3);
+
+        Tripletas.setBackground(new java.awt.Color(255, 255, 255));
+        Tripletas.setColumns(20);
+        Tripletas.setRows(5);
+        Tripletas.setEnabled(false);
+        jScrollPane4.setViewportView(Tripletas);
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane4)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(53, 53, 53)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 66, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+
+        jTabbedPane2.addTab("Tripletas", jPanel4);
 
         jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/MasZoom.png"))); // NOI18N
         jButton6.addActionListener(new java.awt.event.ActionListener() {
@@ -19767,29 +19817,32 @@ public class Interfaz extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 459, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(286, 286, 286)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 459, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane2))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
+                        .addGap(9, 9, 9)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel2)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jButton6)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel1)
-                                .addComponent(jButton7)))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE))))
+                    .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton6)
+                            .addComponent(jButton7))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -19802,7 +19855,7 @@ public class Interfaz extends javax.swing.JFrame {
                         .addComponent(jButton9)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jMenuBar1.setBackground(new java.awt.Color(0, 0, 0));
@@ -19844,9 +19897,19 @@ public class Interfaz extends javax.swing.JFrame {
         jMenu1.add(jSeparator3);
 
         jMenuItem11.setText("Compilar");
+        jMenuItem11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem11ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem11);
 
         jMenuItem12.setText("Ejecutar");
+        jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem12ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem12);
 
         jMenuBar1.add(jMenu1);
@@ -19892,6 +19955,11 @@ public class Interfaz extends javax.swing.JFrame {
         jMenu5.add(jSeparator2);
 
         jMenuItem10.setText("De Tokens");
+        jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem10ActionPerformed(evt);
+            }
+        });
         jMenu5.add(jMenuItem10);
 
         jMenuBar1.add(jMenu5);
@@ -20152,8 +20220,37 @@ public class Interfaz extends javax.swing.JFrame {
         
         PanelSalida.setFont(font);
     }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
+        if (getTitle().contains("*") || getTitle().equals(title)) {
+            if (directorio.Save()) {
+                compilar();
+            }
+        } else {
+            compilar();
+        }
+    }//GEN-LAST:event_jMenuItem11ActionPerformed
+
+    private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
+        btnCompilar.doClick();
+        if(codeHasBeenCompiled){
+            if(!errors.isEmpty()){
+                JOptionPane.showMessageDialog(this, "No se puede ejecutar el código ya que se encontró uno o más errores","¡ERROR!",JOptionPane.ERROR_MESSAGE);
+            }else{
+                CodeBlock codeBlock = Functions.splitCodeInCodeBlocks(tokens, "{", "}", ";");
+                ArrayList<String> blocksOfCode = codeBlock.getBlocksOfCodeInOrderOfExec();
+                executeCode(blocksOfCode,1);
+            }
+        }
+    }//GEN-LAST:event_jMenuItem12ActionPerformed
+
+    private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
+        T.setVisible(true);
+        T.setLocationRelativeTo(this);
+    }//GEN-LAST:event_jMenuItem10ActionPerformed
     
     private void executeCode(ArrayList<String> blocksOfCode,int repeats){
+        int temporal = 0;
         for(int j = 1;j <= repeats; j++){
             int repeatCode = -1;
             for(int i = 0; i < blocksOfCode.size(); i++){
@@ -20170,19 +20267,46 @@ public class Interfaz extends javax.swing.JFrame {
                         for(Production id: identProdM1){
                             if(sentence.startsWith(id.lexemeRank(0))){
                                 PanelSalida.append("-->   Se ha creado una Clase llamada " + id.lexemeRank(1) + ".........\n");
+                                temporal++;
+                                Tripletas.append("T"+temporal+" := "+id.lexemeRank(1)+"\n");
+                            }
+                            if(sentence.endsWith(id.lexemeRank(-1))){
+                                PanelSalida.append("-->   Se ha creado una Clase llamada " + id.lexemeRank(1) + ".........\n");
+                                temporal++;
+                                Tripletas.append(id.lexemeRank(1)+" := T1\n");
                             }
                         }
                         if(sentence.startsWith("Entero")){
                             if(sentence.contains("=")){
                                 String variable = "";
                                 String valor = "";
+                                String estado = "";
+                                String valor2 = "";
                                 for(Production id: identProdD1){
                                     if(sentence.contains(id.lexemeRank(1))){
                                         variable = id.lexemeRank(1);
                                         valor = id.lexemeRank(-3)+id.lexemeRank(-2);
+                                        estado = id.lexemeRank(-3);
+                                        valor2 = id.lexemeRank(-2);
                                     }
                                 }
                                 PanelSalida.append("-->   Se ha declarado una variable de tipo Entero llamada " + variable + " con valor " + valor + ".........\n");
+                                if(estado.equals("-")){
+                                    temporal++;
+                                    Tripletas.append("T"+temporal+" := "+variable+"\n");
+                                    temporal++;
+                                    Tripletas.append("T"+temporal+" := T"+(temporal-1) + " + "+valor2+"\n");
+                                    temporal++;
+                                    Tripletas.append("T"+temporal+" := 1 - 2"+"\n");
+                                    Tripletas.append(variable+" := T"+(temporal-1)+" * T"+(temporal)+"\n");
+                                }else{
+                                    temporal++;
+                                    Tripletas.append("T"+temporal+" := "+variable+"\n");
+                                    temporal++;
+                                    Tripletas.append("T"+temporal+" := T"+(temporal-1)+" + "+valor2+"\n");
+                                    Tripletas.append(variable+" := T"+temporal+"\n");
+                                }
+                                
                             }else{
                                 String variable = sentence.substring(7,sentence.length());
                                 PanelSalida.append("-->   Se ha declarado una variable de tipo Entero llamada " + variable + ".........\n");
@@ -20390,6 +20514,7 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JTextPane PanelFuente;
     private javax.swing.JTextArea PanelSalida;
     private javax.swing.JTable Tokens;
+    private javax.swing.JTextArea Tripletas;
     private javax.swing.JButton btnCompilar;
     private javax.swing.JMenuItem btnMenuLEATE;
     private javax.swing.JMenuItem btnmenuAbrir;
@@ -20408,6 +20533,8 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -20433,9 +20560,11 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
