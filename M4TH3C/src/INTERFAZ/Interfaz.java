@@ -19317,7 +19317,7 @@ public class Interfaz extends javax.swing.JFrame {
         });
     }
     
-    public void cuadruplos(){
+    public void LimpiarTablaCuadruplos(){
         DefaultTableModel m = (DefaultTableModel) tblCuadruplos.getModel();
         Object [] f = new Object[4];
         //LIMPIAR TABLA
@@ -19325,6 +19325,12 @@ public class Interfaz extends javax.swing.JFrame {
             m.removeRow(i);
             i-=1;
         }
+    }
+    
+    public void cuadruplos(){
+        DefaultTableModel m = (DefaultTableModel) tblCuadruplos.getModel();
+        Object [] f = new Object[4];
+        LimpiarTablaCuadruplos();
         
         //FUNCIONES CON 2 OPERANDOS
         for(Production id1: identProdF11){
@@ -19503,7 +19509,7 @@ public class Interfaz extends javax.swing.JFrame {
             PanelSalida.setText("Compilación terminada...\n\n\t" + strErrors + "\n\nLa compilación terminó con errores...");
         } else {
             PanelSalida.setText("Compilación terminada...\n\nLa compilacion termino sin errores...\n\n");
-            cuadruplos();
+            //cuadruplos();
         }
         PanelSalida.setCaretPosition(0);
     }
@@ -20147,6 +20153,7 @@ public class Interfaz extends javax.swing.JFrame {
                 CodeBlock codeBlock = Functions.splitCodeInCodeBlocks(tokens, "{", "}", ";");
                 ArrayList<String> blocksOfCode = codeBlock.getBlocksOfCodeInOrderOfExec();
                 executeCode(blocksOfCode,1);
+                cuadruplos();
             }
         }
     }//GEN-LAST:event_jButton5ActionPerformed
@@ -20170,6 +20177,7 @@ public class Interfaz extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         if (directorio.Save()) {
             clearFields();
+            LimpiarTablaCuadruplos();
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -20177,12 +20185,14 @@ public class Interfaz extends javax.swing.JFrame {
         if (directorio.Open()) {
             colorAnalysis();
             clearFields();
+            LimpiarTablaCuadruplos();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         directorio.New();
         clearFields();
+        LimpiarTablaCuadruplos();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
@@ -20251,6 +20261,7 @@ public class Interfaz extends javax.swing.JFrame {
     
     private void executeCode(ArrayList<String> blocksOfCode,int repeats){
         int temporal = 0;
+        Tripletas.setText("");
         for(int j = 1;j <= repeats; j++){
             int repeatCode = -1;
             for(int i = 0; i < blocksOfCode.size(); i++){
