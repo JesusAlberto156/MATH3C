@@ -1,43 +1,28 @@
 Metodo &Prueba{
-	Entero n1 = + 5;
-	Entero n2 = + 8;
-		
-	Decimal num1 = + 2.5;
-	Decimal num2 = + 2.5;
-	
+	Entero num1 = - 4;
+	Entero num4 = - 6;
+	Entero num5 = + 6;
+	Entero num2;
+	num2 =  + 3;
 	Resultado #res1;
 	Resultado #res2;
-	Resultado #res3;
-	Resultado #res4;
-
-	Resultado #res5;
-	Resultado #res6;
-	Resultado #res7;
-	Resultado #res8;
-	
-	Sumar(n1,n2)<
+	Figura fig1 = Triangulo;
+	Color col1 = Verde;
+	Cadena cad1 = 'Funciona el ejemplo';
+	Dividir(num1,num2)<
 		#res1
 	>;
-	Restar(n1,n2)<
+	Dividir(num1,num2)<
 		#res2
 	>;
-	Multiplicar(n1,n2)<
-		#res3
-	>;
-	Dividir(n1,n2)<
-		#res4
-	>;
-
-	Sumar(num1,num2)<
-		#res5
-	>;
-	Restar(num1,num2)<
-		#res6
-	>;
-	Multiplicar(num1,num2)<
-		#res7
-	>;
-	Dividir(num1,num2)<
-		#res8
-	>;
+	Mostrar(cad1,#res1,fig1,col1);
 }
+
+Metodo &g{
+	Entero num11 = - 4;
+	Entero num14 = - 6;
+	Entero num15 = + 6;
+}
+
+Metodo &g2{}
+Metodo &g3{}

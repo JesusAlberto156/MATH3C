@@ -73,9 +73,11 @@ public class Interfaz extends javax.swing.JFrame {
     private HashMap<String, String> identDataTypeV2;
     private HashMap<String, String> identDataTypeV3;
     private HashMap<String, String> identDataTemp;
+    private HashMap<String, String> identDataMetodos;
     private boolean codeHasBeenCompiled = false;
     private Directory directorio;
     private Tokens T = new Tokens();
+    private ArrayList<Production> Metodo;
 
     /**
      * Creates new form Interfaz
@@ -120,6 +122,7 @@ public class Interfaz extends javax.swing.JFrame {
         });
         tokens = new ArrayList<>();
         errors = new ArrayList<>();
+        Metodo = new ArrayList<>();
         textsColor = new ArrayList<>();
         identProdD1 = new ArrayList<>();
         identProdD2 = new ArrayList<>();
@@ -138,6 +141,7 @@ public class Interfaz extends javax.swing.JFrame {
         identDataTypeV2 = new HashMap<>();
         identDataTypeV3 = new HashMap<>();
         identDataTemp = new HashMap<>();
+        identDataMetodos = new HashMap<>();
         Functions.setAutocompleterJTextComponent(new String[]{"Sumar('VARIABLES')<\n\n\t      'Variable Resultado'\n\n>;",
             "Restar('VARIABLES')<\n\n\t      'Variable Resultado'\n\n>;", "Multiplicar('VARIABLES')<\n\n\t      'Variable Resultado'\n\n>;",
             "Dividir('VARIABLES')<\n\n\t      'Variable Resultado'\n\n>;", "Entero 'Nombre Variable' = 'Valor';", "Entero 'Nombre Variable';",
@@ -158,6 +162,7 @@ public class Interfaz extends javax.swing.JFrame {
         PanelSalida.setText("");
         tokens.clear();
         errors.clear();
+        Metodo.clear();
         identProdD1.clear();
         identProdD2.clear();
         identProdA1.clear();
@@ -18313,6 +18318,10 @@ public class Interfaz extends javax.swing.JFrame {
         /* Mostrar gramáticas */
         gramatica.show();
 
+        //Rellenando el ArryList de las estructuras de metodos
+        for(Production id: identProdM1){
+            Metodo.add(id);
+        }
     }
 
     private void semanticAnalysis() {
@@ -20262,6 +20271,10 @@ public class Interfaz extends javax.swing.JFrame {
     private void executeCode(ArrayList<String> blocksOfCode,int repeats){
         int temporal = 0;
         Tripletas.setText("");
+        String metodo = "";
+        String metodoComprobar = "";
+        String temporalMetodo = "";
+        int contador = 0;
         for(int j = 1;j <= repeats; j++){
             int repeatCode = -1;
             for(int i = 0; i < blocksOfCode.size(); i++){
@@ -20275,17 +20288,31 @@ public class Interfaz extends javax.swing.JFrame {
                     String[] sentences = blockOfCode.split(";");
                     for(String sentence: sentences){
                         sentence = sentence.trim();
-                        for(Production id: identProdM1){
-                            if(sentence.startsWith(id.lexemeRank(0))){
-                                PanelSalida.append("-->   Se ha creado una Clase llamada " + id.lexemeRank(1) + ".........\n");
-                                temporal++;
-                                Tripletas.append("T"+temporal+" := "+id.lexemeRank(1)+"\n");
+                        if(sentence.startsWith("Metodo")){
+                            for(Production id: identProdM1){
+                                if(sentence.contains(id.lexemeRank(1))){
+                                    metodo = id.lexemeRank(1);
+                                }
+                                
                             }
-                            if(sentence.endsWith(id.lexemeRank(-1))){
-                                PanelSalida.append("-->   Se ha creado una Clase llamada " + id.lexemeRank(1) + ".........\n");
-                                temporal++;
-                                Tripletas.append(id.lexemeRank(1)+" := T1\n");
+                            if(identDataMetodos.containsKey(metodoComprobar)){
+                                Tripletas.append(metodoComprobar+" := "+temporalMetodo+"\n");
+                                metodoComprobar = metodo;
                             }
+                            if(Metodo.get(contador).equals(metodo)){
+                                if(Metodo.get(contador+1).equals(null)){
+                                    Tripletas.append(metodo+" := "+temporalMetodo+"\n");
+                                }else{
+                                    temporal++;
+                                    contador++;
+                                    Tripletas.append("T"+temporal+" := "+metodo+"\n");     
+                                    temporalMetodo = "T"+temporal;
+                                    identDataMetodos.put(metodo,temporalMetodo);
+                                    metodoComprobar = metodo;
+                                }
+                            }
+                           
+                            PanelSalida.append("-->   Se ha creado una Clase llamada " + metodo + ".........\n");
                         }
                         if(sentence.startsWith("Entero")){
                             if(sentence.contains("=")){
@@ -20317,7 +20344,6 @@ public class Interfaz extends javax.swing.JFrame {
                                     Tripletas.append("T"+temporal+" := T"+(temporal-1)+" + "+valor2+"\n");
                                     Tripletas.append(variable+" := T"+temporal+"\n");
                                 }
-                                
                             }else{
                                 String variable = sentence.substring(7,sentence.length());
                                 PanelSalida.append("-->   Se ha declarado una variable de tipo Entero llamada " + variable + ".........\n");
@@ -20327,13 +20353,34 @@ public class Interfaz extends javax.swing.JFrame {
                             if(sentence.contains("=")){
                                 String variable = "";
                                 String valor = "";
+                                String estado = "";
+                                String valor2 = "";
+                                
+                                
                                 for(Production id: identProdD1){
                                     if(sentence.contains(id.lexemeRank(1))){
                                         variable = id.lexemeRank(1);
                                         valor = id.lexemeRank(-3)+id.lexemeRank(-2);
+                                        estado = id.lexemeRank(-3);
+                                        valor2 = id.lexemeRank(-2);
                                     }
                                 }
                                 PanelSalida.append("-->   Se ha declarado una variable de tipo Decimal llamada " + variable + " con valor " + valor + ".........\n");
+                                if(estado.equals("-")){
+                                    temporal++;
+                                    Tripletas.append("T"+temporal+" := "+variable+"\n");
+                                    temporal++;
+                                    Tripletas.append("T"+temporal+" := T"+(temporal-1) + " + "+valor2+"\n");
+                                    temporal++;
+                                    Tripletas.append("T"+temporal+" := 1 - 2"+"\n");
+                                    Tripletas.append(variable+" := T"+(temporal-1)+" * T"+(temporal)+"\n");
+                                }else{
+                                    temporal++;
+                                    Tripletas.append("T"+temporal+" := "+variable+"\n");
+                                    temporal++;
+                                    Tripletas.append("T"+temporal+" := T"+(temporal-1)+" + "+valor2+"\n");
+                                    Tripletas.append(variable+" := T"+temporal+"\n");
+                                }
                             }else{
                                 String variable = sentence.substring(8,sentence.length());
                                 PanelSalida.append("-->   Se ha declarado una variable de tipo Decimal llamada " + variable + ".........\n");
