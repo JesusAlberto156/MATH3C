@@ -20398,6 +20398,7 @@ public class Interfaz extends javax.swing.JFrame {
         int temporal = 0;
         Tripletas.setText("");
         String metodo = "";
+        int contador = 0;
         for(int j = 1;j <= repeats; j++){
             int repeatCode = -1;
             for(int i = 0; i < blocksOfCode.size(); i++){
@@ -20413,46 +20414,15 @@ public class Interfaz extends javax.swing.JFrame {
                         sentence = sentence.trim();
                         if(sentence.startsWith("Metodo")){
                             for(Production id: identProdM2){
-                                if(identDataMetodo.containsKey(id.lexemeRank(1))){
-                                
-                                }else{
-                                    identDataMetodo.put(id.lexemeRank(1),id.lexemeRank(1));
+                                if(sentence.contains(id.lexemeRank(1))){
                                     metodo = id.lexemeRank(1);
-                                    break;
                                 }  
-                            }/*
-                            if(sentence.contains(identDataMetodo.get(metodo))){
-                                    metodo = id.lexemeRank(1);
-                                    temporal++;
-                                    Tripletas.append("T"+temporal+" := "+metodo+"\n");     
-                                    identDataTemp.put(metodo,"T"+temporal);
-                                    PanelSalida.append("-->   Se ha creado una Clase llamada " + metodo + ".........\n");
-                                    break;
-                                }else if(!sentence.contains(id.lexemeRank(1))){
-                                    Tripletas.append(metodo+" := "+identDataTemp.get(metodo)+"\n");
-                                    PanelSalida.append("-->   Ha finalizado la clase llamada " + metodo + ".........\n");
-                                    
-                                    PanelSalida.append("-->   Se ha creado una Clase llamada " + id.lexemeRank(1) + ".........\n");
-                                    break;
-                                }
-                            /*
-                            if(identDataMetodos.containsKey(metodoComprobar)){
-                                Tripletas.append(metodoComprobar+" := "+temporalMetodo+"\n");
-                                metodoComprobar = metodo;
                             }
-                            if(Metodo.get(contador).equals(metodo)){
-                                if(Metodo.get(contador+1).equals(null)){
-                                    Tripletas.append(metodo+" := "+temporalMetodo+"\n");
-                                }else{
-                                    temporal++;
-                                    contador++;
-                                    Tripletas.append("T"+temporal+" := "+metodo+"\n");     
-                                    temporalMetodo = "T"+temporal;
-                                    identDataMetodos.put(metodo,temporalMetodo);
-                                    metodoComprobar = metodo;
-                                }
-                            }
-                            */
+                            temporal++;
+                            Tripletas.append("T"+temporal+" := "+metodo+"\n");
+                            identDataTemp.put(metodo,"T"+temporal);
+                            Tripletas.append(metodo+" := "+identDataTemp.get(metodo)+"\n");
+                            PanelSalida.append("-->   Se ha creado una Clase llamada " + metodo + ".........\n");
                         }
                         if(sentence.startsWith("Entero")){
                             if(sentence.contains("=")){
