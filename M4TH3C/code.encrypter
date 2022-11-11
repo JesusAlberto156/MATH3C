@@ -1,28 +1,18 @@
 Metodo &Prueba{
 	Entero num1 = - 4;
-	Entero num4 = - 6;
-	Entero num5 = + 6;
-	Entero num2;
-	num2 =  + 3;
+	Entero num4;
 	Resultado #res1;
 	Resultado #res2;
 	Figura fig1 = Triangulo;
 	Color col1 = Verde;
 	Cadena cad1 = 'Funciona el ejemplo';
-	Dividir(num1,num2)<
+	num4 = - 43;
+	Multiplicar(num1,num4)<
 		#res1
-	>;
-	Dividir(num1,num2)<
-		#res2
 	>;
 	Mostrar(cad1,#res1,fig1,col1);
 }
 
 Metodo &g{
-	Entero num11 = - 4;
-	Entero num14 = - 6;
-	Entero num15 = + 6;
+	
 }
-
-Metodo &g2{}
-Metodo &g3{}

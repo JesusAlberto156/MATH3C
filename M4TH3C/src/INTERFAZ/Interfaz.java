@@ -73,7 +73,6 @@ public class Interfaz extends javax.swing.JFrame {
     private HashMap<String, String> identDataTypeV2;
     private HashMap<String, String> identDataTypeV3;
     private HashMap<String, String> identDataTemp;
-    private HashMap<String, String> identDataMetodos;
     private boolean codeHasBeenCompiled = false;
     private Directory directorio;
     private Tokens T = new Tokens();
@@ -108,7 +107,6 @@ public class Interfaz extends javax.swing.JFrame {
         Functions.setLineNumberOnJTextComponent(PanelFuente); //Pone los numeros de linea
         timerKeyReleased = new Timer((int) (1000 * 0.3), (ActionEvent e) -> {
             timerKeyReleased.stop();
-
             int posicion = PanelFuente.getCaretPosition();
             PanelFuente.setText(PanelFuente.getText().replaceAll("[\r]+", ""));
             PanelFuente.setCaretPosition(posicion);
@@ -141,16 +139,25 @@ public class Interfaz extends javax.swing.JFrame {
         identDataTypeV2 = new HashMap<>();
         identDataTypeV3 = new HashMap<>();
         identDataTemp = new HashMap<>();
-        identDataMetodos = new HashMap<>();
-        Functions.setAutocompleterJTextComponent(new String[]{"Sumar('VARIABLES')<\n\n\t      'Variable Resultado'\n\n>;",
-            "Restar('VARIABLES')<\n\n\t      'Variable Resultado'\n\n>;", "Multiplicar('VARIABLES')<\n\n\t      'Variable Resultado'\n\n>;",
-            "Dividir('VARIABLES')<\n\n\t      'Variable Resultado'\n\n>;", "Entero 'Nombre Variable' = 'Valor';", "Entero 'Nombre Variable';",
+        Functions.setAutocompleterJTextComponent(new String[]{"Sumar('VARIABLES')<\n\t      'Variable Resultado'\n>;",
+            "Restar('VARIABLES')<\n\t      'Variable Resultado'\n>;", "Multiplicar('VARIABLES')<\n\t      'Variable Resultado'\n>;",
+            "Dividir('VARIABLES')<\n\t      'Variable Resultado'\n>;", "Entero 'Nombre Variable' = 'Valor';", "Entero 'Nombre Variable';",
             "Decimal 'Nombre Variable' = 'Valor';", "Decimal 'Nombre Variable';", "Resultado 'Nombre Variable';",
             "Cadena 'Nombre Variable' = 'Valor';", "Cadena 'Nombre Variable';", "Figura 'Nombre Variable' = 'Valor';",
             "Figura 'Nombre Variable';", "Color 'Nombre Variable' = 'Valor';", "Color 'Nombre Variable';",
             "Mostrar(‘Variable Cadena’ , ‘Variable Resultado’ , ‘Variable Figura’ , ‘Variable Color’);", "Mostrar(‘Variable Cadena’ , ‘Variable Resultado’ , "
             + "‘Variable Figura 1’ , ‘Variable Color 1’, ‘Variable Figura 2’ , ‘Variable Color 2’, ‘Variable Figura 3’ , ‘Variable Color 3, ‘Variable Figura 4’ , "
-            + "‘Variable Color 4’, ‘Variable Figura 5’ , ‘Variable Color 5);", "Metodo 'Nombre Metodo' {\n\n\t      'Funciones o Variables'\n\n}"}, PanelFuente, () -> {
+            + "‘Variable Color 4’, ‘Variable Figura 5’ , ‘Variable Color 5);", "Metodo 'Nombre Metodo' {\n\t      'Funciones o Variables'\n}",
+            "?Sumar('VARIABLES')<\n\t      'Variable Resultado'\n>;",
+            "?Restar('VARIABLES')<\n\t      'Variable Resultado'\n>;", "?Multiplicar('VARIABLES')<\n\t      'Variable Resultado'\n>;",
+            "?Dividir('VARIABLES')<\n\t      'Variable Resultado'\n>;", "?Entero 'Nombre Variable' = 'Valor';", "?Entero 'Nombre Variable';",
+            "?Decimal 'Nombre Variable' = 'Valor';", "?Decimal 'Nombre Variable';", "?Resultado 'Nombre Variable';",
+            "?Cadena 'Nombre Variable' = 'Valor';", "?Cadena 'Nombre Variable';", "?Figura 'Nombre Variable' = 'Valor';",
+            "?Figura 'Nombre Variable';", "?Color 'Nombre Variable' = 'Valor';", "?Color 'Nombre Variable';",
+            "?Mostrar(‘Variable Cadena’ , ‘Variable Resultado’ , ‘Variable Figura’ , ‘Variable Color’);", "?Mostrar(‘Variable Cadena’ , ‘Variable Resultado’ , "
+            + "‘Variable Figura 1’ , ‘Variable Color 1’, ‘Variable Figura 2’ , ‘Variable Color 2’, ‘Variable Figura 3’ , ‘Variable Color 3, ‘Variable Figura 4’ , "
+            + "‘Variable Color 4’, ‘Variable Figura 5’ , ‘Variable Color 5);", "?Metodo 'Nombre Metodo' {\n\t      'Funciones o Variables'\n}",
+            "?'Nombre Variable' = 'Valor';"}, PanelFuente, () -> {
             timerKeyReleased.restart();
             timerKeyReleased.start();
         });
@@ -179,6 +186,7 @@ public class Interfaz extends javax.swing.JFrame {
         identDataTypeR.clear();
         identDataTypeV2.clear();
         identDataTypeV3.clear();
+        identDataTemp.clear();
         codeHasBeenCompiled = false;
     }
 
@@ -18317,11 +18325,6 @@ public class Interfaz extends javax.swing.JFrame {
 
         /* Mostrar gramáticas */
         gramatica.show();
-
-        //Rellenando el ArryList de las estructuras de metodos
-        for(Production id: identProdM1){
-            Metodo.add(id);
-        }
     }
 
     private void semanticAnalysis() {
@@ -20272,9 +20275,6 @@ public class Interfaz extends javax.swing.JFrame {
         int temporal = 0;
         Tripletas.setText("");
         String metodo = "";
-        String metodoComprobar = "";
-        String temporalMetodo = "";
-        int contador = 0;
         for(int j = 1;j <= repeats; j++){
             int repeatCode = -1;
             for(int i = 0; i < blocksOfCode.size(); i++){
@@ -20295,6 +20295,7 @@ public class Interfaz extends javax.swing.JFrame {
                                 }
                                 
                             }
+                            /*
                             if(identDataMetodos.containsKey(metodoComprobar)){
                                 Tripletas.append(metodoComprobar+" := "+temporalMetodo+"\n");
                                 metodoComprobar = metodo;
@@ -20311,7 +20312,7 @@ public class Interfaz extends javax.swing.JFrame {
                                     metodoComprobar = metodo;
                                 }
                             }
-                           
+                            */
                             PanelSalida.append("-->   Se ha creado una Clase llamada " + metodo + ".........\n");
                         }
                         if(sentence.startsWith("Entero")){
@@ -20328,7 +20329,6 @@ public class Interfaz extends javax.swing.JFrame {
                                         valor2 = id.lexemeRank(-2);
                                     }
                                 }
-                                PanelSalida.append("-->   Se ha declarado una variable de tipo Entero llamada " + variable + " con valor " + valor + ".........\n");
                                 if(estado.equals("-")){
                                     temporal++;
                                     Tripletas.append("T"+temporal+" := "+variable+"\n");
@@ -20344,8 +20344,12 @@ public class Interfaz extends javax.swing.JFrame {
                                     Tripletas.append("T"+temporal+" := T"+(temporal-1)+" + "+valor2+"\n");
                                     Tripletas.append(variable+" := T"+temporal+"\n");
                                 }
+                                 PanelSalida.append("-->   Se ha declarado una variable de tipo Entero llamada " + variable + " con valor " + valor + ".........\n");
                             }else{
                                 String variable = sentence.substring(7,sentence.length());
+                                temporal++;
+                                Tripletas.append("T"+temporal+" := "+variable+"\n");
+                                identDataTemp.put(variable,"T"+temporal);
                                 PanelSalida.append("-->   Se ha declarado una variable de tipo Entero llamada " + variable + ".........\n");
                             }
                         }
@@ -20383,6 +20387,9 @@ public class Interfaz extends javax.swing.JFrame {
                                 }
                             }else{
                                 String variable = sentence.substring(8,sentence.length());
+                                temporal++;
+                                Tripletas.append("T"+temporal+" := "+variable+"\n");
+                                identDataTemp.put(variable,"T"+temporal);
                                 PanelSalida.append("-->   Se ha declarado una variable de tipo Decimal llamada " + variable + ".........\n");
                             }
                         }
@@ -20396,9 +20403,17 @@ public class Interfaz extends javax.swing.JFrame {
                                         valor = id.lexemeRank(-2);
                                     }
                                 }
+                                temporal++;
+                                Tripletas.append("T"+temporal+" := "+variable+"\n");
+                                temporal++;
+                                Tripletas.append("T"+temporal+" := T"+(temporal-1)+" + "+valor+"\n");
+                                Tripletas.append(variable+" := T"+temporal+"\n");
                                 PanelSalida.append("-->   Se ha declarado una variable de tipo Cadena llamada " + variable + " con valor " + valor + ".........\n");
                             }else{
                                 String variable = sentence.substring(7,sentence.length());
+                                temporal++;
+                                Tripletas.append("T"+temporal+" := "+variable+"\n");
+                                identDataTemp.put(variable,"T"+temporal);
                                 PanelSalida.append("-->   Se ha declarado una variable de tipo Cadena llamada " + variable + ".........\n");
                             }
                         }
@@ -20412,9 +20427,17 @@ public class Interfaz extends javax.swing.JFrame {
                                         valor = id.lexemeRank(-2);
                                     }
                                 }
+                                temporal++;
+                                Tripletas.append("T"+temporal+" := "+variable+"\n");
+                                temporal++;
+                                Tripletas.append("T"+temporal+" := T"+(temporal-1)+" + "+valor+"\n");
+                                Tripletas.append(variable+" := T"+temporal+"\n");
                                 PanelSalida.append("-->   Se ha declarado una variable de tipo Figura llamada " + variable + " con valor " + valor + ".........\n");
                             }else{
                                 String variable = sentence.substring(7,sentence.length());
+                                temporal++;
+                                Tripletas.append("T"+temporal+" := "+variable+"\n");
+                                identDataTemp.put(variable,"T"+temporal);
                                 PanelSalida.append("-->   Se ha declarado una variable de tipo Figura llamada " + variable + ".........\n");
                             }
                         }
@@ -20428,32 +20451,76 @@ public class Interfaz extends javax.swing.JFrame {
                                         valor = id.lexemeRank(-2);
                                     }
                                 }
+                                temporal++;
+                                Tripletas.append("T"+temporal+" := "+variable+"\n");
+                                temporal++;
+                                Tripletas.append("T"+temporal+" := T"+(temporal-1)+" + "+valor+"\n");
+                                Tripletas.append(variable+" := T"+temporal+"\n");
                                 PanelSalida.append("-->   Se ha declarado una variable de tipo Color llamada " + variable + " con valor " + valor + ".........\n");
                             }else{
                                 String variable = sentence.substring(6,sentence.length());
+                                temporal++;
+                                Tripletas.append("T"+temporal+" := "+variable+"\n");
+                                identDataTemp.put(variable,"T"+temporal);
                                 PanelSalida.append("-->   Se ha declarado una variable de tipo Color llamada " + variable + ".........\n");
                             }
                         }
                         if(sentence.startsWith("Resultado")){
                             String variable = sentence.substring(10,sentence.length());
+                            temporal++;
+                            Tripletas.append("T"+temporal+" := "+variable+"\n");
+                            identDataTemp.put(variable,"T"+temporal);
                             PanelSalida.append("-->   Se ha declarado una variable de tipo Resultado llamada " + variable + ".........\n");
                         }
                         for(Production id: identProdA1){
                             if(sentence.startsWith(id.lexemeRank(0))){
                                 String tipo = "";
                                 if(id.lexicalCompRank(-2).equals("Numero_Entero")){
+                                    if(id.lexemeRank(-3).equals("-")){
+                                        temporal++;
+                                        Tripletas.append("T"+temporal+" := "+identDataTemp.get(id.lexemeRank(0))+" + "+id.lexemeRank(-2)+"\n");
+                                        temporal++;
+                                        Tripletas.append("T"+temporal+" := 1 - 2"+"\n");
+                                        Tripletas.append(id.lexemeRank(0)+" := T"+(temporal-1)+" * T"+(temporal)+"\n");
+                                        
+                                    }else{
+                                        temporal++;
+                                        Tripletas.append("T"+temporal+" := "+identDataTemp.get(id.lexemeRank(0))+" + "+id.lexemeRank(-2)+"\n");
+                                        Tripletas.append(id.lexemeRank(0)+" := T"+temporal+"\n");
+                                    }
                                     tipo = "Entero";
                                     PanelSalida.append("-->   Se le esta asignando a la variable " + id.lexemeRank(0) + " de tipo " + tipo + " un nuevo valor de " + id.lexemeRank(-3) + id.lexemeRank(-2) + ".........\n");
                                 }else if(id.lexicalCompRank(-2).equals("Numero_Decimal")){
+                                    if(id.lexemeRank(-3).equals("-")){
+                                        temporal++;
+                                        Tripletas.append("T"+temporal+" := "+identDataTemp.get(id.lexemeRank(0))+" + "+id.lexemeRank(-2)+"\n");
+                                        temporal++;
+                                        Tripletas.append("T"+temporal+" := 1 - 2"+"\n");
+                                        Tripletas.append(id.lexemeRank(0)+" := T"+(temporal-1)+" * T"+(temporal)+"\n");
+                                        
+                                    }else{
+                                        temporal++;
+                                        Tripletas.append("T"+temporal+" := "+identDataTemp.get(id.lexemeRank(0))+" + "+id.lexemeRank(-2)+"\n");
+                                        Tripletas.append(id.lexemeRank(0)+" := T"+temporal+"\n");
+                                    }
                                     tipo = "Decimal";
                                     PanelSalida.append("-->   Se le esta asignando a la variable " + id.lexemeRank(0) + " de tipo " + tipo + " un nuevo valor de " + id.lexemeRank(-3) + id.lexemeRank(-2) + ".........\n");
                                 }else if(id.lexicalCompRank(-2).equals("Identificador_Cadena")){
+                                    temporal++;
+                                    Tripletas.append("T"+temporal+" := "+identDataTemp.get(id.lexemeRank(0))+" + "+id.lexemeRank(-2)+"\n");
+                                    Tripletas.append(id.lexemeRank(0)+" := T"+temporal+"\n");
                                     tipo = "Cadena";
                                     PanelSalida.append("-->   Se le esta asignando a la variable " + id.lexemeRank(0) + " de tipo " + tipo + " un nuevo valor de " + id.lexemeRank(-2) + ".........\n");
                                 }else if(id.lexicalCompRank(-2).equals("Palabra_Reservada_12") || id.lexicalCompRank(-2).equals("Palabra_Reservada_13") || id.lexicalCompRank(-2).equals("Palabra_Reservada_14") || id.lexicalCompRank(-2).equals("Palabra_Reservada_15") || id.lexicalCompRank(-2).equals("Palabra_Reservada_16")){
+                                    temporal++;
+                                    Tripletas.append("T"+temporal+" := "+identDataTemp.get(id.lexemeRank(0))+" + "+id.lexemeRank(-2)+"\n");
+                                    Tripletas.append(id.lexemeRank(0)+" := T"+temporal+"\n");
                                     tipo = "Color";
                                     PanelSalida.append("-->   Se le esta asignando a la variable " + id.lexemeRank(0) + " de tipo " + tipo + " un nuevo valor de " + id.lexemeRank(-2) + ".........\n");
                                 }else if(id.lexicalCompRank(-2).equals("Palabra_Reservada_17") || id.lexicalCompRank(-2).equals("Palabra_Reservada_18") || id.lexicalCompRank(-2).equals("Palabra_Reservada_19") || id.lexicalCompRank(-2).equals("Palabra_Reservada_20") || id.lexicalCompRank(-2).equals("Palabra_Reservada_21")){
+                                    temporal++;
+                                    Tripletas.append("T"+temporal+" := "+identDataTemp.get(id.lexemeRank(0))+" + "+id.lexemeRank(-2)+"\n");
+                                    Tripletas.append(id.lexemeRank(0)+" := T"+temporal+"\n");
                                     tipo = "Figura";
                                     PanelSalida.append("-->   Se le esta asignando a la variable " + id.lexemeRank(0) + " de tipo " + tipo + " un nuevo valor de " + id.lexemeRank(-2) + ".........\n");
                                 }
@@ -20461,58 +20528,176 @@ public class Interfaz extends javax.swing.JFrame {
                         }
                         for(Production id: identProdF11){
                             if(sentence.startsWith(id.lexemeRank(0))){
-                                if(id.lexemeRank(0).equals("Sumar")){
+                                if(id.lexemeRank(0).equals("Sumar") && sentence.contains(id.lexemeRank(2)) && sentence.contains(id.lexemeRank(4)) && sentence.contains(id.lexemeRank(7))){
+                                    temporal++;
+                                    Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" + "+id.lexemeRank(4)+"\n");
+                                    Tripletas.append(id.lexemeRank(7)+" := T"+temporal+"\n");
                                     PanelSalida.append("-->   Se ha utlizado la función de Sumar, que tiene como parametros a:        " + id.lexemeRank(2) + " = " + identDataTypeV2.get(id.lexemeRank(2)) + " , " + id.lexemeRank(4) + " = " + identDataTypeV2.get(id.lexemeRank(4)) + "\nDonde el resultado de la operación es: " + identDataTypeR.get(id.lexemeRank(7)) + " , y se guardó en: " + id.lexemeRank(7) + ".........\n");
-                                }else if(id.lexemeRank(0).equals("Restar")){
+                                    break;
+                                }else if(id.lexemeRank(0).equals("Restar") && sentence.contains(id.lexemeRank(2)) && sentence.contains(id.lexemeRank(4)) && sentence.contains(id.lexemeRank(7))){
+                                    temporal++;
+                                    Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" - "+id.lexemeRank(4)+"\n");
+                                    Tripletas.append(id.lexemeRank(7)+" := T"+temporal+"\n");
                                     PanelSalida.append("-->   Se ha utlizado la función de Restar, que tiene como parametros a:       " + id.lexemeRank(2) + " = " + identDataTypeV2.get(id.lexemeRank(2)) + " , " + id.lexemeRank(4) + " = " + identDataTypeV2.get(id.lexemeRank(4)) + "\nDonde el resultado de la operación es: " + identDataTypeR.get(id.lexemeRank(7)) + " , y se guardó en: " + id.lexemeRank(7) + ".........\n");
-                                }else if(id.lexemeRank(0).equals("Multiplicar")){
+                                    break;
+                                }else if(id.lexemeRank(0).equals("Multiplicar") && sentence.contains(id.lexemeRank(2)) && sentence.contains(id.lexemeRank(4)) && sentence.contains(id.lexemeRank(7))){
+                                    temporal++;
+                                    Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" * "+id.lexemeRank(4)+"\n");
+                                    Tripletas.append(id.lexemeRank(7)+" := T"+temporal+"\n");
                                     PanelSalida.append("-->   Se ha utlizado la función de Multiplicar, que tiene como parametros a:  " + id.lexemeRank(2) + " = " + identDataTypeV2.get(id.lexemeRank(2)) + " , " + id.lexemeRank(4) + " = " + identDataTypeV2.get(id.lexemeRank(4)) + "\nDonde el resultado de la operación es: " + identDataTypeR.get(id.lexemeRank(7)) + " , y se guardó en: " + id.lexemeRank(7) + ".........\n");
-                                }else if(id.lexemeRank(0).equals("Dividir")){
+                                    break;
+                                }else if(id.lexemeRank(0).equals("Dividir") && sentence.contains(id.lexemeRank(2)) && sentence.contains(id.lexemeRank(4)) && sentence.contains(id.lexemeRank(7))){
+                                    temporal++;
+                                    Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" / "+id.lexemeRank(4)+"\n");
+                                    Tripletas.append(id.lexemeRank(7)+" := T"+temporal+"\n");
                                     PanelSalida.append("-->   Se ha utlizado la función de Dividir, que tiene como parametros a:      " + id.lexemeRank(2) + " = " + identDataTypeV2.get(id.lexemeRank(2)) + " , " + id.lexemeRank(4) + " = " + identDataTypeV2.get(id.lexemeRank(4)) + "\nDonde el resultado de la operación es: " + identDataTypeR.get(id.lexemeRank(7)) + " , y se guardó en: " + id.lexemeRank(7) + ".........\n");
+                                    break;
                                 }
                             }
                         }
                         for(Production id: identProdF12){
                             if(sentence.startsWith(id.lexemeRank(0))){
-                                if(id.lexemeRank(0).equals("Sumar")){
+                                if(id.lexemeRank(0).equals("Sumar") && sentence.contains(id.lexemeRank(2)) && sentence.contains(id.lexemeRank(4)) && sentence.contains(id.lexemeRank(6)) && sentence.contains(id.lexemeRank(9))){
+                                    temporal++;
+                                    Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" + "+id.lexemeRank(4)+"\n");
+                                    temporal++;
+                                    Tripletas.append("T"+temporal+" := T"+(temporal-1)+" + "+id.lexemeRank(6)+"\n");
+                                    Tripletas.append(id.lexemeRank(9)+" := T"+temporal+"\n");
                                     PanelSalida.append("-->   Se ha utlizado la función de Sumar, que tiene como parametros a:        " + id.lexemeRank(2) + " = " + identDataTypeV2.get(id.lexemeRank(2)) + " , " + id.lexemeRank(4) + " = " + identDataTypeV2.get(id.lexemeRank(4)) + " , " + id.lexemeRank(6) + " = " + identDataTypeV2.get(id.lexemeRank(6)) +  "\nDonde el resultado de la operación es: " + identDataTypeR.get(id.lexemeRank(9)) + " , y se guardó en: " + id.lexemeRank(9) + ".........\n");
-                                }else if(id.lexemeRank(0).equals("Restar")){
+                                    break;
+                                }else if(id.lexemeRank(0).equals("Restar") && sentence.contains(id.lexemeRank(2)) && sentence.contains(id.lexemeRank(4)) && sentence.contains(id.lexemeRank(6)) && sentence.contains(id.lexemeRank(9))){
+                                    temporal++;
+                                    Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" - "+id.lexemeRank(4)+"\n");
+                                    temporal++;
+                                    Tripletas.append("T"+temporal+" := T"+(temporal-1)+" - "+id.lexemeRank(6)+"\n");
+                                    Tripletas.append(id.lexemeRank(9)+" := T"+temporal+"\n");
                                     PanelSalida.append("-->   Se ha utlizado la función de Restar, que tiene como parametros a:       " + id.lexemeRank(2) + " = " + identDataTypeV2.get(id.lexemeRank(2)) + " , " + id.lexemeRank(4) + " = " + identDataTypeV2.get(id.lexemeRank(4)) + " , " + id.lexemeRank(6) + " = " + identDataTypeV2.get(id.lexemeRank(6)) +  "\nDonde el resultado de la operación es: " + identDataTypeR.get(id.lexemeRank(9)) + " , y se guardó en: " + id.lexemeRank(9) + ".........\n");
-                                }else if(id.lexemeRank(0).equals("Multiplicar")){
+                                    break;
+                                }else if(id.lexemeRank(0).equals("Multiplicar") && sentence.contains(id.lexemeRank(2)) && sentence.contains(id.lexemeRank(4)) && sentence.contains(id.lexemeRank(6)) && sentence.contains(id.lexemeRank(9))){
+                                    temporal++;
+                                    Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" * "+id.lexemeRank(4)+"\n");
+                                    temporal++;
+                                    Tripletas.append("T"+temporal+" := T"+(temporal-1)+" * "+id.lexemeRank(6)+"\n");
+                                    Tripletas.append(id.lexemeRank(9)+" := T"+temporal+"\n");
                                     PanelSalida.append("-->   Se ha utlizado la función de Multiplicar, que tiene como parametros a:  " + id.lexemeRank(2) + " = " + identDataTypeV2.get(id.lexemeRank(2)) + " , " + id.lexemeRank(4) + " = " + identDataTypeV2.get(id.lexemeRank(4)) + " , " + id.lexemeRank(6) + " = " + identDataTypeV2.get(id.lexemeRank(6)) +  "\nDonde el resultado de la operación es: " + identDataTypeR.get(id.lexemeRank(9)) + " , y se guardó en: " + id.lexemeRank(9) + ".........\n");
-                                }else if(id.lexemeRank(0).equals("Dividir")){
+                                    break;
+                                }else if(id.lexemeRank(0).equals("Dividir") && sentence.contains(id.lexemeRank(2)) && sentence.contains(id.lexemeRank(4)) && sentence.contains(id.lexemeRank(6)) && sentence.contains(id.lexemeRank(9))){
+                                    temporal++;
+                                    Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" / "+id.lexemeRank(4)+"\n");
+                                    temporal++;
+                                    Tripletas.append("T"+temporal+" := T"+(temporal-1)+" / "+id.lexemeRank(6)+"\n");
+                                    Tripletas.append(id.lexemeRank(9)+" := T"+temporal+"\n");
                                     PanelSalida.append("-->   Se ha utlizado la función de Dividir, que tiene como parametros a:      " + id.lexemeRank(2) + " = " + identDataTypeV2.get(id.lexemeRank(2)) + " , " + id.lexemeRank(4) + " = " + identDataTypeV2.get(id.lexemeRank(4))  + " , " + id.lexemeRank(6) + " = " + identDataTypeV2.get(id.lexemeRank(6)) + "\nDonde el resultado de la operación es: " + identDataTypeR.get(id.lexemeRank(9)) + " , y se guardó en: " + id.lexemeRank(9) + ".........\n");
+                                    break;
                                 }
                             }
                         }
                         for(Production id: identProdF13){
                             if(sentence.startsWith(id.lexemeRank(0))){
-                                if(id.lexemeRank(0).equals("Sumar")){
+                                if(id.lexemeRank(0).equals("Sumar") && sentence.contains(id.lexemeRank(2)) && sentence.contains(id.lexemeRank(4)) && sentence.contains(id.lexemeRank(6)) && sentence.contains(id.lexemeRank(8)) && sentence.contains(id.lexemeRank(11))){
+                                    temporal++;
+                                    Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" + "+id.lexemeRank(4)+"\n");
+                                    temporal++;
+                                    Tripletas.append("T"+temporal+" := T"+(temporal-1)+" + "+id.lexemeRank(6)+"\n");
+                                    temporal++;
+                                    Tripletas.append("T"+temporal+" := T"+(temporal-1)+" + "+id.lexemeRank(8)+"\n");
+                                    Tripletas.append(id.lexemeRank(11)+" := T"+temporal+"\n");
                                     PanelSalida.append("-->   Se ha utlizado la función de Sumar, que tiene como parametros a:        " + id.lexemeRank(2) + " = " + identDataTypeV2.get(id.lexemeRank(2)) + " , " + id.lexemeRank(4) + " = " + identDataTypeV2.get(id.lexemeRank(4)) + " , " + id.lexemeRank(6) + " = " + identDataTypeV2.get(id.lexemeRank(6)) + " , " + id.lexemeRank(8) + " = " + identDataTypeV2.get(id.lexemeRank(8)) + "\nDonde el resultado de la operación es: " + identDataTypeR.get(id.lexemeRank(11)) + " , y se guardó en: " + id.lexemeRank(11) + ".........\n");
-                                }else if(id.lexemeRank(0).equals("Restar")){
+                                    break;
+                                }else if(id.lexemeRank(0).equals("Restar") && sentence.contains(id.lexemeRank(2)) && sentence.contains(id.lexemeRank(4)) && sentence.contains(id.lexemeRank(6)) && sentence.contains(id.lexemeRank(8)) && sentence.contains(id.lexemeRank(11))){
+                                    temporal++;
+                                    Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" - "+id.lexemeRank(4)+"\n");
+                                    temporal++;
+                                    Tripletas.append("T"+temporal+" := T"+(temporal-1)+" - "+id.lexemeRank(6)+"\n");
+                                    temporal++;
+                                    Tripletas.append("T"+temporal+" := T"+(temporal-1)+" - "+id.lexemeRank(8)+"\n");
+                                    Tripletas.append(id.lexemeRank(11)+" := T"+temporal+"\n");
                                     PanelSalida.append("-->   Se ha utlizado la función de Restar, que tiene como parametros a:       " + id.lexemeRank(2) + " = " + identDataTypeV2.get(id.lexemeRank(2)) + " , " + id.lexemeRank(4) + " = " + identDataTypeV2.get(id.lexemeRank(4)) + " , " + id.lexemeRank(6) + " = " + identDataTypeV2.get(id.lexemeRank(6)) + " , " + id.lexemeRank(8) + " = " + identDataTypeV2.get(id.lexemeRank(8)) + "\nDonde el resultado de la operación es: " + identDataTypeR.get(id.lexemeRank(11)) + " , y se guardó en: " + id.lexemeRank(11) + ".........\n");
-                                }else if(id.lexemeRank(0).equals("Multiplicar")){
+                                    break;
+                                }else if(id.lexemeRank(0).equals("Multiplicar") && sentence.contains(id.lexemeRank(2)) && sentence.contains(id.lexemeRank(4)) && sentence.contains(id.lexemeRank(6)) && sentence.contains(id.lexemeRank(8)) && sentence.contains(id.lexemeRank(11))){
+                                    temporal++;
+                                    Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" * "+id.lexemeRank(4)+"\n");
+                                    temporal++;
+                                    Tripletas.append("T"+temporal+" := T"+(temporal-1)+" * "+id.lexemeRank(6)+"\n");
+                                    temporal++;
+                                    Tripletas.append("T"+temporal+" := T"+(temporal-1)+" * "+id.lexemeRank(8)+"\n");
+                                    Tripletas.append(id.lexemeRank(11)+" := T"+temporal+"\n");
                                     PanelSalida.append("-->   Se ha utlizado la función de Multiplicar, que tiene como parametros a:  " + id.lexemeRank(2) + " = " + identDataTypeV2.get(id.lexemeRank(2)) + " , " + id.lexemeRank(4) + " = " + identDataTypeV2.get(id.lexemeRank(4)) + " , " + id.lexemeRank(6) + " = " + identDataTypeV2.get(id.lexemeRank(6)) + " , " + id.lexemeRank(8) + " = " + identDataTypeV2.get(id.lexemeRank(8)) + "\nDonde el resultado de la operación es: " + identDataTypeR.get(id.lexemeRank(11)) + " , y se guardó en: " + id.lexemeRank(11) + ".........\n");
-                                }else if(id.lexemeRank(0).equals("Dividir")){
+                                    break;
+                                }else if(id.lexemeRank(0).equals("Dividir") && sentence.contains(id.lexemeRank(2)) && sentence.contains(id.lexemeRank(4)) && sentence.contains(id.lexemeRank(6)) && sentence.contains(id.lexemeRank(8)) && sentence.contains(id.lexemeRank(11))){
+                                    temporal++;
+                                    Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" / "+id.lexemeRank(4)+"\n");
+                                    temporal++;
+                                    Tripletas.append("T"+temporal+" := T"+(temporal-1)+" / "+id.lexemeRank(6)+"\n");
+                                    temporal++;
+                                    Tripletas.append("T"+temporal+" := T"+(temporal-1)+" / "+id.lexemeRank(8)+"\n");
+                                    Tripletas.append(id.lexemeRank(11)+" := T"+temporal+"\n");
                                     PanelSalida.append("-->   Se ha utlizado la función de Dividir, que tiene como parametros a:      " + id.lexemeRank(2) + " = " + identDataTypeV2.get(id.lexemeRank(2)) + " , " + id.lexemeRank(4) + " = " + identDataTypeV2.get(id.lexemeRank(4)) + " , " + id.lexemeRank(6) + " = " + identDataTypeV2.get(id.lexemeRank(6)) + " , " + id.lexemeRank(8) + " = " + identDataTypeV2.get(id.lexemeRank(8)) + "\nDonde el resultado de la operación es: " + identDataTypeR.get(id.lexemeRank(11)) + " , y se guardó en: " + id.lexemeRank(11) + ".........\n");
+                                    break;
                                 }
                             }
                         }
                         for(Production id: identProdF14){
                             if(sentence.startsWith(id.lexemeRank(0))){
-                                if(id.lexemeRank(0).equals("Sumar")){
+                                if(id.lexemeRank(0).equals("Sumar") && sentence.contains(id.lexemeRank(2)) && sentence.contains(id.lexemeRank(4)) && sentence.contains(id.lexemeRank(6)) && sentence.contains(id.lexemeRank(8)) && sentence.contains(id.lexemeRank(10)) && sentence.contains(id.lexemeRank(13))){
+                                    temporal++;
+                                    Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" + "+id.lexemeRank(4)+"\n");
+                                    temporal++;
+                                    Tripletas.append("T"+temporal+" := T"+(temporal-1)+" + "+id.lexemeRank(6)+"\n");
+                                    temporal++;
+                                    Tripletas.append("T"+temporal+" := T"+(temporal-1)+" + "+id.lexemeRank(8)+"\n");
+                                    temporal++;
+                                    Tripletas.append("T"+temporal+" := T"+(temporal-1)+" + "+id.lexemeRank(10)+"\n");
+                                    Tripletas.append(id.lexemeRank(13)+" := T"+temporal+"\n");
                                     PanelSalida.append("-->   Se ha utlizado la función de Sumar, que tiene como parametros a:        " + id.lexemeRank(2) + " = " + identDataTypeV2.get(id.lexemeRank(2)) + " , " + id.lexemeRank(4) + " = " + identDataTypeV2.get(id.lexemeRank(4)) + " , " + id.lexemeRank(6) + " = " + identDataTypeV2.get(id.lexemeRank(6)) + " , " + id.lexemeRank(8) + " = " + identDataTypeV2.get(id.lexemeRank(8)) + " , " + id.lexemeRank(10) + " = " + identDataTypeV2.get(id.lexemeRank(10)) + "\ndonde el resultado de la operación es: " + identDataTypeR.get(id.lexemeRank(13)) + " , y se guardó en: " + id.lexemeRank(13) + ".........\n");
-                                }else if(id.lexemeRank(0).equals("Restar")){
+                                    break;
+                                }else if(id.lexemeRank(0).equals("Restar") && sentence.contains(id.lexemeRank(2)) && sentence.contains(id.lexemeRank(4)) && sentence.contains(id.lexemeRank(6)) && sentence.contains(id.lexemeRank(8)) && sentence.contains(id.lexemeRank(10)) && sentence.contains(id.lexemeRank(13))){
+                                    temporal++;
+                                    Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" - "+id.lexemeRank(4)+"\n");
+                                    temporal++;
+                                    Tripletas.append("T"+temporal+" := T"+(temporal-1)+" - "+id.lexemeRank(6)+"\n");
+                                    temporal++;
+                                    Tripletas.append("T"+temporal+" := T"+(temporal-1)+" - "+id.lexemeRank(8)+"\n");
+                                    temporal++;
+                                    Tripletas.append("T"+temporal+" := T"+(temporal-1)+" - "+id.lexemeRank(10)+"\n");
+                                    Tripletas.append(id.lexemeRank(13)+" := T"+temporal+"\n");
                                     PanelSalida.append("-->   Se ha utlizado la función de Restar, que tiene como parametros a:       " + id.lexemeRank(2) + " = " + identDataTypeV2.get(id.lexemeRank(2)) + " , " + id.lexemeRank(4) + " = " + identDataTypeV2.get(id.lexemeRank(4)) + " , " + id.lexemeRank(6) + " = " + identDataTypeV2.get(id.lexemeRank(6)) + " , " + id.lexemeRank(8) + " = " + identDataTypeV2.get(id.lexemeRank(8)) + " , " + id.lexemeRank(10) + " = " + identDataTypeV2.get(id.lexemeRank(10)) + "\ndonde el resultado de la operación es: " + identDataTypeR.get(id.lexemeRank(13)) + " , y se guardó en: " + id.lexemeRank(13) + ".........\n");
-                                }else if(id.lexemeRank(0).equals("Multiplicar")){
+                                    break;
+                                }else if(id.lexemeRank(0).equals("Multiplicar") && sentence.contains(id.lexemeRank(2)) && sentence.contains(id.lexemeRank(4)) && sentence.contains(id.lexemeRank(6)) && sentence.contains(id.lexemeRank(8)) && sentence.contains(id.lexemeRank(10)) && sentence.contains(id.lexemeRank(13))){
+                                    temporal++;
+                                    Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" * "+id.lexemeRank(4)+"\n");
+                                    temporal++;
+                                    Tripletas.append("T"+temporal+" := T"+(temporal-1)+" * "+id.lexemeRank(6)+"\n");
+                                    temporal++;
+                                    Tripletas.append("T"+temporal+" := T"+(temporal-1)+" * "+id.lexemeRank(8)+"\n");
+                                    temporal++;
+                                    Tripletas.append("T"+temporal+" := T"+(temporal-1)+" * "+id.lexemeRank(10)+"\n");
+                                    Tripletas.append(id.lexemeRank(13)+" := T"+temporal+"\n");
                                     PanelSalida.append("-->   Se ha utlizado la función de Multiplicar, que tiene como parametros a:  " + id.lexemeRank(2) + " = " + identDataTypeV2.get(id.lexemeRank(2)) + " , " + id.lexemeRank(4) + " = " + identDataTypeV2.get(id.lexemeRank(4)) + " , " + id.lexemeRank(6) + " = " + identDataTypeV2.get(id.lexemeRank(6)) + " , " + id.lexemeRank(8) + " = " + identDataTypeV2.get(id.lexemeRank(8)) + " , " + id.lexemeRank(10) + " = " + identDataTypeV2.get(id.lexemeRank(10)) + "\ndonde el resultado de la operación es: " + identDataTypeR.get(id.lexemeRank(13)) + " , y se guardó en: " + id.lexemeRank(13) + ".........\n");
-                                }else if(id.lexemeRank(0).equals("Dividir")){
+                                    break;
+                                }else if(id.lexemeRank(0).equals("Dividir") && sentence.contains(id.lexemeRank(2)) && sentence.contains(id.lexemeRank(4)) && sentence.contains(id.lexemeRank(6)) && sentence.contains(id.lexemeRank(8)) && sentence.contains(id.lexemeRank(10)) && sentence.contains(id.lexemeRank(13))){
+                                    temporal++;
+                                    Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" / "+id.lexemeRank(4)+"\n");
+                                    temporal++;
+                                    Tripletas.append("T"+temporal+" := T"+(temporal-1)+" / "+id.lexemeRank(6)+"\n");
+                                    temporal++;
+                                    Tripletas.append("T"+temporal+" := T"+(temporal-1)+" / "+id.lexemeRank(8)+"\n");
+                                    temporal++;
+                                    Tripletas.append("T"+temporal+" := T"+(temporal-1)+" / "+id.lexemeRank(10)+"\n");
+                                    Tripletas.append(id.lexemeRank(13)+" := T"+temporal+"\n");
                                     PanelSalida.append("-->   Se ha utlizado la función de Dividir, que tiene como parametros a:      " + id.lexemeRank(2) + " = " + identDataTypeV2.get(id.lexemeRank(2)) + " , " + id.lexemeRank(4) + " = " + identDataTypeV2.get(id.lexemeRank(4)) + " , " + id.lexemeRank(6) + " = " + identDataTypeV2.get(id.lexemeRank(6)) + " , " + id.lexemeRank(8) + " = " + identDataTypeV2.get(id.lexemeRank(8)) + " , " + id.lexemeRank(10) + " = " + identDataTypeV2.get(id.lexemeRank(10)) + "\ndonde el resultado de la operación es: " + identDataTypeR.get(id.lexemeRank(13)) + " , y se guardó en: " + id.lexemeRank(13) + ".........\n");
+                                    break;
                                 }
                             }
                         }
                         for(Production id: identProdF3){
-                            if(sentence.startsWith(id.lexemeRank(0))){
+                            if(sentence.startsWith(id.lexemeRank(0)) && sentence.contains(id.lexemeRank(2))  && sentence.contains(id.lexemeRank(4)) && sentence.contains(id.lexemeRank(6)) && sentence.contains(id.lexemeRank(8))){
+                                temporal++;
+                                Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" + "+id.lexemeRank(4)+"\n");
+                                temporal++;
+                                Tripletas.append("T"+temporal+" := "+id.lexemeRank(6)+" + "+id.lexemeRank(8)+"\n");
+                                temporal++;
+                                Tripletas.append("T"+temporal+" := T"+(temporal-2)+" + T"+(temporal-1)+"\n");
                                 PanelSalida.append("-->   Se ha utlizado la función de Mostrar en su forma de tipo Entero, del cual se crea la siguiente interfaz.........\n");
                                 MostrarE me = new MostrarE();
                                 me.setVisible(true);
@@ -20524,11 +20709,33 @@ public class Interfaz extends javax.swing.JFrame {
                                 me.Cadena();
                                 me.Color();
                                 me.Resultado();
-                                
+                                break;
                             }
                         }
                         for(Production id: identProdF2){
-                            if(sentence.startsWith(id.lexemeRank(0))){
+                            if(sentence.startsWith(id.lexemeRank(0)) && sentence.contains(id.lexemeRank(2))  && sentence.contains(id.lexemeRank(4)) && sentence.contains(id.lexemeRank(6)) && sentence.contains(id.lexemeRank(8)) && sentence.contains(id.lexemeRank(10))  && sentence.contains(id.lexemeRank(12)) && sentence.contains(id.lexemeRank(14)) && sentence.contains(id.lexemeRank(16)) && sentence.contains(id.lexemeRank(18))  && sentence.contains(id.lexemeRank(20)) && sentence.contains(id.lexemeRank(22)) && sentence.contains(id.lexemeRank(24))){
+                                temporal++;
+                                Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" + "+id.lexemeRank(4)+"\n");
+                                temporal++;
+                                Tripletas.append("T"+temporal+" := "+id.lexemeRank(6)+" + "+id.lexemeRank(8)+"\n");
+                                temporal++;
+                                Tripletas.append("T"+temporal+" := "+id.lexemeRank(10)+" + "+id.lexemeRank(12)+"\n");
+                                temporal++;
+                                Tripletas.append("T"+temporal+" := T"+(temporal-2)+" + T"+(temporal-1)+"\n");
+                                temporal++;
+                                Tripletas.append("T"+temporal+" := "+id.lexemeRank(14)+" + "+id.lexemeRank(16)+"\n");
+                                temporal++;
+                                Tripletas.append("T"+temporal+" := "+id.lexemeRank(18)+" + "+id.lexemeRank(20)+"\n");
+                                temporal++;
+                                Tripletas.append("T"+temporal+" := T"+(temporal-2)+" + T"+(temporal-1)+"\n");
+                                temporal++;
+                                Tripletas.append("T"+temporal+" := "+id.lexemeRank(22)+" + "+id.lexemeRank(24)+"\n");
+                                temporal++;
+                                Tripletas.append("T"+temporal+" := T"+(temporal-5)+" + T"+(temporal-2)+"\n");
+                                temporal++;
+                                Tripletas.append("T"+temporal+" := T"+(temporal-1)+" + T"+(temporal-2)+"\n");
+                                temporal++;
+                                Tripletas.append("T"+temporal+" := T"+(temporal-10)+" + T"+(temporal-1)+"\n");
                                 PanelSalida.append("-->   Se ha utlizado la función de Mostrar en su forma de tipo Decimal, del cual se crea la siguiente interfaz.........\n");
                                 MostrarD md = new MostrarD();
                                 md.setVisible(true);
@@ -20556,6 +20763,7 @@ public class Interfaz extends javax.swing.JFrame {
                                 md.Color5();
                                 md.Cadena();
                                 md.Resultado();
+                                break;
                             }
                         }
                     }
