@@ -15,8 +15,8 @@ public class ComponentesLexicos extends javax.swing.JFrame {
      */
     public ComponentesLexicos() {
         initComponents();
-        this.setLocationRelativeTo(null);
         this.setTitle("Tabla de componentes léxicos (M4TH3C)");
+        this.setResizable(false);
     }
 
     /**

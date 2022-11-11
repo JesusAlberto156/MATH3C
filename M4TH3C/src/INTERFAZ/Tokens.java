@@ -17,6 +17,8 @@ public class Tokens extends javax.swing.JFrame {
      */
     public Tokens() {
         initComponents();
+        this.setTitle("Tabla de tokens (M4TH3C)");
+        this.setResizable(false);
     }
     
     public JTable Tabla(){

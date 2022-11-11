@@ -66,6 +66,7 @@ public class Interfaz extends javax.swing.JFrame {
     private ArrayList<Production> identProdF2;
     private ArrayList<Production> identProdF3;
     private ArrayList<Production> identProdM1;
+    private ArrayList<Production> identProdM2;
     private HashMap<String, String> identDataType;
     private HashMap<String, String> identDataTypeV;
     private HashMap<String, String> identDataTypeE;
@@ -73,9 +74,11 @@ public class Interfaz extends javax.swing.JFrame {
     private HashMap<String, String> identDataTypeV2;
     private HashMap<String, String> identDataTypeV3;
     private HashMap<String, String> identDataTemp;
+    private HashMap<String, String> identDataMetodo;
     private boolean codeHasBeenCompiled = false;
     private Directory directorio;
     private Tokens T = new Tokens();
+    private Tripletas Tr = new Tripletas();
     private ArrayList<Production> Metodo;
 
     /**
@@ -84,7 +87,7 @@ public class Interfaz extends javax.swing.JFrame {
     public Interfaz() {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.setTitle("M4TH3C");
+        this.setTitle("M4TH3C - PRINCIPAL");
         this.setResizable(false);
         ImageIcon img = new ImageIcon("src/IMAGENES/M4TH3C.png");
         Icon icono1 = new ImageIcon(img.getImage().getScaledInstance(jLabel4.getWidth(), jLabel4.getHeight(), Image.SCALE_SMOOTH));
@@ -132,6 +135,7 @@ public class Interfaz extends javax.swing.JFrame {
         identProdF2 = new ArrayList<>();
         identProdF3 = new ArrayList<>();
         identProdM1 = new ArrayList<>();
+        identProdM2 = new ArrayList<>();
         identDataType = new HashMap<>();
         identDataTypeV = new HashMap<>();
         identDataTypeE = new HashMap<>();
@@ -139,6 +143,7 @@ public class Interfaz extends javax.swing.JFrame {
         identDataTypeV2 = new HashMap<>();
         identDataTypeV3 = new HashMap<>();
         identDataTemp = new HashMap<>();
+        identDataMetodo = new HashMap<>();
         Functions.setAutocompleterJTextComponent(new String[]{"Sumar('VARIABLES')<\n\t      'Variable Resultado'\n>;",
             "Restar('VARIABLES')<\n\t      'Variable Resultado'\n>;", "Multiplicar('VARIABLES')<\n\t      'Variable Resultado'\n>;",
             "Dividir('VARIABLES')<\n\t      'Variable Resultado'\n>;", "Entero 'Nombre Variable' = 'Valor';", "Entero 'Nombre Variable';",
@@ -180,6 +185,7 @@ public class Interfaz extends javax.swing.JFrame {
         identProdF2.clear();
         identProdF3.clear();
         identProdM1.clear();
+        identProdM2.clear();
         identDataType.clear();
         identDataTypeV.clear();
         identDataTypeE.clear();
@@ -187,6 +193,7 @@ public class Interfaz extends javax.swing.JFrame {
         identDataTypeV2.clear();
         identDataTypeV3.clear();
         identDataTemp.clear();
+        identDataMetodo.clear();
         codeHasBeenCompiled = false;
     }
 
@@ -18325,6 +18332,13 @@ public class Interfaz extends javax.swing.JFrame {
 
         /* Mostrar gramáticas */
         gramatica.show();
+        
+        //Acomodar las producciones de Clases en orden
+        int tamaño = identProdM1.size();
+        for(Production id: identProdM1){
+            identProdM2.add(identProdM1.get(tamaño-1));
+            tamaño--;
+        }
     }
 
     private void semanticAnalysis() {
@@ -19563,6 +19577,9 @@ public class Interfaz extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         Tripletas = new javax.swing.JTextArea();
         jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jButton10 = new javax.swing.JButton();
+        jButton11 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
@@ -19677,13 +19694,16 @@ public class Interfaz extends javax.swing.JFrame {
 
         jScrollPane1.setViewportView(PanelFuente);
 
+        PanelSalida.setEditable(false);
+        PanelSalida.setBackground(new java.awt.Color(255, 255, 255));
         PanelSalida.setColumns(20);
         PanelSalida.setRows(5);
         jScrollPane2.setViewportView(PanelSalida);
 
-        jTabbedPane2.setBackground(new java.awt.Color(255, 255, 255));
+        jTabbedPane2.setBackground(new java.awt.Color(0, 0, 0));
+        jTabbedPane2.setForeground(new java.awt.Color(255, 255, 255));
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setBackground(new java.awt.Color(204, 204, 255));
 
         Tokens.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -19699,14 +19719,24 @@ public class Interfaz extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 461, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 447, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jTabbedPane2.addTab("Tokens", jPanel2);
+
+        jPanel3.setBackground(new java.awt.Color(204, 204, 255));
+
+        jScrollPane5.setBackground(new java.awt.Color(255, 255, 255));
 
         tblCuadruplos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -19730,14 +19760,22 @@ public class Interfaz extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 459, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(7, Short.MAX_VALUE)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 446, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jTabbedPane2.addTab("Cuadruplos", jPanel3);
+
+        jPanel4.setBackground(new java.awt.Color(204, 204, 255));
 
         Tripletas.setBackground(new java.awt.Color(255, 255, 255));
         Tripletas.setColumns(20);
@@ -19745,15 +19783,40 @@ public class Interfaz extends javax.swing.JFrame {
         Tripletas.setEnabled(false);
         jScrollPane4.setViewportView(Tripletas);
 
+        jLabel6.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel6.setText("Zoom");
+
+        jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/MasZoom.png"))); // NOI18N
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
+
+        jButton11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/MenosZoom.png"))); // NOI18N
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton10)))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -19763,7 +19826,11 @@ public class Interfaz extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane4)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(53, 53, 53)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton10)
+                            .addComponent(jButton11)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(22, 22, 22)
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 66, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -19862,9 +19929,9 @@ public class Interfaz extends javax.swing.JFrame {
                             .addComponent(jButton6)
                             .addComponent(jButton7))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1)
+                    .addComponent(jTabbedPane2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel3)
@@ -20029,6 +20096,11 @@ public class Interfaz extends javax.swing.JFrame {
         jMenu7.setText("Código Intermedio");
 
         jMenuItem14.setText("Tripletas");
+        jMenuItem14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem14ActionPerformed(evt);
+            }
+        });
         jMenu7.add(jMenuItem14);
 
         jMenuItem13.setText("Cuadruplos");
@@ -20080,6 +20152,7 @@ public class Interfaz extends javax.swing.JFrame {
 
     private void btnMenuLEATEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuLEATEActionPerformed
         AcercaDe ac = new AcercaDe();
+        ac.setLocationRelativeTo(this);
         ac.setVisible(true);
     }//GEN-LAST:event_btnMenuLEATEActionPerformed
 
@@ -20143,16 +20216,19 @@ public class Interfaz extends javax.swing.JFrame {
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         ComponentesLexicos s = new ComponentesLexicos();
+        s.setLocationRelativeTo(this);
         s.setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         Simbolos t = new Simbolos();
+        t.setLocationRelativeTo(this);
         t.setVisible(true);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
         TiposDeDatos tdd = new TiposDeDatos();
+        tdd.setLocationRelativeTo(this);
         tdd.setVisible(true);
     }//GEN-LAST:event_jMenuItem9ActionPerformed
 
@@ -20270,6 +20346,29 @@ public class Interfaz extends javax.swing.JFrame {
         T.setVisible(true);
         T.setLocationRelativeTo(this);
     }//GEN-LAST:event_jMenuItem10ActionPerformed
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        String fontName = Tripletas.getFont().getFontName();
+        int fontSize = Tripletas.getFont().getSize() + 2;
+        
+        Font font = new Font(fontName, 0, fontSize);
+        
+        Tripletas.setFont(font);
+    }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+        String fontName = Tripletas.getFont().getFontName();
+        int fontSize = Tripletas.getFont().getSize() - 2;
+        
+        Font font = new Font(fontName, 0, fontSize);
+        
+        Tripletas.setFont(font);
+    }//GEN-LAST:event_jButton11ActionPerformed
+
+    private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
+        Tr.setVisible(true);
+        Tr.setLocationRelativeTo(this);
+    }//GEN-LAST:event_jMenuItem14ActionPerformed
     
     private void executeCode(ArrayList<String> blocksOfCode,int repeats){
         int temporal = 0;
@@ -20289,12 +20388,29 @@ public class Interfaz extends javax.swing.JFrame {
                     for(String sentence: sentences){
                         sentence = sentence.trim();
                         if(sentence.startsWith("Metodo")){
-                            for(Production id: identProdM1){
-                                if(sentence.contains(id.lexemeRank(1))){
-                                    metodo = id.lexemeRank(1);
-                                }
+                            for(Production id: identProdM2){
+                                if(identDataMetodo.containsKey(id.lexemeRank(1))){
                                 
-                            }
+                                }else{
+                                    identDataMetodo.put(id.lexemeRank(1),id.lexemeRank(1));
+                                    metodo = id.lexemeRank(1);
+                                    break;
+                                }  
+                            }/*
+                            if(sentence.contains(identDataMetodo.get(metodo))){
+                                    metodo = id.lexemeRank(1);
+                                    temporal++;
+                                    Tripletas.append("T"+temporal+" := "+metodo+"\n");     
+                                    identDataTemp.put(metodo,"T"+temporal);
+                                    PanelSalida.append("-->   Se ha creado una Clase llamada " + metodo + ".........\n");
+                                    break;
+                                }else if(!sentence.contains(id.lexemeRank(1))){
+                                    Tripletas.append(metodo+" := "+identDataTemp.get(metodo)+"\n");
+                                    PanelSalida.append("-->   Ha finalizado la clase llamada " + metodo + ".........\n");
+                                    
+                                    PanelSalida.append("-->   Se ha creado una Clase llamada " + id.lexemeRank(1) + ".........\n");
+                                    break;
+                                }
                             /*
                             if(identDataMetodos.containsKey(metodoComprobar)){
                                 Tripletas.append(metodoComprobar+" := "+temporalMetodo+"\n");
@@ -20313,7 +20429,6 @@ public class Interfaz extends javax.swing.JFrame {
                                 }
                             }
                             */
-                            PanelSalida.append("-->   Se ha creado una Clase llamada " + metodo + ".........\n");
                         }
                         if(sentence.startsWith("Entero")){
                             if(sentence.contains("=")){
@@ -20700,6 +20815,7 @@ public class Interfaz extends javax.swing.JFrame {
                                 Tripletas.append("T"+temporal+" := T"+(temporal-2)+" + T"+(temporal-1)+"\n");
                                 PanelSalida.append("-->   Se ha utlizado la función de Mostrar en su forma de tipo Entero, del cual se crea la siguiente interfaz.........\n");
                                 MostrarE me = new MostrarE();
+                                me.setLocationRelativeTo(this);
                                 me.setVisible(true);
                                 me.setCadena(id.lexemeRank(2),identDataTypeV.get(id.lexemeRank(2)).replace("'",""));
                                 me.setResultado(id.lexemeRank(4),identDataTypeR.get(id.lexemeRank(4)));
@@ -20738,6 +20854,7 @@ public class Interfaz extends javax.swing.JFrame {
                                 Tripletas.append("T"+temporal+" := T"+(temporal-10)+" + T"+(temporal-1)+"\n");
                                 PanelSalida.append("-->   Se ha utlizado la función de Mostrar en su forma de tipo Decimal, del cual se crea la siguiente interfaz.........\n");
                                 MostrarD md = new MostrarD();
+                                md.setLocationRelativeTo(this);
                                 md.setVisible(true);
                                 md.setCadena(id.lexemeRank(2),identDataTypeV.get(id.lexemeRank(2)).replace("'",""));
                                 md.setResultado(id.lexemeRank(4),identDataTypeR.get(id.lexemeRank(4)));
@@ -20766,6 +20883,7 @@ public class Interfaz extends javax.swing.JFrame {
                                 break;
                             }
                         }
+                        Tr.RellenarTripletas(Tripletas.getText());
                     }
                 }
             }
@@ -20788,6 +20906,8 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JMenuItem btnmenuGuardarComo;
     private javax.swing.JMenuItem btnmenuNuevo;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -20801,6 +20921,7 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;

@@ -21,7 +21,7 @@ public class AcercaDe extends javax.swing.JFrame {
         initComponents();
 
         this.setTitle("Acerca de (M4TH3C)");
-        this.setLocationRelativeTo(null);
+        this.setResizable(false);
     }
 
     /**

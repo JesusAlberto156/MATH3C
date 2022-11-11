@@ -15,8 +15,8 @@ public class Simbolos extends javax.swing.JFrame {
      */
     public Simbolos() {
         initComponents();
-        this.setLocationRelativeTo(null);
         this.setTitle("Tabla de símbolos (M4TH3C)");
+        this.setResizable(false);
     }
 
     /**

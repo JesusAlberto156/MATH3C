@@ -24,8 +24,8 @@ public class MostrarE extends javax.swing.JFrame {
      */
     public MostrarE() {
         initComponents();
-        this.setLocationRelativeTo(null);
         this.setTitle("Mostrar (Entero) - M4TH3C");
+        this.setResizable(false);
     }
 
     /**
@@ -808,7 +808,6 @@ public class MostrarE extends javax.swing.JFrame {
                 D1.setText(Character.toString(valResultado.charAt(0)));
             }
         }
-        System.out.println(valResultado);
     }
     
     //RESULTADO

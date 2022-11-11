@@ -38,8 +38,8 @@ public class MostrarD extends javax.swing.JFrame {
      */
     public MostrarD() {
         initComponents();
-        this.setLocationRelativeTo(null);
         this.setTitle("Mostrar (Decimal) - M4TH3C");
+        this.setResizable(false);
     }
     //CADENA
     public void setCadena(String varc,String valc){

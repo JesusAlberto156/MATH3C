@@ -15,8 +15,8 @@ public class TiposDeDatos extends javax.swing.JFrame {
      */
     public TiposDeDatos() {
         initComponents();
-        this.setLocationRelativeTo(null);
         this.setTitle("Tabla de tipos de datos (M4TH3C)");
+        this.setResizable(false);
     }
 
     /**
