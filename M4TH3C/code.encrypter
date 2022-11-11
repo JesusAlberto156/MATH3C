@@ -1,18 +1,48 @@
 Metodo &Prueba{
-	Entero num1 = - 4;
-	Entero num4;
-	Resultado #res1;
-	Resultado #res2;
-	Figura fig1 = Triangulo;
-	Color col1 = Verde;
-	Cadena cad1 = 'Funciona el ejemplo';
-	num4 = - 43;
-	Multiplicar(num1,num4)<
-		#res1
-	>;
-	Mostrar(cad1,#res1,fig1,col1);
-}
+	Entero n1 = + 5;
+	Entero n2;
+	Entero n10 = + 15;
+	n2 = + 10;
+	Decimal n3 = + 3.5;
+	Decimal n4 = + 5.5;
+	Figura f1 = Circulo;
+	Color c1 = Rojo;
+	Cadena cad = 'Ejemplo';
+	Resultado #r1;
+	Resultado #r2;
+	Resultado #r3;
+	Resultado #r4;
 
-Metodo &g{
+	Resultado #r5;
+	Resultado #r6;
+	Resultado #r7;
+	Resultado #r8;
 	
+	Sumar(n1,n2,n10)<
+		#r1
+	>;
+	Restar(n1,n2)<
+		#r2
+	>;
+	Multiplicar(n1,n2)<
+		#r3
+	>;
+	Dividir(n1,n2)<
+		#r4
+	>;
+
+	Sumar(n3,n4)<
+		#r5
+	>;
+	Restar(n3,n4)<
+		#r6
+	>;
+	Multiplicar(n3,n4)<
+		#r7
+	>;
+	Dividir(n3,n4)<
+		#r8
+	>;
+	
+	Mostrar(cad,#r1,f1,c1);
 }

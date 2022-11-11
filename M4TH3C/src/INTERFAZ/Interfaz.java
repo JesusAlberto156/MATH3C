@@ -19374,6 +19374,12 @@ public class Interfaz extends javax.swing.JFrame {
             f[3] = "T1";
             m.addRow(f);
             tblCuadruplos.setModel(m);
+            f[0] = "=";
+            f[1] = "T1";
+            f[2] = "";
+            f[3] = id1.lexemeRank(7);
+            m.addRow(f);
+            tblCuadruplos.setModel(m);
             //System.out.println(id1.lexemeRank(0)+","+id1.lexemeRank(2)+","+id1.lexemeRank(4));
         }
         
@@ -19407,7 +19413,13 @@ public class Interfaz extends javax.swing.JFrame {
             f[2] = id2.lexemeRank(6);
             f[3] = "T2";
             m.addRow(f);
-            tblCuadruplos.setModel(m);   
+            tblCuadruplos.setModel(m);
+            f[0] = "=";
+            f[1] = "T2";
+            f[2] = "";
+            f[3] = id2.lexemeRank(9);
+            m.addRow(f);
+            tblCuadruplos.setModel(m);
         }
         
         //FUNCIONES CON 4 OPERANDOS
@@ -19456,7 +19468,13 @@ public class Interfaz extends javax.swing.JFrame {
             f[2] = id2.lexemeRank(8);
             f[3] = "T3";
             m.addRow(f);
-            tblCuadruplos.setModel(m);  
+            tblCuadruplos.setModel(m);
+            f[0] = "=";
+            f[1] = "T3";
+            f[2] = "";
+            f[3] = id2.lexemeRank(11);
+            m.addRow(f);
+            tblCuadruplos.setModel(m);
         }
         //FUNCIONES CON 5 OPERANDOS
         for(Production id2: identProdF14){
@@ -19519,7 +19537,13 @@ public class Interfaz extends javax.swing.JFrame {
             f[2] = id2.lexemeRank(10);
             f[3] = "T4";
             m.addRow(f);
-            tblCuadruplos.setModel(m); 
+            tblCuadruplos.setModel(m);
+            f[0] = "=";
+            f[1] = "T4";
+            f[2] = "";
+            f[3] = id2.lexemeRank(13);
+            m.addRow(f);
+            tblCuadruplos.setModel(m);
         }
     }
     
