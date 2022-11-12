@@ -32,6 +32,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.StringReader;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.StringTokenizer;
@@ -39,6 +40,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
@@ -167,7 +169,7 @@ public class Interfaz extends javax.swing.JFrame {
             timerKeyReleased.start();
         });
     }
-
+    
     private void clearFields() {
         Functions.clearDataInTable(Tokens);
         Functions.clearDataInTable(T.Tabla());
@@ -264,7 +266,24 @@ public class Interfaz extends javax.swing.JFrame {
             System.out.println("Error al escribir en el archivo... " + ex.getMessage());
         }
     }
-
+    
+    private String leerArchivo(String direccion){
+        String texto = "";
+        
+        try{
+            BufferedReader bf = new BufferedReader(new FileReader(direccion));
+            String temp = "";
+            String bfRead;
+            while((bfRead = bf.readLine()) != null){
+                temp = temp + bfRead+"\n";
+            }
+            texto = temp;
+        }catch(Exception e){
+        
+        }
+        return texto;
+    }
+    
     private void syntacticAnalysis() {
         Grammar gramatica = new Grammar(tokens, errors);
 
@@ -19620,6 +19639,18 @@ public class Interfaz extends javax.swing.JFrame {
         jSeparator3 = new javax.swing.JPopupMenu.Separator();
         jMenuItem11 = new javax.swing.JMenuItem();
         jMenuItem12 = new javax.swing.JMenuItem();
+        jMenu8 = new javax.swing.JMenu();
+        jMenuItem15 = new javax.swing.JMenuItem();
+        jMenuItem16 = new javax.swing.JMenuItem();
+        jMenu10 = new javax.swing.JMenu();
+        jMenuItem20 = new javax.swing.JMenuItem();
+        jMenuItem21 = new javax.swing.JMenuItem();
+        jMenuItem22 = new javax.swing.JMenuItem();
+        jMenuItem23 = new javax.swing.JMenuItem();
+        jMenuItem24 = new javax.swing.JMenuItem();
+        jMenu11 = new javax.swing.JMenu();
+        jMenuItem25 = new javax.swing.JMenuItem();
+        jMenuItem26 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         btnMenuLEATE = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
@@ -19801,7 +19832,6 @@ public class Interfaz extends javax.swing.JFrame {
 
         jPanel4.setBackground(new java.awt.Color(204, 204, 255));
 
-        Tripletas.setBackground(new java.awt.Color(255, 255, 255));
         Tripletas.setColumns(20);
         Tripletas.setRows(5);
         Tripletas.setEnabled(false);
@@ -20022,6 +20052,90 @@ public class Interfaz extends javax.swing.JFrame {
         jMenu1.add(jMenuItem12);
 
         jMenuBar1.add(jMenu1);
+
+        jMenu8.setText("Ejemplos");
+
+        jMenuItem15.setText("Programa 1 -> Declaraciones");
+        jMenuItem15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem15ActionPerformed(evt);
+            }
+        });
+        jMenu8.add(jMenuItem15);
+
+        jMenuItem16.setText("Programa 2 -> Asignaciones");
+        jMenuItem16.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem16ActionPerformed(evt);
+            }
+        });
+        jMenu8.add(jMenuItem16);
+
+        jMenu10.setText("Programa 3 -> Funciones");
+
+        jMenuItem20.setText("Sumar");
+        jMenuItem20.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem20ActionPerformed(evt);
+            }
+        });
+        jMenu10.add(jMenuItem20);
+
+        jMenuItem21.setText("Restar");
+        jMenuItem21.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem21ActionPerformed(evt);
+            }
+        });
+        jMenu10.add(jMenuItem21);
+
+        jMenuItem22.setText("Multiplicar");
+        jMenuItem22.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem22ActionPerformed(evt);
+            }
+        });
+        jMenu10.add(jMenuItem22);
+
+        jMenuItem23.setText("Dividir");
+        jMenuItem23.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem23ActionPerformed(evt);
+            }
+        });
+        jMenu10.add(jMenuItem23);
+
+        jMenu8.add(jMenu10);
+
+        jMenuItem24.setText("Programa 4 -> Clases");
+        jMenuItem24.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem24ActionPerformed(evt);
+            }
+        });
+        jMenu8.add(jMenuItem24);
+
+        jMenu11.setText("Programa 5 -> Mostrar");
+
+        jMenuItem25.setText("Entero");
+        jMenuItem25.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem25ActionPerformed(evt);
+            }
+        });
+        jMenu11.add(jMenuItem25);
+
+        jMenuItem26.setText("Decimal");
+        jMenuItem26.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem26ActionPerformed(evt);
+            }
+        });
+        jMenu11.add(jMenuItem26);
+
+        jMenu8.add(jMenu11);
+
+        jMenuBar1.add(jMenu8);
 
         jMenu4.setText("Acerca de");
 
@@ -20393,6 +20507,78 @@ public class Interfaz extends javax.swing.JFrame {
         Tr.setVisible(true);
         Tr.setLocationRelativeTo(this);
     }//GEN-LAST:event_jMenuItem14ActionPerformed
+
+    private void jMenuItem15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem15ActionPerformed
+        URL ruta = getClass().getResource("/CODIGO_EJEMPLO/DEMOSTRACION_DECLARACIONES.MTC");
+        String rutaNueva = ruta.getFile();
+        PanelFuente.setText(leerArchivo(rutaNueva.replaceAll("%20"," ")));
+        colorAnalysis();
+        clearFields();
+    }//GEN-LAST:event_jMenuItem15ActionPerformed
+
+    private void jMenuItem16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem16ActionPerformed
+        URL ruta = getClass().getResource("/CODIGO_EJEMPLO/DEMOSTRACION_ASIGNACIONES.MTC");
+        String rutaNueva = ruta.getFile();
+        PanelFuente.setText(leerArchivo(rutaNueva.replaceAll("%20"," ")));
+        colorAnalysis();
+        clearFields();
+    }//GEN-LAST:event_jMenuItem16ActionPerformed
+
+    private void jMenuItem20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem20ActionPerformed
+        URL ruta = getClass().getResource("/CODIGO_EJEMPLO/DEMOSTRACION_FUNCIONES_SUMAR.MTC");
+        String rutaNueva = ruta.getFile();
+        PanelFuente.setText(leerArchivo(rutaNueva.replaceAll("%20"," ")));
+        colorAnalysis();
+        clearFields();
+    }//GEN-LAST:event_jMenuItem20ActionPerformed
+
+    private void jMenuItem21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem21ActionPerformed
+        URL ruta = getClass().getResource("/CODIGO_EJEMPLO/DEMOSTRACION_FUNCIONES_RESTAR.MTC");
+        String rutaNueva = ruta.getFile();
+        PanelFuente.setText(leerArchivo(rutaNueva.replaceAll("%20"," ")));
+        colorAnalysis();
+        clearFields();
+    }//GEN-LAST:event_jMenuItem21ActionPerformed
+
+    private void jMenuItem22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem22ActionPerformed
+        URL ruta = getClass().getResource("/CODIGO_EJEMPLO/DEMOSTRACION_FUNCIONES_MULTIPLICAR.MTC");
+        String rutaNueva = ruta.getFile();
+        PanelFuente.setText(leerArchivo(rutaNueva.replaceAll("%20"," ")));
+        colorAnalysis();
+        clearFields();
+    }//GEN-LAST:event_jMenuItem22ActionPerformed
+
+    private void jMenuItem23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem23ActionPerformed
+        URL ruta = getClass().getResource("/CODIGO_EJEMPLO/DEMOSTRACION_FUNCIONES_DIVIDIR.MTC");
+        String rutaNueva = ruta.getFile();
+        PanelFuente.setText(leerArchivo(rutaNueva.replaceAll("%20"," ")));
+        colorAnalysis();
+        clearFields();
+    }//GEN-LAST:event_jMenuItem23ActionPerformed
+
+    private void jMenuItem24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem24ActionPerformed
+        URL ruta = getClass().getResource("/CODIGO_EJEMPLO/DEMOSTRACION_CLASES.MTC");
+        String rutaNueva = ruta.getFile();
+        PanelFuente.setText(leerArchivo(rutaNueva.replaceAll("%20"," ")));
+        colorAnalysis();
+        clearFields();
+    }//GEN-LAST:event_jMenuItem24ActionPerformed
+
+    private void jMenuItem25ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem25ActionPerformed
+        URL ruta = getClass().getResource("/CODIGO_EJEMPLO/DEMOSTRACION_ENTERO.MTC");
+        String rutaNueva = ruta.getFile();
+        PanelFuente.setText(leerArchivo(rutaNueva.replaceAll("%20"," ")));
+        colorAnalysis();
+        clearFields();
+    }//GEN-LAST:event_jMenuItem25ActionPerformed
+
+    private void jMenuItem26ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem26ActionPerformed
+        URL ruta = getClass().getResource("/CODIGO_EJEMPLO/DEMOSTRACION_DECIMAL.MTC");
+        String rutaNueva = ruta.getFile();
+        PanelFuente.setText(leerArchivo(rutaNueva.replaceAll("%20"," ")));
+        colorAnalysis();
+        clearFields();
+    }//GEN-LAST:event_jMenuItem26ActionPerformed
     
     private void executeCode(ArrayList<String> blocksOfCode,int repeats){
         int temporal = 0;
@@ -20917,12 +21103,15 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu10;
+    private javax.swing.JMenu jMenu11;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenu jMenu7;
+    private javax.swing.JMenu jMenu8;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
@@ -20930,7 +21119,16 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem13;
     private javax.swing.JMenuItem jMenuItem14;
+    private javax.swing.JMenuItem jMenuItem15;
+    private javax.swing.JMenuItem jMenuItem16;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem20;
+    private javax.swing.JMenuItem jMenuItem21;
+    private javax.swing.JMenuItem jMenuItem22;
+    private javax.swing.JMenuItem jMenuItem23;
+    private javax.swing.JMenuItem jMenuItem24;
+    private javax.swing.JMenuItem jMenuItem25;
+    private javax.swing.JMenuItem jMenuItem26;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;

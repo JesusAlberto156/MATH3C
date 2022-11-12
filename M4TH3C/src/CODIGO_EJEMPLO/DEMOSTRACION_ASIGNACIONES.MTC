@@ -1,0 +1,23 @@
+Metodo &Asignaciones{
+	
+	Entero num1;
+	num1 = + 4000;
+
+	Decimal num2;
+	num2 = + 40.56;
+
+	Resultado #res1;
+	Sumar(num1,num1)<
+	      #res1
+	>;
+
+	Cadena cad1;
+	cad1 = 'Prueba';
+
+	Figura fig1;
+	fig1 = Circulo;
+
+	Color col1;
+	col1 = Rojo;
+
+}

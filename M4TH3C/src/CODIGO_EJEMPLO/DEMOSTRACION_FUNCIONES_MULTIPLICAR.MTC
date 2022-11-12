@@ -1,0 +1,24 @@
+Metodo &FuncionesMultiplicar{
+
+	Entero num1 = + 4;
+	Decimal num2 = + 2.30;
+	
+	Resultado #res1;
+	Resultado #res2;
+	Resultado #res3;
+	Resultado #res4;
+
+	Multiplicar(num1,num1)<
+	      #res1
+	>; 
+	Multiplicar(num2,num2,num2)<
+	      #res2
+	>;
+	Multiplicar(num1,num1,num1,num1)<
+	      #res3
+	>;
+	Multiplicar(num2,num2,num2,num2,num2)<
+	      #res4
+	>;
+
+}

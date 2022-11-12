@@ -1,0 +1,20 @@
+Metodo &Declaraciones{
+
+	Entero num1 = + 500;
+	Entero num2;
+
+	Decimal num3 = + 30.40;
+	Decimal num4;
+
+	Resultado #res1;
+
+	Cadena cad1 = 'Prueba 1';
+	Cadena cad2;
+
+	Figura fig1 = Circulo;
+	Figura fig2;
+	
+	Color col1 = Verde;
+	Color col2;
+
+}

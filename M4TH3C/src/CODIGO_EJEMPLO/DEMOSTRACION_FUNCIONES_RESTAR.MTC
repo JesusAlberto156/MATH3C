@@ -1,4 +1,4 @@
-Metodo &FuncionesDividir{
+Metodo &FuncionesRestar{
 
 	Entero num1 = + 403;
 	Decimal num2 = + 20.30;
@@ -8,16 +8,16 @@ Metodo &FuncionesDividir{
 	Resultado #res3;
 	Resultado #res4;
 
-	Dividir(num1,num1)<
+	Restar(num1,num1)<
 	      #res1
 	>; 
-	Dividir(num2,num2,num2)<
+	Restar(num2,num2,num2)<
 	      #res2
 	>;
-	Dividir(num1,num1,num1,num1)<
+	Restar(num1,num1,num1,num1)<
 	      #res3
 	>;
-	Dividir(num2,num2,num2,num2,num2)<
+	Restar(num2,num2,num2,num2,num2)<
 	      #res4
 	>;
 
