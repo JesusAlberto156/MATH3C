@@ -17,6 +17,7 @@ import compilerTools.Production;
 import compilerTools.TextColor;
 import compilerTools.Token;
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -54,7 +55,6 @@ public class Interfaz extends javax.swing.JFrame {
     private String title;
     private ArrayList<Token> tokens;
     private String[] Errores;
-    private ArrayList<Production> errors2;
     private ArrayList<ErrorLSSL> errors;
     private ArrayList<TextColor> textsColor;
     private Timer timerKeyReleased;
@@ -81,7 +81,9 @@ public class Interfaz extends javax.swing.JFrame {
     private Directory directorio;
     private Tokens T = new Tokens();
     private Tripletas Tr = new Tripletas();
+    private Cuadruplos C = new Cuadruplos();
     private ArrayList<Production> Metodo;
+    private Object[] cuadruplo;
 
     /**
      * Creates new form Interfaz
@@ -146,6 +148,7 @@ public class Interfaz extends javax.swing.JFrame {
         identDataTypeV3 = new HashMap<>();
         identDataTemp = new HashMap<>();
         identDataMetodo = new HashMap<>();
+        cuadruplo = new Object[4];
         Functions.setAutocompleterJTextComponent(new String[]{"Sumar('VARIABLES')<\n\t      'Variable Resultado'\n>;",
             "Restar('VARIABLES')<\n\t      'Variable Resultado'\n>;", "Multiplicar('VARIABLES')<\n\t      'Variable Resultado'\n>;",
             "Dividir('VARIABLES')<\n\t      'Variable Resultado'\n>;", "Entero 'Nombre Variable' = 'Valor';", "Entero 'Nombre Variable';",
@@ -173,7 +176,11 @@ public class Interfaz extends javax.swing.JFrame {
     private void clearFields() {
         Functions.clearDataInTable(Tokens);
         Functions.clearDataInTable(T.Tabla());
+        Functions.clearDataInTable(Cuadruplos);
+        Functions.clearDataInTable(C.Tabla());
         PanelSalida.setText("");
+        Tripletas.setText("");
+        Tr.RellenarTripletas("");
         tokens.clear();
         errors.clear();
         Metodo.clear();
@@ -19069,8 +19076,8 @@ public class Interfaz extends javax.swing.JFrame {
             if(identDataTypeV.containsKey(id.lexemeRank(2)) && identDataTypeV.containsKey(id.lexemeRank(4)) && identDataTypeV.containsKey(id.lexemeRank(6)) && identDataTypeV.containsKey(id.lexemeRank(8)) && identDataTypeE.containsKey(id.lexemeRank(2)) && identDataTypeE.containsKey(id.lexemeRank(4)) && identDataTypeE.containsKey(id.lexemeRank(6)) && identDataTypeE.containsKey(id.lexemeRank(8))){
                 identDataTypeV2.put(id.lexemeRank(2), identDataTypeE.get(id.lexemeRank(2))+identDataTypeV.get(id.lexemeRank(2)));
                 identDataTypeV2.put(id.lexemeRank(4), identDataTypeE.get(id.lexemeRank(4))+identDataTypeV.get(id.lexemeRank(4)));
-                identDataTypeV2.put(id.lexemeRank(4), identDataTypeE.get(id.lexemeRank(6))+identDataTypeV.get(id.lexemeRank(6)));
-                identDataTypeV2.put(id.lexemeRank(4), identDataTypeE.get(id.lexemeRank(8))+identDataTypeV.get(id.lexemeRank(8)));
+                identDataTypeV2.put(id.lexemeRank(6), identDataTypeE.get(id.lexemeRank(6))+identDataTypeV.get(id.lexemeRank(6)));
+                identDataTypeV2.put(id.lexemeRank(8), identDataTypeE.get(id.lexemeRank(8))+identDataTypeV.get(id.lexemeRank(8)));
             }
         }
         for(Production id: identProdF13){
@@ -19135,9 +19142,9 @@ public class Interfaz extends javax.swing.JFrame {
             if(identDataTypeV.containsKey(id.lexemeRank(2)) && identDataTypeV.containsKey(id.lexemeRank(4)) && identDataTypeV.containsKey(id.lexemeRank(6)) && identDataTypeV.containsKey(id.lexemeRank(8)) && identDataTypeV.containsKey(id.lexemeRank(10)) && identDataTypeE.containsKey(id.lexemeRank(2)) && identDataTypeE.containsKey(id.lexemeRank(4)) && identDataTypeE.containsKey(id.lexemeRank(6)) && identDataTypeE.containsKey(id.lexemeRank(8)) && identDataTypeE.containsKey(id.lexemeRank(10))){
                 identDataTypeV2.put(id.lexemeRank(2), identDataTypeE.get(id.lexemeRank(2))+identDataTypeV.get(id.lexemeRank(2)));
                 identDataTypeV2.put(id.lexemeRank(4), identDataTypeE.get(id.lexemeRank(4))+identDataTypeV.get(id.lexemeRank(4)));
-                identDataTypeV2.put(id.lexemeRank(4), identDataTypeE.get(id.lexemeRank(4))+identDataTypeV.get(id.lexemeRank(6)));
-                identDataTypeV2.put(id.lexemeRank(4), identDataTypeE.get(id.lexemeRank(4))+identDataTypeV.get(id.lexemeRank(8)));
-                identDataTypeV2.put(id.lexemeRank(4), identDataTypeE.get(id.lexemeRank(4))+identDataTypeV.get(id.lexemeRank(10)));
+                identDataTypeV2.put(id.lexemeRank(6), identDataTypeE.get(id.lexemeRank(6))+identDataTypeV.get(id.lexemeRank(6)));
+                identDataTypeV2.put(id.lexemeRank(8), identDataTypeE.get(id.lexemeRank(8))+identDataTypeV.get(id.lexemeRank(8)));
+                identDataTypeV2.put(id.lexemeRank(10), identDataTypeE.get(id.lexemeRank(10))+identDataTypeV.get(id.lexemeRank(10)));
             }
         }
         for(Production id: identProdF14){
@@ -19362,208 +19369,14 @@ public class Interfaz extends javax.swing.JFrame {
         });
     }
     
-    public void LimpiarTablaCuadruplos(){
-        DefaultTableModel m = (DefaultTableModel) tblCuadruplos.getModel();
-        Object [] f = new Object[4];
-        //LIMPIAR TABLA
-        for (int i = 0; i < tblCuadruplos.getRowCount(); i++) {
-            m.removeRow(i);
-            i-=1;
-        }
-    }
-    
-    public void cuadruplos(){
-        DefaultTableModel m = (DefaultTableModel) tblCuadruplos.getModel();
-        Object [] f = new Object[4];
-        LimpiarTablaCuadruplos();
+    public void cuadruplos(String operador,String argumento1,String argumento2,String resultado){    
+        cuadruplo[0] = operador;
+        cuadruplo[1] = argumento1;
+        cuadruplo[2] = argumento2;
+        cuadruplo[3] = resultado;
         
-        //FUNCIONES CON 2 OPERANDOS
-        for(Production id1: identProdF11){
-            if(id1.lexemeRank(0).equals("Sumar")){
-                f[0] = "+";
-            }else if(id1.lexemeRank(0).equals("Multiplicar")){
-                f[0] = "*";
-            }else if(id1.lexemeRank(0).equals("Restar")){
-                f[0] = "-";
-            }else if(id1.lexemeRank(0).equals("Dividir")){
-                f[0] = "/";
-            }
-            f[1] = id1.lexemeRank(2);
-            f[2] = id1.lexemeRank(4);
-            f[3] = "T1";
-            m.addRow(f);
-            tblCuadruplos.setModel(m);
-            f[0] = "=";
-            f[1] = "T1";
-            f[2] = "";
-            f[3] = id1.lexemeRank(7);
-            m.addRow(f);
-            tblCuadruplos.setModel(m);
-            //System.out.println(id1.lexemeRank(0)+","+id1.lexemeRank(2)+","+id1.lexemeRank(4));
-        }
-        
-        //FUNCIONES CON 3 OPERANDOS
-        for(Production id2: identProdF12){
-            if(id2.lexemeRank(0).equals("Sumar")){
-                f[0] = "+";
-            }else if(id2.lexemeRank(0).equals("Multiplicar")){
-                f[0] = "*";
-            }else if(id2.lexemeRank(0).equals("Restar")){
-                f[0] = "-";
-            }else if(id2.lexemeRank(0).equals("Dividir")){
-                f[0] = "/";
-            }
-            f[1] = id2.lexemeRank(2);
-            f[2] = id2.lexemeRank(4);
-            f[3] = "T1";
-            m.addRow(f);
-            tblCuadruplos.setModel(m);
-            //Temporal 2
-            if(id2.lexemeRank(0).equals("Sumar")){
-                f[0] = "+";
-            }else if(id2.lexemeRank(0).equals("Multiplicar")){
-                f[0] = "*";
-            }else if(id2.lexemeRank(0).equals("Restar")){
-                f[0] = "-";
-            }else if(id2.lexemeRank(0).equals("Dividir")){
-                f[0] = "/";
-            }
-            f[1] = "T1";
-            f[2] = id2.lexemeRank(6);
-            f[3] = "T2";
-            m.addRow(f);
-            tblCuadruplos.setModel(m);
-            f[0] = "=";
-            f[1] = "T2";
-            f[2] = "";
-            f[3] = id2.lexemeRank(9);
-            m.addRow(f);
-            tblCuadruplos.setModel(m);
-        }
-        
-        //FUNCIONES CON 4 OPERANDOS
-        for(Production id2: identProdF13){
-            if(id2.lexemeRank(0).equals("Sumar")){
-                f[0] = "+";
-            }else if(id2.lexemeRank(0).equals("Multiplicar")){
-                f[0] = "*";
-            }else if(id2.lexemeRank(0).equals("Restar")){
-                f[0] = "-";
-            }else if(id2.lexemeRank(0).equals("Dividir")){
-                f[0] = "/";
-            }
-            f[1] = id2.lexemeRank(2);
-            f[2] = id2.lexemeRank(4);
-            f[3] = "T1";
-            m.addRow(f);
-            tblCuadruplos.setModel(m);
-            //Temporal 2
-            if(id2.lexemeRank(0).equals("Sumar")){
-                f[0] = "+";
-            }else if(id2.lexemeRank(0).equals("Multiplicar")){
-                f[0] = "*";
-            }else if(id2.lexemeRank(0).equals("Restar")){
-                f[0] = "-";
-            }else if(id2.lexemeRank(0).equals("Dividir")){
-                f[0] = "/";
-            }
-            f[1] = "T1";
-            f[2] = id2.lexemeRank(6);
-            f[3] = "T2";
-            m.addRow(f);
-            tblCuadruplos.setModel(m);  
-            
-            //Temporal 3
-            if(id2.lexemeRank(0).equals("Sumar")){
-                f[0] = "+";
-            }else if(id2.lexemeRank(0).equals("Multiplicar")){
-                f[0] = "*";
-            }else if(id2.lexemeRank(0).equals("Restar")){
-                f[0] = "-";
-            }else if(id2.lexemeRank(0).equals("Dividir")){
-                f[0] = "/";
-            }
-            f[1] = "T2";
-            f[2] = id2.lexemeRank(8);
-            f[3] = "T3";
-            m.addRow(f);
-            tblCuadruplos.setModel(m);
-            f[0] = "=";
-            f[1] = "T3";
-            f[2] = "";
-            f[3] = id2.lexemeRank(11);
-            m.addRow(f);
-            tblCuadruplos.setModel(m);
-        }
-        //FUNCIONES CON 5 OPERANDOS
-        for(Production id2: identProdF14){
-            if(id2.lexemeRank(0).equals("Sumar")){
-                f[0] = "+";
-            }else if(id2.lexemeRank(0).equals("Multiplicar")){
-                f[0] = "*";
-            }else if(id2.lexemeRank(0).equals("Restar")){
-                f[0] = "-";
-            }else if(id2.lexemeRank(0).equals("Dividir")){
-                f[0] = "/";
-            }
-            f[1] = id2.lexemeRank(2);
-            f[2] = id2.lexemeRank(4);
-            f[3] = "T1";
-            m.addRow(f);
-            tblCuadruplos.setModel(m);
-            //Temporal 2
-            if(id2.lexemeRank(0).equals("Sumar")){
-                f[0] = "+";
-            }else if(id2.lexemeRank(0).equals("Multiplicar")){
-                f[0] = "*";
-            }else if(id2.lexemeRank(0).equals("Restar")){
-                f[0] = "-";
-            }else if(id2.lexemeRank(0).equals("Dividir")){
-                f[0] = "/";
-            }
-            f[1] = "T1";
-            f[2] = id2.lexemeRank(6);
-            f[3] = "T2";
-            m.addRow(f);
-            tblCuadruplos.setModel(m);  
-            
-            //Temporal 3
-            if(id2.lexemeRank(0).equals("Sumar")){
-                f[0] = "+";
-            }else if(id2.lexemeRank(0).equals("Multiplicar")){
-                f[0] = "*";
-            }else if(id2.lexemeRank(0).equals("Restar")){
-                f[0] = "-";
-            }else if(id2.lexemeRank(0).equals("Dividir")){
-                f[0] = "/";
-            }
-            f[1] = "T2";
-            f[2] = id2.lexemeRank(8);
-            f[3] = "T3";
-            m.addRow(f);
-            tblCuadruplos.setModel(m);
-            //Temporal 4
-            if(id2.lexemeRank(0).equals("Sumar")){
-                f[0] = "+";
-            }else if(id2.lexemeRank(0).equals("Multiplicar")){
-                f[0] = "*";
-            }else if(id2.lexemeRank(0).equals("Restar")){
-                f[0] = "-";
-            }else if(id2.lexemeRank(0).equals("Dividir")){
-                f[0] = "/";
-            }
-            f[1] = "T3";
-            f[2] = id2.lexemeRank(10);
-            f[3] = "T4";
-            m.addRow(f);
-            tblCuadruplos.setModel(m);
-            f[0] = "=";
-            f[1] = "T4";
-            f[2] = "";
-            f[3] = id2.lexemeRank(13);
-            m.addRow(f);
-            tblCuadruplos.setModel(m);
-        }
+        Functions.addRowDataInTable(Cuadruplos, cuadruplo);
+        Functions.addRowDataInTable(C.Tabla(), cuadruplo);
     }
     
     private void printConsole() {
@@ -19614,8 +19427,8 @@ public class Interfaz extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         Tokens = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        tblCuadruplos = new javax.swing.JTable();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        Cuadruplos = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         Tripletas = new javax.swing.JTextArea();
@@ -19668,6 +19481,21 @@ public class Interfaz extends javax.swing.JFrame {
         jMenu7 = new javax.swing.JMenu();
         jMenuItem14 = new javax.swing.JMenuItem();
         jMenuItem13 = new javax.swing.JMenuItem();
+        jMenu9 = new javax.swing.JMenu();
+        jMenuItem35 = new javax.swing.JMenuItem();
+        jMenuItem17 = new javax.swing.JMenuItem();
+        jMenuItem18 = new javax.swing.JMenuItem();
+        jMenuItem19 = new javax.swing.JMenuItem();
+        jMenuItem27 = new javax.swing.JMenuItem();
+        jMenu12 = new javax.swing.JMenu();
+        jMenuItem28 = new javax.swing.JMenuItem();
+        jMenuItem29 = new javax.swing.JMenuItem();
+        jMenuItem30 = new javax.swing.JMenuItem();
+        jMenuItem31 = new javax.swing.JMenuItem();
+        jMenu13 = new javax.swing.JMenu();
+        jMenuItem32 = new javax.swing.JMenuItem();
+        jMenuItem33 = new javax.swing.JMenuItem();
+        jMenuItem34 = new javax.swing.JMenuItem();
 
         jMenu2.setText("jMenu2");
 
@@ -19783,7 +19611,7 @@ public class Interfaz extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
+                .addComponent(jScrollPane3)
                 .addContainerGap())
         );
 
@@ -19791,40 +19619,30 @@ public class Interfaz extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(204, 204, 255));
 
-        jScrollPane5.setBackground(new java.awt.Color(255, 255, 255));
-
-        tblCuadruplos.setModel(new javax.swing.table.DefaultTableModel(
+        Cuadruplos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
                 "Operador", "Argumento 1", "Argumento 2", "Resultado"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, true, true
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane5.setViewportView(tblCuadruplos);
+        ));
+        jScrollPane6.setViewportView(Cuadruplos);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(7, Short.MAX_VALUE)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 446, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 447, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
+                .addComponent(jScrollPane6)
                 .addContainerGap())
         );
 
@@ -19886,7 +19704,7 @@ public class Interfaz extends javax.swing.JFrame {
                             .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addGap(22, 22, 22)
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 66, Short.MAX_VALUE)))
+                        .addGap(0, 179, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -19973,9 +19791,7 @@ public class Interfaz extends javax.swing.JFrame {
                         .addGap(9, 9, 9)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel2)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE))))
+                            .addComponent(jLabel1)))
                     .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -20242,9 +20058,117 @@ public class Interfaz extends javax.swing.JFrame {
         jMenu7.add(jMenuItem14);
 
         jMenuItem13.setText("Cuadruplos");
+        jMenuItem13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem13ActionPerformed(evt);
+            }
+        });
         jMenu7.add(jMenuItem13);
 
         jMenuBar1.add(jMenu7);
+
+        jMenu9.setText("Ayuda");
+
+        jMenuItem35.setText("Manual");
+        jMenu9.add(jMenuItem35);
+
+        jMenuItem17.setText("Documentación");
+        jMenuItem17.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem17ActionPerformed(evt);
+            }
+        });
+        jMenu9.add(jMenuItem17);
+
+        jMenuItem18.setText("Componentes Léxicos");
+        jMenuItem18.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem18ActionPerformed(evt);
+            }
+        });
+        jMenu9.add(jMenuItem18);
+
+        jMenuItem19.setText("Tabla de Tokens");
+        jMenuItem19.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem19ActionPerformed(evt);
+            }
+        });
+        jMenu9.add(jMenuItem19);
+
+        jMenuItem27.setText("Estructuras de los Métodos");
+        jMenuItem27.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem27ActionPerformed(evt);
+            }
+        });
+        jMenu9.add(jMenuItem27);
+
+        jMenu12.setText("Errores");
+
+        jMenuItem28.setText("Léxicos");
+        jMenuItem28.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem28ActionPerformed(evt);
+            }
+        });
+        jMenu12.add(jMenuItem28);
+
+        jMenuItem29.setText("Sintácticos");
+        jMenuItem29.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem29ActionPerformed(evt);
+            }
+        });
+        jMenu12.add(jMenuItem29);
+
+        jMenuItem30.setText("Semánticos");
+        jMenuItem30.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem30ActionPerformed(evt);
+            }
+        });
+        jMenu12.add(jMenuItem30);
+
+        jMenu9.add(jMenu12);
+
+        jMenuItem31.setText("Ejemplos");
+        jMenuItem31.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem31ActionPerformed(evt);
+            }
+        });
+        jMenu9.add(jMenuItem31);
+
+        jMenu13.setText("Código Intermedio");
+
+        jMenuItem32.setText("Tripletas");
+        jMenuItem32.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem32ActionPerformed(evt);
+            }
+        });
+        jMenu13.add(jMenuItem32);
+
+        jMenuItem33.setText("Cuadruplas");
+        jMenuItem33.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem33ActionPerformed(evt);
+            }
+        });
+        jMenu13.add(jMenuItem33);
+
+        jMenu9.add(jMenu13);
+
+        jMenuItem34.setText("Optimización");
+        jMenuItem34.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem34ActionPerformed(evt);
+            }
+        });
+        jMenu9.add(jMenuItem34);
+
+        jMenuBar1.add(jMenu9);
 
         setJMenuBar(jMenuBar1);
 
@@ -20379,7 +20303,6 @@ public class Interfaz extends javax.swing.JFrame {
                 CodeBlock codeBlock = Functions.splitCodeInCodeBlocks(tokens, "{", "}", ";");
                 ArrayList<String> blocksOfCode = codeBlock.getBlocksOfCodeInOrderOfExec();
                 executeCode(blocksOfCode,1);
-                cuadruplos();
             }
         }
     }//GEN-LAST:event_jButton5ActionPerformed
@@ -20403,7 +20326,6 @@ public class Interfaz extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         if (directorio.Save()) {
             clearFields();
-            LimpiarTablaCuadruplos();
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -20411,14 +20333,12 @@ public class Interfaz extends javax.swing.JFrame {
         if (directorio.Open()) {
             colorAnalysis();
             clearFields();
-            LimpiarTablaCuadruplos();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         directorio.New();
         clearFields();
-        LimpiarTablaCuadruplos();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
@@ -20579,10 +20499,135 @@ public class Interfaz extends javax.swing.JFrame {
         colorAnalysis();
         clearFields();
     }//GEN-LAST:event_jMenuItem26ActionPerformed
+
+    private void jMenuItem17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem17ActionPerformed
+        try{
+            URL ruta = getClass().getResource("/DOCUMENTACION/M4TH3C_DOCUMENTACION.docx.pdf");
+            String rutaNueva = ruta.getFile();
+            File ruta2 = new File(rutaNueva.replaceAll("%20"," "));
+            Desktop.getDesktop().open(ruta2);
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jMenuItem17ActionPerformed
+
+    private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed
+        C.setVisible(true);
+        C.setLocationRelativeTo(this);
+    }//GEN-LAST:event_jMenuItem13ActionPerformed
+
+    private void jMenuItem18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem18ActionPerformed
+        try{
+            URL ruta = getClass().getResource("/DOCUMENTACION/M4TH3C_COMPONENTES_LEXICOS.docx.pdf");
+            String rutaNueva = ruta.getFile();
+            File ruta2 = new File(rutaNueva.replaceAll("%20"," "));
+            Desktop.getDesktop().open(ruta2);
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jMenuItem18ActionPerformed
+
+    private void jMenuItem19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem19ActionPerformed
+        try{
+            URL ruta = getClass().getResource("/DOCUMENTACION/M4TH3C_TABLA_TOKENS.docx.pdf");
+            String rutaNueva = ruta.getFile();
+            File ruta2 = new File(rutaNueva.replaceAll("%20"," "));
+            Desktop.getDesktop().open(ruta2);
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jMenuItem19ActionPerformed
+
+    private void jMenuItem27ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem27ActionPerformed
+        try{
+            URL ruta = getClass().getResource("/DOCUMENTACION/M4TH3C_ESTRUCTURAS.docx.pdf");
+            String rutaNueva = ruta.getFile();
+            File ruta2 = new File(rutaNueva.replaceAll("%20"," "));
+            Desktop.getDesktop().open(ruta2);
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jMenuItem27ActionPerformed
+
+    private void jMenuItem28ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem28ActionPerformed
+        try{
+            URL ruta = getClass().getResource("/DOCUMENTACION/M4TH3C_ERRORES_LEXICOS.docx.pdf");
+            String rutaNueva = ruta.getFile();
+            File ruta2 = new File(rutaNueva.replaceAll("%20"," "));
+            Desktop.getDesktop().open(ruta2);
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jMenuItem28ActionPerformed
+
+    private void jMenuItem29ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem29ActionPerformed
+        try{
+            URL ruta = getClass().getResource("/DOCUMENTACION/M4TH3C_ERRORES_SINTACTICOS.docx.pdf");
+            String rutaNueva = ruta.getFile();
+            File ruta2 = new File(rutaNueva.replaceAll("%20"," "));
+            Desktop.getDesktop().open(ruta2);
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jMenuItem29ActionPerformed
+
+    private void jMenuItem30ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem30ActionPerformed
+        try{
+            URL ruta = getClass().getResource("/DOCUMENTACION/M4TH3C_ERRORES_SEMANTICOS.docx.pdf");
+            String rutaNueva = ruta.getFile();
+            File ruta2 = new File(rutaNueva.replaceAll("%20"," "));
+            Desktop.getDesktop().open(ruta2);
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jMenuItem30ActionPerformed
+
+    private void jMenuItem31ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem31ActionPerformed
+        try{
+            URL ruta = getClass().getResource("/DOCUMENTACION/M4TH3C_EJEMPLOS.docx.pdf");
+            String rutaNueva = ruta.getFile();
+            File ruta2 = new File(rutaNueva.replaceAll("%20"," "));
+            Desktop.getDesktop().open(ruta2);
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jMenuItem31ActionPerformed
+
+    private void jMenuItem34ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem34ActionPerformed
+        try{
+            URL ruta = getClass().getResource("/DOCUMENTACION/M4TH3C_OPTIMIZACION.docx.pdf");
+            String rutaNueva = ruta.getFile();
+            File ruta2 = new File(rutaNueva.replaceAll("%20"," "));
+            Desktop.getDesktop().open(ruta2);
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jMenuItem34ActionPerformed
+
+    private void jMenuItem32ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem32ActionPerformed
+        try{
+            URL ruta = getClass().getResource("/DOCUMENTACION/M4TH3C_INTERMEDIO_TRIPLETAS.docx.pdf");
+            String rutaNueva = ruta.getFile();
+            File ruta2 = new File(rutaNueva.replaceAll("%20"," "));
+            Desktop.getDesktop().open(ruta2);
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jMenuItem32ActionPerformed
+
+    private void jMenuItem33ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem33ActionPerformed
+        try{
+            URL ruta = getClass().getResource("/DOCUMENTACION/M4TH3C_INTERMEDIO_CUADRUPLOS.docx.pdf");
+            String rutaNueva = ruta.getFile();
+            File ruta2 = new File(rutaNueva.replaceAll("%20"," "));
+            Desktop.getDesktop().open(ruta2);
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jMenuItem33ActionPerformed
     
     private void executeCode(ArrayList<String> blocksOfCode,int repeats){
         int temporal = 0;
-        Tripletas.setText("");
         String metodo = "";
         int contador = 0;
         for(int j = 1;j <= repeats; j++){
@@ -20606,8 +20651,10 @@ public class Interfaz extends javax.swing.JFrame {
                             }
                             temporal++;
                             Tripletas.append("T"+temporal+" := "+metodo+"\n");
+                            cuadruplos("=",metodo,"","T"+temporal);
                             identDataTemp.put(metodo,"T"+temporal);
                             Tripletas.append(metodo+" := "+identDataTemp.get(metodo)+"\n");
+                            cuadruplos("=",identDataTemp.get(metodo),"",metodo);
                             PanelSalida.append("-->   Se ha creado una Clase llamada " + metodo + ".........\n");
                         }
                         if(sentence.startsWith("Entero")){
@@ -20627,23 +20674,37 @@ public class Interfaz extends javax.swing.JFrame {
                                 if(estado.equals("-")){
                                     temporal++;
                                     Tripletas.append("T"+temporal+" := "+variable+"\n");
+                                    cuadruplos("=",variable,"","T"+temporal);
                                     temporal++;
                                     Tripletas.append("T"+temporal+" := T"+(temporal-1) + " + "+valor2+"\n");
+                                    cuadruplos("+","T"+(temporal-1),valor2,"T"+temporal);
                                     temporal++;
-                                    Tripletas.append("T"+temporal+" := 1 - 2"+"\n");
-                                    Tripletas.append(variable+" := T"+(temporal-1)+" * T"+(temporal)+"\n");
+                                    if(identDataTemp.containsKey("-1")){
+                                        Tripletas.append(variable+" := T"+(temporal-1)+" * "+identDataTemp.get("-1")+"\n");
+                                        cuadruplos("*","T"+(temporal-1),identDataTemp.get("-1"),variable);
+                                    }else{
+                                        Tripletas.append("T"+temporal+" := 1 - 2"+"\n");
+                                        identDataTemp.put("-1","T"+temporal);
+                                        cuadruplos("-","1","2","T"+temporal);
+                                        Tripletas.append(variable+" := T"+(temporal-1)+" * T"+(temporal)+"\n");
+                                        cuadruplos("*","T"+(temporal-1),"T"+temporal,variable);
+                                    }
                                 }else{
                                     temporal++;
                                     Tripletas.append("T"+temporal+" := "+variable+"\n");
+                                    cuadruplos("=",variable,"","T"+temporal);
                                     temporal++;
                                     Tripletas.append("T"+temporal+" := T"+(temporal-1)+" + "+valor2+"\n");
+                                    cuadruplos("+","T"+(temporal-1),valor2,"T"+temporal);
                                     Tripletas.append(variable+" := T"+temporal+"\n");
+                                    cuadruplos("=","T"+(temporal),"",variable);
                                 }
                                  PanelSalida.append("-->   Se ha declarado una variable de tipo Entero llamada " + variable + " con valor " + valor + ".........\n");
                             }else{
                                 String variable = sentence.substring(7,sentence.length());
                                 temporal++;
                                 Tripletas.append("T"+temporal+" := "+variable+"\n");
+                                cuadruplos("=",variable,"","T"+temporal);
                                 identDataTemp.put(variable,"T"+temporal);
                                 PanelSalida.append("-->   Se ha declarado una variable de tipo Entero llamada " + variable + ".........\n");
                             }
@@ -20668,22 +20729,36 @@ public class Interfaz extends javax.swing.JFrame {
                                 if(estado.equals("-")){
                                     temporal++;
                                     Tripletas.append("T"+temporal+" := "+variable+"\n");
+                                    cuadruplos("=",variable,"","T"+temporal);
                                     temporal++;
                                     Tripletas.append("T"+temporal+" := T"+(temporal-1) + " + "+valor2+"\n");
+                                    cuadruplos("+","T"+(temporal-1),valor2,"T"+temporal);
                                     temporal++;
-                                    Tripletas.append("T"+temporal+" := 1 - 2"+"\n");
-                                    Tripletas.append(variable+" := T"+(temporal-1)+" * T"+(temporal)+"\n");
+                                    if(identDataTemp.containsKey("-1")){
+                                        Tripletas.append(variable+" := T"+(temporal-1)+" * "+identDataTemp.get("-1")+"\n");
+                                        cuadruplos("*","T"+(temporal-1),identDataTemp.get("-1"),variable);
+                                    }else{
+                                        Tripletas.append("T"+temporal+" := 1 - 2"+"\n");
+                                        identDataTemp.put("-1","T"+temporal);
+                                        cuadruplos("-","1","2","T"+temporal);
+                                        Tripletas.append(variable+" := T"+(temporal-1)+" * T"+(temporal)+"\n");
+                                        cuadruplos("*","T"+(temporal-1),"T"+temporal,variable);
+                                    }
                                 }else{
                                     temporal++;
                                     Tripletas.append("T"+temporal+" := "+variable+"\n");
+                                    cuadruplos("=",variable,"","T"+temporal);
                                     temporal++;
                                     Tripletas.append("T"+temporal+" := T"+(temporal-1)+" + "+valor2+"\n");
+                                    cuadruplos("+","T"+(temporal-1),valor2,"T"+temporal);
                                     Tripletas.append(variable+" := T"+temporal+"\n");
+                                    cuadruplos("=","T"+(temporal),"",variable);
                                 }
                             }else{
                                 String variable = sentence.substring(8,sentence.length());
                                 temporal++;
                                 Tripletas.append("T"+temporal+" := "+variable+"\n");
+                                cuadruplos("=",variable,"","T"+temporal);
                                 identDataTemp.put(variable,"T"+temporal);
                                 PanelSalida.append("-->   Se ha declarado una variable de tipo Decimal llamada " + variable + ".........\n");
                             }
@@ -20700,14 +20775,18 @@ public class Interfaz extends javax.swing.JFrame {
                                 }
                                 temporal++;
                                 Tripletas.append("T"+temporal+" := "+variable+"\n");
+                                cuadruplos("=",variable,"","T"+temporal);
                                 temporal++;
                                 Tripletas.append("T"+temporal+" := T"+(temporal-1)+" + "+valor+"\n");
+                                cuadruplos("+","T"+(temporal-1),valor,"T"+temporal);
                                 Tripletas.append(variable+" := T"+temporal+"\n");
+                                cuadruplos("=","T"+(temporal),"",variable);
                                 PanelSalida.append("-->   Se ha declarado una variable de tipo Cadena llamada " + variable + " con valor " + valor + ".........\n");
                             }else{
                                 String variable = sentence.substring(7,sentence.length());
                                 temporal++;
                                 Tripletas.append("T"+temporal+" := "+variable+"\n");
+                                cuadruplos("=",variable,"","T"+temporal);
                                 identDataTemp.put(variable,"T"+temporal);
                                 PanelSalida.append("-->   Se ha declarado una variable de tipo Cadena llamada " + variable + ".........\n");
                             }
@@ -20724,14 +20803,18 @@ public class Interfaz extends javax.swing.JFrame {
                                 }
                                 temporal++;
                                 Tripletas.append("T"+temporal+" := "+variable+"\n");
+                                cuadruplos("=",variable,"","T"+temporal);
                                 temporal++;
                                 Tripletas.append("T"+temporal+" := T"+(temporal-1)+" + "+valor+"\n");
+                                cuadruplos("+","T"+(temporal-1),valor,"T"+temporal);
                                 Tripletas.append(variable+" := T"+temporal+"\n");
+                                cuadruplos("=","T"+(temporal),"",variable);
                                 PanelSalida.append("-->   Se ha declarado una variable de tipo Figura llamada " + variable + " con valor " + valor + ".........\n");
                             }else{
                                 String variable = sentence.substring(7,sentence.length());
                                 temporal++;
                                 Tripletas.append("T"+temporal+" := "+variable+"\n");
+                                cuadruplos("=",variable,"","T"+temporal);
                                 identDataTemp.put(variable,"T"+temporal);
                                 PanelSalida.append("-->   Se ha declarado una variable de tipo Figura llamada " + variable + ".........\n");
                             }
@@ -20748,14 +20831,18 @@ public class Interfaz extends javax.swing.JFrame {
                                 }
                                 temporal++;
                                 Tripletas.append("T"+temporal+" := "+variable+"\n");
+                                cuadruplos("=",variable,"","T"+temporal);
                                 temporal++;
                                 Tripletas.append("T"+temporal+" := T"+(temporal-1)+" + "+valor+"\n");
+                                cuadruplos("+","T"+(temporal-1),valor,"T"+temporal);
                                 Tripletas.append(variable+" := T"+temporal+"\n");
+                                cuadruplos("=","T"+(temporal),"",variable);
                                 PanelSalida.append("-->   Se ha declarado una variable de tipo Color llamada " + variable + " con valor " + valor + ".........\n");
                             }else{
                                 String variable = sentence.substring(6,sentence.length());
                                 temporal++;
                                 Tripletas.append("T"+temporal+" := "+variable+"\n");
+                                cuadruplos("=",variable,"","T"+temporal);
                                 identDataTemp.put(variable,"T"+temporal);
                                 PanelSalida.append("-->   Se ha declarado una variable de tipo Color llamada " + variable + ".........\n");
                             }
@@ -20764,6 +20851,7 @@ public class Interfaz extends javax.swing.JFrame {
                             String variable = sentence.substring(10,sentence.length());
                             temporal++;
                             Tripletas.append("T"+temporal+" := "+variable+"\n");
+                            cuadruplos("=",variable,"","T"+temporal);
                             identDataTemp.put(variable,"T"+temporal);
                             PanelSalida.append("-->   Se ha declarado una variable de tipo Resultado llamada " + variable + ".........\n");
                         }
@@ -20774,14 +20862,24 @@ public class Interfaz extends javax.swing.JFrame {
                                     if(id.lexemeRank(-3).equals("-")){
                                         temporal++;
                                         Tripletas.append("T"+temporal+" := "+identDataTemp.get(id.lexemeRank(0))+" + "+id.lexemeRank(-2)+"\n");
+                                        cuadruplos("+",identDataTemp.get(id.lexemeRank(0)),id.lexemeRank(-2),"T"+temporal);
                                         temporal++;
-                                        Tripletas.append("T"+temporal+" := 1 - 2"+"\n");
-                                        Tripletas.append(id.lexemeRank(0)+" := T"+(temporal-1)+" * T"+(temporal)+"\n");
-                                        
+                                        if(identDataTemp.containsKey("-1")){
+                                            Tripletas.append(id.lexemeRank(0)+" := T"+(temporal-1)+" * "+identDataTemp.get("-1")+"\n");
+                                            cuadruplos("*","T"+(temporal-1),"T"+identDataTemp.get("-1"),id.lexemeRank(0));
+                                        }else{
+                                            Tripletas.append("T"+temporal+" := 1 - 2"+"\n");
+                                            identDataTemp.put("-1","T"+temporal);
+                                            cuadruplos("-","1","2","T"+temporal);
+                                            Tripletas.append(id.lexemeRank(0)+" := T"+(temporal-1)+" * T"+(temporal)+"\n");
+                                            cuadruplos("*","T"+(temporal-1),"T"+temporal,id.lexemeRank(0));
+                                        }
                                     }else{
                                         temporal++;
                                         Tripletas.append("T"+temporal+" := "+identDataTemp.get(id.lexemeRank(0))+" + "+id.lexemeRank(-2)+"\n");
+                                        cuadruplos("+",identDataTemp.get(id.lexemeRank(0)),id.lexemeRank(-2),"T"+temporal);
                                         Tripletas.append(id.lexemeRank(0)+" := T"+temporal+"\n");
+                                        cuadruplos("=","T"+temporal,"",id.lexemeRank(0));
                                     }
                                     tipo = "Entero";
                                     PanelSalida.append("-->   Se le esta asignando a la variable " + id.lexemeRank(0) + " de tipo " + tipo + " un nuevo valor de " + id.lexemeRank(-3) + id.lexemeRank(-2) + ".........\n");
@@ -20789,33 +20887,49 @@ public class Interfaz extends javax.swing.JFrame {
                                     if(id.lexemeRank(-3).equals("-")){
                                         temporal++;
                                         Tripletas.append("T"+temporal+" := "+identDataTemp.get(id.lexemeRank(0))+" + "+id.lexemeRank(-2)+"\n");
+                                        cuadruplos("+",identDataTemp.get(id.lexemeRank(0)),id.lexemeRank(-2),"T"+temporal);
                                         temporal++;
-                                        Tripletas.append("T"+temporal+" := 1 - 2"+"\n");
-                                        Tripletas.append(id.lexemeRank(0)+" := T"+(temporal-1)+" * T"+(temporal)+"\n");
-                                        
+                                        if(identDataTemp.containsKey("-1")){
+                                            Tripletas.append(id.lexemeRank(0)+" := T"+(temporal-1)+" * "+identDataTemp.get("-1")+"\n");
+                                            cuadruplos("*","T"+(temporal-1),"T"+identDataTemp.get("-1"),id.lexemeRank(0));
+                                        }else{
+                                            Tripletas.append("T"+temporal+" := 1 - 2"+"\n");
+                                            identDataTemp.put("-1","T"+temporal);
+                                            cuadruplos("-","1","2","T"+temporal);
+                                            Tripletas.append(id.lexemeRank(0)+" := T"+(temporal-1)+" * T"+(temporal)+"\n");
+                                            cuadruplos("*","T"+(temporal-1),"T"+temporal,id.lexemeRank(0));
+                                        }
                                     }else{
                                         temporal++;
                                         Tripletas.append("T"+temporal+" := "+identDataTemp.get(id.lexemeRank(0))+" + "+id.lexemeRank(-2)+"\n");
+                                        cuadruplos("+",identDataTemp.get(id.lexemeRank(0)),id.lexemeRank(-2),"T"+temporal);
                                         Tripletas.append(id.lexemeRank(0)+" := T"+temporal+"\n");
+                                        cuadruplos("=","T"+temporal,"",id.lexemeRank(0));
                                     }
                                     tipo = "Decimal";
                                     PanelSalida.append("-->   Se le esta asignando a la variable " + id.lexemeRank(0) + " de tipo " + tipo + " un nuevo valor de " + id.lexemeRank(-3) + id.lexemeRank(-2) + ".........\n");
                                 }else if(id.lexicalCompRank(-2).equals("Identificador_Cadena")){
                                     temporal++;
                                     Tripletas.append("T"+temporal+" := "+identDataTemp.get(id.lexemeRank(0))+" + "+id.lexemeRank(-2)+"\n");
+                                    cuadruplos("+",identDataTemp.get(id.lexemeRank(0)),id.lexemeRank(-2),"T"+temporal);
                                     Tripletas.append(id.lexemeRank(0)+" := T"+temporal+"\n");
+                                    cuadruplos("=","T"+temporal,"",id.lexemeRank(0));
                                     tipo = "Cadena";
                                     PanelSalida.append("-->   Se le esta asignando a la variable " + id.lexemeRank(0) + " de tipo " + tipo + " un nuevo valor de " + id.lexemeRank(-2) + ".........\n");
                                 }else if(id.lexicalCompRank(-2).equals("Palabra_Reservada_12") || id.lexicalCompRank(-2).equals("Palabra_Reservada_13") || id.lexicalCompRank(-2).equals("Palabra_Reservada_14") || id.lexicalCompRank(-2).equals("Palabra_Reservada_15") || id.lexicalCompRank(-2).equals("Palabra_Reservada_16")){
                                     temporal++;
                                     Tripletas.append("T"+temporal+" := "+identDataTemp.get(id.lexemeRank(0))+" + "+id.lexemeRank(-2)+"\n");
+                                    cuadruplos("+",identDataTemp.get(id.lexemeRank(0)),id.lexemeRank(-2),"T"+temporal);
                                     Tripletas.append(id.lexemeRank(0)+" := T"+temporal+"\n");
+                                    cuadruplos("=","T"+temporal,"",id.lexemeRank(0));
                                     tipo = "Color";
                                     PanelSalida.append("-->   Se le esta asignando a la variable " + id.lexemeRank(0) + " de tipo " + tipo + " un nuevo valor de " + id.lexemeRank(-2) + ".........\n");
                                 }else if(id.lexicalCompRank(-2).equals("Palabra_Reservada_17") || id.lexicalCompRank(-2).equals("Palabra_Reservada_18") || id.lexicalCompRank(-2).equals("Palabra_Reservada_19") || id.lexicalCompRank(-2).equals("Palabra_Reservada_20") || id.lexicalCompRank(-2).equals("Palabra_Reservada_21")){
                                     temporal++;
                                     Tripletas.append("T"+temporal+" := "+identDataTemp.get(id.lexemeRank(0))+" + "+id.lexemeRank(-2)+"\n");
+                                    cuadruplos("+",identDataTemp.get(id.lexemeRank(0)),id.lexemeRank(-2),"T"+temporal);
                                     Tripletas.append(id.lexemeRank(0)+" := T"+temporal+"\n");
+                                    cuadruplos("=","T"+temporal,"",id.lexemeRank(0));
                                     tipo = "Figura";
                                     PanelSalida.append("-->   Se le esta asignando a la variable " + id.lexemeRank(0) + " de tipo " + tipo + " un nuevo valor de " + id.lexemeRank(-2) + ".........\n");
                                 }
@@ -20825,26 +20939,58 @@ public class Interfaz extends javax.swing.JFrame {
                             if(sentence.startsWith(id.lexemeRank(0))){
                                 if(id.lexemeRank(0).equals("Sumar") && sentence.contains(id.lexemeRank(2)) && sentence.contains(id.lexemeRank(4)) && sentence.contains(id.lexemeRank(7))){
                                     temporal++;
-                                    Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" + "+id.lexemeRank(4)+"\n");
-                                    Tripletas.append(id.lexemeRank(7)+" := T"+temporal+"\n");
+                                    if(identDataTemp.containsKey(identDataTypeR.get(id.lexemeRank(7)))){
+                                        Tripletas.append(id.lexemeRank(7)+" := "+identDataTemp.get(identDataTypeR.get(id.lexemeRank(7)))+"\n");
+                                        cuadruplos("=",identDataTemp.get(identDataTypeR.get(id.lexemeRank(7))),"",id.lexemeRank(7));
+                                    }else{
+                                        Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" + "+id.lexemeRank(4)+"\n");
+                                        cuadruplos("+",id.lexemeRank(2),id.lexemeRank(4),"T"+temporal);
+                                        identDataTemp.put(identDataTypeR.get(id.lexemeRank(7)),"T"+temporal);
+                                        Tripletas.append(id.lexemeRank(7)+" := T"+temporal+"\n");
+                                        cuadruplos("=","T"+temporal,"",id.lexemeRank(7));
+                                    }
                                     PanelSalida.append("-->   Se ha utlizado la función de Sumar, que tiene como parametros a:        " + id.lexemeRank(2) + " = " + identDataTypeV2.get(id.lexemeRank(2)) + " , " + id.lexemeRank(4) + " = " + identDataTypeV2.get(id.lexemeRank(4)) + "\nDonde el resultado de la operación es: " + identDataTypeR.get(id.lexemeRank(7)) + " , y se guardó en: " + id.lexemeRank(7) + ".........\n");
                                     break;
                                 }else if(id.lexemeRank(0).equals("Restar") && sentence.contains(id.lexemeRank(2)) && sentence.contains(id.lexemeRank(4)) && sentence.contains(id.lexemeRank(7))){
                                     temporal++;
-                                    Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" - "+id.lexemeRank(4)+"\n");
-                                    Tripletas.append(id.lexemeRank(7)+" := T"+temporal+"\n");
+                                    if(identDataTemp.containsKey(identDataTypeR.get(id.lexemeRank(7)))){
+                                        Tripletas.append(id.lexemeRank(7)+" := "+identDataTemp.get(identDataTypeR.get(id.lexemeRank(7)))+"\n");
+                                        cuadruplos("=",identDataTemp.get(identDataTypeR.get(id.lexemeRank(7))),"",id.lexemeRank(7));
+                                    }else{
+                                        Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" - "+id.lexemeRank(4)+"\n");
+                                        cuadruplos("-",id.lexemeRank(2),id.lexemeRank(4),"T"+temporal);
+                                        identDataTemp.put(identDataTypeR.get(id.lexemeRank(7)),"T"+temporal);
+                                        Tripletas.append(id.lexemeRank(7)+" := T"+temporal+"\n");
+                                        cuadruplos("=","T"+temporal,"",id.lexemeRank(7));
+                                    }
                                     PanelSalida.append("-->   Se ha utlizado la función de Restar, que tiene como parametros a:       " + id.lexemeRank(2) + " = " + identDataTypeV2.get(id.lexemeRank(2)) + " , " + id.lexemeRank(4) + " = " + identDataTypeV2.get(id.lexemeRank(4)) + "\nDonde el resultado de la operación es: " + identDataTypeR.get(id.lexemeRank(7)) + " , y se guardó en: " + id.lexemeRank(7) + ".........\n");
                                     break;
                                 }else if(id.lexemeRank(0).equals("Multiplicar") && sentence.contains(id.lexemeRank(2)) && sentence.contains(id.lexemeRank(4)) && sentence.contains(id.lexemeRank(7))){
                                     temporal++;
-                                    Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" * "+id.lexemeRank(4)+"\n");
-                                    Tripletas.append(id.lexemeRank(7)+" := T"+temporal+"\n");
+                                    if(identDataTemp.containsKey(identDataTypeR.get(id.lexemeRank(7)))){
+                                        Tripletas.append(id.lexemeRank(7)+" := "+identDataTemp.get(identDataTypeR.get(id.lexemeRank(7)))+"\n");
+                                        cuadruplos("=",identDataTemp.get(identDataTypeR.get(id.lexemeRank(7))),"",id.lexemeRank(7));
+                                    }else{
+                                        Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" * "+id.lexemeRank(4)+"\n");
+                                        cuadruplos("*",id.lexemeRank(2),id.lexemeRank(4),"T"+temporal);
+                                        identDataTemp.put(identDataTypeR.get(id.lexemeRank(7)),"T"+temporal);
+                                        Tripletas.append(id.lexemeRank(7)+" := T"+temporal+"\n");
+                                        cuadruplos("=","T"+temporal,"",id.lexemeRank(7));
+                                    }
                                     PanelSalida.append("-->   Se ha utlizado la función de Multiplicar, que tiene como parametros a:  " + id.lexemeRank(2) + " = " + identDataTypeV2.get(id.lexemeRank(2)) + " , " + id.lexemeRank(4) + " = " + identDataTypeV2.get(id.lexemeRank(4)) + "\nDonde el resultado de la operación es: " + identDataTypeR.get(id.lexemeRank(7)) + " , y se guardó en: " + id.lexemeRank(7) + ".........\n");
                                     break;
                                 }else if(id.lexemeRank(0).equals("Dividir") && sentence.contains(id.lexemeRank(2)) && sentence.contains(id.lexemeRank(4)) && sentence.contains(id.lexemeRank(7))){
                                     temporal++;
-                                    Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" / "+id.lexemeRank(4)+"\n");
-                                    Tripletas.append(id.lexemeRank(7)+" := T"+temporal+"\n");
+                                    if(identDataTemp.containsKey(identDataTypeR.get(id.lexemeRank(7)))){
+                                        Tripletas.append(id.lexemeRank(7)+" := "+identDataTemp.get(identDataTypeR.get(id.lexemeRank(7)))+"\n");
+                                        cuadruplos("=",identDataTemp.get(identDataTypeR.get(id.lexemeRank(7))),"",id.lexemeRank(7));
+                                    }else{
+                                        Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" / "+id.lexemeRank(4)+"\n");
+                                        cuadruplos("/",id.lexemeRank(2),id.lexemeRank(4),"T"+temporal);
+                                        identDataTemp.put(identDataTypeR.get(id.lexemeRank(7)),"T"+temporal);
+                                        Tripletas.append(id.lexemeRank(7)+" := T"+temporal+"\n");
+                                        cuadruplos("=","T"+temporal,"",id.lexemeRank(7));
+                                    }
                                     PanelSalida.append("-->   Se ha utlizado la función de Dividir, que tiene como parametros a:      " + id.lexemeRank(2) + " = " + identDataTypeV2.get(id.lexemeRank(2)) + " , " + id.lexemeRank(4) + " = " + identDataTypeV2.get(id.lexemeRank(4)) + "\nDonde el resultado de la operación es: " + identDataTypeR.get(id.lexemeRank(7)) + " , y se guardó en: " + id.lexemeRank(7) + ".........\n");
                                     break;
                                 }
@@ -20854,34 +21000,178 @@ public class Interfaz extends javax.swing.JFrame {
                             if(sentence.startsWith(id.lexemeRank(0))){
                                 if(id.lexemeRank(0).equals("Sumar") && sentence.contains(id.lexemeRank(2)) && sentence.contains(id.lexemeRank(4)) && sentence.contains(id.lexemeRank(6)) && sentence.contains(id.lexemeRank(9))){
                                     temporal++;
-                                    Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" + "+id.lexemeRank(4)+"\n");
-                                    temporal++;
-                                    Tripletas.append("T"+temporal+" := T"+(temporal-1)+" + "+id.lexemeRank(6)+"\n");
-                                    Tripletas.append(id.lexemeRank(9)+" := T"+temporal+"\n");
+                                    if(identDataTemp.containsKey(identDataTypeR.get(id.lexemeRank(9)))){
+                                        Tripletas.append(id.lexemeRank(9)+" := "+identDataTemp.get(identDataTypeR.get(id.lexemeRank(9)))+"\n");
+                                        cuadruplos("=",identDataTemp.get(identDataTypeR.get(id.lexemeRank(9))),"",id.lexemeRank(9));
+                                    }else{
+                                        if(identDataType.get(id.lexemeRank(2)).equals("Numero_Decimal")){
+                                            double num1 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(2)));
+                                            double num2 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(4)));
+                                            double res = num1 + num2;
+                                            if(identDataTemp.containsKey(Double.toString(res))){
+                                                Tripletas.append("T"+temporal+" := "+identDataTemp.get(Double.toString(res))+" + "+id.lexemeRank(6)+"\n");
+                                                cuadruplos("+",identDataTemp.get(Double.toString(res)),id.lexemeRank(6),"T"+temporal);
+                                            }else{
+                                                Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" + "+id.lexemeRank(4)+"\n");
+                                                cuadruplos("+",id.lexemeRank(2),id.lexemeRank(4),"T"+temporal);
+                                                identDataTemp.put(Double.toString(res),"T"+temporal);
+                                                temporal++;
+                                                Tripletas.append("T"+temporal+" := T"+(temporal-1)+" + "+id.lexemeRank(6)+"\n");
+                                                cuadruplos("+","T"+(temporal-1),id.lexemeRank(6),"T"+temporal);
+                                            }
+                                        }
+                                        if(identDataType.get(id.lexemeRank(2)).equals("Numero_Entero")){
+                                            int num1 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(2)));
+                                            int num2 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(4)));
+                                            int res = num1 + num2;
+                                            if(identDataTemp.containsKey(Integer.toString(res))){
+                                                Tripletas.append("T"+temporal+" := "+identDataTemp.get(Integer.toString(res))+" + "+id.lexemeRank(6)+"\n");
+                                                cuadruplos("+",identDataTemp.get(Integer.toString(res)),id.lexemeRank(6),"T"+temporal);
+                                            }else{
+                                                Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" + "+id.lexemeRank(4)+"\n");
+                                                cuadruplos("+",id.lexemeRank(2),id.lexemeRank(4),"T"+temporal);
+                                                identDataTemp.put(Integer.toString(res),"T"+temporal);
+                                                temporal++;
+                                                Tripletas.append("T"+temporal+" := T"+(temporal-1)+" + "+id.lexemeRank(6)+"\n");
+                                                cuadruplos("+","T"+(temporal-1),id.lexemeRank(6),"T"+temporal);
+                                            }
+                                        }
+                                        identDataTemp.put(identDataTypeR.get(id.lexemeRank(9)),"T"+temporal);
+                                        Tripletas.append(id.lexemeRank(9)+" := T"+temporal+"\n");
+                                        cuadruplos("=","T"+temporal,"",id.lexemeRank(9));
+                                    }   
                                     PanelSalida.append("-->   Se ha utlizado la función de Sumar, que tiene como parametros a:        " + id.lexemeRank(2) + " = " + identDataTypeV2.get(id.lexemeRank(2)) + " , " + id.lexemeRank(4) + " = " + identDataTypeV2.get(id.lexemeRank(4)) + " , " + id.lexemeRank(6) + " = " + identDataTypeV2.get(id.lexemeRank(6)) +  "\nDonde el resultado de la operación es: " + identDataTypeR.get(id.lexemeRank(9)) + " , y se guardó en: " + id.lexemeRank(9) + ".........\n");
                                     break;
                                 }else if(id.lexemeRank(0).equals("Restar") && sentence.contains(id.lexemeRank(2)) && sentence.contains(id.lexemeRank(4)) && sentence.contains(id.lexemeRank(6)) && sentence.contains(id.lexemeRank(9))){
                                     temporal++;
-                                    Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" - "+id.lexemeRank(4)+"\n");
-                                    temporal++;
-                                    Tripletas.append("T"+temporal+" := T"+(temporal-1)+" - "+id.lexemeRank(6)+"\n");
-                                    Tripletas.append(id.lexemeRank(9)+" := T"+temporal+"\n");
+                                    if(identDataTemp.containsKey(identDataTypeR.get(id.lexemeRank(9)))){
+                                        Tripletas.append(id.lexemeRank(9)+" := "+identDataTemp.get(identDataTypeR.get(id.lexemeRank(9)))+"\n");
+                                        cuadruplos("=",identDataTemp.get(identDataTypeR.get(id.lexemeRank(9))),"",id.lexemeRank(9));
+                                    }else{
+                                        if(identDataType.get(id.lexemeRank(2)).equals("Numero_Decimal")){
+                                            double num1 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(2)));
+                                            double num2 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(4)));
+                                            double res = num1 - num2;
+                                            if(identDataTemp.containsKey(Double.toString(res))){
+                                                Tripletas.append("T"+temporal+" := "+identDataTemp.get(Double.toString(res))+" - "+id.lexemeRank(6)+"\n");
+                                                cuadruplos("-",identDataTemp.get(Double.toString(res)),id.lexemeRank(6),"T"+temporal);
+                                            }else{
+                                                Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" - "+id.lexemeRank(4)+"\n");
+                                                cuadruplos("-",id.lexemeRank(2),id.lexemeRank(4),"T"+temporal);
+                                                identDataTemp.put(Double.toString(res),"T"+temporal);
+                                                temporal++;
+                                                Tripletas.append("T"+temporal+" := T"+(temporal-1)+" - "+id.lexemeRank(6)+"\n");
+                                                cuadruplos("-","T"+(temporal-1),id.lexemeRank(6),"T"+temporal);
+                                            }
+                                        }
+                                        if(identDataType.get(id.lexemeRank(2)).equals("Numero_Entero")){
+                                            int num1 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(2)));
+                                            int num2 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(4)));
+                                            int res = num1 - num2;
+                                            if(identDataTemp.containsKey(Integer.toString(res))){
+                                                Tripletas.append("T"+temporal+" := "+identDataTemp.get(Integer.toString(res))+" - "+id.lexemeRank(6)+"\n");
+                                                cuadruplos("-",identDataTemp.get(Integer.toString(res)),id.lexemeRank(6),"T"+temporal);
+                                            }else{
+                                                Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" - "+id.lexemeRank(4)+"\n");
+                                                cuadruplos("-",id.lexemeRank(2),id.lexemeRank(4),"T"+temporal);
+                                                identDataTemp.put(Integer.toString(res),"T"+temporal);
+                                                temporal++;
+                                                Tripletas.append("T"+temporal+" := T"+(temporal-1)+" - "+id.lexemeRank(6)+"\n");
+                                                cuadruplos("-","T"+(temporal-1),id.lexemeRank(6),"T"+temporal);
+                                            }
+                                        }
+                                        identDataTemp.put(identDataTypeR.get(id.lexemeRank(9)),"T"+temporal);
+                                        Tripletas.append(id.lexemeRank(9)+" := T"+temporal+"\n");
+                                        cuadruplos("=","T"+temporal,"",id.lexemeRank(9));
+                                    }
                                     PanelSalida.append("-->   Se ha utlizado la función de Restar, que tiene como parametros a:       " + id.lexemeRank(2) + " = " + identDataTypeV2.get(id.lexemeRank(2)) + " , " + id.lexemeRank(4) + " = " + identDataTypeV2.get(id.lexemeRank(4)) + " , " + id.lexemeRank(6) + " = " + identDataTypeV2.get(id.lexemeRank(6)) +  "\nDonde el resultado de la operación es: " + identDataTypeR.get(id.lexemeRank(9)) + " , y se guardó en: " + id.lexemeRank(9) + ".........\n");
                                     break;
                                 }else if(id.lexemeRank(0).equals("Multiplicar") && sentence.contains(id.lexemeRank(2)) && sentence.contains(id.lexemeRank(4)) && sentence.contains(id.lexemeRank(6)) && sentence.contains(id.lexemeRank(9))){
                                     temporal++;
-                                    Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" * "+id.lexemeRank(4)+"\n");
-                                    temporal++;
-                                    Tripletas.append("T"+temporal+" := T"+(temporal-1)+" * "+id.lexemeRank(6)+"\n");
-                                    Tripletas.append(id.lexemeRank(9)+" := T"+temporal+"\n");
+                                    if(identDataTemp.containsKey(identDataTypeR.get(id.lexemeRank(9)))){
+                                        Tripletas.append(id.lexemeRank(9)+" := "+identDataTemp.get(identDataTypeR.get(id.lexemeRank(9)))+"\n");
+                                        cuadruplos("=",identDataTemp.get(identDataTypeR.get(id.lexemeRank(9))),"",id.lexemeRank(9));
+                                    }else{
+                                        if(identDataType.get(id.lexemeRank(2)).equals("Numero_Decimal")){
+                                            double num1 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(2)));
+                                            double num2 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(4)));
+                                            double res = num1 * num2;
+                                            if(identDataTemp.containsKey(Double.toString(res))){
+                                                Tripletas.append("T"+temporal+" := "+identDataTemp.get(Double.toString(res))+" * "+id.lexemeRank(6)+"\n");
+                                                cuadruplos("*",identDataTemp.get(Double.toString(res)),id.lexemeRank(6),"T"+temporal);
+                                            }else{
+                                                Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" * "+id.lexemeRank(4)+"\n");
+                                                cuadruplos("*",id.lexemeRank(2),id.lexemeRank(4),"T"+temporal);
+                                                identDataTemp.put(Double.toString(res),"T"+temporal);
+                                                temporal++;
+                                                Tripletas.append("T"+temporal+" := T"+(temporal-1)+" * "+id.lexemeRank(6)+"\n");
+                                                cuadruplos("*","T"+(temporal-1),id.lexemeRank(6),"T"+temporal);
+                                            }
+                                        }
+                                        if(identDataType.get(id.lexemeRank(2)).equals("Numero_Entero")){
+                                            int num1 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(2)));
+                                            int num2 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(4)));
+                                            int res = num1 * num2;
+                                            if(identDataTemp.containsKey(Integer.toString(res))){
+                                                Tripletas.append("T"+temporal+" := "+identDataTemp.get(Integer.toString(res))+" * "+id.lexemeRank(6)+"\n");
+                                                cuadruplos("*",identDataTemp.get(Integer.toString(res)),id.lexemeRank(6),"T"+temporal);
+                                            }else{
+                                                Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" * "+id.lexemeRank(4)+"\n");
+                                                cuadruplos("*",id.lexemeRank(2),id.lexemeRank(4),"T"+temporal);
+                                                identDataTemp.put(Integer.toString(res),"T"+temporal);
+                                                temporal++;
+                                                Tripletas.append("T"+temporal+" := T"+(temporal-1)+" * "+id.lexemeRank(6)+"\n");
+                                                cuadruplos("*","T"+(temporal-1),id.lexemeRank(6),"T"+temporal);
+                                            }
+                                        }
+                                        identDataTemp.put(identDataTypeR.get(id.lexemeRank(9)),"T"+temporal);
+                                        Tripletas.append(id.lexemeRank(9)+" := T"+temporal+"\n");
+                                        cuadruplos("=","T"+temporal,"",id.lexemeRank(9));
+                                    }
                                     PanelSalida.append("-->   Se ha utlizado la función de Multiplicar, que tiene como parametros a:  " + id.lexemeRank(2) + " = " + identDataTypeV2.get(id.lexemeRank(2)) + " , " + id.lexemeRank(4) + " = " + identDataTypeV2.get(id.lexemeRank(4)) + " , " + id.lexemeRank(6) + " = " + identDataTypeV2.get(id.lexemeRank(6)) +  "\nDonde el resultado de la operación es: " + identDataTypeR.get(id.lexemeRank(9)) + " , y se guardó en: " + id.lexemeRank(9) + ".........\n");
                                     break;
                                 }else if(id.lexemeRank(0).equals("Dividir") && sentence.contains(id.lexemeRank(2)) && sentence.contains(id.lexemeRank(4)) && sentence.contains(id.lexemeRank(6)) && sentence.contains(id.lexemeRank(9))){
                                     temporal++;
-                                    Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" / "+id.lexemeRank(4)+"\n");
-                                    temporal++;
-                                    Tripletas.append("T"+temporal+" := T"+(temporal-1)+" / "+id.lexemeRank(6)+"\n");
-                                    Tripletas.append(id.lexemeRank(9)+" := T"+temporal+"\n");
+                                    if(identDataTemp.containsKey(identDataTypeR.get(id.lexemeRank(9)))){
+                                        Tripletas.append(id.lexemeRank(9)+" := "+identDataTemp.get(identDataTypeR.get(id.lexemeRank(9)))+"\n");
+                                        cuadruplos("=",identDataTemp.get(identDataTypeR.get(id.lexemeRank(9))),"",id.lexemeRank(9));
+                                    }else{
+                                        if(identDataType.get(id.lexemeRank(2)).equals("Numero_Decimal")){
+                                            double num1 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(2)));
+                                            double num2 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(4)));
+                                            double res = num1 / num2;
+                                            if(identDataTemp.containsKey(Double.toString(res))){
+                                                Tripletas.append("T"+temporal+" := "+identDataTemp.get(Double.toString(res))+" / "+id.lexemeRank(6)+"\n");
+                                                cuadruplos("/",identDataTemp.get(Double.toString(res)),id.lexemeRank(6),"T"+temporal);
+                                            }else{
+                                                Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" / "+id.lexemeRank(4)+"\n");
+                                                cuadruplos("/",id.lexemeRank(2),id.lexemeRank(4),"T"+temporal);
+                                                identDataTemp.put(Double.toString(res),"T"+temporal);
+                                                temporal++;
+                                                Tripletas.append("T"+temporal+" := T"+(temporal-1)+" / "+id.lexemeRank(6)+"\n");
+                                                cuadruplos("/","T"+(temporal-1),id.lexemeRank(6),"T"+temporal);
+                                            }
+                                        }
+                                        if(identDataType.get(id.lexemeRank(2)).equals("Numero_Entero")){
+                                            int num1 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(2)));
+                                            int num2 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(4)));
+                                            int res = num1 / num2;
+                                            if(identDataTemp.containsKey(Integer.toString(res))){
+                                                Tripletas.append("T"+temporal+" := "+identDataTemp.get(Integer.toString(res))+" / "+id.lexemeRank(6)+"\n");
+                                                cuadruplos("/",identDataTemp.get(Integer.toString(res)),id.lexemeRank(6),"T"+temporal);
+                                            }else{
+                                                Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" / "+id.lexemeRank(4)+"\n");
+                                                cuadruplos("/",id.lexemeRank(2),id.lexemeRank(4),"T"+temporal);
+                                                identDataTemp.put(Integer.toString(res),"T"+temporal);
+                                                temporal++;
+                                                Tripletas.append("T"+temporal+" := T"+(temporal-1)+" / "+id.lexemeRank(6)+"\n");
+                                                cuadruplos("/","T"+(temporal-1),id.lexemeRank(6),"T"+temporal);
+                                            }
+                                        }
+                                        identDataTemp.put(identDataTypeR.get(id.lexemeRank(9)),"T"+temporal);
+                                        Tripletas.append(id.lexemeRank(9)+" := T"+temporal+"\n");
+                                        cuadruplos("=","T"+temporal,"",id.lexemeRank(9));
+                                    }
                                     PanelSalida.append("-->   Se ha utlizado la función de Dividir, que tiene como parametros a:      " + id.lexemeRank(2) + " = " + identDataTypeV2.get(id.lexemeRank(2)) + " , " + id.lexemeRank(4) + " = " + identDataTypeV2.get(id.lexemeRank(4))  + " , " + id.lexemeRank(6) + " = " + identDataTypeV2.get(id.lexemeRank(6)) + "\nDonde el resultado de la operación es: " + identDataTypeR.get(id.lexemeRank(9)) + " , y se guardó en: " + id.lexemeRank(9) + ".........\n");
                                     break;
                                 }
@@ -20891,42 +21181,370 @@ public class Interfaz extends javax.swing.JFrame {
                             if(sentence.startsWith(id.lexemeRank(0))){
                                 if(id.lexemeRank(0).equals("Sumar") && sentence.contains(id.lexemeRank(2)) && sentence.contains(id.lexemeRank(4)) && sentence.contains(id.lexemeRank(6)) && sentence.contains(id.lexemeRank(8)) && sentence.contains(id.lexemeRank(11))){
                                     temporal++;
-                                    Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" + "+id.lexemeRank(4)+"\n");
-                                    temporal++;
-                                    Tripletas.append("T"+temporal+" := T"+(temporal-1)+" + "+id.lexemeRank(6)+"\n");
-                                    temporal++;
-                                    Tripletas.append("T"+temporal+" := T"+(temporal-1)+" + "+id.lexemeRank(8)+"\n");
-                                    Tripletas.append(id.lexemeRank(11)+" := T"+temporal+"\n");
+                                    if(identDataTemp.containsKey(identDataTypeR.get(id.lexemeRank(11)))){
+                                        Tripletas.append(id.lexemeRank(11)+" := "+identDataTemp.get(identDataTypeR.get(id.lexemeRank(11)))+"\n");
+                                        cuadruplos("=",identDataTemp.get(identDataTypeR.get(id.lexemeRank(11))),"",id.lexemeRank(11));
+                                    }else{
+                                        if(identDataType.get(id.lexemeRank(2)).equals("Numero_Decimal")){
+                                            double num1 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(2)));
+                                            double num2 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(4)));
+                                            double res = num1 + num2;
+                                            if(identDataTemp.containsKey(Double.toString(res))){
+                                                num1 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(2)));
+                                                num2 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(4)));
+                                                double num3 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(6)));
+                                                res = num1 + num2 + num3;
+                                                if(identDataTemp.containsKey(Double.toString(res))){
+                                                    Tripletas.append("T"+temporal+" := "+identDataTemp.get(Double.toString(res))+" + "+id.lexemeRank(8)+"\n");
+                                                    cuadruplos("+",identDataTemp.get(Double.toString(res)),id.lexemeRank(8),"T"+temporal);
+                                                }else{
+                                                    num1 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(2)));
+                                                    num2 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(4)));
+                                                    num3 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(6)));
+                                                    res = num1 + num2;
+                                                    Tripletas.append("T"+temporal+" := "+identDataTemp.get(Double.toString(res))+" + "+id.lexemeRank(6)+"\n");
+                                                    cuadruplos("+",identDataTemp.get(Double.toString(res)),id.lexemeRank(6),"T"+temporal);
+                                                    res = num1+num2+num3;
+                                                    identDataTemp.put(identDataTypeR.get(Double.toString(res)),"T"+temporal);
+                                                    temporal++;
+                                                    Tripletas.append("T"+temporal+" := T"+(temporal-1)+" + "+id.lexemeRank(8)+"\n");
+                                                    cuadruplos("+","T"+(temporal-1),id.lexemeRank(8),"T"+temporal);
+                                                }
+                                            }else{
+                                                Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" + "+id.lexemeRank(4)+"\n");
+                                                cuadruplos("+",id.lexemeRank(2),id.lexemeRank(4),"T"+temporal);
+                                                num1 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(2)));
+                                                num2 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(4)));
+                                                res = num1 + num2;
+                                                identDataTemp.put(Double.toString(res),"T"+temporal);
+                                                temporal++;
+                                                Tripletas.append("T"+temporal+" := T"+(temporal-1)+" + "+id.lexemeRank(6)+"\n");
+                                                cuadruplos("+","T"+(temporal-1),id.lexemeRank(6),"T"+temporal);
+                                                temporal++;
+                                                Tripletas.append("T"+temporal+" := T"+(temporal-1)+" + "+id.lexemeRank(8)+"\n");
+                                                cuadruplos("+","T"+(temporal-1),id.lexemeRank(8),"T"+temporal);
+                                            }
+                                        }
+                                        if(identDataType.get(id.lexemeRank(2)).equals("Numero_Entero")){
+                                            int num1 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(2)));
+                                            int num2 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(4)));
+                                            int res = num1 + num2;
+                                            if(identDataTemp.containsKey(Integer.toString(res))){
+                                                num1 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(2)));
+                                                num2 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(4)));
+                                                int num3 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(6)));
+                                                res = num1 + num2 + num3;
+                                                if(identDataTemp.containsKey(Integer.toString(res))){
+                                                    Tripletas.append("T"+temporal+" := "+identDataTemp.get(Integer.toString(res))+" + "+id.lexemeRank(8)+"\n");
+                                                    cuadruplos("+",identDataTemp.get(Integer.toString(res)),id.lexemeRank(8),"T"+temporal);
+                                                }else{
+                                                    num1 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(2)));
+                                                    num2 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(4)));
+                                                    num3 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(6)));
+                                                    res = num1 + num2;
+                                                    Tripletas.append("T"+temporal+" := "+identDataTemp.get(Integer.toString(res))+" + "+id.lexemeRank(6)+"\n");
+                                                    cuadruplos("+",identDataTemp.get(Integer.toString(res)),id.lexemeRank(6),"T"+temporal);
+                                                    res = num1+num2+num3;
+                                                    identDataTemp.put(identDataTypeR.get(Integer.toString(res)),"T"+temporal);
+                                                    temporal++;
+                                                    Tripletas.append("T"+temporal+" := T"+(temporal-1)+" + "+id.lexemeRank(8)+"\n");
+                                                    cuadruplos("+","T"+(temporal-1),id.lexemeRank(8),"T"+temporal);
+                                                }
+                                            }else{
+                                                Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" + "+id.lexemeRank(4)+"\n");
+                                                cuadruplos("+",id.lexemeRank(2),id.lexemeRank(4),"T"+temporal);
+                                                num1 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(2)));
+                                                num2 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(4)));
+                                                res = num1 + num2;
+                                                identDataTemp.put(Integer.toString(res),"T"+temporal);
+                                                temporal++;
+                                                Tripletas.append("T"+temporal+" := T"+(temporal-1)+" + "+id.lexemeRank(6)+"\n");
+                                                cuadruplos("+","T"+(temporal-1),id.lexemeRank(6),"T"+temporal);
+                                                temporal++;
+                                                Tripletas.append("T"+temporal+" := T"+(temporal-1)+" + "+id.lexemeRank(8)+"\n");
+                                                cuadruplos("+","T"+(temporal-1),id.lexemeRank(8),"T"+temporal);
+                                            }
+                                        }
+                                        identDataTemp.put(identDataTypeR.get(id.lexemeRank(11)),"T"+temporal);
+                                        Tripletas.append(id.lexemeRank(11)+" := T"+temporal+"\n");
+                                        cuadruplos("=","T"+temporal,"",id.lexemeRank(11));
+                                    }
                                     PanelSalida.append("-->   Se ha utlizado la función de Sumar, que tiene como parametros a:        " + id.lexemeRank(2) + " = " + identDataTypeV2.get(id.lexemeRank(2)) + " , " + id.lexemeRank(4) + " = " + identDataTypeV2.get(id.lexemeRank(4)) + " , " + id.lexemeRank(6) + " = " + identDataTypeV2.get(id.lexemeRank(6)) + " , " + id.lexemeRank(8) + " = " + identDataTypeV2.get(id.lexemeRank(8)) + "\nDonde el resultado de la operación es: " + identDataTypeR.get(id.lexemeRank(11)) + " , y se guardó en: " + id.lexemeRank(11) + ".........\n");
                                     break;
                                 }else if(id.lexemeRank(0).equals("Restar") && sentence.contains(id.lexemeRank(2)) && sentence.contains(id.lexemeRank(4)) && sentence.contains(id.lexemeRank(6)) && sentence.contains(id.lexemeRank(8)) && sentence.contains(id.lexemeRank(11))){
                                     temporal++;
-                                    Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" - "+id.lexemeRank(4)+"\n");
-                                    temporal++;
-                                    Tripletas.append("T"+temporal+" := T"+(temporal-1)+" - "+id.lexemeRank(6)+"\n");
-                                    temporal++;
-                                    Tripletas.append("T"+temporal+" := T"+(temporal-1)+" - "+id.lexemeRank(8)+"\n");
-                                    Tripletas.append(id.lexemeRank(11)+" := T"+temporal+"\n");
+                                    if(identDataTemp.containsKey(identDataTypeR.get(id.lexemeRank(11)))){
+                                        Tripletas.append(id.lexemeRank(11)+" := "+identDataTemp.get(identDataTypeR.get(id.lexemeRank(11)))+"\n");
+                                        cuadruplos("=",identDataTemp.get(identDataTypeR.get(id.lexemeRank(11))),"",id.lexemeRank(11));
+                                    }else{
+                                        if(identDataType.get(id.lexemeRank(2)).equals("Numero_Decimal")){
+                                            double num1 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(2)));
+                                            double num2 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(4)));
+                                            double res = num1 - num2;
+                                            if(identDataTemp.containsKey(Double.toString(res))){
+                                                num1 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(2)));
+                                                num2 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(4)));
+                                                double num3 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(6)));
+                                                res = num1 - num2 - num3;
+                                                if(identDataTemp.containsKey(Double.toString(res))){
+                                                    Tripletas.append("T"+temporal+" := "+identDataTemp.get(Double.toString(res))+" - "+id.lexemeRank(8)+"\n");
+                                                    cuadruplos("-",identDataTemp.get(Double.toString(res)),id.lexemeRank(8),"T"+temporal);
+                                                }else{
+                                                    num1 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(2)));
+                                                    num2 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(4)));
+                                                    num3 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(6)));
+                                                    res = num1 - num2;
+                                                    Tripletas.append("T"+temporal+" := "+identDataTemp.get(Double.toString(res))+" - "+id.lexemeRank(6)+"\n");
+                                                    cuadruplos("-",identDataTemp.get(Double.toString(res)),id.lexemeRank(6),"T"+temporal);
+                                                    res = num1 - num2 - num3;
+                                                    identDataTemp.put(identDataTypeR.get(Double.toString(res)),"T"+temporal);
+                                                    temporal++;
+                                                    Tripletas.append("T"+temporal+" := T"+(temporal-1)+" - "+id.lexemeRank(8)+"\n");
+                                                    cuadruplos("-","T"+(temporal-1),id.lexemeRank(8),"T"+temporal);
+                                                }
+                                            }else{
+                                                Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" - "+id.lexemeRank(4)+"\n");
+                                                cuadruplos("-",id.lexemeRank(2),id.lexemeRank(4),"T"+temporal);
+                                                num1 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(2)));
+                                                num2 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(4)));
+                                                res = num1 - num2;
+                                                identDataTemp.put(Double.toString(res),"T"+temporal);
+                                                temporal++;
+                                                Tripletas.append("T"+temporal+" := T"+(temporal-1)+" - "+id.lexemeRank(6)+"\n");
+                                                cuadruplos("-","T"+(temporal-1),id.lexemeRank(6),"T"+temporal);
+                                                temporal++;
+                                                Tripletas.append("T"+temporal+" := T"+(temporal-1)+" - "+id.lexemeRank(8)+"\n");
+                                                cuadruplos("-","T"+(temporal-1),id.lexemeRank(8),"T"+temporal);
+                                            }
+                                        }
+                                        if(identDataType.get(id.lexemeRank(2)).equals("Numero_Entero")){
+                                            int num1 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(2)));
+                                            int num2 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(4)));
+                                            int res = num1 - num2;
+                                            if(identDataTemp.containsKey(Integer.toString(res))){
+                                                num1 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(2)));
+                                                num2 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(4)));
+                                                int num3 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(6)));
+                                                res = num1 - num2 - num3;
+                                                if(identDataTemp.containsKey(Integer.toString(res))){
+                                                    Tripletas.append("T"+temporal+" := "+identDataTemp.get(Integer.toString(res))+" - "+id.lexemeRank(8)+"\n");
+                                                    cuadruplos("-",identDataTemp.get(Integer.toString(res)),id.lexemeRank(8),"T"+temporal);
+                                                }else{
+                                                    num1 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(2)));
+                                                    num2 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(4)));
+                                                    num3 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(6)));
+                                                    res = num1 - num2;
+                                                    Tripletas.append("T"+temporal+" := "+identDataTemp.get(Integer.toString(res))+" - "+id.lexemeRank(6)+"\n");
+                                                    cuadruplos("-",identDataTemp.get(Integer.toString(res)),id.lexemeRank(6),"T"+temporal);
+                                                    res = num1-num2-num3;
+                                                    identDataTemp.put(identDataTypeR.get(Integer.toString(res)),"T"+temporal);
+                                                    temporal++;
+                                                    Tripletas.append("T"+temporal+" := T"+(temporal-1)+" - "+id.lexemeRank(8)+"\n");
+                                                    cuadruplos("-","T"+(temporal-1),id.lexemeRank(8),"T"+temporal);
+                                                }
+                                            }else{
+                                                Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" - "+id.lexemeRank(4)+"\n");
+                                                cuadruplos("-",id.lexemeRank(2),id.lexemeRank(4),"T"+temporal);
+                                                num1 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(2)));
+                                                num2 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(4)));
+                                                res = num1 - num2;
+                                                identDataTemp.put(Integer.toString(res),"T"+temporal);
+                                                temporal++;
+                                                Tripletas.append("T"+temporal+" := T"+(temporal-1)+" - "+id.lexemeRank(6)+"\n");
+                                                cuadruplos("-","T"+(temporal-1),id.lexemeRank(6),"T"+temporal);
+                                                temporal++;
+                                                Tripletas.append("T"+temporal+" := T"+(temporal-1)+" - "+id.lexemeRank(8)+"\n");
+                                                cuadruplos("-","T"+(temporal-1),id.lexemeRank(8),"T"+temporal);
+                                            }
+                                        }
+                                        identDataTemp.put(identDataTypeR.get(id.lexemeRank(11)),"T"+temporal);
+                                        Tripletas.append(id.lexemeRank(11)+" := T"+temporal+"\n");
+                                        cuadruplos("=","T"+temporal,"",id.lexemeRank(11));
+                                    }
                                     PanelSalida.append("-->   Se ha utlizado la función de Restar, que tiene como parametros a:       " + id.lexemeRank(2) + " = " + identDataTypeV2.get(id.lexemeRank(2)) + " , " + id.lexemeRank(4) + " = " + identDataTypeV2.get(id.lexemeRank(4)) + " , " + id.lexemeRank(6) + " = " + identDataTypeV2.get(id.lexemeRank(6)) + " , " + id.lexemeRank(8) + " = " + identDataTypeV2.get(id.lexemeRank(8)) + "\nDonde el resultado de la operación es: " + identDataTypeR.get(id.lexemeRank(11)) + " , y se guardó en: " + id.lexemeRank(11) + ".........\n");
                                     break;
                                 }else if(id.lexemeRank(0).equals("Multiplicar") && sentence.contains(id.lexemeRank(2)) && sentence.contains(id.lexemeRank(4)) && sentence.contains(id.lexemeRank(6)) && sentence.contains(id.lexemeRank(8)) && sentence.contains(id.lexemeRank(11))){
                                     temporal++;
-                                    Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" * "+id.lexemeRank(4)+"\n");
-                                    temporal++;
-                                    Tripletas.append("T"+temporal+" := T"+(temporal-1)+" * "+id.lexemeRank(6)+"\n");
-                                    temporal++;
-                                    Tripletas.append("T"+temporal+" := T"+(temporal-1)+" * "+id.lexemeRank(8)+"\n");
-                                    Tripletas.append(id.lexemeRank(11)+" := T"+temporal+"\n");
+                                    if(identDataTemp.containsKey(identDataTypeR.get(id.lexemeRank(11)))){
+                                        Tripletas.append(id.lexemeRank(11)+" := "+identDataTemp.get(identDataTypeR.get(id.lexemeRank(11)))+"\n");
+                                        cuadruplos("=",identDataTemp.get(identDataTypeR.get(id.lexemeRank(11))),"",id.lexemeRank(11));
+                                    }else{
+                                        if(identDataType.get(id.lexemeRank(2)).equals("Numero_Decimal")){
+                                            double num1 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(2)));
+                                            double num2 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(4)));
+                                            double res = num1 * num2;
+                                            if(identDataTemp.containsKey(Double.toString(res))){
+                                                num1 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(2)));
+                                                num2 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(4)));
+                                                double num3 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(6)));
+                                                res = num1 * num2 * num3;
+                                                if(identDataTemp.containsKey(Double.toString(res))){
+                                                    Tripletas.append("T"+temporal+" := "+identDataTemp.get(Double.toString(res))+" * "+id.lexemeRank(8)+"\n");
+                                                    cuadruplos("*",identDataTemp.get(Double.toString(res)),id.lexemeRank(8),"T"+temporal);
+                                                }else{
+                                                    num1 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(2)));
+                                                    num2 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(4)));
+                                                    num3 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(6)));
+                                                    res = num1 * num2;
+                                                    Tripletas.append("T"+temporal+" := "+identDataTemp.get(Double.toString(res))+" * "+id.lexemeRank(6)+"\n");
+                                                    cuadruplos("*",identDataTemp.get(Double.toString(res)),id.lexemeRank(6),"T"+temporal);
+                                                    res = num1*num2*num3;
+                                                    identDataTemp.put(identDataTypeR.get(Double.toString(res)),"T"+temporal);
+                                                    temporal++;
+                                                    Tripletas.append("T"+temporal+" := T"+(temporal-1)+" * "+id.lexemeRank(8)+"\n");
+                                                    cuadruplos("*","T"+(temporal-1),id.lexemeRank(8),"T"+temporal);
+                                                }
+                                            }else{
+                                                Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" * "+id.lexemeRank(4)+"\n");
+                                                cuadruplos("*",id.lexemeRank(2),id.lexemeRank(4),"T"+temporal);
+                                                num1 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(2)));
+                                                num2 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(4)));
+                                                res = num1 * num2;
+                                                identDataTemp.put(Double.toString(res),"T"+temporal);
+                                                temporal++;
+                                                Tripletas.append("T"+temporal+" := T"+(temporal-1)+" * "+id.lexemeRank(6)+"\n");
+                                                cuadruplos("*","T"+(temporal-1),id.lexemeRank(6),"T"+temporal);
+                                                temporal++;
+                                                Tripletas.append("T"+temporal+" := T"+(temporal-1)+" * "+id.lexemeRank(8)+"\n");
+                                                cuadruplos("*","T"+(temporal-1),id.lexemeRank(8),"T"+temporal);
+                                            }
+                                        }
+                                        if(identDataType.get(id.lexemeRank(2)).equals("Numero_Entero")){
+                                            int num1 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(2)));
+                                            int num2 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(4)));
+                                            int res = num1 * num2;
+                                            if(identDataTemp.containsKey(Integer.toString(res))){
+                                                num1 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(2)));
+                                                num2 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(4)));
+                                                int num3 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(6)));
+                                                res = num1 * num2 * num3;
+                                                if(identDataTemp.containsKey(Integer.toString(res))){
+                                                    Tripletas.append("T"+temporal+" := "+identDataTemp.get(Integer.toString(res))+" * "+id.lexemeRank(8)+"\n");
+                                                    cuadruplos("*",identDataTemp.get(Integer.toString(res)),id.lexemeRank(8),"T"+temporal);
+                                                }else{
+                                                    num1 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(2)));
+                                                    num2 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(4)));
+                                                    num3 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(6)));
+                                                    res = num1 * num2;
+                                                    Tripletas.append("T"+temporal+" := "+identDataTemp.get(Integer.toString(res))+" * "+id.lexemeRank(6)+"\n");
+                                                    cuadruplos("*",identDataTemp.get(Integer.toString(res)),id.lexemeRank(6),"T"+temporal);
+                                                    res = num1*num2*num3;
+                                                    identDataTemp.put(identDataTypeR.get(Integer.toString(res)),"T"+temporal);
+                                                    temporal++;
+                                                    Tripletas.append("T"+temporal+" := T"+(temporal-1)+" * "+id.lexemeRank(8)+"\n");
+                                                    cuadruplos("*","T"+(temporal-1),id.lexemeRank(8),"T"+temporal);
+                                                }
+                                            }else{
+                                                Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" * "+id.lexemeRank(4)+"\n");
+                                                cuadruplos("*",id.lexemeRank(2),id.lexemeRank(4),"T"+temporal);
+                                                num1 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(2)));
+                                                num2 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(4)));
+                                                res = num1 * num2;
+                                                identDataTemp.put(Integer.toString(res),"T"+temporal);
+                                                temporal++;
+                                                Tripletas.append("T"+temporal+" := T"+(temporal-1)+" * "+id.lexemeRank(6)+"\n");
+                                                cuadruplos("*","T"+(temporal-1),id.lexemeRank(6),"T"+temporal);
+                                                temporal++;
+                                                Tripletas.append("T"+temporal+" := T"+(temporal-1)+" * "+id.lexemeRank(8)+"\n");
+                                                cuadruplos("*","T"+(temporal-1),id.lexemeRank(8),"T"+temporal);
+                                            }
+                                        }
+                                        identDataTemp.put(identDataTypeR.get(id.lexemeRank(11)),"T"+temporal);
+                                        Tripletas.append(id.lexemeRank(11)+" := T"+temporal+"\n");
+                                        cuadruplos("=","T"+temporal,"",id.lexemeRank(11));
+                                    }
                                     PanelSalida.append("-->   Se ha utlizado la función de Multiplicar, que tiene como parametros a:  " + id.lexemeRank(2) + " = " + identDataTypeV2.get(id.lexemeRank(2)) + " , " + id.lexemeRank(4) + " = " + identDataTypeV2.get(id.lexemeRank(4)) + " , " + id.lexemeRank(6) + " = " + identDataTypeV2.get(id.lexemeRank(6)) + " , " + id.lexemeRank(8) + " = " + identDataTypeV2.get(id.lexemeRank(8)) + "\nDonde el resultado de la operación es: " + identDataTypeR.get(id.lexemeRank(11)) + " , y se guardó en: " + id.lexemeRank(11) + ".........\n");
                                     break;
                                 }else if(id.lexemeRank(0).equals("Dividir") && sentence.contains(id.lexemeRank(2)) && sentence.contains(id.lexemeRank(4)) && sentence.contains(id.lexemeRank(6)) && sentence.contains(id.lexemeRank(8)) && sentence.contains(id.lexemeRank(11))){
                                     temporal++;
-                                    Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" / "+id.lexemeRank(4)+"\n");
-                                    temporal++;
-                                    Tripletas.append("T"+temporal+" := T"+(temporal-1)+" / "+id.lexemeRank(6)+"\n");
-                                    temporal++;
-                                    Tripletas.append("T"+temporal+" := T"+(temporal-1)+" / "+id.lexemeRank(8)+"\n");
-                                    Tripletas.append(id.lexemeRank(11)+" := T"+temporal+"\n");
+                                    if(identDataTemp.containsKey(identDataTypeR.get(id.lexemeRank(11)))){
+                                        Tripletas.append(id.lexemeRank(11)+" := "+identDataTemp.get(identDataTypeR.get(id.lexemeRank(11)))+"\n");
+                                        cuadruplos("=",identDataTemp.get(identDataTypeR.get(id.lexemeRank(11))),"",id.lexemeRank(11));
+                                    }else{
+                                        if(identDataType.get(id.lexemeRank(2)).equals("Numero_Decimal")){
+                                            double num1 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(2)));
+                                            double num2 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(4)));
+                                            double res = num1 / num2;
+                                            if(identDataTemp.containsKey(Double.toString(res))){
+                                                num1 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(2)));
+                                                num2 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(4)));
+                                                double num3 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(6)));
+                                                res = num1 / num2 / num3;
+                                                if(identDataTemp.containsKey(Double.toString(res))){
+                                                    Tripletas.append("T"+temporal+" := "+identDataTemp.get(Double.toString(res))+" / "+id.lexemeRank(8)+"\n");
+                                                    cuadruplos("/",identDataTemp.get(Double.toString(res)),id.lexemeRank(8),"T"+temporal);
+                                                }else{
+                                                    num1 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(2)));
+                                                    num2 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(4)));
+                                                    num3 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(6)));
+                                                    res = num1 / num2;
+                                                    Tripletas.append("T"+temporal+" := "+identDataTemp.get(Double.toString(res))+" / "+id.lexemeRank(6)+"\n");
+                                                    cuadruplos("/",identDataTemp.get(Double.toString(res)),id.lexemeRank(6),"T"+temporal);
+                                                    res = num1/num2/num3;
+                                                    identDataTemp.put(identDataTypeR.get(Double.toString(res)),"T"+temporal);
+                                                    temporal++;
+                                                    Tripletas.append("T"+temporal+" := T"+(temporal-1)+" / "+id.lexemeRank(8)+"\n");
+                                                    cuadruplos("/","T"+(temporal-1),id.lexemeRank(8),"T"+temporal);
+                                                }
+                                            }else{
+                                                Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" / "+id.lexemeRank(4)+"\n");
+                                                cuadruplos("/",id.lexemeRank(2),id.lexemeRank(4),"T"+temporal);
+                                                num1 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(2)));
+                                                num2 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(4)));
+                                                res = num1 / num2;
+                                                identDataTemp.put(Double.toString(res),"T"+temporal);
+                                                temporal++;
+                                                Tripletas.append("T"+temporal+" := T"+(temporal-1)+" / "+id.lexemeRank(6)+"\n");
+                                                cuadruplos("/","T"+(temporal-1),id.lexemeRank(6),"T"+temporal);
+                                                temporal++;
+                                                Tripletas.append("T"+temporal+" := T"+(temporal-1)+" / "+id.lexemeRank(8)+"\n");
+                                                cuadruplos("/","T"+(temporal-1),id.lexemeRank(8),"T"+temporal);
+                                            }
+                                        }
+                                        if(identDataType.get(id.lexemeRank(2)).equals("Numero_Entero")){
+                                            int num1 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(2)));
+                                            int num2 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(4)));
+                                            int res = num1 / num2;
+                                            if(identDataTemp.containsKey(Integer.toString(res))){
+                                                num1 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(2)));
+                                                num2 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(4)));
+                                                int num3 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(6)));
+                                                res = num1 / num2 / num3;
+                                                if(identDataTemp.containsKey(Integer.toString(res))){
+                                                    Tripletas.append("T"+temporal+" := "+identDataTemp.get(Integer.toString(res))+" / "+id.lexemeRank(8)+"\n");
+                                                    cuadruplos("/",identDataTemp.get(Integer.toString(res)),id.lexemeRank(8),"T"+temporal);
+                                                }else{
+                                                    num1 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(2)));
+                                                    num2 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(4)));
+                                                    num3 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(6)));
+                                                    res = num1 / num2;
+                                                    Tripletas.append("T"+temporal+" := "+identDataTemp.get(Integer.toString(res))+" / "+id.lexemeRank(6)+"\n");
+                                                    cuadruplos("/",identDataTemp.get(Integer.toString(res)),id.lexemeRank(6),"T"+temporal);
+                                                    res = num1/num2/num3;
+                                                    identDataTemp.put(identDataTypeR.get(Integer.toString(res)),"T"+temporal);
+                                                    temporal++;
+                                                    Tripletas.append("T"+temporal+" := T"+(temporal-1)+" / "+id.lexemeRank(8)+"\n");
+                                                    cuadruplos("/","T"+(temporal-1),id.lexemeRank(8),"T"+temporal);
+                                                }
+                                            }else{
+                                                Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" / "+id.lexemeRank(4)+"\n");
+                                                cuadruplos("/",id.lexemeRank(2),id.lexemeRank(4),"T"+temporal);
+                                                num1 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(2)));
+                                                num2 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(4)));
+                                                res = num1 / num2;
+                                                identDataTemp.put(Integer.toString(res),"T"+temporal);
+                                                temporal++;
+                                                Tripletas.append("T"+temporal+" := T"+(temporal-1)+" / "+id.lexemeRank(6)+"\n");
+                                                cuadruplos("/","T"+(temporal-1),id.lexemeRank(6),"T"+temporal);
+                                                temporal++;
+                                                Tripletas.append("T"+temporal+" := T"+(temporal-1)+" / "+id.lexemeRank(8)+"\n");
+                                                cuadruplos("/","T"+(temporal-1),id.lexemeRank(8),"T"+temporal);
+                                            }
+                                        }
+                                        identDataTemp.put(identDataTypeR.get(id.lexemeRank(11)),"T"+temporal);
+                                        Tripletas.append(id.lexemeRank(11)+" := T"+temporal+"\n");
+                                        cuadruplos("=","T"+temporal,"",id.lexemeRank(11));
+                                    }
                                     PanelSalida.append("-->   Se ha utlizado la función de Dividir, que tiene como parametros a:      " + id.lexemeRank(2) + " = " + identDataTypeV2.get(id.lexemeRank(2)) + " , " + id.lexemeRank(4) + " = " + identDataTypeV2.get(id.lexemeRank(4)) + " , " + id.lexemeRank(6) + " = " + identDataTypeV2.get(id.lexemeRank(6)) + " , " + id.lexemeRank(8) + " = " + identDataTypeV2.get(id.lexemeRank(8)) + "\nDonde el resultado de la operación es: " + identDataTypeR.get(id.lexemeRank(11)) + " , y se guardó en: " + id.lexemeRank(11) + ".........\n");
                                     break;
                                 }
@@ -20936,50 +21554,554 @@ public class Interfaz extends javax.swing.JFrame {
                             if(sentence.startsWith(id.lexemeRank(0))){
                                 if(id.lexemeRank(0).equals("Sumar") && sentence.contains(id.lexemeRank(2)) && sentence.contains(id.lexemeRank(4)) && sentence.contains(id.lexemeRank(6)) && sentence.contains(id.lexemeRank(8)) && sentence.contains(id.lexemeRank(10)) && sentence.contains(id.lexemeRank(13))){
                                     temporal++;
-                                    Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" + "+id.lexemeRank(4)+"\n");
-                                    temporal++;
-                                    Tripletas.append("T"+temporal+" := T"+(temporal-1)+" + "+id.lexemeRank(6)+"\n");
-                                    temporal++;
-                                    Tripletas.append("T"+temporal+" := T"+(temporal-1)+" + "+id.lexemeRank(8)+"\n");
-                                    temporal++;
-                                    Tripletas.append("T"+temporal+" := T"+(temporal-1)+" + "+id.lexemeRank(10)+"\n");
-                                    Tripletas.append(id.lexemeRank(13)+" := T"+temporal+"\n");
+                                    if(identDataTemp.containsKey(identDataTypeR.get(id.lexemeRank(13)))){
+                                        Tripletas.append(id.lexemeRank(13)+" := "+identDataTemp.get(identDataTypeR.get(id.lexemeRank(13)))+"\n");
+                                        cuadruplos("=",identDataTemp.get(identDataTypeR.get(id.lexemeRank(13))),"",id.lexemeRank(13));
+                                    }else{
+                                        if(identDataType.get(id.lexemeRank(2)).equals("Numero_Decimal")){
+                                            double num1 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(2)));
+                                            double num2 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(4)));
+                                            double res = num1 + num2;
+                                            if(identDataTemp.containsKey(Double.toString(res))){
+                                                num1 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(2)));
+                                                num2 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(4)));
+                                                double num3 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(6)));
+                                                res = num1 + num2 + num3;
+                                                if(identDataTemp.containsKey(Double.toString(res))){
+                                                    num1 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(2)));
+                                                    num2 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(4)));
+                                                    num3 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(6)));
+                                                    double num4 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(8)));
+                                                    res = num1 + num2 + num3 + num4;
+                                                    if(identDataTemp.containsKey(Double.toString(res))){
+                                                        Tripletas.append("T"+temporal+" := "+identDataTemp.get(Double.toString(res))+" + "+id.lexemeRank(10)+"\n");
+                                                        cuadruplos("+",identDataTemp.get(Double.toString(res)),id.lexemeRank(10),"T"+temporal);
+                                                    }else{
+                                                        num1 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(2)));
+                                                        num2 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(4)));
+                                                        num3 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(6)));
+                                                        res = num1 + num2 + num3;
+                                                        Tripletas.append("T"+temporal+" := "+identDataTemp.get(Double.toString(res))+" + "+id.lexemeRank(8)+"\n");
+                                                        cuadruplos("+",identDataTemp.get(Double.toString(res)),id.lexemeRank(8),"T"+temporal);
+                                                        temporal++;
+                                                        Tripletas.append("T"+temporal+" := T"+(temporal-1)+" + "+id.lexemeRank(10)+"\n");
+                                                        cuadruplos("+","T"+(temporal-1),id.lexemeRank(10),"T"+temporal);
+                                                    }
+                                                }else{
+                                                    num1 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(2)));
+                                                    num2 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(4)));
+                                                    num3 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(6)));
+                                                    res = num1 + num2;
+                                                    Tripletas.append("T"+temporal+" := "+identDataTemp.get(Double.toString(res))+" + "+id.lexemeRank(6)+"\n");
+                                                    cuadruplos("+",identDataTemp.get(Double.toString(res)),id.lexemeRank(6),"T"+temporal);
+                                                    res = num1+num2+num3;
+                                                    identDataTemp.put(identDataTypeR.get(Double.toString(res)),"T"+temporal);
+                                                    temporal++;
+                                                    Tripletas.append("T"+temporal+" := T"+(temporal-1)+" + "+id.lexemeRank(8)+"\n");
+                                                    cuadruplos("+","T"+(temporal-1),id.lexemeRank(8),"T"+temporal);
+                                                    temporal++;
+                                                    Tripletas.append("T"+temporal+" := T"+(temporal-1)+" + "+id.lexemeRank(10)+"\n");
+                                                    cuadruplos("+","T"+(temporal-1),id.lexemeRank(10),"T"+temporal);
+                                                }
+                                            }else{
+                                                Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" + "+id.lexemeRank(4)+"\n");
+                                                cuadruplos("+",id.lexemeRank(2),id.lexemeRank(4),"T"+temporal);
+                                                num1 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(2)));
+                                                num2 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(4)));
+                                                res = num1 + num2;
+                                                identDataTemp.put(Double.toString(res),"T"+temporal);
+                                                temporal++;
+                                                Tripletas.append("T"+temporal+" := T"+(temporal-1)+" + "+id.lexemeRank(6)+"\n");
+                                                cuadruplos("+","T"+(temporal-1),id.lexemeRank(6),"T"+temporal);
+                                                temporal++;
+                                                Tripletas.append("T"+temporal+" := T"+(temporal-1)+" + "+id.lexemeRank(8)+"\n");
+                                                cuadruplos("+","T"+(temporal-1),id.lexemeRank(8),"T"+temporal);
+                                                temporal++;
+                                                Tripletas.append("T"+temporal+" := T"+(temporal-1)+" + "+id.lexemeRank(10)+"\n");
+                                                cuadruplos("+","T"+(temporal-1),id.lexemeRank(10),"T"+temporal);
+                                            }
+                                        }
+                                        if(identDataType.get(id.lexemeRank(2)).equals("Numero_Entero")){
+                                            int num1 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(2)));
+                                            int num2 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(4)));
+                                            int res = num1 + num2;
+                                            if(identDataTemp.containsKey(Integer.toString(res))){
+                                                num1 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(2)));
+                                                num2 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(4)));
+                                                int num3 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(6)));
+                                                res = num1 + num2 + num3;
+                                                if(identDataTemp.containsKey(Integer.toString(res))){
+                                                    num1 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(2)));
+                                                    num2 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(4)));
+                                                    num3 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(6)));
+                                                    int num4 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(8)));
+                                                    res = num1 + num2 + num3 + num4;
+                                                    if(identDataTemp.containsKey(Integer.toString(res))){
+                                                        Tripletas.append("T"+temporal+" := "+identDataTemp.get(Integer.toString(res))+" + "+id.lexemeRank(10)+"\n");
+                                                        cuadruplos("+",identDataTemp.get(Integer.toString(res)),id.lexemeRank(10),"T"+temporal);
+                                                    }else{
+                                                        num1 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(2)));
+                                                        num2 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(4)));
+                                                        num3 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(6)));
+                                                        res = num1 + num2 + num3;
+                                                        Tripletas.append("T"+temporal+" := "+identDataTemp.get(Integer.toString(res))+" + "+id.lexemeRank(8)+"\n");
+                                                        cuadruplos("+",identDataTemp.get(Integer.toString(res)),id.lexemeRank(8),"T"+temporal);
+                                                        temporal++;
+                                                        Tripletas.append("T"+temporal+" := T"+(temporal-1)+" + "+id.lexemeRank(10)+"\n");
+                                                        cuadruplos("+","T"+(temporal-1),id.lexemeRank(10),"T"+temporal);
+                                                    }
+                                                }else{
+                                                    num1 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(2)));
+                                                    num2 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(4)));
+                                                    num3 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(6)));
+                                                    res = num1 + num2;
+                                                    Tripletas.append("T"+temporal+" := "+identDataTemp.get(Integer.toString(res))+" + "+id.lexemeRank(6)+"\n");
+                                                    cuadruplos("+",identDataTemp.get(Integer.toString(res)),id.lexemeRank(6),"T"+temporal);
+                                                    res = num1+num2+num3;
+                                                    identDataTemp.put(identDataTypeR.get(Integer.toString(res)),"T"+temporal);
+                                                    temporal++;
+                                                    Tripletas.append("T"+temporal+" := T"+(temporal-1)+" + "+id.lexemeRank(8)+"\n");
+                                                    cuadruplos("+","T"+(temporal-1),id.lexemeRank(8),"T"+temporal);
+                                                    temporal++;
+                                                    Tripletas.append("T"+temporal+" := T"+(temporal-1)+" + "+id.lexemeRank(10)+"\n");
+                                                    cuadruplos("+","T"+(temporal-1),id.lexemeRank(10),"T"+temporal);
+                                                }
+                                            }else{
+                                                Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" + "+id.lexemeRank(4)+"\n");
+                                                cuadruplos("+",id.lexemeRank(2),id.lexemeRank(4),"T"+temporal);
+                                                num1 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(2)));
+                                                num2 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(4)));
+                                                res = num1 + num2;
+                                                identDataTemp.put(Integer.toString(res),"T"+temporal);
+                                                temporal++;
+                                                Tripletas.append("T"+temporal+" := T"+(temporal-1)+" + "+id.lexemeRank(6)+"\n");
+                                                cuadruplos("+","T"+(temporal-1),id.lexemeRank(6),"T"+temporal);
+                                                temporal++;
+                                                Tripletas.append("T"+temporal+" := T"+(temporal-1)+" + "+id.lexemeRank(8)+"\n");
+                                                cuadruplos("+","T"+(temporal-1),id.lexemeRank(8),"T"+temporal);
+                                                temporal++;
+                                                Tripletas.append("T"+temporal+" := T"+(temporal-1)+" + "+id.lexemeRank(10)+"\n");
+                                                cuadruplos("+","T"+(temporal-1),id.lexemeRank(10),"T"+temporal);
+                                            }
+                                        }
+                                        identDataTemp.put(identDataTypeR.get(id.lexemeRank(13)),"T"+temporal);
+                                        Tripletas.append(id.lexemeRank(13)+" := T"+temporal+"\n");
+                                        cuadruplos("=","T"+temporal,"",id.lexemeRank(13));
+                                    }
                                     PanelSalida.append("-->   Se ha utlizado la función de Sumar, que tiene como parametros a:        " + id.lexemeRank(2) + " = " + identDataTypeV2.get(id.lexemeRank(2)) + " , " + id.lexemeRank(4) + " = " + identDataTypeV2.get(id.lexemeRank(4)) + " , " + id.lexemeRank(6) + " = " + identDataTypeV2.get(id.lexemeRank(6)) + " , " + id.lexemeRank(8) + " = " + identDataTypeV2.get(id.lexemeRank(8)) + " , " + id.lexemeRank(10) + " = " + identDataTypeV2.get(id.lexemeRank(10)) + "\ndonde el resultado de la operación es: " + identDataTypeR.get(id.lexemeRank(13)) + " , y se guardó en: " + id.lexemeRank(13) + ".........\n");
                                     break;
                                 }else if(id.lexemeRank(0).equals("Restar") && sentence.contains(id.lexemeRank(2)) && sentence.contains(id.lexemeRank(4)) && sentence.contains(id.lexemeRank(6)) && sentence.contains(id.lexemeRank(8)) && sentence.contains(id.lexemeRank(10)) && sentence.contains(id.lexemeRank(13))){
                                     temporal++;
-                                    Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" - "+id.lexemeRank(4)+"\n");
-                                    temporal++;
-                                    Tripletas.append("T"+temporal+" := T"+(temporal-1)+" - "+id.lexemeRank(6)+"\n");
-                                    temporal++;
-                                    Tripletas.append("T"+temporal+" := T"+(temporal-1)+" - "+id.lexemeRank(8)+"\n");
-                                    temporal++;
-                                    Tripletas.append("T"+temporal+" := T"+(temporal-1)+" - "+id.lexemeRank(10)+"\n");
-                                    Tripletas.append(id.lexemeRank(13)+" := T"+temporal+"\n");
+                                    if(identDataTemp.containsKey(identDataTypeR.get(id.lexemeRank(13)))){
+                                        Tripletas.append(id.lexemeRank(13)+" := "+identDataTemp.get(identDataTypeR.get(id.lexemeRank(13)))+"\n");
+                                        cuadruplos("=",identDataTemp.get(identDataTypeR.get(id.lexemeRank(13))),"",id.lexemeRank(13));
+                                    }else{
+                                        if(identDataType.get(id.lexemeRank(2)).equals("Numero_Decimal")){
+                                            double num1 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(2)));
+                                            double num2 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(4)));
+                                            double res = num1 - num2;
+                                            if(identDataTemp.containsKey(Double.toString(res))){
+                                                num1 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(2)));
+                                                num2 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(4)));
+                                                double num3 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(6)));
+                                                res = num1 - num2 - num3;
+                                                if(identDataTemp.containsKey(Double.toString(res))){
+                                                    num1 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(2)));
+                                                    num2 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(4)));
+                                                    num3 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(6)));
+                                                    double num4 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(8)));
+                                                    res = num1 - num2 - num3 - num4;
+                                                    if(identDataTemp.containsKey(Double.toString(res))){
+                                                        Tripletas.append("T"+temporal+" := "+identDataTemp.get(Double.toString(res))+" - "+id.lexemeRank(10)+"\n");
+                                                        cuadruplos("-",identDataTemp.get(Double.toString(res)),id.lexemeRank(10),"T"+temporal);
+                                                    }else{
+                                                        num1 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(2)));
+                                                        num2 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(4)));
+                                                        num3 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(6)));
+                                                        res = num1 - num2 - num3;
+                                                        Tripletas.append("T"+temporal+" := "+identDataTemp.get(Double.toString(res))+" - "+id.lexemeRank(8)+"\n");
+                                                        cuadruplos("-",identDataTemp.get(Double.toString(res)),id.lexemeRank(8),"T"+temporal);
+                                                        temporal++;
+                                                        Tripletas.append("T"+temporal+" := T"+(temporal-1)+" - "+id.lexemeRank(10)+"\n");
+                                                        cuadruplos("-","T"+(temporal-1),id.lexemeRank(10),"T"+temporal);
+                                                    }
+                                                }else{
+                                                    num1 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(2)));
+                                                    num2 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(4)));
+                                                    num3 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(6)));
+                                                    res = num1 - num2;
+                                                    Tripletas.append("T"+temporal+" := "+identDataTemp.get(Double.toString(res))+" - "+id.lexemeRank(6)+"\n");
+                                                    cuadruplos("-",identDataTemp.get(Double.toString(res)),id.lexemeRank(6),"T"+temporal);
+                                                    res = num1-num2-num3;
+                                                    identDataTemp.put(identDataTypeR.get(Double.toString(res)),"T"+temporal);
+                                                    temporal++;
+                                                    Tripletas.append("T"+temporal+" := T"+(temporal-1)+" - "+id.lexemeRank(8)+"\n");
+                                                    cuadruplos("-","T"+(temporal-1),id.lexemeRank(8),"T"+temporal);
+                                                    temporal++;
+                                                    Tripletas.append("T"+temporal+" := T"+(temporal-1)+" - "+id.lexemeRank(10)+"\n");
+                                                    cuadruplos("-","T"+(temporal-1),id.lexemeRank(10),"T"+temporal);
+                                                }
+                                            }else{
+                                                Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" - "+id.lexemeRank(4)+"\n");
+                                                cuadruplos("-",id.lexemeRank(2),id.lexemeRank(4),"T"+temporal);
+                                                num1 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(2)));
+                                                num2 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(4)));
+                                                res = num1 - num2;
+                                                identDataTemp.put(Double.toString(res),"T"+temporal);
+                                                temporal++;
+                                                Tripletas.append("T"+temporal+" := T"+(temporal-1)+" - "+id.lexemeRank(6)+"\n");
+                                                cuadruplos("-","T"+(temporal-1),id.lexemeRank(6),"T"+temporal);
+                                                temporal++;
+                                                Tripletas.append("T"+temporal+" := T"+(temporal-1)+" - "+id.lexemeRank(8)+"\n");
+                                                cuadruplos("-","T"+(temporal-1),id.lexemeRank(8),"T"+temporal);
+                                                temporal++;
+                                                Tripletas.append("T"+temporal+" := T"+(temporal-1)+" - "+id.lexemeRank(10)+"\n");
+                                                cuadruplos("-","T"+(temporal-1),id.lexemeRank(10),"T"+temporal);
+                                            }
+                                        }
+                                        if(identDataType.get(id.lexemeRank(2)).equals("Numero_Entero")){
+                                            int num1 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(2)));
+                                            int num2 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(4)));
+                                            int res = num1 - num2;
+                                            if(identDataTemp.containsKey(Integer.toString(res))){
+                                                num1 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(2)));
+                                                num2 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(4)));
+                                                int num3 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(6)));
+                                                res = num1 - num2 - num3;
+                                                if(identDataTemp.containsKey(Integer.toString(res))){
+                                                    num1 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(2)));
+                                                    num2 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(4)));
+                                                    num3 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(6)));
+                                                    int num4 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(8)));
+                                                    res = num1 - num2 - num3 - num4;
+                                                    if(identDataTemp.containsKey(Integer.toString(res))){
+                                                        Tripletas.append("T"+temporal+" := "+identDataTemp.get(Integer.toString(res))+" - "+id.lexemeRank(10)+"\n");
+                                                        cuadruplos("-",identDataTemp.get(Integer.toString(res)),id.lexemeRank(10),"T"+temporal);
+                                                    }else{
+                                                        num1 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(2)));
+                                                        num2 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(4)));
+                                                        num3 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(6)));
+                                                        res = num1 - num2 - num3;
+                                                        Tripletas.append("T"+temporal+" := "+identDataTemp.get(Integer.toString(res))+" - "+id.lexemeRank(8)+"\n");
+                                                        cuadruplos("-",identDataTemp.get(Integer.toString(res)),id.lexemeRank(8),"T"+temporal);
+                                                        temporal++;
+                                                        Tripletas.append("T"+temporal+" := T"+(temporal-1)+" - "+id.lexemeRank(10)+"\n");
+                                                        cuadruplos("-","T"+(temporal-1),id.lexemeRank(10),"T"+temporal);
+                                                    }
+                                                }else{
+                                                    num1 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(2)));
+                                                    num2 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(4)));
+                                                    num3 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(6)));
+                                                    res = num1 - num2;
+                                                    Tripletas.append("T"+temporal+" := "+identDataTemp.get(Integer.toString(res))+" - "+id.lexemeRank(6)+"\n");
+                                                    cuadruplos("-",identDataTemp.get(Integer.toString(res)),id.lexemeRank(6),"T"+temporal);
+                                                    res = num1-num2-num3;
+                                                    identDataTemp.put(identDataTypeR.get(Integer.toString(res)),"T"+temporal);
+                                                    temporal++;
+                                                    Tripletas.append("T"+temporal+" := T"+(temporal-1)+" - "+id.lexemeRank(8)+"\n");
+                                                    cuadruplos("-","T"+(temporal-1),id.lexemeRank(8),"T"+temporal);
+                                                    temporal++;
+                                                    Tripletas.append("T"+temporal+" := T"+(temporal-1)+" - "+id.lexemeRank(10)+"\n");
+                                                    cuadruplos("-","T"+(temporal-1),id.lexemeRank(10),"T"+temporal);
+                                                }
+                                            }else{
+                                                Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" - "+id.lexemeRank(4)+"\n");
+                                                cuadruplos("-",id.lexemeRank(2),id.lexemeRank(4),"T"+temporal);
+                                                num1 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(2)));
+                                                num2 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(4)));
+                                                res = num1 - num2;
+                                                identDataTemp.put(Integer.toString(res),"T"+temporal);
+                                                temporal++;
+                                                Tripletas.append("T"+temporal+" := T"+(temporal-1)+" - "+id.lexemeRank(6)+"\n");
+                                                cuadruplos("-","T"+(temporal-1),id.lexemeRank(6),"T"+temporal);
+                                                temporal++;
+                                                Tripletas.append("T"+temporal+" := T"+(temporal-1)+" - "+id.lexemeRank(8)+"\n");
+                                                cuadruplos("-","T"+(temporal-1),id.lexemeRank(8),"T"+temporal);
+                                                temporal++;
+                                                Tripletas.append("T"+temporal+" := T"+(temporal-1)+" - "+id.lexemeRank(10)+"\n");
+                                                cuadruplos("-","T"+(temporal-1),id.lexemeRank(10),"T"+temporal);
+                                            }
+                                        }
+                                        identDataTemp.put(identDataTypeR.get(id.lexemeRank(13)),"T"+temporal);
+                                        Tripletas.append(id.lexemeRank(13)+" := T"+temporal+"\n");
+                                        cuadruplos("=","T"+temporal,"",id.lexemeRank(13));
+                                    }
                                     PanelSalida.append("-->   Se ha utlizado la función de Restar, que tiene como parametros a:       " + id.lexemeRank(2) + " = " + identDataTypeV2.get(id.lexemeRank(2)) + " , " + id.lexemeRank(4) + " = " + identDataTypeV2.get(id.lexemeRank(4)) + " , " + id.lexemeRank(6) + " = " + identDataTypeV2.get(id.lexemeRank(6)) + " , " + id.lexemeRank(8) + " = " + identDataTypeV2.get(id.lexemeRank(8)) + " , " + id.lexemeRank(10) + " = " + identDataTypeV2.get(id.lexemeRank(10)) + "\ndonde el resultado de la operación es: " + identDataTypeR.get(id.lexemeRank(13)) + " , y se guardó en: " + id.lexemeRank(13) + ".........\n");
                                     break;
                                 }else if(id.lexemeRank(0).equals("Multiplicar") && sentence.contains(id.lexemeRank(2)) && sentence.contains(id.lexemeRank(4)) && sentence.contains(id.lexemeRank(6)) && sentence.contains(id.lexemeRank(8)) && sentence.contains(id.lexemeRank(10)) && sentence.contains(id.lexemeRank(13))){
                                     temporal++;
-                                    Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" * "+id.lexemeRank(4)+"\n");
-                                    temporal++;
-                                    Tripletas.append("T"+temporal+" := T"+(temporal-1)+" * "+id.lexemeRank(6)+"\n");
-                                    temporal++;
-                                    Tripletas.append("T"+temporal+" := T"+(temporal-1)+" * "+id.lexemeRank(8)+"\n");
-                                    temporal++;
-                                    Tripletas.append("T"+temporal+" := T"+(temporal-1)+" * "+id.lexemeRank(10)+"\n");
-                                    Tripletas.append(id.lexemeRank(13)+" := T"+temporal+"\n");
+                                    if(identDataTemp.containsKey(identDataTypeR.get(id.lexemeRank(13)))){
+                                        Tripletas.append(id.lexemeRank(13)+" := "+identDataTemp.get(identDataTypeR.get(id.lexemeRank(13)))+"\n");
+                                        cuadruplos("=",identDataTemp.get(identDataTypeR.get(id.lexemeRank(13))),"",id.lexemeRank(13));
+                                    }else{
+                                        if(identDataType.get(id.lexemeRank(2)).equals("Numero_Decimal")){
+                                            double num1 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(2)));
+                                            double num2 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(4)));
+                                            double res = num1 * num2;
+                                            if(identDataTemp.containsKey(Double.toString(res))){
+                                                num1 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(2)));
+                                                num2 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(4)));
+                                                double num3 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(6)));
+                                                res = num1 * num2 * num3;
+                                                if(identDataTemp.containsKey(Double.toString(res))){
+                                                    num1 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(2)));
+                                                    num2 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(4)));
+                                                    num3 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(6)));
+                                                    double num4 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(8)));
+                                                    res = num1 * num2 * num3 * num4;
+                                                    if(identDataTemp.containsKey(Double.toString(res))){
+                                                        Tripletas.append("T"+temporal+" := "+identDataTemp.get(Double.toString(res))+" * "+id.lexemeRank(10)+"\n");
+                                                        cuadruplos("*",identDataTemp.get(Double.toString(res)),id.lexemeRank(10),"T"+temporal);
+                                                    }else{
+                                                        num1 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(2)));
+                                                        num2 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(4)));
+                                                        num3 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(6)));
+                                                        res = num1 * num2 * num3;
+                                                        Tripletas.append("T"+temporal+" := "+identDataTemp.get(Double.toString(res))+" * "+id.lexemeRank(8)+"\n");
+                                                        cuadruplos("*",identDataTemp.get(Double.toString(res)),id.lexemeRank(8),"T"+temporal);
+                                                        temporal++;
+                                                        Tripletas.append("T"+temporal+" := T"+(temporal-1)+" * "+id.lexemeRank(10)+"\n");
+                                                        cuadruplos("*","T"+(temporal-1),id.lexemeRank(10),"T"+temporal);
+                                                    }
+                                                }else{
+                                                    num1 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(2)));
+                                                    num2 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(4)));
+                                                    num3 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(6)));
+                                                    res = num1 * num2;
+                                                    Tripletas.append("T"+temporal+" := "+identDataTemp.get(Double.toString(res))+" * "+id.lexemeRank(6)+"\n");
+                                                    cuadruplos("*",identDataTemp.get(Double.toString(res)),id.lexemeRank(6),"T"+temporal);
+                                                    res = num1*num2*num3;
+                                                    identDataTemp.put(identDataTypeR.get(Double.toString(res)),"T"+temporal);
+                                                    temporal++;
+                                                    Tripletas.append("T"+temporal+" := T"+(temporal-1)+" * "+id.lexemeRank(8)+"\n");
+                                                    cuadruplos("*","T"+(temporal-1),id.lexemeRank(8),"T"+temporal);
+                                                    temporal++;
+                                                    Tripletas.append("T"+temporal+" := T"+(temporal-1)+" * "+id.lexemeRank(10)+"\n");
+                                                    cuadruplos("*","T"+(temporal-1),id.lexemeRank(10),"T"+temporal);
+                                                }
+                                            }else{
+                                                Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" * "+id.lexemeRank(4)+"\n");
+                                                cuadruplos("*",id.lexemeRank(2),id.lexemeRank(4),"T"+temporal);
+                                                num1 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(2)));
+                                                num2 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(4)));
+                                                res = num1 * num2;
+                                                identDataTemp.put(Double.toString(res),"T"+temporal);
+                                                temporal++;
+                                                Tripletas.append("T"+temporal+" := T"+(temporal-1)+" * "+id.lexemeRank(6)+"\n");
+                                                cuadruplos("*","T"+(temporal-1),id.lexemeRank(6),"T"+temporal);
+                                                temporal++;
+                                                Tripletas.append("T"+temporal+" := T"+(temporal-1)+" * "+id.lexemeRank(8)+"\n");
+                                                cuadruplos("*","T"+(temporal-1),id.lexemeRank(8),"T"+temporal);
+                                                temporal++;
+                                                Tripletas.append("T"+temporal+" := T"+(temporal-1)+" * "+id.lexemeRank(10)+"\n");
+                                                cuadruplos("*","T"+(temporal-1),id.lexemeRank(10),"T"+temporal);
+                                            }
+                                        }
+                                        if(identDataType.get(id.lexemeRank(2)).equals("Numero_Entero")){
+                                            int num1 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(2)));
+                                            int num2 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(4)));
+                                            int res = num1 * num2;
+                                            if(identDataTemp.containsKey(Integer.toString(res))){
+                                                num1 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(2)));
+                                                num2 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(4)));
+                                                int num3 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(6)));
+                                                res = num1 * num2 * num3;
+                                                if(identDataTemp.containsKey(Integer.toString(res))){
+                                                    num1 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(2)));
+                                                    num2 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(4)));
+                                                    num3 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(6)));
+                                                    int num4 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(8)));
+                                                    res = num1 * num2 * num3 * num4;
+                                                    if(identDataTemp.containsKey(Integer.toString(res))){
+                                                        Tripletas.append("T"+temporal+" := "+identDataTemp.get(Integer.toString(res))+" * "+id.lexemeRank(10)+"\n");
+                                                        cuadruplos("*",identDataTemp.get(Integer.toString(res)),id.lexemeRank(10),"T"+temporal);
+                                                    }else{
+                                                        num1 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(2)));
+                                                        num2 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(4)));
+                                                        num3 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(6)));
+                                                        res = num1 * num2 * num3;
+                                                        Tripletas.append("T"+temporal+" := "+identDataTemp.get(Integer.toString(res))+" * "+id.lexemeRank(8)+"\n");
+                                                        cuadruplos("*",identDataTemp.get(Integer.toString(res)),id.lexemeRank(8),"T"+temporal);
+                                                        temporal++;
+                                                        Tripletas.append("T"+temporal+" := T"+(temporal-1)+" * "+id.lexemeRank(10)+"\n");
+                                                        cuadruplos("*","T"+(temporal-1),id.lexemeRank(10),"T"+temporal);
+                                                    }
+                                                }else{
+                                                    num1 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(2)));
+                                                    num2 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(4)));
+                                                    num3 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(6)));
+                                                    res = num1 * num2;
+                                                    Tripletas.append("T"+temporal+" := "+identDataTemp.get(Integer.toString(res))+" * "+id.lexemeRank(6)+"\n");
+                                                    cuadruplos("*",identDataTemp.get(Integer.toString(res)),id.lexemeRank(6),"T"+temporal);
+                                                    res = num1*num2*num3;
+                                                    identDataTemp.put(identDataTypeR.get(Integer.toString(res)),"T"+temporal);
+                                                    temporal++;
+                                                    Tripletas.append("T"+temporal+" := T"+(temporal-1)+" * "+id.lexemeRank(8)+"\n");
+                                                    cuadruplos("*","T"+(temporal-1),id.lexemeRank(8),"T"+temporal);
+                                                    temporal++;
+                                                    Tripletas.append("T"+temporal+" := T"+(temporal-1)+" * "+id.lexemeRank(10)+"\n");
+                                                    cuadruplos("*","T"+(temporal-1),id.lexemeRank(10),"T"+temporal);
+                                                }
+                                            }else{
+                                                Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" * "+id.lexemeRank(4)+"\n");
+                                                cuadruplos("*",id.lexemeRank(2),id.lexemeRank(4),"T"+temporal);
+                                                num1 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(2)));
+                                                num2 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(4)));
+                                                res = num1 * num2;
+                                                identDataTemp.put(Integer.toString(res),"T"+temporal);
+                                                temporal++;
+                                                Tripletas.append("T"+temporal+" := T"+(temporal-1)+" * "+id.lexemeRank(6)+"\n");
+                                                cuadruplos("*","T"+(temporal-1),id.lexemeRank(6),"T"+temporal);
+                                                temporal++;
+                                                Tripletas.append("T"+temporal+" := T"+(temporal-1)+" * "+id.lexemeRank(8)+"\n");
+                                                cuadruplos("*","T"+(temporal-1),id.lexemeRank(8),"T"+temporal);
+                                                temporal++;
+                                                Tripletas.append("T"+temporal+" := T"+(temporal-1)+" * "+id.lexemeRank(10)+"\n");
+                                                cuadruplos("*","T"+(temporal-1),id.lexemeRank(10),"T"+temporal);
+                                            }
+                                        }
+                                        identDataTemp.put(identDataTypeR.get(id.lexemeRank(13)),"T"+temporal);
+                                        Tripletas.append(id.lexemeRank(13)+" := T"+temporal+"\n");
+                                        cuadruplos("=","T"+temporal,"",id.lexemeRank(13));
+                                    }
                                     PanelSalida.append("-->   Se ha utlizado la función de Multiplicar, que tiene como parametros a:  " + id.lexemeRank(2) + " = " + identDataTypeV2.get(id.lexemeRank(2)) + " , " + id.lexemeRank(4) + " = " + identDataTypeV2.get(id.lexemeRank(4)) + " , " + id.lexemeRank(6) + " = " + identDataTypeV2.get(id.lexemeRank(6)) + " , " + id.lexemeRank(8) + " = " + identDataTypeV2.get(id.lexemeRank(8)) + " , " + id.lexemeRank(10) + " = " + identDataTypeV2.get(id.lexemeRank(10)) + "\ndonde el resultado de la operación es: " + identDataTypeR.get(id.lexemeRank(13)) + " , y se guardó en: " + id.lexemeRank(13) + ".........\n");
                                     break;
                                 }else if(id.lexemeRank(0).equals("Dividir") && sentence.contains(id.lexemeRank(2)) && sentence.contains(id.lexemeRank(4)) && sentence.contains(id.lexemeRank(6)) && sentence.contains(id.lexemeRank(8)) && sentence.contains(id.lexemeRank(10)) && sentence.contains(id.lexemeRank(13))){
                                     temporal++;
-                                    Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" / "+id.lexemeRank(4)+"\n");
-                                    temporal++;
-                                    Tripletas.append("T"+temporal+" := T"+(temporal-1)+" / "+id.lexemeRank(6)+"\n");
-                                    temporal++;
-                                    Tripletas.append("T"+temporal+" := T"+(temporal-1)+" / "+id.lexemeRank(8)+"\n");
-                                    temporal++;
-                                    Tripletas.append("T"+temporal+" := T"+(temporal-1)+" / "+id.lexemeRank(10)+"\n");
-                                    Tripletas.append(id.lexemeRank(13)+" := T"+temporal+"\n");
+                                    if(identDataTemp.containsKey(identDataTypeR.get(id.lexemeRank(13)))){
+                                        Tripletas.append(id.lexemeRank(13)+" := "+identDataTemp.get(identDataTypeR.get(id.lexemeRank(13)))+"\n");
+                                        cuadruplos("=",identDataTemp.get(identDataTypeR.get(id.lexemeRank(13))),"",id.lexemeRank(13));
+                                    }else{
+                                        if(identDataType.get(id.lexemeRank(2)).equals("Numero_Decimal")){
+                                            double num1 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(2)));
+                                            double num2 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(4)));
+                                            double res = num1 / num2;
+                                            if(identDataTemp.containsKey(Double.toString(res))){
+                                                num1 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(2)));
+                                                num2 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(4)));
+                                                double num3 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(6)));
+                                                res = num1 / num2 / num3;
+                                                if(identDataTemp.containsKey(Double.toString(res))){
+                                                    num1 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(2)));
+                                                    num2 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(4)));
+                                                    num3 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(6)));
+                                                    double num4 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(8)));
+                                                    res = num1 / num2 / num3 / num4;
+                                                    if(identDataTemp.containsKey(Double.toString(res))){
+                                                        Tripletas.append("T"+temporal+" := "+identDataTemp.get(Double.toString(res))+" / "+id.lexemeRank(10)+"\n");
+                                                        cuadruplos("/",identDataTemp.get(Double.toString(res)),id.lexemeRank(10),"T"+temporal);
+                                                    }else{
+                                                        num1 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(2)));
+                                                        num2 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(4)));
+                                                        num3 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(6)));
+                                                        res = num1 / num2 / num3;
+                                                        Tripletas.append("T"+temporal+" := "+identDataTemp.get(Double.toString(res))+" / "+id.lexemeRank(8)+"\n");
+                                                        cuadruplos("/",identDataTemp.get(Double.toString(res)),id.lexemeRank(8),"T"+temporal);
+                                                        temporal++;
+                                                        Tripletas.append("T"+temporal+" := T"+(temporal-1)+" / "+id.lexemeRank(10)+"\n");
+                                                        cuadruplos("/","T"+(temporal-1),id.lexemeRank(10),"T"+temporal);
+                                                    }
+                                                }else{
+                                                    num1 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(2)));
+                                                    num2 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(4)));
+                                                    num3 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(6)));
+                                                    res = num1 / num2;
+                                                    Tripletas.append("T"+temporal+" := "+identDataTemp.get(Double.toString(res))+" / "+id.lexemeRank(6)+"\n");
+                                                    cuadruplos("/",identDataTemp.get(Double.toString(res)),id.lexemeRank(6),"T"+temporal);
+                                                    res = num1/num2/num3;
+                                                    identDataTemp.put(identDataTypeR.get(Double.toString(res)),"T"+temporal);
+                                                    temporal++;
+                                                    Tripletas.append("T"+temporal+" := T"+(temporal-1)+" / "+id.lexemeRank(8)+"\n");
+                                                    cuadruplos("/","T"+(temporal-1),id.lexemeRank(8),"T"+temporal);
+                                                    temporal++;
+                                                    Tripletas.append("T"+temporal+" := T"+(temporal-1)+" / "+id.lexemeRank(10)+"\n");
+                                                    cuadruplos("/","T"+(temporal-1),id.lexemeRank(10),"T"+temporal);
+                                                }
+                                            }else{
+                                                Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" / "+id.lexemeRank(4)+"\n");
+                                                cuadruplos("/",id.lexemeRank(2),id.lexemeRank(4),"T"+temporal);
+                                                num1 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(2)));
+                                                num2 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(4)));
+                                                res = num1 / num2;
+                                                identDataTemp.put(Double.toString(res),"T"+temporal);
+                                                temporal++;
+                                                Tripletas.append("T"+temporal+" := T"+(temporal-1)+" / "+id.lexemeRank(6)+"\n");
+                                                cuadruplos("/","T"+(temporal-1),id.lexemeRank(6),"T"+temporal);
+                                                temporal++;
+                                                Tripletas.append("T"+temporal+" := T"+(temporal-1)+" / "+id.lexemeRank(8)+"\n");
+                                                cuadruplos("/","T"+(temporal-1),id.lexemeRank(8),"T"+temporal);
+                                                temporal++;
+                                                Tripletas.append("T"+temporal+" := T"+(temporal-1)+" / "+id.lexemeRank(10)+"\n");
+                                                cuadruplos("/","T"+(temporal-1),id.lexemeRank(10),"T"+temporal);
+                                            }
+                                        }
+                                        if(identDataType.get(id.lexemeRank(2)).equals("Numero_Entero")){
+                                            int num1 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(2)));
+                                            int num2 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(4)));
+                                            int res = num1 / num2;
+                                            if(identDataTemp.containsKey(Integer.toString(res))){
+                                                num1 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(2)));
+                                                num2 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(4)));
+                                                int num3 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(6)));
+                                                res = num1 / num2 / num3;
+                                                if(identDataTemp.containsKey(Integer.toString(res))){
+                                                    num1 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(2)));
+                                                    num2 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(4)));
+                                                    num3 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(6)));
+                                                    int num4 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(8)));
+                                                    res = num1 / num2 / num3 / num4;
+                                                    if(identDataTemp.containsKey(Integer.toString(res))){
+                                                        Tripletas.append("T"+temporal+" := "+identDataTemp.get(Integer.toString(res))+" / "+id.lexemeRank(10)+"\n");
+                                                        cuadruplos("/",identDataTemp.get(Integer.toString(res)),id.lexemeRank(10),"T"+temporal);
+                                                    }else{
+                                                        num1 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(2)));
+                                                        num2 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(4)));
+                                                        num3 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(6)));
+                                                        res = num1 / num2 / num3;
+                                                        Tripletas.append("T"+temporal+" := "+identDataTemp.get(Integer.toString(res))+" / "+id.lexemeRank(8)+"\n");
+                                                        cuadruplos("/",identDataTemp.get(Integer.toString(res)),id.lexemeRank(8),"T"+temporal);
+                                                        temporal++;
+                                                        Tripletas.append("T"+temporal+" := T"+(temporal-1)+" / "+id.lexemeRank(10)+"\n");
+                                                        cuadruplos("/","T"+(temporal-1),id.lexemeRank(10),"T"+temporal);
+                                                    }
+                                                }else{
+                                                    num1 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(2)));
+                                                    num2 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(4)));
+                                                    num3 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(6)));
+                                                    res = num1 / num2;
+                                                    Tripletas.append("T"+temporal+" := "+identDataTemp.get(Integer.toString(res))+" / "+id.lexemeRank(6)+"\n");
+                                                    cuadruplos("/",identDataTemp.get(Integer.toString(res)),id.lexemeRank(6),"T"+temporal);
+                                                    res = num1/num2/num3;
+                                                    identDataTemp.put(identDataTypeR.get(Integer.toString(res)),"T"+temporal);
+                                                    temporal++;
+                                                    Tripletas.append("T"+temporal+" := T"+(temporal-1)+" / "+id.lexemeRank(8)+"\n");
+                                                    cuadruplos("/","T"+(temporal-1),id.lexemeRank(8),"T"+temporal);
+                                                    temporal++;
+                                                    Tripletas.append("T"+temporal+" := T"+(temporal-1)+" / "+id.lexemeRank(10)+"\n");
+                                                    cuadruplos("/","T"+(temporal-1),id.lexemeRank(10),"T"+temporal);
+                                                }
+                                            }else{
+                                                Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" / "+id.lexemeRank(4)+"\n");
+                                                cuadruplos("/",id.lexemeRank(2),id.lexemeRank(4),"T"+temporal);
+                                                num1 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(2)));
+                                                num2 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(4)));
+                                                res = num1 / num2;
+                                                identDataTemp.put(Integer.toString(res),"T"+temporal);
+                                                temporal++;
+                                                Tripletas.append("T"+temporal+" := T"+(temporal-1)+" / "+id.lexemeRank(6)+"\n");
+                                                cuadruplos("/","T"+(temporal-1),id.lexemeRank(6),"T"+temporal);
+                                                temporal++;
+                                                Tripletas.append("T"+temporal+" := T"+(temporal-1)+" / "+id.lexemeRank(8)+"\n");
+                                                cuadruplos("/","T"+(temporal-1),id.lexemeRank(8),"T"+temporal);
+                                                temporal++;
+                                                Tripletas.append("T"+temporal+" := T"+(temporal-1)+" / "+id.lexemeRank(10)+"\n");
+                                                cuadruplos("/","T"+(temporal-1),id.lexemeRank(10),"T"+temporal);
+                                            }
+                                        }
+                                        identDataTemp.put(identDataTypeR.get(id.lexemeRank(13)),"T"+temporal);
+                                        Tripletas.append(id.lexemeRank(13)+" := T"+temporal+"\n");
+                                        cuadruplos("=","T"+temporal,"",id.lexemeRank(13));
+                                    }
                                     PanelSalida.append("-->   Se ha utlizado la función de Dividir, que tiene como parametros a:      " + id.lexemeRank(2) + " = " + identDataTypeV2.get(id.lexemeRank(2)) + " , " + id.lexemeRank(4) + " = " + identDataTypeV2.get(id.lexemeRank(4)) + " , " + id.lexemeRank(6) + " = " + identDataTypeV2.get(id.lexemeRank(6)) + " , " + id.lexemeRank(8) + " = " + identDataTypeV2.get(id.lexemeRank(8)) + " , " + id.lexemeRank(10) + " = " + identDataTypeV2.get(id.lexemeRank(10)) + "\ndonde el resultado de la operación es: " + identDataTypeR.get(id.lexemeRank(13)) + " , y se guardó en: " + id.lexemeRank(13) + ".........\n");
                                     break;
                                 }
@@ -20988,78 +22110,168 @@ public class Interfaz extends javax.swing.JFrame {
                         for(Production id: identProdF3){
                             if(sentence.startsWith(id.lexemeRank(0)) && sentence.contains(id.lexemeRank(2))  && sentence.contains(id.lexemeRank(4)) && sentence.contains(id.lexemeRank(6)) && sentence.contains(id.lexemeRank(8))){
                                 temporal++;
-                                Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" + "+id.lexemeRank(4)+"\n");
-                                temporal++;
-                                Tripletas.append("T"+temporal+" := "+id.lexemeRank(6)+" + "+id.lexemeRank(8)+"\n");
-                                temporal++;
-                                Tripletas.append("T"+temporal+" := T"+(temporal-2)+" + T"+(temporal-1)+"\n");
-                                PanelSalida.append("-->   Se ha utlizado la función de Mostrar en su forma de tipo Entero, del cual se crea la siguiente interfaz.........\n");
-                                MostrarE me = new MostrarE();
-                                me.setLocationRelativeTo(this);
-                                me.setVisible(true);
-                                me.setCadena(id.lexemeRank(2),identDataTypeV.get(id.lexemeRank(2)).replace("'",""));
-                                me.setResultado(id.lexemeRank(4),identDataTypeR.get(id.lexemeRank(4)));
-                                me.setFigura(id.lexemeRank(6),identDataTypeV.get(id.lexemeRank(6)));
-                                me.setColor(id.lexemeRank(8),identDataTypeV.get(id.lexemeRank(8)));
-                                me.Figura();
-                                me.Cadena();
-                                me.Color();
-                                me.Resultado();
+                                if(identDataTemp.containsKey(identDataTypeV.get(id.lexemeRank(2))+" "+identDataTypeR.get(id.lexemeRank(4))+" "+identDataTypeV.get(id.lexemeRank(6))+" "+identDataTypeV.get(id.lexemeRank(8)))){
+                                    Tripletas.append("T"+temporal+" := "+identDataTemp.get(identDataTypeV.get(id.lexemeRank(2))+" "+identDataTypeR.get(id.lexemeRank(4))+" "+identDataTypeV.get(id.lexemeRank(6))+" "+identDataTypeV.get(id.lexemeRank(8)))+"\n");
+                                    cuadruplos("=",identDataTemp.get(identDataTypeV.get(id.lexemeRank(2))+" "+identDataTypeR.get(id.lexemeRank(4))+" "+identDataTypeV.get(id.lexemeRank(6))+" "+identDataTypeV.get(id.lexemeRank(8))),"","T"+temporal);
+                                    PanelSalida.append("-->   Se ha utlizado la función de Mostrar en su forma de tipo Entero, pero\nya hay una funcion de mostrar con los mismos parametros y no se genera una interfaz.........\n");
+                                }else{
+                                    if(identDataTemp.containsKey(identDataTypeV.get(id.lexemeRank(2))+" "+identDataTypeR.get(id.lexemeRank(4)))){
+                                        
+                                    }else{
+                                        Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" + "+id.lexemeRank(4)+"\n");
+                                        cuadruplos("+",id.lexemeRank(2),id.lexemeRank(4),"T"+temporal);
+                                        identDataTemp.put(identDataTypeV.get(id.lexemeRank(2))+" "+identDataTypeR.get(id.lexemeRank(4)),"T"+temporal);
+                                    }
+                                    temporal++;
+                                    if(identDataTemp.containsKey(identDataTypeV.get(id.lexemeRank(6))+" "+identDataTypeV.get(id.lexemeRank(8)))){
+
+                                    }else{
+                                        Tripletas.append("T"+temporal+" := "+id.lexemeRank(6)+" + "+id.lexemeRank(8)+"\n");
+                                        cuadruplos("+",id.lexemeRank(6),id.lexemeRank(8),"T"+temporal);
+                                        identDataTemp.put(identDataTypeV.get(id.lexemeRank(6))+" "+identDataTypeV.get(id.lexemeRank(8)),"T"+temporal);
+                                    }
+                                    temporal++;
+                                    Tripletas.append("T"+temporal+" := "+identDataTemp.get(identDataTypeV.get(id.lexemeRank(2))+" "+identDataTypeR.get(id.lexemeRank(4)))+" + "+identDataTemp.get(identDataTypeV.get(id.lexemeRank(6))+" "+identDataTypeV.get(id.lexemeRank(8)))+"\n");
+                                    cuadruplos("+",identDataTemp.get(identDataTypeV.get(id.lexemeRank(2))+" "+identDataTypeR.get(id.lexemeRank(4))),identDataTemp.get(identDataTypeV.get(id.lexemeRank(6))+" "+identDataTypeV.get(id.lexemeRank(8))),"T"+temporal);
+                                    identDataTemp.put(identDataTypeV.get(id.lexemeRank(2))+" "+identDataTypeR.get(id.lexemeRank(4))+" "+identDataTypeV.get(id.lexemeRank(6))+" "+identDataTypeV.get(id.lexemeRank(8)),"T"+temporal);
+                                    PanelSalida.append("-->   Se ha utlizado la función de Mostrar en su forma de tipo Entero, del cual se crea la siguiente interfaz.........\n");
+                                    MostrarE me = new MostrarE();
+                                    me.setLocationRelativeTo(this);
+                                    me.setVisible(true);
+                                    me.setCadena(id.lexemeRank(2),identDataTypeV.get(id.lexemeRank(2)).replace("'",""));
+                                    me.setResultado(id.lexemeRank(4),identDataTypeR.get(id.lexemeRank(4)));
+                                    me.setFigura(id.lexemeRank(6),identDataTypeV.get(id.lexemeRank(6)));
+                                    me.setColor(id.lexemeRank(8),identDataTypeV.get(id.lexemeRank(8)));
+                                    me.Figura();
+                                    me.Cadena();
+                                    me.Color();
+                                    me.Resultado();
+                                }
                                 break;
                             }
                         }
                         for(Production id: identProdF2){
                             if(sentence.startsWith(id.lexemeRank(0)) && sentence.contains(id.lexemeRank(2))  && sentence.contains(id.lexemeRank(4)) && sentence.contains(id.lexemeRank(6)) && sentence.contains(id.lexemeRank(8)) && sentence.contains(id.lexemeRank(10))  && sentence.contains(id.lexemeRank(12)) && sentence.contains(id.lexemeRank(14)) && sentence.contains(id.lexemeRank(16)) && sentence.contains(id.lexemeRank(18))  && sentence.contains(id.lexemeRank(20)) && sentence.contains(id.lexemeRank(22)) && sentence.contains(id.lexemeRank(24))){
                                 temporal++;
-                                Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" + "+id.lexemeRank(4)+"\n");
-                                temporal++;
-                                Tripletas.append("T"+temporal+" := "+id.lexemeRank(6)+" + "+id.lexemeRank(8)+"\n");
-                                temporal++;
-                                Tripletas.append("T"+temporal+" := "+id.lexemeRank(10)+" + "+id.lexemeRank(12)+"\n");
-                                temporal++;
-                                Tripletas.append("T"+temporal+" := T"+(temporal-2)+" + T"+(temporal-1)+"\n");
-                                temporal++;
-                                Tripletas.append("T"+temporal+" := "+id.lexemeRank(14)+" + "+id.lexemeRank(16)+"\n");
-                                temporal++;
-                                Tripletas.append("T"+temporal+" := "+id.lexemeRank(18)+" + "+id.lexemeRank(20)+"\n");
-                                temporal++;
-                                Tripletas.append("T"+temporal+" := T"+(temporal-2)+" + T"+(temporal-1)+"\n");
-                                temporal++;
-                                Tripletas.append("T"+temporal+" := "+id.lexemeRank(22)+" + "+id.lexemeRank(24)+"\n");
-                                temporal++;
-                                Tripletas.append("T"+temporal+" := T"+(temporal-5)+" + T"+(temporal-2)+"\n");
-                                temporal++;
-                                Tripletas.append("T"+temporal+" := T"+(temporal-1)+" + T"+(temporal-2)+"\n");
-                                temporal++;
-                                Tripletas.append("T"+temporal+" := T"+(temporal-10)+" + T"+(temporal-1)+"\n");
-                                PanelSalida.append("-->   Se ha utlizado la función de Mostrar en su forma de tipo Decimal, del cual se crea la siguiente interfaz.........\n");
-                                MostrarD md = new MostrarD();
-                                md.setLocationRelativeTo(this);
-                                md.setVisible(true);
-                                md.setCadena(id.lexemeRank(2),identDataTypeV.get(id.lexemeRank(2)).replace("'",""));
-                                md.setResultado(id.lexemeRank(4),identDataTypeR.get(id.lexemeRank(4)));
-                                md.setFigura1(id.lexemeRank(6),identDataTypeV.get(id.lexemeRank(6)));
-                                md.setColor1(id.lexemeRank(8),identDataTypeV.get(id.lexemeRank(8)));
-                                md.setFigura2(id.lexemeRank(10),identDataTypeV.get(id.lexemeRank(10)));
-                                md.setColor2(id.lexemeRank(12),identDataTypeV.get(id.lexemeRank(12)));
-                                md.setFigura3(id.lexemeRank(14),identDataTypeV.get(id.lexemeRank(14)));
-                                md.setColor3(id.lexemeRank(16),identDataTypeV.get(id.lexemeRank(16)));
-                                md.setFigura4(id.lexemeRank(18),identDataTypeV.get(id.lexemeRank(18)));
-                                md.setColor4(id.lexemeRank(20),identDataTypeV.get(id.lexemeRank(20)));
-                                md.setFigura5(id.lexemeRank(22),identDataTypeV.get(id.lexemeRank(22)));
-                                md.setColor5(id.lexemeRank(24),identDataTypeV.get(id.lexemeRank(24)));
-                                md.Figura1();
-                                md.Color1();
-                                md.Figura2();
-                                md.Color2();
-                                md.Figura3();
-                                md.Color3();
-                                md.Figura4();
-                                md.Color4();
-                                md.Figura5();
-                                md.Color5();
-                                md.Cadena();
-                                md.Resultado();
+                                if(identDataTemp.containsKey(identDataTypeV.get(id.lexemeRank(2))+" "+identDataTypeR.get(id.lexemeRank(4))+" "+identDataTypeV.get(id.lexemeRank(6))+" "+identDataTypeV.get(id.lexemeRank(8))+" "+identDataTypeV.get(id.lexemeRank(10))+" "+identDataTypeV.get(id.lexemeRank(12))+" "+identDataTypeV.get(id.lexemeRank(14))+" "+identDataTypeV.get(id.lexemeRank(16))+" "+identDataTypeV.get(id.lexemeRank(18))+" "+identDataTypeV.get(id.lexemeRank(20))+" "+identDataTypeV.get(id.lexemeRank(22))+" "+identDataTypeV.get(id.lexemeRank(24)))){
+                                    Tripletas.append("T"+temporal+" := "+identDataTemp.get(identDataTypeV.get(id.lexemeRank(2))+" "+identDataTypeR.get(id.lexemeRank(4))+" "+identDataTypeV.get(id.lexemeRank(6))+" "+identDataTypeV.get(id.lexemeRank(8))+" "+identDataTypeV.get(id.lexemeRank(10))+" "+identDataTypeV.get(id.lexemeRank(12))+" "+identDataTypeV.get(id.lexemeRank(14))+" "+identDataTypeV.get(id.lexemeRank(16))+" "+identDataTypeV.get(id.lexemeRank(18))+" "+identDataTypeV.get(id.lexemeRank(20))+" "+identDataTypeV.get(id.lexemeRank(22))+" "+identDataTypeV.get(id.lexemeRank(24)))+"\n");
+                                    cuadruplos("=",identDataTemp.get(identDataTypeV.get(id.lexemeRank(2))+" "+identDataTypeR.get(id.lexemeRank(4))+" "+identDataTypeV.get(id.lexemeRank(6))+" "+identDataTypeV.get(id.lexemeRank(8))+" "+identDataTypeV.get(id.lexemeRank(10))+" "+identDataTypeV.get(id.lexemeRank(12))+" "+identDataTypeV.get(id.lexemeRank(14))+" "+identDataTypeV.get(id.lexemeRank(16))+" "+identDataTypeV.get(id.lexemeRank(18))+" "+identDataTypeV.get(id.lexemeRank(20))+" "+identDataTypeV.get(id.lexemeRank(22))+" "+identDataTypeV.get(id.lexemeRank(24))),"","T"+temporal);
+                                    PanelSalida.append("-->   Se ha utlizado la función de Mostrar en su forma de tipo Decimal, del cual se crea la siguiente interfaz, pero\nya hay una funcion de mostrar con los mismos parametros y no se genera una interfaz.........\n");
+                                }else{
+                                    if(identDataTemp.containsKey(identDataTypeV.get(id.lexemeRank(2))+" "+identDataTypeR.get(id.lexemeRank(4)))){
+                                        
+                                    }else{
+                                        Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" + "+id.lexemeRank(4)+"\n");
+                                        cuadruplos("+",id.lexemeRank(2),id.lexemeRank(4),"T"+temporal);
+                                        identDataTemp.put(identDataTypeV.get(id.lexemeRank(2))+" "+identDataTypeR.get(id.lexemeRank(4)),"T"+temporal);
+                                    }
+                                    temporal++;
+                                    if(identDataTemp.containsKey(identDataTypeV.get(id.lexemeRank(6))+" "+identDataTypeV.get(id.lexemeRank(8))+" "+identDataTypeV.get(id.lexemeRank(10))+" "+identDataTypeV.get(id.lexemeRank(12)))){
+                                        
+                                    }else{
+                                        if(identDataTemp.containsKey(identDataTypeV.get(id.lexemeRank(6))+" "+identDataTypeV.get(id.lexemeRank(8)))){
+
+                                        }else{
+                                            Tripletas.append("T"+temporal+" := "+id.lexemeRank(6)+" + "+id.lexemeRank(8)+"\n");
+                                            cuadruplos("+",id.lexemeRank(6),id.lexemeRank(8),"T"+temporal);
+                                            identDataTemp.put(identDataTypeV.get(id.lexemeRank(6))+" "+identDataTypeV.get(id.lexemeRank(8)),"T"+temporal);
+                                        }
+                                        temporal++;
+                                        if(identDataTemp.containsKey(identDataTypeV.get(id.lexemeRank(10))+" "+identDataTypeV.get(id.lexemeRank(12)))){
+
+                                        }else{
+                                            Tripletas.append("T"+temporal+" := "+id.lexemeRank(10)+" + "+id.lexemeRank(12)+"\n");
+                                            cuadruplos("+",id.lexemeRank(10),id.lexemeRank(12),"T"+temporal);
+                                            identDataTemp.put(identDataTypeV.get(id.lexemeRank(10))+" "+identDataTypeV.get(id.lexemeRank(12)),"T"+temporal);
+                                        }
+                                        temporal++;
+                                        Tripletas.append("T"+temporal+" := "+identDataTemp.get(identDataTypeV.get(id.lexemeRank(6))+" "+identDataTypeV.get(id.lexemeRank(8)))+" + "+identDataTemp.get(identDataTypeV.get(id.lexemeRank(10))+" "+identDataTypeV.get(id.lexemeRank(12)))+"\n");
+                                        cuadruplos("+",identDataTemp.get(identDataTypeV.get(id.lexemeRank(6))+" "+identDataTypeV.get(id.lexemeRank(8))),identDataTemp.get(identDataTypeV.get(id.lexemeRank(10))+" "+identDataTypeV.get(id.lexemeRank(12))),"T"+temporal);
+                                        identDataTemp.put(identDataTypeV.get(id.lexemeRank(6))+" "+identDataTypeV.get(id.lexemeRank(8))+" "+identDataTypeV.get(id.lexemeRank(10))+" "+identDataTypeV.get(id.lexemeRank(12)),"T"+temporal);
+                                    }
+                                    temporal++;
+                                    if(identDataTemp.containsKey(identDataTypeV.get(id.lexemeRank(14))+" "+identDataTypeV.get(id.lexemeRank(16))+" "+identDataTypeV.get(id.lexemeRank(18))+" "+identDataTypeV.get(id.lexemeRank(20)))){
+                                        
+                                    }else{
+                                        if(identDataTemp.containsKey(identDataTypeV.get(id.lexemeRank(14))+" "+identDataTypeV.get(id.lexemeRank(16)))){
+
+                                        }else{
+                                            Tripletas.append("T"+temporal+" := "+id.lexemeRank(14)+" + "+id.lexemeRank(16)+"\n");
+                                            cuadruplos("+",id.lexemeRank(14),id.lexemeRank(16),"T"+temporal);
+                                            identDataTemp.put(identDataTypeV.get(id.lexemeRank(14))+" "+identDataTypeV.get(id.lexemeRank(16)),"T"+temporal);
+                                        }
+                                        temporal++;
+                                        if(identDataTemp.containsKey(identDataTypeV.get(id.lexemeRank(18))+" "+identDataTypeV.get(id.lexemeRank(20)))){
+
+                                        }else{
+                                            Tripletas.append("T"+temporal+" := "+id.lexemeRank(18)+" + "+id.lexemeRank(20)+"\n");
+                                            cuadruplos("+",id.lexemeRank(18),id.lexemeRank(20),"T"+temporal);
+                                            identDataTemp.put(identDataTypeV.get(id.lexemeRank(18))+" "+identDataTypeV.get(id.lexemeRank(20)),"T"+temporal);
+                                        }
+                                        temporal++;
+                                        Tripletas.append("T"+temporal+" := "+identDataTemp.get(identDataTypeV.get(id.lexemeRank(14))+" "+identDataTypeV.get(id.lexemeRank(16)))+" + "+identDataTemp.get(identDataTypeV.get(id.lexemeRank(18))+" "+identDataTypeV.get(id.lexemeRank(20)))+"\n");
+                                        cuadruplos("+",identDataTemp.get(identDataTypeV.get(id.lexemeRank(14))+" "+identDataTypeV.get(id.lexemeRank(16))),identDataTemp.get(identDataTypeV.get(id.lexemeRank(18))+" "+identDataTypeV.get(id.lexemeRank(20))),"T"+temporal);
+                                        identDataTemp.put(identDataTypeV.get(id.lexemeRank(14))+" "+identDataTypeV.get(id.lexemeRank(16))+" "+identDataTypeV.get(id.lexemeRank(18))+" "+identDataTypeV.get(id.lexemeRank(20)),"T"+temporal);
+                                    }
+                                    temporal++;
+                                    if(identDataTemp.containsKey(identDataTypeV.get(id.lexemeRank(22))+" "+identDataTypeV.get(id.lexemeRank(24)))){
+
+                                    }else{
+                                        Tripletas.append("T"+temporal+" := "+id.lexemeRank(22)+" + "+id.lexemeRank(24)+"\n");
+                                        cuadruplos("+",id.lexemeRank(22),id.lexemeRank(24),"T"+temporal);
+                                        identDataTemp.put(identDataTypeV.get(id.lexemeRank(22))+" "+identDataTypeV.get(id.lexemeRank(24)),"T"+temporal);
+                                    }
+                                    temporal++;
+                                    if(identDataTemp.containsKey(identDataTypeV.get(id.lexemeRank(6))+" "+identDataTypeV.get(id.lexemeRank(8))+" "+identDataTypeV.get(id.lexemeRank(10))+" "+identDataTypeV.get(id.lexemeRank(12))+" "+identDataTypeV.get(id.lexemeRank(14))+" "+identDataTypeV.get(id.lexemeRank(16))+" "+identDataTypeV.get(id.lexemeRank(18))+" "+identDataTypeV.get(id.lexemeRank(20)))){
+                                    
+                                    }else{
+                                        Tripletas.append("T"+temporal+" := "+identDataTemp.get(identDataTypeV.get(id.lexemeRank(6))+" "+identDataTypeV.get(id.lexemeRank(8))+" "+identDataTypeV.get(id.lexemeRank(10))+" "+identDataTypeV.get(id.lexemeRank(12)))+" + "+identDataTemp.get(identDataTypeV.get(id.lexemeRank(14))+" "+identDataTypeV.get(id.lexemeRank(16))+" "+identDataTypeV.get(id.lexemeRank(18))+" "+identDataTypeV.get(id.lexemeRank(20)))+"\n");
+                                        cuadruplos("+",identDataTemp.get(identDataTypeV.get(id.lexemeRank(6))+" "+identDataTypeV.get(id.lexemeRank(8))+" "+identDataTypeV.get(id.lexemeRank(10))+" "+identDataTypeV.get(id.lexemeRank(12))),identDataTemp.get(identDataTypeV.get(id.lexemeRank(14))+" "+identDataTypeV.get(id.lexemeRank(16))+" "+identDataTypeV.get(id.lexemeRank(18))+" "+identDataTypeV.get(id.lexemeRank(20))),"T"+temporal);
+                                        identDataTemp.put(identDataTypeV.get(id.lexemeRank(6))+" "+identDataTypeV.get(id.lexemeRank(8))+" "+identDataTypeV.get(id.lexemeRank(10))+" "+identDataTypeV.get(id.lexemeRank(12))+" "+identDataTypeV.get(id.lexemeRank(14))+" "+identDataTypeV.get(id.lexemeRank(16))+" "+identDataTypeV.get(id.lexemeRank(18))+" "+identDataTypeV.get(id.lexemeRank(20)),"T"+temporal);
+                                    }
+                                    temporal++;
+                                    if(identDataTemp.containsKey(identDataTypeV.get(id.lexemeRank(6))+" "+identDataTypeV.get(id.lexemeRank(8))+" "+identDataTypeV.get(id.lexemeRank(10))+" "+identDataTypeV.get(id.lexemeRank(12))+" "+identDataTypeV.get(id.lexemeRank(14))+" "+identDataTypeV.get(id.lexemeRank(16))+" "+identDataTypeV.get(id.lexemeRank(18))+" "+identDataTypeV.get(id.lexemeRank(20))+" "+identDataTypeV.get(id.lexemeRank(22))+" "+identDataTypeV.get(id.lexemeRank(24)))){
+                                        Tripletas.append("T"+temporal+" := "+identDataTemp.get(identDataTypeV.get(id.lexemeRank(2))+" "+identDataTypeR.get(id.lexemeRank(4)))+" + "+identDataTemp.get(identDataTypeV.get(id.lexemeRank(6))+" "+identDataTypeV.get(id.lexemeRank(8))+" "+identDataTypeV.get(id.lexemeRank(10))+" "+identDataTypeV.get(id.lexemeRank(12))+" "+identDataTypeV.get(id.lexemeRank(14))+" "+identDataTypeV.get(id.lexemeRank(16))+" "+identDataTypeV.get(id.lexemeRank(18))+" "+identDataTypeV.get(id.lexemeRank(20))+" "+identDataTypeV.get(id.lexemeRank(22))+" "+identDataTypeV.get(id.lexemeRank(24)))+"\n");
+                                        cuadruplos("+",identDataTemp.get(identDataTypeV.get(id.lexemeRank(2))+" "+identDataTypeR.get(id.lexemeRank(4))),identDataTemp.get(identDataTypeV.get(id.lexemeRank(6))+" "+identDataTypeV.get(id.lexemeRank(8))+" "+identDataTypeV.get(id.lexemeRank(10))+" "+identDataTypeV.get(id.lexemeRank(12))+" "+identDataTypeV.get(id.lexemeRank(14))+" "+identDataTypeV.get(id.lexemeRank(16))+" "+identDataTypeV.get(id.lexemeRank(18))+" "+identDataTypeV.get(id.lexemeRank(20))+" "+identDataTypeV.get(id.lexemeRank(22))+" "+identDataTypeV.get(id.lexemeRank(24))),"T"+temporal);
+                                        identDataTemp.put(identDataTypeV.get(id.lexemeRank(2))+" "+identDataTypeR.get(id.lexemeRank(4))+" "+identDataTypeV.get(id.lexemeRank(6))+" "+identDataTypeV.get(id.lexemeRank(8))+" "+identDataTypeV.get(id.lexemeRank(10))+" "+identDataTypeV.get(id.lexemeRank(12))+" "+identDataTypeV.get(id.lexemeRank(14))+" "+identDataTypeV.get(id.lexemeRank(16))+" "+identDataTypeV.get(id.lexemeRank(18))+" "+identDataTypeV.get(id.lexemeRank(20))+" "+identDataTypeV.get(id.lexemeRank(22))+" "+identDataTypeV.get(id.lexemeRank(24)),"T"+temporal);
+                                    }else{
+                                        Tripletas.append("T"+temporal+" := "+identDataTemp.get(identDataTypeV.get(id.lexemeRank(6))+" "+identDataTypeV.get(id.lexemeRank(8))+" "+identDataTypeV.get(id.lexemeRank(10))+" "+identDataTypeV.get(id.lexemeRank(12))+" "+identDataTypeV.get(id.lexemeRank(14))+" "+identDataTypeV.get(id.lexemeRank(16))+" "+identDataTypeV.get(id.lexemeRank(18))+" "+identDataTypeV.get(id.lexemeRank(20)))+" + "+identDataTemp.get(identDataTypeV.get(id.lexemeRank(22))+" "+identDataTypeV.get(id.lexemeRank(24)))+"\n");
+                                        cuadruplos("+",identDataTemp.get(identDataTypeV.get(id.lexemeRank(6))+" "+identDataTypeV.get(id.lexemeRank(8))+" "+identDataTypeV.get(id.lexemeRank(10))+" "+identDataTypeV.get(id.lexemeRank(12))+" "+identDataTypeV.get(id.lexemeRank(14))+" "+identDataTypeV.get(id.lexemeRank(16))+" "+identDataTypeV.get(id.lexemeRank(18))+" "+identDataTypeV.get(id.lexemeRank(20))),identDataTemp.get(identDataTypeV.get(id.lexemeRank(22))+" "+identDataTypeV.get(id.lexemeRank(24))),"T"+temporal);
+                                        identDataTemp.put(identDataTypeV.get(id.lexemeRank(6))+" "+identDataTypeV.get(id.lexemeRank(8))+" "+identDataTypeV.get(id.lexemeRank(10))+" "+identDataTypeV.get(id.lexemeRank(12))+" "+identDataTypeV.get(id.lexemeRank(14))+" "+identDataTypeV.get(id.lexemeRank(16))+" "+identDataTypeV.get(id.lexemeRank(18))+" "+identDataTypeV.get(id.lexemeRank(20))+" "+identDataTypeV.get(id.lexemeRank(22))+" "+identDataTypeV.get(id.lexemeRank(24)),"T"+temporal);
+                                        temporal++;
+                                        Tripletas.append("T"+temporal+" := "+identDataTemp.get(identDataTypeV.get(id.lexemeRank(2))+" "+identDataTypeR.get(id.lexemeRank(4)))+" + T"+(temporal-1)+"\n");
+                                        cuadruplos("+",identDataTemp.get(identDataTypeV.get(id.lexemeRank(2))+" "+identDataTypeR.get(id.lexemeRank(4))),"T"+(temporal-1),"T"+temporal);
+                                        identDataTemp.put(identDataTypeV.get(id.lexemeRank(2))+" "+identDataTypeR.get(id.lexemeRank(4))+" "+identDataTypeV.get(id.lexemeRank(6))+" "+identDataTypeV.get(id.lexemeRank(8))+" "+identDataTypeV.get(id.lexemeRank(10))+" "+identDataTypeV.get(id.lexemeRank(12))+" "+identDataTypeV.get(id.lexemeRank(14))+" "+identDataTypeV.get(id.lexemeRank(16))+" "+identDataTypeV.get(id.lexemeRank(18))+" "+identDataTypeV.get(id.lexemeRank(20))+" "+identDataTypeV.get(id.lexemeRank(22))+" "+identDataTypeV.get(id.lexemeRank(24)),"T"+temporal);
+                                    }
+                                    PanelSalida.append("-->   Se ha utlizado la función de Mostrar en su forma de tipo Decimal, del cual se crea la siguiente interfaz.........\n");
+                                    MostrarD md = new MostrarD();
+                                    md.setLocationRelativeTo(this);
+                                    md.setVisible(true);
+                                    md.setCadena(id.lexemeRank(2),identDataTypeV.get(id.lexemeRank(2)).replace("'",""));
+                                    md.setResultado(id.lexemeRank(4),identDataTypeR.get(id.lexemeRank(4)));
+                                    md.setFigura1(id.lexemeRank(6),identDataTypeV.get(id.lexemeRank(6)));
+                                    md.setColor1(id.lexemeRank(8),identDataTypeV.get(id.lexemeRank(8)));
+                                    md.setFigura2(id.lexemeRank(10),identDataTypeV.get(id.lexemeRank(10)));
+                                    md.setColor2(id.lexemeRank(12),identDataTypeV.get(id.lexemeRank(12)));
+                                    md.setFigura3(id.lexemeRank(14),identDataTypeV.get(id.lexemeRank(14)));
+                                    md.setColor3(id.lexemeRank(16),identDataTypeV.get(id.lexemeRank(16)));
+                                    md.setFigura4(id.lexemeRank(18),identDataTypeV.get(id.lexemeRank(18)));
+                                    md.setColor4(id.lexemeRank(20),identDataTypeV.get(id.lexemeRank(20)));
+                                    md.setFigura5(id.lexemeRank(22),identDataTypeV.get(id.lexemeRank(22)));
+                                    md.setColor5(id.lexemeRank(24),identDataTypeV.get(id.lexemeRank(24)));
+                                    md.Figura1();
+                                    md.Color1();
+                                    md.Figura2();
+                                    md.Color2();
+                                    md.Figura3();
+                                    md.Color3();
+                                    md.Figura4();
+                                    md.Color4();
+                                    md.Figura5();
+                                    md.Color5();
+                                    md.Cadena();
+                                    md.Resultado();
+                                }
                                 break;
                             }
                         }
@@ -21075,6 +22287,7 @@ public class Interfaz extends javax.swing.JFrame {
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable Cuadruplos;
     private javax.swing.JTextPane PanelFuente;
     private javax.swing.JTextArea PanelSalida;
     private javax.swing.JTable Tokens;
@@ -21105,6 +22318,8 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu10;
     private javax.swing.JMenu jMenu11;
+    private javax.swing.JMenu jMenu12;
+    private javax.swing.JMenu jMenu13;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
@@ -21112,6 +22327,7 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenu jMenu7;
     private javax.swing.JMenu jMenu8;
+    private javax.swing.JMenu jMenu9;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
@@ -21121,6 +22337,9 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem14;
     private javax.swing.JMenuItem jMenuItem15;
     private javax.swing.JMenuItem jMenuItem16;
+    private javax.swing.JMenuItem jMenuItem17;
+    private javax.swing.JMenuItem jMenuItem18;
+    private javax.swing.JMenuItem jMenuItem19;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem20;
     private javax.swing.JMenuItem jMenuItem21;
@@ -21129,7 +22348,16 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem24;
     private javax.swing.JMenuItem jMenuItem25;
     private javax.swing.JMenuItem jMenuItem26;
+    private javax.swing.JMenuItem jMenuItem27;
+    private javax.swing.JMenuItem jMenuItem28;
+    private javax.swing.JMenuItem jMenuItem29;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem30;
+    private javax.swing.JMenuItem jMenuItem31;
+    private javax.swing.JMenuItem jMenuItem32;
+    private javax.swing.JMenuItem jMenuItem33;
+    private javax.swing.JMenuItem jMenuItem34;
+    private javax.swing.JMenuItem jMenuItem35;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
@@ -21144,11 +22372,10 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JToolBar jToolBar1;
-    private javax.swing.JTable tblCuadruplos;
     // End of variables declaration//GEN-END:variables
 }

@@ -5,7 +5,10 @@
 package INTERFAZ;
 
 import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
 import java.net.URI;
+import java.net.URL;
 import javax.swing.JOptionPane;
 
 /**
@@ -210,10 +213,13 @@ public class AcercaDe extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try {
-            Desktop.getDesktop().browse(new URI("https://drive.google.com/file/d/1voNcv5p1BbsOIClHvrqtasUMSLg38OC1/view?usp=sharing"));
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null,"ERROR, no se puede ejecutar la acción");
+        try{
+            URL ruta = getClass().getResource("/DOCUMENTACION/M4TH3C_DOCUMENTACION.docx.pdf");
+            String rutaNueva = ruta.getFile();
+            File ruta2 = new File(rutaNueva.replaceAll("%20"," "));
+            Desktop.getDesktop().open(ruta2);
+        }catch(IOException e){
+            e.printStackTrace();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
