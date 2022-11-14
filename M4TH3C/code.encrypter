@@ -1,0 +1,15 @@
+Metodo &Prueba{
+	Entero num1 = - 4;
+	Entero num4;
+	Resultado #res1;
+	Resultado #res2;
+	Figura fig1 = Triangulo;
+	Color col1 = Verde;
+	Cadena cad1 = 'Funciona el ejemplo';
+	num4 = - 43;
+	Multiplicar(num1,num4)<
+		#res1
+	>;
+23.
+	Mostrar(cad1,#res1,fig1,col1);
+}

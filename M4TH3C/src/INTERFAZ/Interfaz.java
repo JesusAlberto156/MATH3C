@@ -54,7 +54,6 @@ public class Interfaz extends javax.swing.JFrame {
 
     private String title;
     private ArrayList<Token> tokens;
-    private String[] Errores;
     private ArrayList<ErrorLSSL> errors;
     private ArrayList<TextColor> textsColor;
     private Timer timerKeyReleased;
@@ -102,6 +101,7 @@ public class Interfaz extends javax.swing.JFrame {
     }
 
     private void init() {
+        
         Functions.setLineNumberOnJTextComponent(PanelFuente);
         directorio = new Directory(this, PanelFuente, title, ".MTC");
         addWindowListener(new WindowAdapter() {// Cuando presiona la "X" de la esquina superior derecha
@@ -18358,7 +18358,6 @@ public class Interfaz extends javax.swing.JFrame {
 
         /* Mostrar gramáticas */
         gramatica.show();
-        
         //Acomodar las producciones de Clases en orden
         int tamaño = identProdM1.size();
         for(Production id: identProdM1){
@@ -19417,8 +19416,6 @@ public class Interfaz extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         btnCompilar = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        PanelFuente = new javax.swing.JTextPane();
         jScrollPane2 = new javax.swing.JScrollPane();
         PanelSalida = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
@@ -19443,6 +19440,9 @@ public class Interfaz extends javax.swing.JFrame {
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        PanelFuente = new javax.swing.JTextPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         btnmenuNuevo = new javax.swing.JMenuItem();
@@ -19574,8 +19574,6 @@ public class Interfaz extends javax.swing.JFrame {
             }
         });
         jToolBar1.add(jButton5);
-
-        jScrollPane1.setViewportView(PanelFuente);
 
         PanelSalida.setEditable(false);
         PanelSalida.setBackground(new java.awt.Color(255, 255, 255));
@@ -19746,6 +19744,10 @@ public class Interfaz extends javax.swing.JFrame {
             }
         });
 
+        jScrollPane1.setViewportView(PanelFuente);
+
+        jScrollPane5.setViewportView(jScrollPane1);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -19761,7 +19763,7 @@ public class Interfaz extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton8))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(63, 63, 63)
@@ -19770,7 +19772,7 @@ public class Interfaz extends javax.swing.JFrame {
                                 .addComponent(jButton7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton6))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane5))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -19788,24 +19790,25 @@ public class Interfaz extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(9, 9, 9)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1)))
+                        .addGap(34, 34, 34)
+                        .addComponent(jLabel1))
                     .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButton6)
-                            .addComponent(jButton7))))
+                            .addComponent(jButton7)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1)
-                    .addComponent(jTabbedPane2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel3)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jButton8)
                         .addComponent(jButton9)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -20857,6 +20860,7 @@ public class Interfaz extends javax.swing.JFrame {
                         }
                         for(Production id: identProdA1){
                             if(sentence.startsWith(id.lexemeRank(0))){
+
                                 String tipo = "";
                                 if(id.lexicalCompRank(-2).equals("Numero_Entero")){
                                     if(id.lexemeRank(-3).equals("-")){
@@ -22372,6 +22376,7 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
