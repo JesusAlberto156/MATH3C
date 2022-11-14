@@ -293,6 +293,8 @@ public class Interfaz extends javax.swing.JFrame {
     
     private void syntacticAnalysis() {
         Grammar gramatica = new Grammar(tokens, errors);
+        
+        
 
         /*ELIMINAR ERRORES*/
         gramatica.delete("ERROR_\\#", 1, "----------> ERROR_\\#:  Error desconocido, verififque como esta escrito el codigo, Linea [#] Columna [%]");
