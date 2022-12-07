@@ -72,6 +72,7 @@ public class Interfaz extends javax.swing.JFrame {
     private HashMap<String, String> identDataTypeV;
     private HashMap<String, String> identDataTypeE;
     private HashMap<String, String> identDataTypeR;
+    private HashMap<String, String> identDataTypeR2;
     private HashMap<String, String> identDataTypeV2;
     private HashMap<String, String> identDataTypeV3;
     private HashMap<String, String> identDataTemp;
@@ -83,7 +84,9 @@ public class Interfaz extends javax.swing.JFrame {
     private Cuadruplos C = new Cuadruplos();
     private ArrayList<Production> Metodo;
     private Object[] cuadruplo;
-
+    private ArrayList<String> CodigoObjeto;
+    private ArrayList<String> Variables;
+    
     /**
      * Creates new form Interfaz
      */
@@ -93,10 +96,13 @@ public class Interfaz extends javax.swing.JFrame {
         this.setTitle("M4TH3C - PRINCIPAL");
         this.setResizable(false);
         ImageIcon img = new ImageIcon("src/IMAGENES/M4TH3C.png");
+        ImageIcon img2 = new ImageIcon("src/IMAGENES/emu8086.png");
         Icon icono1 = new ImageIcon(img.getImage().getScaledInstance(jLabel4.getWidth(), jLabel4.getHeight(), Image.SCALE_SMOOTH));
         Icon icono2 = new ImageIcon(img.getImage().getScaledInstance(jLabel5.getWidth(), jLabel5.getHeight(), Image.SCALE_SMOOTH));
+        Icon icono3 = new ImageIcon(img2.getImage().getScaledInstance(jLabel8.getWidth(), jLabel8.getHeight(), Image.SCALE_SMOOTH));
         jLabel4.setIcon(icono1);
         jLabel5.setIcon(icono2);
+        jLabel8.setIcon(icono3);
         init();
     }
 
@@ -144,11 +150,15 @@ public class Interfaz extends javax.swing.JFrame {
         identDataTypeV = new HashMap<>();
         identDataTypeE = new HashMap<>();
         identDataTypeR = new HashMap<>();
+        identDataTypeR2 = new HashMap<>();
         identDataTypeV2 = new HashMap<>();
         identDataTypeV3 = new HashMap<>();
         identDataTemp = new HashMap<>();
         identDataMetodo = new HashMap<>();
         cuadruplo = new Object[4];
+        CodigoObjeto = new ArrayList<>();
+        Variables = new ArrayList<>();
+        
         Functions.setAutocompleterJTextComponent(new String[]{"Sumar('VARIABLES')<\n\t      'Variable Resultado'\n>;",
             "Restar('VARIABLES')<\n\t      'Variable Resultado'\n>;", "Multiplicar('VARIABLES')<\n\t      'Variable Resultado'\n>;",
             "Dividir('VARIABLES')<\n\t      'Variable Resultado'\n>;", "Entero 'Nombre Variable' = 'Valor';", "Entero 'Nombre Variable';",
@@ -199,10 +209,13 @@ public class Interfaz extends javax.swing.JFrame {
         identDataTypeV.clear();
         identDataTypeE.clear();
         identDataTypeR.clear();
+        identDataTypeR2.clear();
         identDataTypeV2.clear();
         identDataTypeV3.clear();
         identDataTemp.clear();
         identDataMetodo.clear();
+        CodigoObjeto.clear();
+        Variables.clear();
         codeHasBeenCompiled = false;
     }
 
@@ -18979,6 +18992,12 @@ public class Interfaz extends javax.swing.JFrame {
                                 errors.add(new ErrorLSSL(67, "----------> ERROR_67:  La variable ya tiene un valor asignado, Linea [#] Columna [%]", id, true));
                             }else{
                                 identDataTypeR.put(id.lexemeRank(7),Integer.toString(res));
+                                if(identDataTypeR2.containsKey(Integer.toString(res))){
+                                    
+                                }else{
+                                    identDataTypeR2.put(Integer.toString(res),id.lexemeRank(7));
+                                }
+                                    
                                 identDataType.put(id.lexemeRank(7),"Numero_Entero");
                             }
                         }
@@ -19002,6 +19021,11 @@ public class Interfaz extends javax.swing.JFrame {
                                 errors.add(new ErrorLSSL(67, "----------> ERROR_67:  La variable ya tiene un valor asignado, Linea [#] Columna [%]", id, true));
                             }else{
                                 identDataTypeR.put(id.lexemeRank(7),Double.toString(res));
+                                if(identDataTypeR2.containsKey(Double.toString(res))){
+                                    
+                                }else{
+                                    identDataTypeR2.put(Double.toString(res),id.lexemeRank(7));
+                                }
                                 identDataType.put(id.lexemeRank(7),"Numero_Decimal");
                             }
                         }
@@ -19041,6 +19065,11 @@ public class Interfaz extends javax.swing.JFrame {
                                 errors.add(new ErrorLSSL(67, "----------> ERROR_67:  La variable ya tiene un valor asignado, Linea [#] Columna [%]", id, true));
                             }else{
                                 identDataTypeR.put(id.lexemeRank(9),Integer.toString(res));
+                                if(identDataTypeR2.containsKey(Integer.toString(res))){
+                                
+                                }else{
+                                    identDataTypeR2.put(Integer.toString(res),id.lexemeRank(9));
+                                } 
                                 identDataType.put(id.lexemeRank(9),"Numero_Entero");
                             }
                         }
@@ -19065,6 +19094,11 @@ public class Interfaz extends javax.swing.JFrame {
                                 errors.add(new ErrorLSSL(67, "----------> ERROR_67:  La variable ya tiene un valor asignado, Linea [#] Columna [%]", id, true));
                             }else{
                                 identDataTypeR.put(id.lexemeRank(9),Double.toString(res));
+                                if(identDataTypeR2.containsKey(Double.toString(res))){
+                                    
+                                }else{
+                                    identDataTypeR2.put(Double.toString(res),id.lexemeRank(9));
+                                }  
                                 identDataType.put(id.lexemeRank(9),"Numero_Decimal");
                             }
                         }
@@ -19106,6 +19140,11 @@ public class Interfaz extends javax.swing.JFrame {
                                 errors.add(new ErrorLSSL(67, "----------> ERROR_67:  La variable ya tiene un valor asignado, Linea [#] Columna [%]", id, true));
                             }else{
                                 identDataTypeR.put(id.lexemeRank(11),Integer.toString(res));
+                                if(identDataTypeR2.containsKey(Integer.toString(res))){
+                                    
+                                }else{
+                                    identDataTypeR2.put(Integer.toString(res),id.lexemeRank(11));
+                                }   
                                 identDataType.put(id.lexemeRank(11),"Numero_Entero");
                             }
                         }
@@ -19131,6 +19170,11 @@ public class Interfaz extends javax.swing.JFrame {
                                 errors.add(new ErrorLSSL(67, "----------> ERROR_67:  La variable ya tiene un valor asignado, Linea [#] Columna [%]", id, true));
                             }else{
                                 identDataTypeR.put(id.lexemeRank(11),Double.toString(res));
+                                if(identDataTypeR2.containsKey(Double.toString(res))){
+                                    
+                                }else{
+                                    identDataTypeR2.put(Double.toString(res),id.lexemeRank(11));
+                                }
                                 identDataType.put(id.lexemeRank(11),"Numero_Decimal");
                             }
                         }
@@ -19174,6 +19218,11 @@ public class Interfaz extends javax.swing.JFrame {
                                 errors.add(new ErrorLSSL(67, "----------> ERROR_67:  La variable ya tiene un valor asignado, Linea [#] Columna [%]", id, true));
                             }else{
                                 identDataTypeR.put(id.lexemeRank(13),Integer.toString(res));
+                                if(identDataTypeR2.containsKey(Integer.toString(res))){
+                                    
+                                }else{
+                                    identDataTypeR2.put(Integer.toString(res),id.lexemeRank(13));
+                                }
                                 identDataType.put(id.lexemeRank(13),"Numero_Entero");
                             }
                         }
@@ -19200,6 +19249,11 @@ public class Interfaz extends javax.swing.JFrame {
                                 errors.add(new ErrorLSSL(67, "----------> ERROR_67:  La variable ya tiene un valor asignado, Linea [#] Columna [%]", id, true));
                             }else{
                                 identDataTypeR.put(id.lexemeRank(13),Double.toString(res));
+                                if(identDataTypeR2.containsKey(Double.toString(res))){
+                                    
+                                }else{
+                                    identDataTypeR2.put(Double.toString(res),id.lexemeRank(13));
+                                }
                                 identDataType.put(id.lexemeRank(13),"Numero_Decimal");
                             }
                         }
@@ -19435,6 +19489,16 @@ public class Interfaz extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jButton10 = new javax.swing.JButton();
         jButton11 = new javax.swing.JButton();
+        jPanel5 = new javax.swing.JPanel();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        CodObjeto = new javax.swing.JTextArea();
+        jLabel7 = new javax.swing.JLabel();
+        jButton12 = new javax.swing.JButton();
+        jButton13 = new javax.swing.JButton();
+        jButton14 = new javax.swing.JButton();
+        jButton15 = new javax.swing.JButton();
+        jButton16 = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
@@ -19483,6 +19547,7 @@ public class Interfaz extends javax.swing.JFrame {
         jMenu7 = new javax.swing.JMenu();
         jMenuItem14 = new javax.swing.JMenuItem();
         jMenuItem13 = new javax.swing.JMenuItem();
+        jMenu14 = new javax.swing.JMenu();
         jMenu9 = new javax.swing.JMenu();
         jMenuItem35 = new javax.swing.JMenuItem();
         jMenuItem17 = new javax.swing.JMenuItem();
@@ -19498,6 +19563,7 @@ public class Interfaz extends javax.swing.JFrame {
         jMenuItem32 = new javax.swing.JMenuItem();
         jMenuItem33 = new javax.swing.JMenuItem();
         jMenuItem34 = new javax.swing.JMenuItem();
+        jMenuItem36 = new javax.swing.JMenuItem();
 
         jMenu2.setText("jMenu2");
 
@@ -19652,6 +19718,7 @@ public class Interfaz extends javax.swing.JFrame {
 
         Tripletas.setColumns(20);
         Tripletas.setRows(5);
+        Tripletas.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         Tripletas.setEnabled(false);
         jScrollPane4.setViewportView(Tripletas);
 
@@ -19709,6 +19776,88 @@ public class Interfaz extends javax.swing.JFrame {
         );
 
         jTabbedPane2.addTab("Tripletas", jPanel4);
+
+        jPanel5.setBackground(new java.awt.Color(204, 204, 255));
+
+        CodObjeto.setColumns(20);
+        CodObjeto.setRows(5);
+        CodObjeto.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        jScrollPane7.setViewportView(CodObjeto);
+
+        jLabel7.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel7.setText("Zoom");
+
+        jButton12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/MasZoom.png"))); // NOI18N
+        jButton12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton12ActionPerformed(evt);
+            }
+        });
+
+        jButton13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/MenosZoom.png"))); // NOI18N
+        jButton13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton13ActionPerformed(evt);
+            }
+        });
+
+        jButton14.setText("Abrir");
+
+        jButton15.setText("Guardar Como");
+
+        jButton16.setText("Guardar");
+        jButton16.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton16ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(0, 43, Short.MAX_VALUE)
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton13)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton12))
+                    .addComponent(jButton14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton16, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton12)
+                            .addComponent(jButton13)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(61, 61, 61)
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
+                        .addComponent(jButton16, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton15, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane7))
+                .addContainerGap())
+        );
+
+        jTabbedPane2.addTab("Código Objeto", jPanel5);
 
         jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/MasZoom.png"))); // NOI18N
         jButton6.addActionListener(new java.awt.event.ActionListener() {
@@ -20072,6 +20221,9 @@ public class Interfaz extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu7);
 
+        jMenu14.setText("Código Objeto");
+        jMenuBar1.add(jMenu14);
+
         jMenu9.setText("Ayuda");
 
         jMenuItem35.setText("Manual");
@@ -20172,6 +20324,14 @@ public class Interfaz extends javax.swing.JFrame {
             }
         });
         jMenu9.add(jMenuItem34);
+
+        jMenuItem36.setText("Código Objeto");
+        jMenuItem36.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem36ActionPerformed(evt);
+            }
+        });
+        jMenu9.add(jMenuItem36);
 
         jMenuBar1.add(jMenu9);
 
@@ -20630,6 +20790,39 @@ public class Interfaz extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }//GEN-LAST:event_jMenuItem33ActionPerformed
+
+    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
+        String fontName = CodObjeto.getFont().getFontName();
+        int fontSize = CodObjeto.getFont().getSize() + 2;
+        
+        Font font = new Font(fontName, 0, fontSize);
+        
+        CodObjeto.setFont(font);
+    }//GEN-LAST:event_jButton12ActionPerformed
+
+    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+        String fontName = CodObjeto.getFont().getFontName();
+        int fontSize = CodObjeto.getFont().getSize() - 2;
+        
+        Font font = new Font(fontName, 0, fontSize);
+        
+        CodObjeto.setFont(font);
+    }//GEN-LAST:event_jButton13ActionPerformed
+
+    private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
+        
+    }//GEN-LAST:event_jButton16ActionPerformed
+
+    private void jMenuItem36ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem36ActionPerformed
+        try{
+            URL ruta = getClass().getResource("/DOCUMENTACION/M4TH3C_OBJETO.docx.pdf");
+            String rutaNueva = ruta.getFile();
+            File ruta2 = new File(rutaNueva.replaceAll("%20"," "));
+            Desktop.getDesktop().open(ruta2);
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jMenuItem36ActionPerformed
     
     private void executeCode(ArrayList<String> blocksOfCode,int repeats){
         int temporal = 0;
@@ -20661,6 +20854,7 @@ public class Interfaz extends javax.swing.JFrame {
                             Tripletas.append(metodo+" := "+identDataTemp.get(metodo)+"\n");
                             cuadruplos("=",identDataTemp.get(metodo),"",metodo);
                             PanelSalida.append("-->   Se ha creado una Clase llamada " + metodo + ".........\n");
+                            CodigoObjeto.add(metodo+":\n");
                         }
                         if(sentence.startsWith("Entero")){
                             if(sentence.contains("=")){
@@ -20687,12 +20881,61 @@ public class Interfaz extends javax.swing.JFrame {
                                     if(identDataTemp.containsKey("-1")){
                                         Tripletas.append(variable+" := T"+(temporal-1)+" * "+identDataTemp.get("-1")+"\n");
                                         cuadruplos("*","T"+(temporal-1),identDataTemp.get("-1"),variable);
+                                        if(valor2.length() == 1){
+                                            Variables.add("    "+variable+" dw \""+valor2.charAt(0)+"\"\n");
+                                        }
+                                        if(valor2.length() == 2){
+                                            Variables.add("    "+variable+" dw \""+valor2.charAt(0)+"\",\""+valor2.charAt(1)+"\"\n");
+                                        }
+                                        if(valor2.length() == 3){
+                                            Variables.add("    "+variable+" dw \""+valor2.charAt(0)+"\",\""+valor2.charAt(1)+"\","+
+                                                          "\""+valor2.charAt(2)+"\"\n");
+                                        }
+                                        if(valor2.length() == 4){
+                                            Variables.add("    "+variable+" dw \""+valor2.charAt(0)+"\",\""+valor2.charAt(1)+"\","+
+                                                          "\""+valor2.charAt(2)+"\",\""+valor2.charAt(3)+"\"\n");
+                                        }
+                                        if(valor2.length() == 5){
+                                            Variables.add("    "+variable+" dw \""+valor2.charAt(0)+"\",\""+valor2.charAt(1)+"\","+
+                                                          "\""+valor2.charAt(2)+"\",\""+valor2.charAt(3)+"\","+
+                                                          "\""+valor2.charAt(4)+"\"\n");
+                                        }
+                                        if(valor2.length() == 6){
+                                            Variables.add("    "+variable+" dw \""+valor2.charAt(0)+"\",\""+valor2.charAt(1)+"\","+
+                                                          "\""+valor2.charAt(2)+"\",\""+valor2.charAt(3)+"\","+
+                                                          "\""+valor2.charAt(4)+"\",\""+valor2.charAt(5)+"\"\n");
+                                        }
                                     }else{
                                         Tripletas.append("T"+temporal+" := 1 - 2"+"\n");
                                         identDataTemp.put("-1","T"+temporal);
                                         cuadruplos("-","1","2","T"+temporal);
                                         Tripletas.append(variable+" := T"+(temporal-1)+" * T"+(temporal)+"\n");
                                         cuadruplos("*","T"+(temporal-1),"T"+temporal,variable);
+                                        if(valor2.length() == 1){
+                                            Variables.add("    "+variable+" dw \""+valor2.charAt(0)+"\"\n");
+                                        }
+                                        if(valor2.length() == 2){
+                                            Variables.add("    "+variable+" dw \""+valor2.charAt(0)+"\",\""+valor2.charAt(1)+"\"\n");
+                                        }
+                                        if(valor2.length() == 3){
+                                            Variables.add("    "+variable+" dw \""+valor2.charAt(0)+"\",\""+valor2.charAt(1)+"\","+
+                                                          "\""+valor2.charAt(2)+"\"\n");
+                                        }
+                                        if(valor2.length() == 4){
+                                            Variables.add("    "+variable+" dw \""+valor2.charAt(0)+"\",\""+valor2.charAt(1)+"\","+
+                                                          "\""+valor2.charAt(2)+"\",\""+valor2.charAt(3)+"\"\n");
+                                        }
+                                        if(valor2.length() == 5){
+                                            Variables.add("    "+variable+" dw \""+valor2.charAt(0)+"\",\""+valor2.charAt(1)+"\","+
+                                                          "\""+valor2.charAt(2)+"\",\""+valor2.charAt(3)+"\","+
+                                                          "\""+valor2.charAt(4)+"\"\n");
+                                        }
+                                        if(valor2.length() == 6){
+                                            Variables.add("    "+variable+" dw \""+valor2.charAt(0)+"\",\""+valor2.charAt(1)+"\","+
+                                                          "\""+valor2.charAt(2)+"\",\""+valor2.charAt(3)+"\","+
+                                                          "\""+valor2.charAt(4)+"\",\""+valor2.charAt(5)+"\"\n");
+                                        }
+                                        Variables.add("    Negativo dw \"-\"\n");
                                     }
                                 }else{
                                     temporal++;
@@ -20703,6 +20946,30 @@ public class Interfaz extends javax.swing.JFrame {
                                     cuadruplos("+","T"+(temporal-1),valor2,"T"+temporal);
                                     Tripletas.append(variable+" := T"+temporal+"\n");
                                     cuadruplos("=","T"+(temporal),"",variable);
+                                    if(valor2.length() == 1){
+                                        Variables.add("    "+variable+" dw \""+valor2.charAt(0)+"\"\n");
+                                    }
+                                    if(valor2.length() == 2){
+                                        Variables.add("    "+variable+" dw \""+valor2.charAt(0)+"\",\""+valor2.charAt(1)+"\"\n");
+                                    }
+                                    if(valor2.length() == 3){
+                                        Variables.add("    "+variable+" dw \""+valor2.charAt(0)+"\",\""+valor2.charAt(1)+"\","+
+                                                      "\""+valor2.charAt(2)+"\"\n");
+                                    }
+                                    if(valor2.length() == 4){
+                                        Variables.add("    "+variable+" dw \""+valor2.charAt(0)+"\",\""+valor2.charAt(1)+"\","+
+                                                      "\""+valor2.charAt(2)+"\",\""+valor2.charAt(3)+"\"\n");
+                                    }
+                                    if(valor2.length() == 5){
+                                        Variables.add("    "+variable+" dw \""+valor2.charAt(0)+"\",\""+valor2.charAt(1)+"\","+
+                                                      "\""+valor2.charAt(2)+"\",\""+valor2.charAt(3)+"\","+
+                                                      "\""+valor2.charAt(4)+"\"\n");
+                                    }
+                                    if(valor2.length() == 6){
+                                        Variables.add("    "+variable+" dw \""+valor2.charAt(0)+"\",\""+valor2.charAt(1)+"\","+
+                                                      "\""+valor2.charAt(2)+"\",\""+valor2.charAt(3)+"\","+
+                                                      "\""+valor2.charAt(4)+"\",\""+valor2.charAt(5)+"\"\n");
+                                    }
                                 }
                                  PanelSalida.append("-->   Se ha declarado una variable de tipo Entero llamada " + variable + " con valor " + valor + ".........\n");
                             }else{
@@ -20712,6 +20979,7 @@ public class Interfaz extends javax.swing.JFrame {
                                 cuadruplos("=",variable,"","T"+temporal);
                                 identDataTemp.put(variable,"T"+temporal);
                                 PanelSalida.append("-->   Se ha declarado una variable de tipo Entero llamada " + variable + ".........\n");
+                                Variables.add("    "+variable+" dw 0,0,0,0,0,0\n");
                             }
                         }
                         if(sentence.startsWith("Decimal")){
@@ -20742,12 +21010,61 @@ public class Interfaz extends javax.swing.JFrame {
                                     if(identDataTemp.containsKey("-1")){
                                         Tripletas.append(variable+" := T"+(temporal-1)+" * "+identDataTemp.get("-1")+"\n");
                                         cuadruplos("*","T"+(temporal-1),identDataTemp.get("-1"),variable);
+                                        if(valor2.length() == 3){
+                                            Variables.add("    "+variable+" dw \""+valor2.charAt(0)+"\",\""+valor2.charAt(1)+"\","+
+                                                          "\""+valor2.charAt(2)+"\"\n");
+                                        }
+                                        if(valor2.length() == 4){
+                                            Variables.add("    "+variable+" dw \""+valor2.charAt(0)+"\",\""+valor2.charAt(1)+"\","+
+                                                          "\""+valor2.charAt(2)+"\",\""+valor2.charAt(3)+"\"\n");
+                                        }
+                                        if(valor2.length() == 5){
+                                            Variables.add("    "+variable+" dw \""+valor2.charAt(0)+"\",\""+valor2.charAt(1)+"\","+
+                                                          "\""+valor2.charAt(2)+"\",\""+valor2.charAt(3)+"\","+
+                                                          "\""+valor2.charAt(4)+"\"\n");
+                                        }
+                                        if(valor2.length() == 6){
+                                            Variables.add("    "+variable+" dw \""+valor2.charAt(0)+"\",\""+valor2.charAt(1)+"\","+
+                                                          "\""+valor2.charAt(2)+"\",\""+valor2.charAt(3)+"\","+
+                                                          "\""+valor2.charAt(4)+"\",\""+valor2.charAt(5)+"\"\n");
+                                        }
+                                        if(valor2.length() == 7){
+                                            Variables.add("    "+variable+" dw \""+valor2.charAt(0)+"\",\""+valor2.charAt(1)+"\","+
+                                                          "\""+valor2.charAt(2)+"\",\""+valor2.charAt(3)+"\","+
+                                                          "\""+valor2.charAt(4)+"\",\""+valor2.charAt(5)+"\","+
+                                                          "\""+valor2.charAt(6)+"\"\n");
+                                        }
                                     }else{
                                         Tripletas.append("T"+temporal+" := 1 - 2"+"\n");
                                         identDataTemp.put("-1","T"+temporal);
                                         cuadruplos("-","1","2","T"+temporal);
                                         Tripletas.append(variable+" := T"+(temporal-1)+" * T"+(temporal)+"\n");
                                         cuadruplos("*","T"+(temporal-1),"T"+temporal,variable);
+                                        if(valor2.length() == 3){
+                                            Variables.add("    "+variable+" dw \""+valor2.charAt(0)+"\",\""+valor2.charAt(1)+"\","+
+                                                          "\""+valor2.charAt(2)+"\"\n");
+                                        }
+                                        if(valor2.length() == 4){
+                                            Variables.add("    "+variable+" dw \""+valor2.charAt(0)+"\",\""+valor2.charAt(1)+"\","+
+                                                          "\""+valor2.charAt(2)+"\",\""+valor2.charAt(3)+"\"\n");
+                                        }
+                                        if(valor2.length() == 5){
+                                            Variables.add("    "+variable+" dw \""+valor2.charAt(0)+"\",\""+valor2.charAt(1)+"\","+
+                                                          "\""+valor2.charAt(2)+"\",\""+valor2.charAt(3)+"\","+
+                                                          "\""+valor2.charAt(4)+"\"\n");
+                                        }
+                                        if(valor2.length() == 6){
+                                            Variables.add("    "+variable+" dw \""+valor2.charAt(0)+"\",\""+valor2.charAt(1)+"\","+
+                                                          "\""+valor2.charAt(2)+"\",\""+valor2.charAt(3)+"\","+
+                                                          "\""+valor2.charAt(4)+"\",\""+valor2.charAt(5)+"\"\n");
+                                        }
+                                        if(valor2.length() == 7){
+                                            Variables.add("    "+variable+" dw \""+valor2.charAt(0)+"\",\""+valor2.charAt(1)+"\","+
+                                                          "\""+valor2.charAt(2)+"\",\""+valor2.charAt(3)+"\","+
+                                                          "\""+valor2.charAt(4)+"\",\""+valor2.charAt(5)+"\","+
+                                                          "\""+valor2.charAt(6)+"\"\n");
+                                        }
+                                        Variables.add("    Negativo dw \"-\"\n");
                                     }
                                 }else{
                                     temporal++;
@@ -20758,6 +21075,30 @@ public class Interfaz extends javax.swing.JFrame {
                                     cuadruplos("+","T"+(temporal-1),valor2,"T"+temporal);
                                     Tripletas.append(variable+" := T"+temporal+"\n");
                                     cuadruplos("=","T"+(temporal),"",variable);
+                                    if(valor2.length() == 3){
+                                        Variables.add("    "+variable+" dw \""+valor2.charAt(0)+"\",\""+valor2.charAt(1)+"\","+
+                                                      "\""+valor2.charAt(2)+"\"\n");
+                                    }
+                                    if(valor2.length() == 4){
+                                        Variables.add("    "+variable+" dw \""+valor2.charAt(0)+"\",\""+valor2.charAt(1)+"\","+
+                                                      "\""+valor2.charAt(2)+"\",\""+valor2.charAt(3)+"\"\n");
+                                    }
+                                    if(valor2.length() == 5){
+                                        Variables.add("    "+variable+" dw \""+valor2.charAt(0)+"\",\""+valor2.charAt(1)+"\","+
+                                                      "\""+valor2.charAt(2)+"\",\""+valor2.charAt(3)+"\","+
+                                                      "\""+valor2.charAt(4)+"\"\n");
+                                    }
+                                    if(valor2.length() == 6){
+                                        Variables.add("    "+variable+" dw \""+valor2.charAt(0)+"\",\""+valor2.charAt(1)+"\","+
+                                                      "\""+valor2.charAt(2)+"\",\""+valor2.charAt(3)+"\","+
+                                                      "\""+valor2.charAt(4)+"\",\""+valor2.charAt(5)+"\"\n");
+                                    }
+                                    if(valor2.length() == 7){
+                                        Variables.add("    "+variable+" dw \""+valor2.charAt(0)+"\",\""+valor2.charAt(1)+"\","+
+                                                      "\""+valor2.charAt(2)+"\",\""+valor2.charAt(3)+"\","+
+                                                      "\""+valor2.charAt(4)+"\",\""+valor2.charAt(5)+"\","+
+                                                      "\""+valor2.charAt(6)+"\"\n");
+                                    }
                                 }
                             }else{
                                 String variable = sentence.substring(8,sentence.length());
@@ -20766,6 +21107,7 @@ public class Interfaz extends javax.swing.JFrame {
                                 cuadruplos("=",variable,"","T"+temporal);
                                 identDataTemp.put(variable,"T"+temporal);
                                 PanelSalida.append("-->   Se ha declarado una variable de tipo Decimal llamada " + variable + ".........\n");
+                                Variables.add("    "+variable+" dw 0,0,0,0,0,0,0\n");
                             }
                         }
                         if(sentence.startsWith("Cadena")){
@@ -20815,6 +21157,37 @@ public class Interfaz extends javax.swing.JFrame {
                                 Tripletas.append(variable+" := T"+temporal+"\n");
                                 cuadruplos("=","T"+(temporal),"",variable);
                                 PanelSalida.append("-->   Se ha declarado una variable de tipo Figura llamada " + variable + " con valor " + valor + ".........\n");
+                                if(valor.length() == 5){
+                                    Variables.add("    "+variable+" dw \""+valor.charAt(0)+"\",\""+valor.charAt(1)+"\","+
+                                                  "\""+valor.charAt(2)+"\",\""+valor.charAt(3)+"\","+
+                                                  "\""+valor.charAt(4)+"\"\n");
+                                }
+                                if(valor.length() == 7){
+                                    Variables.add("    "+variable+" dw \""+valor.charAt(0)+"\",\""+valor.charAt(1)+"\","+
+                                                  "\""+valor.charAt(2)+"\",\""+valor.charAt(3)+"\","+
+                                                  "\""+valor.charAt(4)+"\",\""+valor.charAt(5)+"\","+
+                                                  "\""+valor.charAt(6)+"\"\n");
+                                }
+                                if(valor.length() == 8){
+                                    Variables.add("    "+variable+" dw \""+valor.charAt(0)+"\",\""+valor.charAt(1)+"\","+
+                                                  "\""+valor.charAt(2)+"\",\""+valor.charAt(3)+"\","+
+                                                  "\""+valor.charAt(4)+"\",\""+valor.charAt(5)+"\","+
+                                                  "\""+valor.charAt(6)+"\",\""+valor.charAt(7)+"\"\n");
+                                }
+                                if(valor.length() == 9){
+                                    Variables.add("    "+variable+" dw \""+valor.charAt(0)+"\",\""+valor.charAt(1)+"\","+
+                                                  "\""+valor.charAt(2)+"\",\""+valor.charAt(3)+"\","+
+                                                  "\""+valor.charAt(4)+"\",\""+valor.charAt(5)+"\","+
+                                                  "\""+valor.charAt(6)+"\",\""+valor.charAt(7)+"\","+
+                                                  "\""+valor.charAt(8)+"\"\n");
+                                }
+                                if(valor.length() == 10){
+                                    Variables.add("    "+variable+" dw \""+valor.charAt(0)+"\",\""+valor.charAt(1)+"\","+
+                                                  "\""+valor.charAt(2)+"\",\""+valor.charAt(3)+"\","+
+                                                  "\""+valor.charAt(4)+"\",\""+valor.charAt(5)+"\","+
+                                                  "\""+valor.charAt(6)+"\",\""+valor.charAt(7)+"\","+
+                                                  "\""+valor.charAt(8)+"\",\""+valor.charAt(9)+"\"\n");
+                                }
                             }else{
                                 String variable = sentence.substring(7,sentence.length());
                                 temporal++;
@@ -20822,9 +21195,11 @@ public class Interfaz extends javax.swing.JFrame {
                                 cuadruplos("=",variable,"","T"+temporal);
                                 identDataTemp.put(variable,"T"+temporal);
                                 PanelSalida.append("-->   Se ha declarado una variable de tipo Figura llamada " + variable + ".........\n");
+                                Variables.add("    "+variable+" dw 0,0,0,0,0,0,0,0,0,0\n");
                             }
                         }
                         if(sentence.startsWith("Color")){
+                            
                             if(sentence.contains("=")){
                                 String variable = "";
                                 String valor = "";
@@ -20843,6 +21218,20 @@ public class Interfaz extends javax.swing.JFrame {
                                 Tripletas.append(variable+" := T"+temporal+"\n");
                                 cuadruplos("=","T"+(temporal),"",variable);
                                 PanelSalida.append("-->   Se ha declarado una variable de tipo Color llamada " + variable + " con valor " + valor + ".........\n");
+                                if(valor.length() == 4){
+                                    Variables.add("    "+variable+" dw \""+valor.charAt(0)+"\",\""+valor.charAt(1)+"\","+
+                                                  "\""+valor.charAt(2)+"\",\""+valor.charAt(3)+"\"\n");
+                                }
+                                if(valor.length() == 5){
+                                    Variables.add("    "+variable+" dw \""+valor.charAt(0)+"\",\""+valor.charAt(1)+"\","+
+                                                  "\""+valor.charAt(2)+"\",\""+valor.charAt(3)+"\","+
+                                                  "\""+valor.charAt(4)+"\"\n");
+                                }
+                                if(valor.length() == 6){
+                                    Variables.add("    "+variable+" dw \""+valor.charAt(0)+"\",\""+valor.charAt(1)+"\","+
+                                                  "\""+valor.charAt(2)+"\",\""+valor.charAt(3)+"\","+
+                                                  "\""+valor.charAt(4)+"\",\""+valor.charAt(5)+"\"\n");
+                                }
                             }else{
                                 String variable = sentence.substring(6,sentence.length());
                                 temporal++;
@@ -20850,6 +21239,7 @@ public class Interfaz extends javax.swing.JFrame {
                                 cuadruplos("=",variable,"","T"+temporal);
                                 identDataTemp.put(variable,"T"+temporal);
                                 PanelSalida.append("-->   Se ha declarado una variable de tipo Color llamada " + variable + ".........\n");
+                                Variables.add("    "+variable+" dw 0,0,0,0,0,0\n");
                             }
                         }
                         if(sentence.startsWith("Resultado")){
@@ -20859,6 +21249,7 @@ public class Interfaz extends javax.swing.JFrame {
                             cuadruplos("=",variable,"","T"+temporal);
                             identDataTemp.put(variable,"T"+temporal);
                             PanelSalida.append("-->   Se ha declarado una variable de tipo Resultado llamada " + variable + ".........\n");
+                            Variables.add("    "+variable.replaceFirst("#","")+" dw 0,0,0,0,0,0,0,0\n");
                         }
                         for(Production id: identProdA1){
                             if(sentence.startsWith(id.lexemeRank(0))){
@@ -20873,12 +21264,19 @@ public class Interfaz extends javax.swing.JFrame {
                                         if(identDataTemp.containsKey("-1")){
                                             Tripletas.append(id.lexemeRank(0)+" := T"+(temporal-1)+" * "+identDataTemp.get("-1")+"\n");
                                             cuadruplos("*","T"+(temporal-1),"T"+identDataTemp.get("-1"),id.lexemeRank(0));
+                                            CodigoObjeto.add("    MOV AX,"+id.lexemeRank(0)+"\n"
+                                                           + "    MUL Negativo\n"
+                                                           + "    MOV "+id.lexemeRank(0)+",AX\n");
                                         }else{
                                             Tripletas.append("T"+temporal+" := 1 - 2"+"\n");
                                             identDataTemp.put("-1","T"+temporal);
                                             cuadruplos("-","1","2","T"+temporal);
                                             Tripletas.append(id.lexemeRank(0)+" := T"+(temporal-1)+" * T"+(temporal)+"\n");
                                             cuadruplos("*","T"+(temporal-1),"T"+temporal,id.lexemeRank(0));
+                                            Variables.add("    Negativo dw \"-\"\n");
+                                            CodigoObjeto.add("    MOV AX,"+id.lexemeRank(0)+"\n"
+                                                           + "    MUL Negativo\n"
+                                                           + "    MOV "+id.lexemeRank(0)+",AX\n");
                                         }
                                     }else{
                                         temporal++;
@@ -20886,6 +21284,39 @@ public class Interfaz extends javax.swing.JFrame {
                                         cuadruplos("+",identDataTemp.get(id.lexemeRank(0)),id.lexemeRank(-2),"T"+temporal);
                                         Tripletas.append(id.lexemeRank(0)+" := T"+temporal+"\n");
                                         cuadruplos("=","T"+temporal,"",id.lexemeRank(0));
+                                        if(id.lexemeRank(-2).length() == 1){
+                                            CodigoObjeto.add("    ADD "+id.lexemeRank(0)+"[0],\""+id.lexemeRank(-2).charAt(0)+"\"\n");
+                                        }
+                                        if(id.lexemeRank(-2).length() == 2){
+                                            CodigoObjeto.add("    ADD "+id.lexemeRank(0)+"[0],\""+id.lexemeRank(-2).charAt(0)+"\"\n"
+                                                           + "    ADD "+id.lexemeRank(0)+"[2],\""+id.lexemeRank(-2).charAt(1)+"\"\n");
+                                        }
+                                        if(id.lexemeRank(-2).length() == 3){
+                                            CodigoObjeto.add("    ADD "+id.lexemeRank(0)+"[0],\""+id.lexemeRank(-2).charAt(0)+"\"\n"
+                                                           + "    ADD "+id.lexemeRank(0)+"[2],\""+id.lexemeRank(-2).charAt(1)+"\"\n"
+                                                           + "    ADD "+id.lexemeRank(0)+"[4],\""+id.lexemeRank(-2).charAt(2)+"\"\n");
+                                        }
+                                        if(id.lexemeRank(-2).length() == 4){
+                                            CodigoObjeto.add("    ADD "+id.lexemeRank(0)+"[0],\""+id.lexemeRank(-2).charAt(0)+"\"\n"
+                                                           + "    ADD "+id.lexemeRank(0)+"[2],\""+id.lexemeRank(-2).charAt(1)+"\"\n"
+                                                           + "    ADD "+id.lexemeRank(0)+"[4],\""+id.lexemeRank(-2).charAt(2)+"\"\n"
+                                                           + "    ADD "+id.lexemeRank(0)+"[6],\""+id.lexemeRank(-2).charAt(3)+"\"\n");
+                                        }
+                                        if(id.lexemeRank(-2).length() == 5){
+                                            CodigoObjeto.add("    ADD "+id.lexemeRank(0)+"[0],\""+id.lexemeRank(-2).charAt(0)+"\"\n"
+                                                           + "    ADD "+id.lexemeRank(0)+"[2],\""+id.lexemeRank(-2).charAt(1)+"\"\n"
+                                                           + "    ADD "+id.lexemeRank(0)+"[4],\""+id.lexemeRank(-2).charAt(2)+"\"\n"
+                                                           + "    ADD "+id.lexemeRank(0)+"[6],\""+id.lexemeRank(-2).charAt(3)+"\"\n"
+                                                           + "    ADD "+id.lexemeRank(0)+"[8],\""+id.lexemeRank(-2).charAt(4)+"\"\n");
+                                        }
+                                        if(id.lexemeRank(-2).length() == 6){
+                                            CodigoObjeto.add("    ADD "+id.lexemeRank(0)+"[0],\""+id.lexemeRank(-2).charAt(0)+"\"\n"
+                                                           + "    ADD "+id.lexemeRank(0)+"[2],\""+id.lexemeRank(-2).charAt(1)+"\"\n"
+                                                           + "    ADD "+id.lexemeRank(0)+"[4],\""+id.lexemeRank(-2).charAt(2)+"\"\n"
+                                                           + "    ADD "+id.lexemeRank(0)+"[6],\""+id.lexemeRank(-2).charAt(3)+"\"\n"
+                                                           + "    ADD "+id.lexemeRank(0)+"[8],\""+id.lexemeRank(-2).charAt(4)+"\"\n"
+                                                           + "    ADD "+id.lexemeRank(0)+"[10],\""+id.lexemeRank(-2).charAt(5)+"\"\n");
+                                        }
                                     }
                                     tipo = "Entero";
                                     PanelSalida.append("-->   Se le esta asignando a la variable " + id.lexemeRank(0) + " de tipo " + tipo + " un nuevo valor de " + id.lexemeRank(-3) + id.lexemeRank(-2) + ".........\n");
@@ -20898,12 +21329,19 @@ public class Interfaz extends javax.swing.JFrame {
                                         if(identDataTemp.containsKey("-1")){
                                             Tripletas.append(id.lexemeRank(0)+" := T"+(temporal-1)+" * "+identDataTemp.get("-1")+"\n");
                                             cuadruplos("*","T"+(temporal-1),"T"+identDataTemp.get("-1"),id.lexemeRank(0));
+                                            CodigoObjeto.add("    MOV AX,"+id.lexemeRank(0)+"\n"
+                                                           + "    MUL Negativo\n"
+                                                           + "    MOV "+id.lexemeRank(0)+",AX\n");
                                         }else{
                                             Tripletas.append("T"+temporal+" := 1 - 2"+"\n");
                                             identDataTemp.put("-1","T"+temporal);
                                             cuadruplos("-","1","2","T"+temporal);
                                             Tripletas.append(id.lexemeRank(0)+" := T"+(temporal-1)+" * T"+(temporal)+"\n");
                                             cuadruplos("*","T"+(temporal-1),"T"+temporal,id.lexemeRank(0));
+                                            Variables.add("    Negativo dw \"-\"\n");
+                                            CodigoObjeto.add("    MOV AX,"+id.lexemeRank(0)+"\n"
+                                                           + "    MUL Negativo\n"
+                                                           + "    MOV "+id.lexemeRank(0)+",AX\n");
                                         }
                                     }else{
                                         temporal++;
@@ -20911,6 +21349,32 @@ public class Interfaz extends javax.swing.JFrame {
                                         cuadruplos("+",identDataTemp.get(id.lexemeRank(0)),id.lexemeRank(-2),"T"+temporal);
                                         Tripletas.append(id.lexemeRank(0)+" := T"+temporal+"\n");
                                         cuadruplos("=","T"+temporal,"",id.lexemeRank(0));
+                                        if(id.lexemeRank(-2).length() == 3){
+                                            CodigoObjeto.add("    ADD "+id.lexemeRank(0)+"[0],\""+id.lexemeRank(-2).charAt(0)+"\"\n"
+                                                           + "    ADD "+id.lexemeRank(0)+"[2],\""+id.lexemeRank(-2).charAt(1)+"\"\n"
+                                                           + "    ADD "+id.lexemeRank(0)+"[4],\""+id.lexemeRank(-2).charAt(2)+"\"\n");
+                                        }
+                                        if(id.lexemeRank(-2).length() == 4){
+                                            CodigoObjeto.add("    ADD "+id.lexemeRank(0)+"[0],\""+id.lexemeRank(-2).charAt(0)+"\"\n"
+                                                           + "    ADD "+id.lexemeRank(0)+"[2],\""+id.lexemeRank(-2).charAt(1)+"\"\n"
+                                                           + "    ADD "+id.lexemeRank(0)+"[4],\""+id.lexemeRank(-2).charAt(2)+"\"\n"
+                                                           + "    ADD "+id.lexemeRank(0)+"[6],\""+id.lexemeRank(-2).charAt(3)+"\"\n");
+                                        }
+                                        if(id.lexemeRank(-2).length() == 5){
+                                            CodigoObjeto.add("    ADD "+id.lexemeRank(0)+"[0],\""+id.lexemeRank(-2).charAt(0)+"\"\n"
+                                                           + "    ADD "+id.lexemeRank(0)+"[2],\""+id.lexemeRank(-2).charAt(1)+"\"\n"
+                                                           + "    ADD "+id.lexemeRank(0)+"[4],\""+id.lexemeRank(-2).charAt(2)+"\"\n"
+                                                           + "    ADD "+id.lexemeRank(0)+"[6],\""+id.lexemeRank(-2).charAt(3)+"\"\n"
+                                                           + "    ADD "+id.lexemeRank(0)+"[8],\""+id.lexemeRank(-2).charAt(4)+"\"\n");
+                                        }
+                                        if(id.lexemeRank(-2).length() == 6){
+                                            CodigoObjeto.add("    ADD "+id.lexemeRank(0)+"[0],\""+id.lexemeRank(-2).charAt(0)+"\"\n"
+                                                           + "    ADD "+id.lexemeRank(0)+"[2],\""+id.lexemeRank(-2).charAt(1)+"\"\n"
+                                                           + "    ADD "+id.lexemeRank(0)+"[4],\""+id.lexemeRank(-2).charAt(2)+"\"\n"
+                                                           + "    ADD "+id.lexemeRank(0)+"[6],\""+id.lexemeRank(-2).charAt(3)+"\"\n"
+                                                           + "    ADD "+id.lexemeRank(0)+"[8],\""+id.lexemeRank(-2).charAt(4)+"\"\n"
+                                                           + "    ADD "+id.lexemeRank(0)+"[10],\""+id.lexemeRank(-2).charAt(5)+"\"\n");
+                                        }
                                     }
                                     tipo = "Decimal";
                                     PanelSalida.append("-->   Se le esta asignando a la variable " + id.lexemeRank(0) + " de tipo " + tipo + " un nuevo valor de " + id.lexemeRank(-3) + id.lexemeRank(-2) + ".........\n");
@@ -20922,6 +21386,7 @@ public class Interfaz extends javax.swing.JFrame {
                                     cuadruplos("=","T"+temporal,"",id.lexemeRank(0));
                                     tipo = "Cadena";
                                     PanelSalida.append("-->   Se le esta asignando a la variable " + id.lexemeRank(0) + " de tipo " + tipo + " un nuevo valor de " + id.lexemeRank(-2) + ".........\n");
+                                
                                 }else if(id.lexicalCompRank(-2).equals("Palabra_Reservada_12") || id.lexicalCompRank(-2).equals("Palabra_Reservada_13") || id.lexicalCompRank(-2).equals("Palabra_Reservada_14") || id.lexicalCompRank(-2).equals("Palabra_Reservada_15") || id.lexicalCompRank(-2).equals("Palabra_Reservada_16")){
                                     temporal++;
                                     Tripletas.append("T"+temporal+" := "+identDataTemp.get(id.lexemeRank(0))+" + "+id.lexemeRank(-2)+"\n");
@@ -20930,6 +21395,27 @@ public class Interfaz extends javax.swing.JFrame {
                                     cuadruplos("=","T"+temporal,"",id.lexemeRank(0));
                                     tipo = "Color";
                                     PanelSalida.append("-->   Se le esta asignando a la variable " + id.lexemeRank(0) + " de tipo " + tipo + " un nuevo valor de " + id.lexemeRank(-2) + ".........\n");
+                                    if(id.lexemeRank(-2).length() == 4){
+                                        CodigoObjeto.add("    ADD "+id.lexemeRank(0)+"[0],\""+id.lexemeRank(-2).charAt(0)+"\"\n"
+                                                       + "    ADD "+id.lexemeRank(0)+"[2],\""+id.lexemeRank(-2).charAt(1)+"\"\n"
+                                                       + "    ADD "+id.lexemeRank(0)+"[4],\""+id.lexemeRank(-2).charAt(2)+"\"\n"
+                                                       + "    ADD "+id.lexemeRank(0)+"[6],\""+id.lexemeRank(-2).charAt(3)+"\"\n");
+                                    }
+                                    if(id.lexemeRank(-2).length() == 5){
+                                        CodigoObjeto.add("    ADD "+id.lexemeRank(0)+"[0],\""+id.lexemeRank(-2).charAt(0)+"\"\n"
+                                                       + "    ADD "+id.lexemeRank(0)+"[2],\""+id.lexemeRank(-2).charAt(1)+"\"\n"
+                                                       + "    ADD "+id.lexemeRank(0)+"[4],\""+id.lexemeRank(-2).charAt(2)+"\"\n"
+                                                       + "    ADD "+id.lexemeRank(0)+"[6],\""+id.lexemeRank(-2).charAt(3)+"\"\n"
+                                                       + "    ADD "+id.lexemeRank(0)+"[8],\""+id.lexemeRank(-2).charAt(4)+"\"\n");
+                                    }
+                                    if(id.lexemeRank(-2).length() == 6){
+                                        CodigoObjeto.add("    ADD "+id.lexemeRank(0)+"[0],\""+id.lexemeRank(-2).charAt(0)+"\"\n"
+                                                       + "    ADD "+id.lexemeRank(0)+"[2],\""+id.lexemeRank(-2).charAt(1)+"\"\n"
+                                                       + "    ADD "+id.lexemeRank(0)+"[4],\""+id.lexemeRank(-2).charAt(2)+"\"\n"
+                                                       + "    ADD "+id.lexemeRank(0)+"[6],\""+id.lexemeRank(-2).charAt(3)+"\"\n"
+                                                       + "    ADD "+id.lexemeRank(0)+"[8],\""+id.lexemeRank(-2).charAt(4)+"\"\n"
+                                                       + "    ADD "+id.lexemeRank(0)+"[10],\""+id.lexemeRank(-2).charAt(5)+"\"\n");
+                                    }
                                 }else if(id.lexicalCompRank(-2).equals("Palabra_Reservada_17") || id.lexicalCompRank(-2).equals("Palabra_Reservada_18") || id.lexicalCompRank(-2).equals("Palabra_Reservada_19") || id.lexicalCompRank(-2).equals("Palabra_Reservada_20") || id.lexicalCompRank(-2).equals("Palabra_Reservada_21")){
                                     temporal++;
                                     Tripletas.append("T"+temporal+" := "+identDataTemp.get(id.lexemeRank(0))+" + "+id.lexemeRank(-2)+"\n");
@@ -20938,6 +21424,55 @@ public class Interfaz extends javax.swing.JFrame {
                                     cuadruplos("=","T"+temporal,"",id.lexemeRank(0));
                                     tipo = "Figura";
                                     PanelSalida.append("-->   Se le esta asignando a la variable " + id.lexemeRank(0) + " de tipo " + tipo + " un nuevo valor de " + id.lexemeRank(-2) + ".........\n");
+                                    if(id.lexemeRank(-2).length() == 5){
+                                        CodigoObjeto.add("    ADD "+id.lexemeRank(0)+"[0],\""+id.lexemeRank(-2).charAt(0)+"\"\n"
+                                                       + "    ADD "+id.lexemeRank(0)+"[2],\""+id.lexemeRank(-2).charAt(1)+"\"\n"
+                                                       + "    ADD "+id.lexemeRank(0)+"[4],\""+id.lexemeRank(-2).charAt(2)+"\"\n"
+                                                       + "    ADD "+id.lexemeRank(0)+"[6],\""+id.lexemeRank(-2).charAt(3)+"\"\n"
+                                                       + "    ADD "+id.lexemeRank(0)+"[8],\""+id.lexemeRank(-2).charAt(4)+"\"\n");
+                                    }
+                                    if(id.lexemeRank(-2).length() == 7){
+                                        CodigoObjeto.add("    ADD "+id.lexemeRank(0)+"[0],\""+id.lexemeRank(-2).charAt(0)+"\"\n"
+                                                       + "    ADD "+id.lexemeRank(0)+"[2],\""+id.lexemeRank(-2).charAt(1)+"\"\n"
+                                                       + "    ADD "+id.lexemeRank(0)+"[4],\""+id.lexemeRank(-2).charAt(2)+"\"\n"
+                                                       + "    ADD "+id.lexemeRank(0)+"[6],\""+id.lexemeRank(-2).charAt(3)+"\"\n"
+                                                       + "    ADD "+id.lexemeRank(0)+"[8],\""+id.lexemeRank(-2).charAt(4)+"\"\n"
+                                                       + "    ADD "+id.lexemeRank(0)+"[10],\""+id.lexemeRank(-2).charAt(5)+"\"\n"
+                                                       + "    ADD "+id.lexemeRank(0)+"[12],\""+id.lexemeRank(-2).charAt(6)+"\"\n");
+                                    }
+                                    if(id.lexemeRank(-2).length() == 8){
+                                        CodigoObjeto.add("    ADD "+id.lexemeRank(0)+"[0],\""+id.lexemeRank(-2).charAt(0)+"\"\n"
+                                                       + "    ADD "+id.lexemeRank(0)+"[2],\""+id.lexemeRank(-2).charAt(1)+"\"\n"
+                                                       + "    ADD "+id.lexemeRank(0)+"[4],\""+id.lexemeRank(-2).charAt(2)+"\"\n"
+                                                       + "    ADD "+id.lexemeRank(0)+"[6],\""+id.lexemeRank(-2).charAt(3)+"\"\n"
+                                                       + "    ADD "+id.lexemeRank(0)+"[8],\""+id.lexemeRank(-2).charAt(4)+"\"\n"
+                                                       + "    ADD "+id.lexemeRank(0)+"[10],\""+id.lexemeRank(-2).charAt(5)+"\"\n"
+                                                       + "    ADD "+id.lexemeRank(0)+"[12],\""+id.lexemeRank(-2).charAt(6)+"\"\n"
+                                                       + "    ADD "+id.lexemeRank(0)+"[14],\""+id.lexemeRank(-2).charAt(7)+"\"\n");
+                                    }
+                                    if(id.lexemeRank(-2).length() == 9){
+                                        CodigoObjeto.add("    ADD "+id.lexemeRank(0)+"[0],\""+id.lexemeRank(-2).charAt(0)+"\"\n"
+                                                       + "    ADD "+id.lexemeRank(0)+"[2],\""+id.lexemeRank(-2).charAt(1)+"\"\n"
+                                                       + "    ADD "+id.lexemeRank(0)+"[4],\""+id.lexemeRank(-2).charAt(2)+"\"\n"
+                                                       + "    ADD "+id.lexemeRank(0)+"[6],\""+id.lexemeRank(-2).charAt(3)+"\"\n"
+                                                       + "    ADD "+id.lexemeRank(0)+"[8],\""+id.lexemeRank(-2).charAt(4)+"\"\n"
+                                                       + "    ADD "+id.lexemeRank(0)+"[10],\""+id.lexemeRank(-2).charAt(5)+"\"\n"
+                                                       + "    ADD "+id.lexemeRank(0)+"[12],\""+id.lexemeRank(-2).charAt(6)+"\"\n"
+                                                       + "    ADD "+id.lexemeRank(0)+"[14],\""+id.lexemeRank(-2).charAt(7)+"\"\n"
+                                                       + "    ADD "+id.lexemeRank(0)+"[16],\""+id.lexemeRank(-2).charAt(8)+"\"\n");
+                                    }
+                                    if(id.lexemeRank(-2).length() == 10){
+                                        CodigoObjeto.add("    ADD "+id.lexemeRank(0)+"[0],\""+id.lexemeRank(-2).charAt(0)+"\"\n"
+                                                       + "    ADD "+id.lexemeRank(0)+"[2],\""+id.lexemeRank(-2).charAt(1)+"\"\n"
+                                                       + "    ADD "+id.lexemeRank(0)+"[4],\""+id.lexemeRank(-2).charAt(2)+"\"\n"
+                                                       + "    ADD "+id.lexemeRank(0)+"[6],\""+id.lexemeRank(-2).charAt(3)+"\"\n"
+                                                       + "    ADD "+id.lexemeRank(0)+"[8],\""+id.lexemeRank(-2).charAt(4)+"\"\n"
+                                                       + "    ADD "+id.lexemeRank(0)+"[10],\""+id.lexemeRank(-2).charAt(5)+"\"\n"
+                                                       + "    ADD "+id.lexemeRank(0)+"[12],\""+id.lexemeRank(-2).charAt(6)+"\"\n"
+                                                       + "    ADD "+id.lexemeRank(0)+"[14],\""+id.lexemeRank(-2).charAt(7)+"\"\n"
+                                                       + "    ADD "+id.lexemeRank(0)+"[16],\""+id.lexemeRank(-2).charAt(8)+"\"\n"
+                                                       + "    ADD "+id.lexemeRank(0)+"[18],\""+id.lexemeRank(-2).charAt(9)+"\"\n");
+                                    }
                                 }
                             }
                         }
@@ -20948,12 +21483,18 @@ public class Interfaz extends javax.swing.JFrame {
                                     if(identDataTemp.containsKey(identDataTypeR.get(id.lexemeRank(7)))){
                                         Tripletas.append(id.lexemeRank(7)+" := "+identDataTemp.get(identDataTypeR.get(id.lexemeRank(7)))+"\n");
                                         cuadruplos("=",identDataTemp.get(identDataTypeR.get(id.lexemeRank(7))),"",id.lexemeRank(7));
+                                        CodigoObjeto.add("    MOV AX,"+identDataTypeR2.get(identDataTypeR.get(id.lexemeRank(7)))+"\n"
+                                                       + "    MOV "+id.lexemeRank(7)+",AX\n");
                                     }else{
                                         Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" + "+id.lexemeRank(4)+"\n");
                                         cuadruplos("+",id.lexemeRank(2),id.lexemeRank(4),"T"+temporal);
                                         identDataTemp.put(identDataTypeR.get(id.lexemeRank(7)),"T"+temporal);
                                         Tripletas.append(id.lexemeRank(7)+" := T"+temporal+"\n");
                                         cuadruplos("=","T"+temporal,"",id.lexemeRank(7));
+                                        CodigoObjeto.add("    MOV AX,"+id.lexemeRank(2)+"\n"
+                                                       + "    MOV BX,"+id.lexemeRank(4)+"\n"
+                                                       + "    ADD AX,BX\n"
+                                                       + "    MOV "+id.lexemeRank(7)+",AX\n");
                                     }
                                     PanelSalida.append("-->   Se ha utlizado la función de Sumar, que tiene como parametros a:        " + id.lexemeRank(2) + " = " + identDataTypeV2.get(id.lexemeRank(2)) + " , " + id.lexemeRank(4) + " = " + identDataTypeV2.get(id.lexemeRank(4)) + "\nDonde el resultado de la operación es: " + identDataTypeR.get(id.lexemeRank(7)) + " , y se guardó en: " + id.lexemeRank(7) + ".........\n");
                                     break;
@@ -20962,12 +21503,18 @@ public class Interfaz extends javax.swing.JFrame {
                                     if(identDataTemp.containsKey(identDataTypeR.get(id.lexemeRank(7)))){
                                         Tripletas.append(id.lexemeRank(7)+" := "+identDataTemp.get(identDataTypeR.get(id.lexemeRank(7)))+"\n");
                                         cuadruplos("=",identDataTemp.get(identDataTypeR.get(id.lexemeRank(7))),"",id.lexemeRank(7));
+                                        CodigoObjeto.add("    MOV AX,"+identDataTypeR2.get(identDataTypeR.get(id.lexemeRank(7)))+"\n"
+                                                       + "    MOV "+id.lexemeRank(7)+",AX\n");
                                     }else{
                                         Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" - "+id.lexemeRank(4)+"\n");
                                         cuadruplos("-",id.lexemeRank(2),id.lexemeRank(4),"T"+temporal);
                                         identDataTemp.put(identDataTypeR.get(id.lexemeRank(7)),"T"+temporal);
                                         Tripletas.append(id.lexemeRank(7)+" := T"+temporal+"\n");
                                         cuadruplos("=","T"+temporal,"",id.lexemeRank(7));
+                                        CodigoObjeto.add("    MOV AX,"+id.lexemeRank(2)+"\n"
+                                                       + "    MOV BX,"+id.lexemeRank(4)+"\n"
+                                                       + "    SUB AX,BX\n"
+                                                       + "    MOV "+id.lexemeRank(7)+",AX\n");
                                     }
                                     PanelSalida.append("-->   Se ha utlizado la función de Restar, que tiene como parametros a:       " + id.lexemeRank(2) + " = " + identDataTypeV2.get(id.lexemeRank(2)) + " , " + id.lexemeRank(4) + " = " + identDataTypeV2.get(id.lexemeRank(4)) + "\nDonde el resultado de la operación es: " + identDataTypeR.get(id.lexemeRank(7)) + " , y se guardó en: " + id.lexemeRank(7) + ".........\n");
                                     break;
@@ -20976,12 +21523,18 @@ public class Interfaz extends javax.swing.JFrame {
                                     if(identDataTemp.containsKey(identDataTypeR.get(id.lexemeRank(7)))){
                                         Tripletas.append(id.lexemeRank(7)+" := "+identDataTemp.get(identDataTypeR.get(id.lexemeRank(7)))+"\n");
                                         cuadruplos("=",identDataTemp.get(identDataTypeR.get(id.lexemeRank(7))),"",id.lexemeRank(7));
+                                        CodigoObjeto.add("    MOV AX,"+identDataTypeR2.get(identDataTypeR.get(id.lexemeRank(7)))+"\n"
+                                                       + "    MOV "+id.lexemeRank(7)+",AX\n");
                                     }else{
                                         Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" * "+id.lexemeRank(4)+"\n");
                                         cuadruplos("*",id.lexemeRank(2),id.lexemeRank(4),"T"+temporal);
                                         identDataTemp.put(identDataTypeR.get(id.lexemeRank(7)),"T"+temporal);
                                         Tripletas.append(id.lexemeRank(7)+" := T"+temporal+"\n");
                                         cuadruplos("=","T"+temporal,"",id.lexemeRank(7));
+                                        CodigoObjeto.add("    MOV AX,"+id.lexemeRank(2)+"\n"
+                                                       + "    MOV BX,"+id.lexemeRank(4)+"\n"
+                                                       + "    MUL BX\n"
+                                                       + "    MOV "+id.lexemeRank(7)+",AX\n");
                                     }
                                     PanelSalida.append("-->   Se ha utlizado la función de Multiplicar, que tiene como parametros a:  " + id.lexemeRank(2) + " = " + identDataTypeV2.get(id.lexemeRank(2)) + " , " + id.lexemeRank(4) + " = " + identDataTypeV2.get(id.lexemeRank(4)) + "\nDonde el resultado de la operación es: " + identDataTypeR.get(id.lexemeRank(7)) + " , y se guardó en: " + id.lexemeRank(7) + ".........\n");
                                     break;
@@ -20990,12 +21543,18 @@ public class Interfaz extends javax.swing.JFrame {
                                     if(identDataTemp.containsKey(identDataTypeR.get(id.lexemeRank(7)))){
                                         Tripletas.append(id.lexemeRank(7)+" := "+identDataTemp.get(identDataTypeR.get(id.lexemeRank(7)))+"\n");
                                         cuadruplos("=",identDataTemp.get(identDataTypeR.get(id.lexemeRank(7))),"",id.lexemeRank(7));
+                                        CodigoObjeto.add("    MOV AX,"+identDataTypeR2.get(identDataTypeR.get(id.lexemeRank(7)))+"\n"
+                                                       + "    MOV "+id.lexemeRank(7)+",AX\n");
                                     }else{
                                         Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" / "+id.lexemeRank(4)+"\n");
                                         cuadruplos("/",id.lexemeRank(2),id.lexemeRank(4),"T"+temporal);
                                         identDataTemp.put(identDataTypeR.get(id.lexemeRank(7)),"T"+temporal);
                                         Tripletas.append(id.lexemeRank(7)+" := T"+temporal+"\n");
                                         cuadruplos("=","T"+temporal,"",id.lexemeRank(7));
+                                        CodigoObjeto.add("    MOV AX,"+id.lexemeRank(2)+"\n"
+                                                       + "    MOV BX,"+id.lexemeRank(4)+"\n"
+                                                       + "    DIV BX\n"
+                                                       + "    MOV "+id.lexemeRank(7)+",AX\n");
                                     }
                                     PanelSalida.append("-->   Se ha utlizado la función de Dividir, que tiene como parametros a:      " + id.lexemeRank(2) + " = " + identDataTypeV2.get(id.lexemeRank(2)) + " , " + id.lexemeRank(4) + " = " + identDataTypeV2.get(id.lexemeRank(4)) + "\nDonde el resultado de la operación es: " + identDataTypeR.get(id.lexemeRank(7)) + " , y se guardó en: " + id.lexemeRank(7) + ".........\n");
                                     break;
@@ -21009,6 +21568,8 @@ public class Interfaz extends javax.swing.JFrame {
                                     if(identDataTemp.containsKey(identDataTypeR.get(id.lexemeRank(9)))){
                                         Tripletas.append(id.lexemeRank(9)+" := "+identDataTemp.get(identDataTypeR.get(id.lexemeRank(9)))+"\n");
                                         cuadruplos("=",identDataTemp.get(identDataTypeR.get(id.lexemeRank(9))),"",id.lexemeRank(9));
+                                        CodigoObjeto.add("    MOV AX,"+identDataTypeR2.get(identDataTypeR.get(id.lexemeRank(9)))+"\n"
+                                                       + "    MOV "+id.lexemeRank(9)+",AX\n");
                                     }else{
                                         if(identDataType.get(id.lexemeRank(2)).equals("Numero_Decimal")){
                                             double num1 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(2)));
@@ -21017,6 +21578,10 @@ public class Interfaz extends javax.swing.JFrame {
                                             if(identDataTemp.containsKey(Double.toString(res))){
                                                 Tripletas.append("T"+temporal+" := "+identDataTemp.get(Double.toString(res))+" + "+id.lexemeRank(6)+"\n");
                                                 cuadruplos("+",identDataTemp.get(Double.toString(res)),id.lexemeRank(6),"T"+temporal);
+                                                CodigoObjeto.add("    MOV AX,"+identDataTypeR2.get(res)+"\n"
+                                                               + "    MOV BX,"+id.lexemeRank(6)+"\n"
+                                                               + "    ADD AX,BX\n"
+                                                               + "    MOV "+id.lexemeRank(9)+",AX\n");
                                             }else{
                                                 Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" + "+id.lexemeRank(4)+"\n");
                                                 cuadruplos("+",id.lexemeRank(2),id.lexemeRank(4),"T"+temporal);
@@ -21024,6 +21589,12 @@ public class Interfaz extends javax.swing.JFrame {
                                                 temporal++;
                                                 Tripletas.append("T"+temporal+" := T"+(temporal-1)+" + "+id.lexemeRank(6)+"\n");
                                                 cuadruplos("+","T"+(temporal-1),id.lexemeRank(6),"T"+temporal);
+                                                CodigoObjeto.add("    MOV AX,"+id.lexemeRank(2)+"\n"
+                                                               + "    MOV BX,"+id.lexemeRank(4)+"\n"
+                                                               + "    ADD AX,BX\n"
+                                                               + "    MOV BX,"+id.lexemeRank(6)+"\n"
+                                                               + "    ADD AX,BX"
+                                                               + "    MOV "+id.lexemeRank(9)+",AX\n");
                                             }
                                         }
                                         if(identDataType.get(id.lexemeRank(2)).equals("Numero_Entero")){
@@ -21033,6 +21604,10 @@ public class Interfaz extends javax.swing.JFrame {
                                             if(identDataTemp.containsKey(Integer.toString(res))){
                                                 Tripletas.append("T"+temporal+" := "+identDataTemp.get(Integer.toString(res))+" + "+id.lexemeRank(6)+"\n");
                                                 cuadruplos("+",identDataTemp.get(Integer.toString(res)),id.lexemeRank(6),"T"+temporal);
+                                                CodigoObjeto.add("    MOV AX,"+identDataTypeR2.get(res)+"\n"
+                                                               + "    MOV BX,"+id.lexemeRank(6)+"\n"
+                                                               + "    ADD AX,BX\n"
+                                                               + "    MOV "+id.lexemeRank(9)+",AX\n");
                                             }else{
                                                 Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" + "+id.lexemeRank(4)+"\n");
                                                 cuadruplos("+",id.lexemeRank(2),id.lexemeRank(4),"T"+temporal);
@@ -21040,6 +21615,12 @@ public class Interfaz extends javax.swing.JFrame {
                                                 temporal++;
                                                 Tripletas.append("T"+temporal+" := T"+(temporal-1)+" + "+id.lexemeRank(6)+"\n");
                                                 cuadruplos("+","T"+(temporal-1),id.lexemeRank(6),"T"+temporal);
+                                                CodigoObjeto.add("    MOV AX,"+id.lexemeRank(2)+"\n"
+                                                               + "    MOV BX,"+id.lexemeRank(4)+"\n"
+                                                               + "    ADD AX,BX\n"
+                                                               + "    MOV BX,"+id.lexemeRank(6)+"\n"
+                                                               + "    ADD AX,BX"
+                                                               + "    MOV "+id.lexemeRank(9)+",AX\n");
                                             }
                                         }
                                         identDataTemp.put(identDataTypeR.get(id.lexemeRank(9)),"T"+temporal);
@@ -21053,6 +21634,8 @@ public class Interfaz extends javax.swing.JFrame {
                                     if(identDataTemp.containsKey(identDataTypeR.get(id.lexemeRank(9)))){
                                         Tripletas.append(id.lexemeRank(9)+" := "+identDataTemp.get(identDataTypeR.get(id.lexemeRank(9)))+"\n");
                                         cuadruplos("=",identDataTemp.get(identDataTypeR.get(id.lexemeRank(9))),"",id.lexemeRank(9));
+                                        CodigoObjeto.add("    MOV AX,"+identDataTypeR2.get(identDataTypeR.get(id.lexemeRank(9)))+"\n"
+                                                       + "    MOV "+id.lexemeRank(9)+",AX\n");
                                     }else{
                                         if(identDataType.get(id.lexemeRank(2)).equals("Numero_Decimal")){
                                             double num1 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(2)));
@@ -21061,6 +21644,10 @@ public class Interfaz extends javax.swing.JFrame {
                                             if(identDataTemp.containsKey(Double.toString(res))){
                                                 Tripletas.append("T"+temporal+" := "+identDataTemp.get(Double.toString(res))+" - "+id.lexemeRank(6)+"\n");
                                                 cuadruplos("-",identDataTemp.get(Double.toString(res)),id.lexemeRank(6),"T"+temporal);
+                                                CodigoObjeto.add("    MOV AX,"+identDataTypeR2.get(res)+"\n"
+                                                               + "    MOV BX,"+id.lexemeRank(6)+"\n"
+                                                               + "    SUB AX,BX\n"
+                                                               + "    MOV "+id.lexemeRank(9)+",AX\n");
                                             }else{
                                                 Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" - "+id.lexemeRank(4)+"\n");
                                                 cuadruplos("-",id.lexemeRank(2),id.lexemeRank(4),"T"+temporal);
@@ -21068,6 +21655,12 @@ public class Interfaz extends javax.swing.JFrame {
                                                 temporal++;
                                                 Tripletas.append("T"+temporal+" := T"+(temporal-1)+" - "+id.lexemeRank(6)+"\n");
                                                 cuadruplos("-","T"+(temporal-1),id.lexemeRank(6),"T"+temporal);
+                                                CodigoObjeto.add("    MOV AX,"+id.lexemeRank(2)+"\n"
+                                                               + "    MOV BX,"+id.lexemeRank(4)+"\n"
+                                                               + "    SUB AX,BX\n"
+                                                               + "    MOV BX,"+id.lexemeRank(6)+"\n"
+                                                               + "    SUB AX,BX"
+                                                               + "    MOV "+id.lexemeRank(9)+",AX\n");
                                             }
                                         }
                                         if(identDataType.get(id.lexemeRank(2)).equals("Numero_Entero")){
@@ -21077,6 +21670,10 @@ public class Interfaz extends javax.swing.JFrame {
                                             if(identDataTemp.containsKey(Integer.toString(res))){
                                                 Tripletas.append("T"+temporal+" := "+identDataTemp.get(Integer.toString(res))+" - "+id.lexemeRank(6)+"\n");
                                                 cuadruplos("-",identDataTemp.get(Integer.toString(res)),id.lexemeRank(6),"T"+temporal);
+                                                CodigoObjeto.add("    MOV AX,"+identDataTypeR2.get(res)+"\n"
+                                                               + "    MOV BX,"+id.lexemeRank(6)+"\n"
+                                                               + "    SUB AX,BX\n"
+                                                               + "    MOV "+id.lexemeRank(9)+",AX\n");
                                             }else{
                                                 Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" - "+id.lexemeRank(4)+"\n");
                                                 cuadruplos("-",id.lexemeRank(2),id.lexemeRank(4),"T"+temporal);
@@ -21084,6 +21681,12 @@ public class Interfaz extends javax.swing.JFrame {
                                                 temporal++;
                                                 Tripletas.append("T"+temporal+" := T"+(temporal-1)+" - "+id.lexemeRank(6)+"\n");
                                                 cuadruplos("-","T"+(temporal-1),id.lexemeRank(6),"T"+temporal);
+                                                CodigoObjeto.add("    MOV AX,"+id.lexemeRank(2)+"\n"
+                                                               + "    MOV BX,"+id.lexemeRank(4)+"\n"
+                                                               + "    SUB AX,BX\n"
+                                                               + "    MOV BX,"+id.lexemeRank(6)+"\n"
+                                                               + "    SUB AX,BX"
+                                                               + "    MOV "+id.lexemeRank(9)+",AX\n");
                                             }
                                         }
                                         identDataTemp.put(identDataTypeR.get(id.lexemeRank(9)),"T"+temporal);
@@ -21097,6 +21700,8 @@ public class Interfaz extends javax.swing.JFrame {
                                     if(identDataTemp.containsKey(identDataTypeR.get(id.lexemeRank(9)))){
                                         Tripletas.append(id.lexemeRank(9)+" := "+identDataTemp.get(identDataTypeR.get(id.lexemeRank(9)))+"\n");
                                         cuadruplos("=",identDataTemp.get(identDataTypeR.get(id.lexemeRank(9))),"",id.lexemeRank(9));
+                                        CodigoObjeto.add("    MOV AX,"+identDataTypeR2.get(identDataTypeR.get(id.lexemeRank(9)))+"\n"
+                                                       + "    MOV "+id.lexemeRank(9)+",AX\n");
                                     }else{
                                         if(identDataType.get(id.lexemeRank(2)).equals("Numero_Decimal")){
                                             double num1 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(2)));
@@ -21105,6 +21710,10 @@ public class Interfaz extends javax.swing.JFrame {
                                             if(identDataTemp.containsKey(Double.toString(res))){
                                                 Tripletas.append("T"+temporal+" := "+identDataTemp.get(Double.toString(res))+" * "+id.lexemeRank(6)+"\n");
                                                 cuadruplos("*",identDataTemp.get(Double.toString(res)),id.lexemeRank(6),"T"+temporal);
+                                                CodigoObjeto.add("    MOV AX,"+identDataTypeR2.get(res)+"\n"
+                                                               + "    MOV BX,"+id.lexemeRank(6)+"\n"
+                                                               + "    MUL BX\n"
+                                                               + "    MOV "+id.lexemeRank(9)+",AX\n");
                                             }else{
                                                 Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" * "+id.lexemeRank(4)+"\n");
                                                 cuadruplos("*",id.lexemeRank(2),id.lexemeRank(4),"T"+temporal);
@@ -21112,6 +21721,12 @@ public class Interfaz extends javax.swing.JFrame {
                                                 temporal++;
                                                 Tripletas.append("T"+temporal+" := T"+(temporal-1)+" * "+id.lexemeRank(6)+"\n");
                                                 cuadruplos("*","T"+(temporal-1),id.lexemeRank(6),"T"+temporal);
+                                                CodigoObjeto.add("    MOV AX,"+id.lexemeRank(2)+"\n"
+                                                               + "    MOV BX,"+id.lexemeRank(4)+"\n"
+                                                               + "    MUL BX\n"
+                                                               + "    MOV BX,"+id.lexemeRank(6)+"\n"
+                                                               + "    MUL BX"
+                                                               + "    MOV "+id.lexemeRank(9)+",AX\n");
                                             }
                                         }
                                         if(identDataType.get(id.lexemeRank(2)).equals("Numero_Entero")){
@@ -21121,6 +21736,10 @@ public class Interfaz extends javax.swing.JFrame {
                                             if(identDataTemp.containsKey(Integer.toString(res))){
                                                 Tripletas.append("T"+temporal+" := "+identDataTemp.get(Integer.toString(res))+" * "+id.lexemeRank(6)+"\n");
                                                 cuadruplos("*",identDataTemp.get(Integer.toString(res)),id.lexemeRank(6),"T"+temporal);
+                                                CodigoObjeto.add("    MOV AX,"+identDataTypeR2.get(res)+"\n"
+                                                               + "    MOV BX,"+id.lexemeRank(6)+"\n"
+                                                               + "    MUL BX\n"
+                                                               + "    MOV "+id.lexemeRank(9)+",AX\n");
                                             }else{
                                                 Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" * "+id.lexemeRank(4)+"\n");
                                                 cuadruplos("*",id.lexemeRank(2),id.lexemeRank(4),"T"+temporal);
@@ -21128,6 +21747,12 @@ public class Interfaz extends javax.swing.JFrame {
                                                 temporal++;
                                                 Tripletas.append("T"+temporal+" := T"+(temporal-1)+" * "+id.lexemeRank(6)+"\n");
                                                 cuadruplos("*","T"+(temporal-1),id.lexemeRank(6),"T"+temporal);
+                                                CodigoObjeto.add("    MOV AX,"+id.lexemeRank(2)+"\n"
+                                                               + "    MOV BX,"+id.lexemeRank(4)+"\n"
+                                                               + "    MUL BX\n"
+                                                               + "    MOV BX,"+id.lexemeRank(6)+"\n"
+                                                               + "    MUL BX"
+                                                               + "    MOV "+id.lexemeRank(9)+",AX\n");
                                             }
                                         }
                                         identDataTemp.put(identDataTypeR.get(id.lexemeRank(9)),"T"+temporal);
@@ -21141,6 +21766,8 @@ public class Interfaz extends javax.swing.JFrame {
                                     if(identDataTemp.containsKey(identDataTypeR.get(id.lexemeRank(9)))){
                                         Tripletas.append(id.lexemeRank(9)+" := "+identDataTemp.get(identDataTypeR.get(id.lexemeRank(9)))+"\n");
                                         cuadruplos("=",identDataTemp.get(identDataTypeR.get(id.lexemeRank(9))),"",id.lexemeRank(9));
+                                        CodigoObjeto.add("    MOV AX,"+identDataTypeR2.get(identDataTypeR.get(id.lexemeRank(9)))+"\n"
+                                                       + "    MOV "+id.lexemeRank(9)+",AX\n");
                                     }else{
                                         if(identDataType.get(id.lexemeRank(2)).equals("Numero_Decimal")){
                                             double num1 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(2)));
@@ -21149,6 +21776,10 @@ public class Interfaz extends javax.swing.JFrame {
                                             if(identDataTemp.containsKey(Double.toString(res))){
                                                 Tripletas.append("T"+temporal+" := "+identDataTemp.get(Double.toString(res))+" / "+id.lexemeRank(6)+"\n");
                                                 cuadruplos("/",identDataTemp.get(Double.toString(res)),id.lexemeRank(6),"T"+temporal);
+                                                CodigoObjeto.add("    MOV AX,"+identDataTypeR2.get(res)+"\n"
+                                                               + "    MOV BX,"+id.lexemeRank(6)+"\n"
+                                                               + "    DIV BX\n"
+                                                               + "    MOV "+id.lexemeRank(9)+",AX\n");
                                             }else{
                                                 Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" / "+id.lexemeRank(4)+"\n");
                                                 cuadruplos("/",id.lexemeRank(2),id.lexemeRank(4),"T"+temporal);
@@ -21156,6 +21787,12 @@ public class Interfaz extends javax.swing.JFrame {
                                                 temporal++;
                                                 Tripletas.append("T"+temporal+" := T"+(temporal-1)+" / "+id.lexemeRank(6)+"\n");
                                                 cuadruplos("/","T"+(temporal-1),id.lexemeRank(6),"T"+temporal);
+                                                CodigoObjeto.add("    MOV AX,"+id.lexemeRank(2)+"\n"
+                                                               + "    MOV BX,"+id.lexemeRank(4)+"\n"
+                                                               + "    DIV BX\n"
+                                                               + "    MOV BX,"+id.lexemeRank(6)+"\n"
+                                                               + "    DIV BX"
+                                                               + "    MOV "+id.lexemeRank(9)+",AX\n");
                                             }
                                         }
                                         if(identDataType.get(id.lexemeRank(2)).equals("Numero_Entero")){
@@ -21165,6 +21802,10 @@ public class Interfaz extends javax.swing.JFrame {
                                             if(identDataTemp.containsKey(Integer.toString(res))){
                                                 Tripletas.append("T"+temporal+" := "+identDataTemp.get(Integer.toString(res))+" / "+id.lexemeRank(6)+"\n");
                                                 cuadruplos("/",identDataTemp.get(Integer.toString(res)),id.lexemeRank(6),"T"+temporal);
+                                                CodigoObjeto.add("    MOV AX,"+identDataTypeR2.get(res)+"\n"
+                                                               + "    MOV BX,"+id.lexemeRank(6)+"\n"
+                                                               + "    DIV BX\n"
+                                                               + "    MOV "+id.lexemeRank(9)+",AX\n");
                                             }else{
                                                 Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" / "+id.lexemeRank(4)+"\n");
                                                 cuadruplos("/",id.lexemeRank(2),id.lexemeRank(4),"T"+temporal);
@@ -21172,6 +21813,12 @@ public class Interfaz extends javax.swing.JFrame {
                                                 temporal++;
                                                 Tripletas.append("T"+temporal+" := T"+(temporal-1)+" / "+id.lexemeRank(6)+"\n");
                                                 cuadruplos("/","T"+(temporal-1),id.lexemeRank(6),"T"+temporal);
+                                                CodigoObjeto.add("    MOV AX,"+id.lexemeRank(2)+"\n"
+                                                               + "    MOV BX,"+id.lexemeRank(4)+"\n"
+                                                               + "    DIV BX\n"
+                                                               + "    MOV BX,"+id.lexemeRank(6)+"\n"
+                                                               + "    DIV BX"
+                                                               + "    MOV "+id.lexemeRank(9)+",AX\n");
                                             }
                                         }
                                         identDataTemp.put(identDataTypeR.get(id.lexemeRank(9)),"T"+temporal);
@@ -22153,6 +22800,11 @@ public class Interfaz extends javax.swing.JFrame {
                                     me.Color();
                                     me.Resultado();
                                 }
+                                CodigoObjeto.add("    MOV AX,"+id.lexemeRank(2)+"\n"
+                                               + "    ADD AX,"+id.lexemeRank(4)+"\n"
+                                               + "    MOV BX,"+id.lexemeRank(6)+"\n"
+                                               + "    ADD BX,"+id.lexemeRank(8)+"\n"
+                                               + "    ADD AX,BX\n");
                                 break;
                             }
                         }
@@ -22278,6 +22930,23 @@ public class Interfaz extends javax.swing.JFrame {
                                     md.Cadena();
                                     md.Resultado();
                                 }
+                                CodigoObjeto.add("    MOV AX,"+id.lexemeRank(2)+"\n"
+                                               + "    ADD AX,"+id.lexemeRank(4)+"\n"
+                                               + "    MOV BX,"+id.lexemeRank(6)+"\n"
+                                               + "    ADD BX,"+id.lexemeRank(8)+"\n"
+                                               + "    MOV CX,"+id.lexemeRank(10)+"\n"
+                                               + "    ADD CX,"+id.lexemeRank(12)+"\n"
+                                               + "    ADD BX,CX\n"
+                                               + "    MOV CX,"+id.lexemeRank(14)+"\n"
+                                               + "    ADD CX,"+id.lexemeRank(16)+"\n"
+                                               + "    MOV DX,"+id.lexemeRank(18)+"\n"
+                                               + "    ADD DX,"+id.lexemeRank(20)+"\n"
+                                               + "    ADD CX,BX\n"
+                                               + "    MOV DX,"+id.lexemeRank(22)+"\n"
+                                               + "    ADD DX,"+id.lexemeRank(24)+"\n"
+                                               + "    ADD BX,CX\n"
+                                               + "    ADD BX,DX\n"
+                                               + "    ADD AX,BX\n");
                                 break;
                             }
                         }
@@ -22286,6 +22955,25 @@ public class Interfaz extends javax.swing.JFrame {
                 }
             }
         }
+        CodObjeto.append(".model small\n"
+                       + ".stack\n"
+                       + ".data\n");
+        for(int i = 0; i < Variables.size(); i++){
+            CodObjeto.append(Variables.get(i));
+        }  
+        CodObjeto.append(".code\n"
+                       + "Inicio:\n"
+                       + "    MOV AX,@DATA\n"
+                       + "    MOV DS,AX\n"
+                       + "    ;Inicio de las estructuras de Metodos,Asignaciones y Funciones\n");
+        for(int i = 0; i < CodigoObjeto.size(); i++){
+            CodObjeto.append(CodigoObjeto.get(i));
+        }
+        CodObjeto.append("    ;Fin de las estructuras de Metodos,Asignaciones y Funciones\n"
+                       + "Fin:\n"
+                       + "    MOV AX,4C00H\n"
+                       + "    INT 21H\n"
+                       + "END");
     }
     /**
      * @param args the command line arguments
@@ -22293,6 +22981,7 @@ public class Interfaz extends javax.swing.JFrame {
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextArea CodObjeto;
     private javax.swing.JTable Cuadruplos;
     private javax.swing.JTextPane PanelFuente;
     private javax.swing.JTextArea PanelSalida;
@@ -22307,6 +22996,11 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
+    private javax.swing.JButton jButton12;
+    private javax.swing.JButton jButton13;
+    private javax.swing.JButton jButton14;
+    private javax.swing.JButton jButton15;
+    private javax.swing.JButton jButton16;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -22321,11 +23015,14 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu10;
     private javax.swing.JMenu jMenu11;
     private javax.swing.JMenu jMenu12;
     private javax.swing.JMenu jMenu13;
+    private javax.swing.JMenu jMenu14;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
@@ -22364,6 +23061,7 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem33;
     private javax.swing.JMenuItem jMenuItem34;
     private javax.swing.JMenuItem jMenuItem35;
+    private javax.swing.JMenuItem jMenuItem36;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
@@ -22374,12 +23072,14 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JTabbedPane jTabbedPane2;

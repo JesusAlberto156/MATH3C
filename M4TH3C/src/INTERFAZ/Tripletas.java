@@ -62,6 +62,8 @@ public class Tripletas extends javax.swing.JFrame {
         Tripletas.setBackground(new java.awt.Color(255, 255, 255));
         Tripletas.setColumns(20);
         Tripletas.setRows(5);
+        Tripletas.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        Tripletas.setEnabled(false);
         jScrollPane1.setViewportView(Tripletas);
 
         jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/MasZoom.png"))); // NOI18N

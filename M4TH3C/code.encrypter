@@ -1,20 +1,29 @@
-Metodo &Declaraciones{
-
-	Entero num1 = + 500;
-	Entero num2;
-
-	Decimal num3 = + 30.40;
-	Decimal num4;
-
+Metodo &Prueba{
+	Decimal num1 = + 40.34;
+	Decimal num2;
+	num2 =  + 2.34;
 	Resultado #res1;
-
-	Cadena cad1 = 'Prueba 1';
-	Cadena cad2;
-
-	Figura fig1 = Circulo;
-	Figura fig2;
-	
+	Resultado #res2;
+	Figura fig1 = Triangulo;
+	Figura fig2 = Rombo;
+	Figura fig3 = Cuadrado;
+	Figura fig4;
+	Figura fig5;
 	Color col1 = Verde;
-	Color col2;
-
+	Color col2 = Rojo;
+	Color col3 = Negro;
+	Color col4;
+	Color col5;
+	Cadena cad1 = 'Funciona el ejemplo';
+	fig4 = Rectangulo;
+	fig5 = Circulo;
+	col4 = Azul;
+	col5 = Blanco;
+	Dividir(num1,num2)<
+		#res1
+	>;
+	Dividir(num1,num2)<
+		#res2
+	>;
+	Mostrar(cad1,#res1,fig1,col1,fig2,col2,fig3,col3,fig4,col4,fig5,col5);
 }
