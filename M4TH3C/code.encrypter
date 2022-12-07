@@ -14,11 +14,12 @@ Metodo &Prueba{
 	Color col3 = Negro;
 	Color col4;
 	Color col5;
-	Cadena cad1 = 'Funciona el ejemplo';
+	Cadena cad1;
 	fig4 = Rectangulo;
 	fig5 = Circulo;
 	col4 = Azul;
 	col5 = Blanco;
+	cad1 = 'Funciona el ejemplo';
 	Dividir(num1,num2)<
 		#res1
 	>;

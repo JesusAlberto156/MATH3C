@@ -82,6 +82,7 @@ public class Interfaz extends javax.swing.JFrame {
     private Tokens T = new Tokens();
     private Tripletas Tr = new Tripletas();
     private Cuadruplos C = new Cuadruplos();
+    private Objeto co = new Objeto();
     private ArrayList<Production> Metodo;
     private Object[] cuadruplo;
     private ArrayList<String> CodigoObjeto;
@@ -191,6 +192,8 @@ public class Interfaz extends javax.swing.JFrame {
         PanelSalida.setText("");
         Tripletas.setText("");
         Tr.RellenarTripletas("");
+        CodObjeto.setText("");
+        co.rellenaObjeto("");
         tokens.clear();
         errors.clear();
         Metodo.clear();
@@ -19548,11 +19551,13 @@ public class Interfaz extends javax.swing.JFrame {
         jMenuItem14 = new javax.swing.JMenuItem();
         jMenuItem13 = new javax.swing.JMenuItem();
         jMenu14 = new javax.swing.JMenu();
+        jMenuItem37 = new javax.swing.JMenuItem();
         jMenu9 = new javax.swing.JMenu();
         jMenuItem35 = new javax.swing.JMenuItem();
         jMenuItem17 = new javax.swing.JMenuItem();
         jMenuItem18 = new javax.swing.JMenuItem();
         jMenuItem19 = new javax.swing.JMenuItem();
+        jMenuItem38 = new javax.swing.JMenuItem();
         jMenuItem27 = new javax.swing.JMenuItem();
         jMenu12 = new javax.swing.JMenu();
         jMenuItem28 = new javax.swing.JMenuItem();
@@ -19647,6 +19652,8 @@ public class Interfaz extends javax.swing.JFrame {
         PanelSalida.setBackground(new java.awt.Color(255, 255, 255));
         PanelSalida.setColumns(20);
         PanelSalida.setRows(5);
+        PanelSalida.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        PanelSalida.setEnabled(false);
         jScrollPane2.setViewportView(PanelSalida);
 
         jTabbedPane2.setBackground(new java.awt.Color(0, 0, 0));
@@ -19716,6 +19723,7 @@ public class Interfaz extends javax.swing.JFrame {
 
         jPanel4.setBackground(new java.awt.Color(204, 204, 255));
 
+        Tripletas.setBackground(new java.awt.Color(255, 255, 255));
         Tripletas.setColumns(20);
         Tripletas.setRows(5);
         Tripletas.setDisabledTextColor(new java.awt.Color(0, 0, 0));
@@ -20222,6 +20230,20 @@ public class Interfaz extends javax.swing.JFrame {
         jMenuBar1.add(jMenu7);
 
         jMenu14.setText("Código Objeto");
+        jMenu14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu14ActionPerformed(evt);
+            }
+        });
+
+        jMenuItem37.setText("Código Objeto");
+        jMenuItem37.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem37ActionPerformed(evt);
+            }
+        });
+        jMenu14.add(jMenuItem37);
+
         jMenuBar1.add(jMenu14);
 
         jMenu9.setText("Ayuda");
@@ -20252,6 +20274,14 @@ public class Interfaz extends javax.swing.JFrame {
             }
         });
         jMenu9.add(jMenuItem19);
+
+        jMenuItem38.setText("Tipos de Datos");
+        jMenuItem38.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem38ActionPerformed(evt);
+            }
+        });
+        jMenu9.add(jMenuItem38);
 
         jMenuItem27.setText("Estructuras de los Métodos");
         jMenuItem27.addActionListener(new java.awt.event.ActionListener() {
@@ -20823,6 +20853,26 @@ public class Interfaz extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }//GEN-LAST:event_jMenuItem36ActionPerformed
+
+    private void jMenu14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu14ActionPerformed
+        
+    }//GEN-LAST:event_jMenu14ActionPerformed
+
+    private void jMenuItem37ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem37ActionPerformed
+        co.setVisible(true);
+        co.setLocationRelativeTo(this);
+    }//GEN-LAST:event_jMenuItem37ActionPerformed
+
+    private void jMenuItem38ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem38ActionPerformed
+        try{
+            URL ruta = getClass().getResource("/DOCUMENTACION/M4TH3C_TIPOS_DE_DATOS.docx.pdf");
+            String rutaNueva = ruta.getFile();
+            File ruta2 = new File(rutaNueva.replaceAll("%20"," "));
+            Desktop.getDesktop().open(ruta2);
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jMenuItem38ActionPerformed
     
     private void executeCode(ArrayList<String> blocksOfCode,int repeats){
         int temporal = 0;
@@ -21129,6 +21179,14 @@ public class Interfaz extends javax.swing.JFrame {
                                 Tripletas.append(variable+" := T"+temporal+"\n");
                                 cuadruplos("=","T"+(temporal),"",variable);
                                 PanelSalida.append("-->   Se ha declarado una variable de tipo Cadena llamada " + variable + " con valor " + valor + ".........\n");
+                                Variables.add("    "+variable+" dw ");
+                                for(int m = 0; m < valor.length()-2; m++){
+                                    if(m == (valor.length()-3)){
+                                        Variables.add("\""+valor.charAt(m+1)+"\"\n");
+                                    }else{
+                                        Variables.add("\""+valor.charAt(m+1)+"\",");
+                                    }
+                                }
                             }else{
                                 String variable = sentence.substring(7,sentence.length());
                                 temporal++;
@@ -21386,7 +21444,16 @@ public class Interfaz extends javax.swing.JFrame {
                                     cuadruplos("=","T"+temporal,"",id.lexemeRank(0));
                                     tipo = "Cadena";
                                     PanelSalida.append("-->   Se le esta asignando a la variable " + id.lexemeRank(0) + " de tipo " + tipo + " un nuevo valor de " + id.lexemeRank(-2) + ".........\n");
-                                
+                                    Variables.add("    "+id.lexemeRank(0)+" dw ");
+                                    for(int m = 0; m < id.lexemeRank(-2).length()-2; m++){
+                                        if(m == (id.lexemeRank(-2).length()-3)){
+                                            CodigoObjeto.add("    ADD "+id.lexemeRank(0)+"["+m+"],\""+id.lexemeRank(-2).charAt(m+1)+"\"\n");
+                                            Variables.add("0\n");
+                                        }else{
+                                            Variables.add("0,");
+                                            CodigoObjeto.add("    ADD "+id.lexemeRank(0)+"["+m+"],\""+id.lexemeRank(-2).charAt(m+1)+"\"\n");
+                                        }
+                                    }
                                 }else if(id.lexicalCompRank(-2).equals("Palabra_Reservada_12") || id.lexicalCompRank(-2).equals("Palabra_Reservada_13") || id.lexicalCompRank(-2).equals("Palabra_Reservada_14") || id.lexicalCompRank(-2).equals("Palabra_Reservada_15") || id.lexicalCompRank(-2).equals("Palabra_Reservada_16")){
                                     temporal++;
                                     Tripletas.append("T"+temporal+" := "+identDataTemp.get(id.lexemeRank(0))+" + "+id.lexemeRank(-2)+"\n");
@@ -21837,6 +21904,8 @@ public class Interfaz extends javax.swing.JFrame {
                                     if(identDataTemp.containsKey(identDataTypeR.get(id.lexemeRank(11)))){
                                         Tripletas.append(id.lexemeRank(11)+" := "+identDataTemp.get(identDataTypeR.get(id.lexemeRank(11)))+"\n");
                                         cuadruplos("=",identDataTemp.get(identDataTypeR.get(id.lexemeRank(11))),"",id.lexemeRank(11));
+                                        CodigoObjeto.add("    MOV AX,"+identDataTypeR2.get(identDataTypeR.get(id.lexemeRank(11)))+"\n"
+                                                       + "    MOV "+id.lexemeRank(11)+",AX\n");
                                     }else{
                                         if(identDataType.get(id.lexemeRank(2)).equals("Numero_Decimal")){
                                             double num1 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(2)));
@@ -21850,6 +21919,10 @@ public class Interfaz extends javax.swing.JFrame {
                                                 if(identDataTemp.containsKey(Double.toString(res))){
                                                     Tripletas.append("T"+temporal+" := "+identDataTemp.get(Double.toString(res))+" + "+id.lexemeRank(8)+"\n");
                                                     cuadruplos("+",identDataTemp.get(Double.toString(res)),id.lexemeRank(8),"T"+temporal);
+                                                    CodigoObjeto.add("    MOV AX,"+identDataTypeR2.get(res)+"\n"
+                                                                   + "    MOV BX,"+id.lexemeRank(8)+"\n"
+                                                                   + "    ADD AX,BX\n"
+                                                                   + "    MOV "+id.lexemeRank(11)+",AX\n");
                                                 }else{
                                                     num1 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(2)));
                                                     num2 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(4)));
@@ -21862,6 +21935,12 @@ public class Interfaz extends javax.swing.JFrame {
                                                     temporal++;
                                                     Tripletas.append("T"+temporal+" := T"+(temporal-1)+" + "+id.lexemeRank(8)+"\n");
                                                     cuadruplos("+","T"+(temporal-1),id.lexemeRank(8),"T"+temporal);
+                                                    CodigoObjeto.add("    MOV AX,"+identDataTypeR2.get(res)+"\n"
+                                                                   + "    MOV BX,"+id.lexemeRank(6)+"\n"
+                                                                   + "    ADD AX,BX\n"
+                                                                   + "    MOV BX,"+id.lexemeRank(8)+"\n"
+                                                                   + "    ADD AX,BX\n"
+                                                                   + "    MOV "+id.lexemeRank(11)+",AX\n");
                                                 }
                                             }else{
                                                 Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" + "+id.lexemeRank(4)+"\n");
@@ -21876,6 +21955,14 @@ public class Interfaz extends javax.swing.JFrame {
                                                 temporal++;
                                                 Tripletas.append("T"+temporal+" := T"+(temporal-1)+" + "+id.lexemeRank(8)+"\n");
                                                 cuadruplos("+","T"+(temporal-1),id.lexemeRank(8),"T"+temporal);
+                                                CodigoObjeto.add("    MOV AX,"+id.lexemeRank(2)+"\n"
+                                                               + "    MOV BX,"+id.lexemeRank(4)+"\n"
+                                                               + "    ADD AX,BX\n"        
+                                                               + "    MOV BX,"+id.lexemeRank(6)+"\n"
+                                                               + "    ADD AX,BX\n"
+                                                               + "    MOV BX,"+id.lexemeRank(8)+"\n"
+                                                               + "    ADD AX,BX\n"
+                                                               + "    MOV "+id.lexemeRank(11)+",AX\n");
                                             }
                                         }
                                         if(identDataType.get(id.lexemeRank(2)).equals("Numero_Entero")){
@@ -21890,6 +21977,10 @@ public class Interfaz extends javax.swing.JFrame {
                                                 if(identDataTemp.containsKey(Integer.toString(res))){
                                                     Tripletas.append("T"+temporal+" := "+identDataTemp.get(Integer.toString(res))+" + "+id.lexemeRank(8)+"\n");
                                                     cuadruplos("+",identDataTemp.get(Integer.toString(res)),id.lexemeRank(8),"T"+temporal);
+                                                    CodigoObjeto.add("    MOV AX,"+identDataTypeR2.get(res)+"\n"
+                                                                   + "    MOV BX,"+id.lexemeRank(8)+"\n"
+                                                                   + "    ADD AX,BX\n"
+                                                                   + "    MOV "+id.lexemeRank(11)+",AX\n");
                                                 }else{
                                                     num1 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(2)));
                                                     num2 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(4)));
@@ -21902,6 +21993,12 @@ public class Interfaz extends javax.swing.JFrame {
                                                     temporal++;
                                                     Tripletas.append("T"+temporal+" := T"+(temporal-1)+" + "+id.lexemeRank(8)+"\n");
                                                     cuadruplos("+","T"+(temporal-1),id.lexemeRank(8),"T"+temporal);
+                                                    CodigoObjeto.add("    MOV AX,"+identDataTypeR2.get(res)+"\n"
+                                                                   + "    MOV BX,"+id.lexemeRank(6)+"\n"
+                                                                   + "    ADD AX,BX\n"
+                                                                   + "    MOV BX,"+id.lexemeRank(8)+"\n"
+                                                                   + "    ADD AX,BX\n"
+                                                                   + "    MOV "+id.lexemeRank(11)+",AX\n");
                                                 }
                                             }else{
                                                 Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" + "+id.lexemeRank(4)+"\n");
@@ -21916,6 +22013,14 @@ public class Interfaz extends javax.swing.JFrame {
                                                 temporal++;
                                                 Tripletas.append("T"+temporal+" := T"+(temporal-1)+" + "+id.lexemeRank(8)+"\n");
                                                 cuadruplos("+","T"+(temporal-1),id.lexemeRank(8),"T"+temporal);
+                                                CodigoObjeto.add("    MOV AX,"+id.lexemeRank(2)+"\n"
+                                                               + "    MOV BX,"+id.lexemeRank(4)+"\n"
+                                                               + "    ADD AX,BX\n"        
+                                                               + "    MOV BX,"+id.lexemeRank(6)+"\n"
+                                                               + "    ADD AX,BX\n"
+                                                               + "    MOV BX,"+id.lexemeRank(8)+"\n"
+                                                               + "    ADD AX,BX\n"
+                                                               + "    MOV "+id.lexemeRank(11)+",AX\n");
                                             }
                                         }
                                         identDataTemp.put(identDataTypeR.get(id.lexemeRank(11)),"T"+temporal);
@@ -21929,6 +22034,8 @@ public class Interfaz extends javax.swing.JFrame {
                                     if(identDataTemp.containsKey(identDataTypeR.get(id.lexemeRank(11)))){
                                         Tripletas.append(id.lexemeRank(11)+" := "+identDataTemp.get(identDataTypeR.get(id.lexemeRank(11)))+"\n");
                                         cuadruplos("=",identDataTemp.get(identDataTypeR.get(id.lexemeRank(11))),"",id.lexemeRank(11));
+                                        CodigoObjeto.add("    MOV AX,"+identDataTypeR2.get(identDataTypeR.get(id.lexemeRank(11)))+"\n"
+                                                       + "    MOV "+id.lexemeRank(11)+",AX\n");
                                     }else{
                                         if(identDataType.get(id.lexemeRank(2)).equals("Numero_Decimal")){
                                             double num1 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(2)));
@@ -21942,6 +22049,10 @@ public class Interfaz extends javax.swing.JFrame {
                                                 if(identDataTemp.containsKey(Double.toString(res))){
                                                     Tripletas.append("T"+temporal+" := "+identDataTemp.get(Double.toString(res))+" - "+id.lexemeRank(8)+"\n");
                                                     cuadruplos("-",identDataTemp.get(Double.toString(res)),id.lexemeRank(8),"T"+temporal);
+                                                    CodigoObjeto.add("    MOV AX,"+identDataTypeR2.get(res)+"\n"
+                                                                   + "    MOV BX,"+id.lexemeRank(8)+"\n"
+                                                                   + "    SUB AX,BX\n"
+                                                                   + "    MOV "+id.lexemeRank(11)+",AX\n");
                                                 }else{
                                                     num1 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(2)));
                                                     num2 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(4)));
@@ -21954,6 +22065,12 @@ public class Interfaz extends javax.swing.JFrame {
                                                     temporal++;
                                                     Tripletas.append("T"+temporal+" := T"+(temporal-1)+" - "+id.lexemeRank(8)+"\n");
                                                     cuadruplos("-","T"+(temporal-1),id.lexemeRank(8),"T"+temporal);
+                                                    CodigoObjeto.add("    MOV AX,"+identDataTypeR2.get(res)+"\n"
+                                                                   + "    MOV BX,"+id.lexemeRank(6)+"\n"
+                                                                   + "    SUB AX,BX\n"
+                                                                   + "    MOV BX,"+id.lexemeRank(8)+"\n"
+                                                                   + "    SUB AX,BX\n"
+                                                                   + "    MOV "+id.lexemeRank(11)+",AX\n");
                                                 }
                                             }else{
                                                 Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" - "+id.lexemeRank(4)+"\n");
@@ -21968,6 +22085,14 @@ public class Interfaz extends javax.swing.JFrame {
                                                 temporal++;
                                                 Tripletas.append("T"+temporal+" := T"+(temporal-1)+" - "+id.lexemeRank(8)+"\n");
                                                 cuadruplos("-","T"+(temporal-1),id.lexemeRank(8),"T"+temporal);
+                                                CodigoObjeto.add("    MOV AX,"+id.lexemeRank(2)+"\n"
+                                                               + "    MOV BX,"+id.lexemeRank(4)+"\n"
+                                                               + "    SUB AX,BX\n"        
+                                                               + "    MOV BX,"+id.lexemeRank(6)+"\n"
+                                                               + "    SUB AX,BX\n"
+                                                               + "    MOV BX,"+id.lexemeRank(8)+"\n"
+                                                               + "    SUB AX,BX\n"
+                                                               + "    MOV "+id.lexemeRank(11)+",AX\n");
                                             }
                                         }
                                         if(identDataType.get(id.lexemeRank(2)).equals("Numero_Entero")){
@@ -21982,6 +22107,10 @@ public class Interfaz extends javax.swing.JFrame {
                                                 if(identDataTemp.containsKey(Integer.toString(res))){
                                                     Tripletas.append("T"+temporal+" := "+identDataTemp.get(Integer.toString(res))+" - "+id.lexemeRank(8)+"\n");
                                                     cuadruplos("-",identDataTemp.get(Integer.toString(res)),id.lexemeRank(8),"T"+temporal);
+                                                    CodigoObjeto.add("    MOV AX,"+identDataTypeR2.get(res)+"\n"
+                                                                   + "    MOV BX,"+id.lexemeRank(8)+"\n"
+                                                                   + "    SUB AX,BX\n"
+                                                                   + "    MOV "+id.lexemeRank(11)+",AX\n");
                                                 }else{
                                                     num1 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(2)));
                                                     num2 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(4)));
@@ -21994,6 +22123,12 @@ public class Interfaz extends javax.swing.JFrame {
                                                     temporal++;
                                                     Tripletas.append("T"+temporal+" := T"+(temporal-1)+" - "+id.lexemeRank(8)+"\n");
                                                     cuadruplos("-","T"+(temporal-1),id.lexemeRank(8),"T"+temporal);
+                                                    CodigoObjeto.add("    MOV AX,"+identDataTypeR2.get(res)+"\n"
+                                                                   + "    MOV BX,"+id.lexemeRank(6)+"\n"
+                                                                   + "    SUB AX,BX\n"
+                                                                   + "    MOV BX,"+id.lexemeRank(8)+"\n"
+                                                                   + "    SUB AX,BX\n"
+                                                                   + "    MOV "+id.lexemeRank(11)+",AX\n");
                                                 }
                                             }else{
                                                 Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" - "+id.lexemeRank(4)+"\n");
@@ -22008,6 +22143,14 @@ public class Interfaz extends javax.swing.JFrame {
                                                 temporal++;
                                                 Tripletas.append("T"+temporal+" := T"+(temporal-1)+" - "+id.lexemeRank(8)+"\n");
                                                 cuadruplos("-","T"+(temporal-1),id.lexemeRank(8),"T"+temporal);
+                                                CodigoObjeto.add("    MOV AX,"+id.lexemeRank(2)+"\n"
+                                                               + "    MOV BX,"+id.lexemeRank(4)+"\n"
+                                                               + "    SUB AX,BX\n"        
+                                                               + "    MOV BX,"+id.lexemeRank(6)+"\n"
+                                                               + "    SUB AX,BX\n"
+                                                               + "    MOV BX,"+id.lexemeRank(8)+"\n"
+                                                               + "    SUB AX,BX\n"
+                                                               + "    MOV "+id.lexemeRank(11)+",AX\n");
                                             }
                                         }
                                         identDataTemp.put(identDataTypeR.get(id.lexemeRank(11)),"T"+temporal);
@@ -22021,6 +22164,8 @@ public class Interfaz extends javax.swing.JFrame {
                                     if(identDataTemp.containsKey(identDataTypeR.get(id.lexemeRank(11)))){
                                         Tripletas.append(id.lexemeRank(11)+" := "+identDataTemp.get(identDataTypeR.get(id.lexemeRank(11)))+"\n");
                                         cuadruplos("=",identDataTemp.get(identDataTypeR.get(id.lexemeRank(11))),"",id.lexemeRank(11));
+                                        CodigoObjeto.add("    MOV AX,"+identDataTypeR2.get(identDataTypeR.get(id.lexemeRank(11)))+"\n"
+                                                       + "    MOV "+id.lexemeRank(11)+",AX\n");
                                     }else{
                                         if(identDataType.get(id.lexemeRank(2)).equals("Numero_Decimal")){
                                             double num1 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(2)));
@@ -22034,6 +22179,10 @@ public class Interfaz extends javax.swing.JFrame {
                                                 if(identDataTemp.containsKey(Double.toString(res))){
                                                     Tripletas.append("T"+temporal+" := "+identDataTemp.get(Double.toString(res))+" * "+id.lexemeRank(8)+"\n");
                                                     cuadruplos("*",identDataTemp.get(Double.toString(res)),id.lexemeRank(8),"T"+temporal);
+                                                    CodigoObjeto.add("    MOV AX,"+identDataTypeR2.get(res)+"\n"
+                                                                   + "    MOV BX,"+id.lexemeRank(8)+"\n"
+                                                                   + "    MUL BX\n"
+                                                                   + "    MOV "+id.lexemeRank(11)+",AX\n");
                                                 }else{
                                                     num1 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(2)));
                                                     num2 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(4)));
@@ -22046,6 +22195,12 @@ public class Interfaz extends javax.swing.JFrame {
                                                     temporal++;
                                                     Tripletas.append("T"+temporal+" := T"+(temporal-1)+" * "+id.lexemeRank(8)+"\n");
                                                     cuadruplos("*","T"+(temporal-1),id.lexemeRank(8),"T"+temporal);
+                                                    CodigoObjeto.add("    MOV AX,"+identDataTypeR2.get(res)+"\n"
+                                                                   + "    MOV BX,"+id.lexemeRank(6)+"\n"
+                                                                   + "    MUL BX\n"
+                                                                   + "    MOV BX,"+id.lexemeRank(8)+"\n"
+                                                                   + "    MUL BX\n"
+                                                                   + "    MOV "+id.lexemeRank(11)+",AX\n");
                                                 }
                                             }else{
                                                 Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" * "+id.lexemeRank(4)+"\n");
@@ -22060,6 +22215,14 @@ public class Interfaz extends javax.swing.JFrame {
                                                 temporal++;
                                                 Tripletas.append("T"+temporal+" := T"+(temporal-1)+" * "+id.lexemeRank(8)+"\n");
                                                 cuadruplos("*","T"+(temporal-1),id.lexemeRank(8),"T"+temporal);
+                                                CodigoObjeto.add("    MOV AX,"+id.lexemeRank(2)+"\n"
+                                                               + "    MOV BX,"+id.lexemeRank(4)+"\n"
+                                                               + "    MUL BX\n"        
+                                                               + "    MOV BX,"+id.lexemeRank(6)+"\n"
+                                                               + "    MUL BX\n"
+                                                               + "    MOV BX,"+id.lexemeRank(8)+"\n"
+                                                               + "    MUL BX\n"
+                                                               + "    MOV "+id.lexemeRank(11)+",AX\n");
                                             }
                                         }
                                         if(identDataType.get(id.lexemeRank(2)).equals("Numero_Entero")){
@@ -22074,6 +22237,10 @@ public class Interfaz extends javax.swing.JFrame {
                                                 if(identDataTemp.containsKey(Integer.toString(res))){
                                                     Tripletas.append("T"+temporal+" := "+identDataTemp.get(Integer.toString(res))+" * "+id.lexemeRank(8)+"\n");
                                                     cuadruplos("*",identDataTemp.get(Integer.toString(res)),id.lexemeRank(8),"T"+temporal);
+                                                    CodigoObjeto.add("    MOV AX,"+identDataTypeR2.get(res)+"\n"
+                                                                   + "    MOV BX,"+id.lexemeRank(8)+"\n"
+                                                                   + "    MUL BX\n"
+                                                                   + "    MOV "+id.lexemeRank(11)+",AX\n");
                                                 }else{
                                                     num1 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(2)));
                                                     num2 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(4)));
@@ -22086,6 +22253,12 @@ public class Interfaz extends javax.swing.JFrame {
                                                     temporal++;
                                                     Tripletas.append("T"+temporal+" := T"+(temporal-1)+" * "+id.lexemeRank(8)+"\n");
                                                     cuadruplos("*","T"+(temporal-1),id.lexemeRank(8),"T"+temporal);
+                                                    CodigoObjeto.add("    MOV AX,"+identDataTypeR2.get(res)+"\n"
+                                                                   + "    MOV BX,"+id.lexemeRank(6)+"\n"
+                                                                   + "    MUL BX\n"
+                                                                   + "    MOV BX,"+id.lexemeRank(8)+"\n"
+                                                                   + "    MUL BX\n"
+                                                                   + "    MOV "+id.lexemeRank(11)+",AX\n");
                                                 }
                                             }else{
                                                 Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" * "+id.lexemeRank(4)+"\n");
@@ -22100,6 +22273,14 @@ public class Interfaz extends javax.swing.JFrame {
                                                 temporal++;
                                                 Tripletas.append("T"+temporal+" := T"+(temporal-1)+" * "+id.lexemeRank(8)+"\n");
                                                 cuadruplos("*","T"+(temporal-1),id.lexemeRank(8),"T"+temporal);
+                                                CodigoObjeto.add("    MOV AX,"+id.lexemeRank(2)+"\n"
+                                                               + "    MOV BX,"+id.lexemeRank(4)+"\n"
+                                                               + "    MUL BX\n"        
+                                                               + "    MOV BX,"+id.lexemeRank(6)+"\n"
+                                                               + "    MUL BX\n"
+                                                               + "    MOV BX,"+id.lexemeRank(8)+"\n"
+                                                               + "    MUL BX\n"
+                                                               + "    MOV "+id.lexemeRank(11)+",AX\n");
                                             }
                                         }
                                         identDataTemp.put(identDataTypeR.get(id.lexemeRank(11)),"T"+temporal);
@@ -22113,6 +22294,8 @@ public class Interfaz extends javax.swing.JFrame {
                                     if(identDataTemp.containsKey(identDataTypeR.get(id.lexemeRank(11)))){
                                         Tripletas.append(id.lexemeRank(11)+" := "+identDataTemp.get(identDataTypeR.get(id.lexemeRank(11)))+"\n");
                                         cuadruplos("=",identDataTemp.get(identDataTypeR.get(id.lexemeRank(11))),"",id.lexemeRank(11));
+                                        CodigoObjeto.add("    MOV AX,"+identDataTypeR2.get(identDataTypeR.get(id.lexemeRank(11)))+"\n"
+                                                       + "    MOV "+id.lexemeRank(11)+",AX\n");
                                     }else{
                                         if(identDataType.get(id.lexemeRank(2)).equals("Numero_Decimal")){
                                             double num1 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(2)));
@@ -22126,6 +22309,10 @@ public class Interfaz extends javax.swing.JFrame {
                                                 if(identDataTemp.containsKey(Double.toString(res))){
                                                     Tripletas.append("T"+temporal+" := "+identDataTemp.get(Double.toString(res))+" / "+id.lexemeRank(8)+"\n");
                                                     cuadruplos("/",identDataTemp.get(Double.toString(res)),id.lexemeRank(8),"T"+temporal);
+                                                    CodigoObjeto.add("    MOV AX,"+identDataTypeR2.get(res)+"\n"
+                                                                   + "    MOV BX,"+id.lexemeRank(8)+"\n"
+                                                                   + "    DIV BX\n"
+                                                                   + "    MOV "+id.lexemeRank(11)+",AX\n");
                                                 }else{
                                                     num1 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(2)));
                                                     num2 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(4)));
@@ -22138,6 +22325,12 @@ public class Interfaz extends javax.swing.JFrame {
                                                     temporal++;
                                                     Tripletas.append("T"+temporal+" := T"+(temporal-1)+" / "+id.lexemeRank(8)+"\n");
                                                     cuadruplos("/","T"+(temporal-1),id.lexemeRank(8),"T"+temporal);
+                                                    CodigoObjeto.add("    MOV AX,"+identDataTypeR2.get(res)+"\n"
+                                                                   + "    MOV BX,"+id.lexemeRank(6)+"\n"
+                                                                   + "    DIV BX\n"
+                                                                   + "    MOV BX,"+id.lexemeRank(8)+"\n"
+                                                                   + "    DIV BX\n"
+                                                                   + "    MOV "+id.lexemeRank(11)+",AX\n");
                                                 }
                                             }else{
                                                 Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" / "+id.lexemeRank(4)+"\n");
@@ -22152,6 +22345,14 @@ public class Interfaz extends javax.swing.JFrame {
                                                 temporal++;
                                                 Tripletas.append("T"+temporal+" := T"+(temporal-1)+" / "+id.lexemeRank(8)+"\n");
                                                 cuadruplos("/","T"+(temporal-1),id.lexemeRank(8),"T"+temporal);
+                                                CodigoObjeto.add("    MOV AX,"+id.lexemeRank(2)+"\n"
+                                                               + "    MOV BX,"+id.lexemeRank(4)+"\n"
+                                                               + "    DIV BX\n"        
+                                                               + "    MOV BX,"+id.lexemeRank(6)+"\n"
+                                                               + "    DIV BX\n"
+                                                               + "    MOV BX,"+id.lexemeRank(8)+"\n"
+                                                               + "    DIV BX\n"
+                                                               + "    MOV "+id.lexemeRank(11)+",AX\n");
                                             }
                                         }
                                         if(identDataType.get(id.lexemeRank(2)).equals("Numero_Entero")){
@@ -22166,6 +22367,10 @@ public class Interfaz extends javax.swing.JFrame {
                                                 if(identDataTemp.containsKey(Integer.toString(res))){
                                                     Tripletas.append("T"+temporal+" := "+identDataTemp.get(Integer.toString(res))+" / "+id.lexemeRank(8)+"\n");
                                                     cuadruplos("/",identDataTemp.get(Integer.toString(res)),id.lexemeRank(8),"T"+temporal);
+                                                    CodigoObjeto.add("    MOV AX,"+identDataTypeR2.get(res)+"\n"
+                                                                   + "    MOV BX,"+id.lexemeRank(8)+"\n"
+                                                                   + "    DIV BX\n"
+                                                                   + "    MOV "+id.lexemeRank(11)+",AX\n");
                                                 }else{
                                                     num1 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(2)));
                                                     num2 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(4)));
@@ -22178,6 +22383,12 @@ public class Interfaz extends javax.swing.JFrame {
                                                     temporal++;
                                                     Tripletas.append("T"+temporal+" := T"+(temporal-1)+" / "+id.lexemeRank(8)+"\n");
                                                     cuadruplos("/","T"+(temporal-1),id.lexemeRank(8),"T"+temporal);
+                                                    CodigoObjeto.add("    MOV AX,"+identDataTypeR2.get(res)+"\n"
+                                                                   + "    MOV BX,"+id.lexemeRank(6)+"\n"
+                                                                   + "    DIV BX\n"
+                                                                   + "    MOV BX,"+id.lexemeRank(8)+"\n"
+                                                                   + "    DIV BX\n"
+                                                                   + "    MOV "+id.lexemeRank(11)+",AX\n");
                                                 }
                                             }else{
                                                 Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" / "+id.lexemeRank(4)+"\n");
@@ -22192,6 +22403,14 @@ public class Interfaz extends javax.swing.JFrame {
                                                 temporal++;
                                                 Tripletas.append("T"+temporal+" := T"+(temporal-1)+" / "+id.lexemeRank(8)+"\n");
                                                 cuadruplos("/","T"+(temporal-1),id.lexemeRank(8),"T"+temporal);
+                                                CodigoObjeto.add("    MOV AX,"+id.lexemeRank(2)+"\n"
+                                                               + "    MOV BX,"+id.lexemeRank(4)+"\n"
+                                                               + "    DIV BX\n"        
+                                                               + "    MOV BX,"+id.lexemeRank(6)+"\n"
+                                                               + "    DIV BX\n"
+                                                               + "    MOV BX,"+id.lexemeRank(8)+"\n"
+                                                               + "    DIV BX\n"
+                                                               + "    MOV "+id.lexemeRank(11)+",AX\n");
                                             }
                                         }
                                         identDataTemp.put(identDataTypeR.get(id.lexemeRank(11)),"T"+temporal);
@@ -22210,6 +22429,8 @@ public class Interfaz extends javax.swing.JFrame {
                                     if(identDataTemp.containsKey(identDataTypeR.get(id.lexemeRank(13)))){
                                         Tripletas.append(id.lexemeRank(13)+" := "+identDataTemp.get(identDataTypeR.get(id.lexemeRank(13)))+"\n");
                                         cuadruplos("=",identDataTemp.get(identDataTypeR.get(id.lexemeRank(13))),"",id.lexemeRank(13));
+                                        CodigoObjeto.add("    MOV AX,"+identDataTypeR2.get(identDataTypeR.get(id.lexemeRank(13)))+"\n"
+                                                       + "    MOV "+id.lexemeRank(13)+",AX\n");
                                     }else{
                                         if(identDataType.get(id.lexemeRank(2)).equals("Numero_Decimal")){
                                             double num1 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(2)));
@@ -22229,6 +22450,10 @@ public class Interfaz extends javax.swing.JFrame {
                                                     if(identDataTemp.containsKey(Double.toString(res))){
                                                         Tripletas.append("T"+temporal+" := "+identDataTemp.get(Double.toString(res))+" + "+id.lexemeRank(10)+"\n");
                                                         cuadruplos("+",identDataTemp.get(Double.toString(res)),id.lexemeRank(10),"T"+temporal);
+                                                        CodigoObjeto.add("    MOV AX,"+identDataTypeR2.get(res)+"\n"        
+                                                                       + "    MOV BX,"+id.lexemeRank(10)+"\n"
+                                                                       + "    ADD AX,BX\n"
+                                                                       + "    MOV "+id.lexemeRank(13)+",AX\n");
                                                     }else{
                                                         num1 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(2)));
                                                         num2 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(4)));
@@ -22239,6 +22464,12 @@ public class Interfaz extends javax.swing.JFrame {
                                                         temporal++;
                                                         Tripletas.append("T"+temporal+" := T"+(temporal-1)+" + "+id.lexemeRank(10)+"\n");
                                                         cuadruplos("+","T"+(temporal-1),id.lexemeRank(10),"T"+temporal);
+                                                        CodigoObjeto.add("    MOV AX,"+identDataTypeR2.get(res)+"\n"        
+                                                                       + "    MOV BX,"+id.lexemeRank(8)+"\n"
+                                                                       + "    ADD AX,BX\n"
+                                                                       + "    MOV BX,"+id.lexemeRank(10)+"\n"
+                                                                       + "    ADD AX,BX\n"
+                                                                       + "    MOV "+id.lexemeRank(13)+",AX\n");
                                                     }
                                                 }else{
                                                     num1 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(2)));
@@ -22255,6 +22486,14 @@ public class Interfaz extends javax.swing.JFrame {
                                                     temporal++;
                                                     Tripletas.append("T"+temporal+" := T"+(temporal-1)+" + "+id.lexemeRank(10)+"\n");
                                                     cuadruplos("+","T"+(temporal-1),id.lexemeRank(10),"T"+temporal);
+                                                    CodigoObjeto.add("    MOV AX,"+identDataTypeR2.get(res)+"\n"
+                                                                   + "    MOV BX,"+id.lexemeRank(6)+"\n"
+                                                                   + "    ADD AX,BX\n"        
+                                                                   + "    MOV BX,"+id.lexemeRank(8)+"\n"
+                                                                   + "    ADD AX,BX\n"
+                                                                   + "    MOV BX,"+id.lexemeRank(10)+"\n"
+                                                                   + "    ADD AX,BX\n"
+                                                                   + "    MOV "+id.lexemeRank(13)+",AX\n");
                                                 }
                                             }else{
                                                 Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" + "+id.lexemeRank(4)+"\n");
@@ -22272,6 +22511,16 @@ public class Interfaz extends javax.swing.JFrame {
                                                 temporal++;
                                                 Tripletas.append("T"+temporal+" := T"+(temporal-1)+" + "+id.lexemeRank(10)+"\n");
                                                 cuadruplos("+","T"+(temporal-1),id.lexemeRank(10),"T"+temporal);
+                                                CodigoObjeto.add("    MOV AX,"+id.lexemeRank(2)+"\n"
+                                                               + "    MOV BX,"+id.lexemeRank(4)+"\n"
+                                                               + "    ADD AX,BX\n"        
+                                                               + "    MOV BX,"+id.lexemeRank(6)+"\n"
+                                                               + "    ADD AX,BX\n"
+                                                               + "    MOV BX,"+id.lexemeRank(8)+"\n"
+                                                               + "    ADD AX,BX\n"
+                                                               + "    MOV BX,"+id.lexemeRank(10)+"\n"
+                                                               + "    ADD AX,BX\n"
+                                                               + "    MOV "+id.lexemeRank(13)+",AX\n");
                                             }
                                         }
                                         if(identDataType.get(id.lexemeRank(2)).equals("Numero_Entero")){
@@ -22292,6 +22541,10 @@ public class Interfaz extends javax.swing.JFrame {
                                                     if(identDataTemp.containsKey(Integer.toString(res))){
                                                         Tripletas.append("T"+temporal+" := "+identDataTemp.get(Integer.toString(res))+" + "+id.lexemeRank(10)+"\n");
                                                         cuadruplos("+",identDataTemp.get(Integer.toString(res)),id.lexemeRank(10),"T"+temporal);
+                                                        CodigoObjeto.add("    MOV AX,"+identDataTypeR2.get(res)+"\n"        
+                                                                       + "    MOV BX,"+id.lexemeRank(10)+"\n"
+                                                                       + "    ADD AX,BX\n"
+                                                                       + "    MOV "+id.lexemeRank(13)+",AX\n");
                                                     }else{
                                                         num1 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(2)));
                                                         num2 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(4)));
@@ -22302,6 +22555,12 @@ public class Interfaz extends javax.swing.JFrame {
                                                         temporal++;
                                                         Tripletas.append("T"+temporal+" := T"+(temporal-1)+" + "+id.lexemeRank(10)+"\n");
                                                         cuadruplos("+","T"+(temporal-1),id.lexemeRank(10),"T"+temporal);
+                                                        CodigoObjeto.add("    MOV AX,"+identDataTypeR2.get(res)+"\n"        
+                                                                       + "    MOV BX,"+id.lexemeRank(8)+"\n"
+                                                                       + "    ADD AX,BX\n"
+                                                                       + "    MOV BX,"+id.lexemeRank(10)+"\n"
+                                                                       + "    ADD AX,BX\n"
+                                                                       + "    MOV "+id.lexemeRank(13)+",AX\n");
                                                     }
                                                 }else{
                                                     num1 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(2)));
@@ -22318,6 +22577,14 @@ public class Interfaz extends javax.swing.JFrame {
                                                     temporal++;
                                                     Tripletas.append("T"+temporal+" := T"+(temporal-1)+" + "+id.lexemeRank(10)+"\n");
                                                     cuadruplos("+","T"+(temporal-1),id.lexemeRank(10),"T"+temporal);
+                                                    CodigoObjeto.add("    MOV AX,"+identDataTypeR2.get(res)+"\n"
+                                                                   + "    MOV BX,"+id.lexemeRank(6)+"\n"
+                                                                   + "    ADD AX,BX\n"        
+                                                                   + "    MOV BX,"+id.lexemeRank(8)+"\n"
+                                                                   + "    ADD AX,BX\n"
+                                                                   + "    MOV BX,"+id.lexemeRank(10)+"\n"
+                                                                   + "    ADD AX,BX\n"
+                                                                   + "    MOV "+id.lexemeRank(13)+",AX\n");
                                                 }
                                             }else{
                                                 Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" + "+id.lexemeRank(4)+"\n");
@@ -22335,6 +22602,16 @@ public class Interfaz extends javax.swing.JFrame {
                                                 temporal++;
                                                 Tripletas.append("T"+temporal+" := T"+(temporal-1)+" + "+id.lexemeRank(10)+"\n");
                                                 cuadruplos("+","T"+(temporal-1),id.lexemeRank(10),"T"+temporal);
+                                                CodigoObjeto.add("    MOV AX,"+id.lexemeRank(2)+"\n"
+                                                               + "    MOV BX,"+id.lexemeRank(4)+"\n"
+                                                               + "    ADD AX,BX\n"        
+                                                               + "    MOV BX,"+id.lexemeRank(6)+"\n"
+                                                               + "    ADD AX,BX\n"
+                                                               + "    MOV BX,"+id.lexemeRank(8)+"\n"
+                                                               + "    ADD AX,BX\n"
+                                                               + "    MOV BX,"+id.lexemeRank(10)+"\n"
+                                                               + "    ADD AX,BX\n"
+                                                               + "    MOV "+id.lexemeRank(13)+",AX\n");
                                             }
                                         }
                                         identDataTemp.put(identDataTypeR.get(id.lexemeRank(13)),"T"+temporal);
@@ -22348,6 +22625,8 @@ public class Interfaz extends javax.swing.JFrame {
                                     if(identDataTemp.containsKey(identDataTypeR.get(id.lexemeRank(13)))){
                                         Tripletas.append(id.lexemeRank(13)+" := "+identDataTemp.get(identDataTypeR.get(id.lexemeRank(13)))+"\n");
                                         cuadruplos("=",identDataTemp.get(identDataTypeR.get(id.lexemeRank(13))),"",id.lexemeRank(13));
+                                        CodigoObjeto.add("    MOV AX,"+identDataTypeR2.get(identDataTypeR.get(id.lexemeRank(13)))+"\n"
+                                                       + "    MOV "+id.lexemeRank(13)+",AX\n");
                                     }else{
                                         if(identDataType.get(id.lexemeRank(2)).equals("Numero_Decimal")){
                                             double num1 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(2)));
@@ -22367,6 +22646,10 @@ public class Interfaz extends javax.swing.JFrame {
                                                     if(identDataTemp.containsKey(Double.toString(res))){
                                                         Tripletas.append("T"+temporal+" := "+identDataTemp.get(Double.toString(res))+" - "+id.lexemeRank(10)+"\n");
                                                         cuadruplos("-",identDataTemp.get(Double.toString(res)),id.lexemeRank(10),"T"+temporal);
+                                                        CodigoObjeto.add("    MOV AX,"+identDataTypeR2.get(res)+"\n"        
+                                                                       + "    MOV BX,"+id.lexemeRank(10)+"\n"
+                                                                       + "    SUB AX,BX\n"
+                                                                       + "    MOV "+id.lexemeRank(13)+",AX\n");
                                                     }else{
                                                         num1 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(2)));
                                                         num2 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(4)));
@@ -22377,6 +22660,12 @@ public class Interfaz extends javax.swing.JFrame {
                                                         temporal++;
                                                         Tripletas.append("T"+temporal+" := T"+(temporal-1)+" - "+id.lexemeRank(10)+"\n");
                                                         cuadruplos("-","T"+(temporal-1),id.lexemeRank(10),"T"+temporal);
+                                                        CodigoObjeto.add("    MOV AX,"+identDataTypeR2.get(res)+"\n"        
+                                                                       + "    MOV BX,"+id.lexemeRank(8)+"\n"
+                                                                       + "    SUB AX,BX\n"
+                                                                       + "    MOV BX,"+id.lexemeRank(10)+"\n"
+                                                                       + "    SUB AX,BX\n"
+                                                                       + "    MOV "+id.lexemeRank(13)+",AX\n");
                                                     }
                                                 }else{
                                                     num1 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(2)));
@@ -22393,6 +22682,14 @@ public class Interfaz extends javax.swing.JFrame {
                                                     temporal++;
                                                     Tripletas.append("T"+temporal+" := T"+(temporal-1)+" - "+id.lexemeRank(10)+"\n");
                                                     cuadruplos("-","T"+(temporal-1),id.lexemeRank(10),"T"+temporal);
+                                                    CodigoObjeto.add("    MOV AX,"+identDataTypeR2.get(res)+"\n"
+                                                                   + "    MOV BX,"+id.lexemeRank(6)+"\n"
+                                                                   + "    SUB AX,BX\n"        
+                                                                   + "    MOV BX,"+id.lexemeRank(8)+"\n"
+                                                                   + "    SUB AX,BX\n"
+                                                                   + "    MOV BX,"+id.lexemeRank(10)+"\n"
+                                                                   + "    SUB AX,BX\n"
+                                                                   + "    MOV "+id.lexemeRank(13)+",AX\n");
                                                 }
                                             }else{
                                                 Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" - "+id.lexemeRank(4)+"\n");
@@ -22410,6 +22707,16 @@ public class Interfaz extends javax.swing.JFrame {
                                                 temporal++;
                                                 Tripletas.append("T"+temporal+" := T"+(temporal-1)+" - "+id.lexemeRank(10)+"\n");
                                                 cuadruplos("-","T"+(temporal-1),id.lexemeRank(10),"T"+temporal);
+                                                CodigoObjeto.add("    MOV AX,"+id.lexemeRank(2)+"\n"
+                                                               + "    MOV BX,"+id.lexemeRank(4)+"\n"
+                                                               + "    SUB AX,BX\n"        
+                                                               + "    MOV BX,"+id.lexemeRank(6)+"\n"
+                                                               + "    SUB AX,BX\n"
+                                                               + "    MOV BX,"+id.lexemeRank(8)+"\n"
+                                                               + "    SUB AX,BX\n"
+                                                               + "    MOV BX,"+id.lexemeRank(10)+"\n"
+                                                               + "    SUB AX,BX\n"
+                                                               + "    MOV "+id.lexemeRank(13)+",AX\n");
                                             }
                                         }
                                         if(identDataType.get(id.lexemeRank(2)).equals("Numero_Entero")){
@@ -22430,6 +22737,10 @@ public class Interfaz extends javax.swing.JFrame {
                                                     if(identDataTemp.containsKey(Integer.toString(res))){
                                                         Tripletas.append("T"+temporal+" := "+identDataTemp.get(Integer.toString(res))+" - "+id.lexemeRank(10)+"\n");
                                                         cuadruplos("-",identDataTemp.get(Integer.toString(res)),id.lexemeRank(10),"T"+temporal);
+                                                        CodigoObjeto.add("    MOV AX,"+identDataTypeR2.get(res)+"\n"        
+                                                                       + "    MOV BX,"+id.lexemeRank(10)+"\n"
+                                                                       + "    SUB AX,BX\n"
+                                                                       + "    MOV "+id.lexemeRank(13)+",AX\n");
                                                     }else{
                                                         num1 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(2)));
                                                         num2 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(4)));
@@ -22440,6 +22751,12 @@ public class Interfaz extends javax.swing.JFrame {
                                                         temporal++;
                                                         Tripletas.append("T"+temporal+" := T"+(temporal-1)+" - "+id.lexemeRank(10)+"\n");
                                                         cuadruplos("-","T"+(temporal-1),id.lexemeRank(10),"T"+temporal);
+                                                        CodigoObjeto.add("    MOV AX,"+identDataTypeR2.get(res)+"\n"        
+                                                                       + "    MOV BX,"+id.lexemeRank(8)+"\n"
+                                                                       + "    SUB AX,BX\n"
+                                                                       + "    MOV BX,"+id.lexemeRank(10)+"\n"
+                                                                       + "    SUB AX,BX\n"
+                                                                       + "    MOV "+id.lexemeRank(13)+",AX\n");
                                                     }
                                                 }else{
                                                     num1 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(2)));
@@ -22456,6 +22773,14 @@ public class Interfaz extends javax.swing.JFrame {
                                                     temporal++;
                                                     Tripletas.append("T"+temporal+" := T"+(temporal-1)+" - "+id.lexemeRank(10)+"\n");
                                                     cuadruplos("-","T"+(temporal-1),id.lexemeRank(10),"T"+temporal);
+                                                    CodigoObjeto.add("    MOV AX,"+identDataTypeR2.get(res)+"\n"
+                                                                   + "    MOV BX,"+id.lexemeRank(6)+"\n"
+                                                                   + "    SUB AX,BX\n"        
+                                                                   + "    MOV BX,"+id.lexemeRank(8)+"\n"
+                                                                   + "    SUB AX,BX\n"
+                                                                   + "    MOV BX,"+id.lexemeRank(10)+"\n"
+                                                                   + "    SUB AX,BX\n"
+                                                                   + "    MOV "+id.lexemeRank(13)+",AX\n");
                                                 }
                                             }else{
                                                 Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" - "+id.lexemeRank(4)+"\n");
@@ -22473,6 +22798,16 @@ public class Interfaz extends javax.swing.JFrame {
                                                 temporal++;
                                                 Tripletas.append("T"+temporal+" := T"+(temporal-1)+" - "+id.lexemeRank(10)+"\n");
                                                 cuadruplos("-","T"+(temporal-1),id.lexemeRank(10),"T"+temporal);
+                                                CodigoObjeto.add("    MOV AX,"+id.lexemeRank(2)+"\n"
+                                                               + "    MOV BX,"+id.lexemeRank(4)+"\n"
+                                                               + "    SUB AX,BX\n"        
+                                                               + "    MOV BX,"+id.lexemeRank(6)+"\n"
+                                                               + "    SUB AX,BX\n"
+                                                               + "    MOV BX,"+id.lexemeRank(8)+"\n"
+                                                               + "    SUB AX,BX\n"
+                                                               + "    MOV BX,"+id.lexemeRank(10)+"\n"
+                                                               + "    SUB AX,BX\n"
+                                                               + "    MOV "+id.lexemeRank(13)+",AX\n");
                                             }
                                         }
                                         identDataTemp.put(identDataTypeR.get(id.lexemeRank(13)),"T"+temporal);
@@ -22486,6 +22821,8 @@ public class Interfaz extends javax.swing.JFrame {
                                     if(identDataTemp.containsKey(identDataTypeR.get(id.lexemeRank(13)))){
                                         Tripletas.append(id.lexemeRank(13)+" := "+identDataTemp.get(identDataTypeR.get(id.lexemeRank(13)))+"\n");
                                         cuadruplos("=",identDataTemp.get(identDataTypeR.get(id.lexemeRank(13))),"",id.lexemeRank(13));
+                                        CodigoObjeto.add("    MOV AX,"+identDataTypeR2.get(identDataTypeR.get(id.lexemeRank(13)))+"\n"
+                                                       + "    MOV "+id.lexemeRank(13)+",AX\n");
                                     }else{
                                         if(identDataType.get(id.lexemeRank(2)).equals("Numero_Decimal")){
                                             double num1 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(2)));
@@ -22505,6 +22842,10 @@ public class Interfaz extends javax.swing.JFrame {
                                                     if(identDataTemp.containsKey(Double.toString(res))){
                                                         Tripletas.append("T"+temporal+" := "+identDataTemp.get(Double.toString(res))+" * "+id.lexemeRank(10)+"\n");
                                                         cuadruplos("*",identDataTemp.get(Double.toString(res)),id.lexemeRank(10),"T"+temporal);
+                                                        CodigoObjeto.add("    MOV AX,"+identDataTypeR2.get(res)+"\n"        
+                                                                       + "    MOV BX,"+id.lexemeRank(10)+"\n"
+                                                                       + "    MUL BX\n"
+                                                                       + "    MOV "+id.lexemeRank(13)+",AX\n");
                                                     }else{
                                                         num1 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(2)));
                                                         num2 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(4)));
@@ -22515,6 +22856,12 @@ public class Interfaz extends javax.swing.JFrame {
                                                         temporal++;
                                                         Tripletas.append("T"+temporal+" := T"+(temporal-1)+" * "+id.lexemeRank(10)+"\n");
                                                         cuadruplos("*","T"+(temporal-1),id.lexemeRank(10),"T"+temporal);
+                                                        CodigoObjeto.add("    MOV AX,"+identDataTypeR2.get(res)+"\n"        
+                                                                       + "    MOV BX,"+id.lexemeRank(8)+"\n"
+                                                                       + "    MUL AX,BX\n"
+                                                                       + "    MOV BX,"+id.lexemeRank(10)+"\n"
+                                                                       + "    MUL AX,BX\n"
+                                                                       + "    MOV "+id.lexemeRank(13)+",AX\n");
                                                     }
                                                 }else{
                                                     num1 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(2)));
@@ -22531,6 +22878,14 @@ public class Interfaz extends javax.swing.JFrame {
                                                     temporal++;
                                                     Tripletas.append("T"+temporal+" := T"+(temporal-1)+" * "+id.lexemeRank(10)+"\n");
                                                     cuadruplos("*","T"+(temporal-1),id.lexemeRank(10),"T"+temporal);
+                                                    CodigoObjeto.add("    MOV AX,"+identDataTypeR2.get(res)+"\n"
+                                                                   + "    MOV BX,"+id.lexemeRank(6)+"\n"
+                                                                   + "    MUL BX\n"        
+                                                                   + "    MOV BX,"+id.lexemeRank(8)+"\n"
+                                                                   + "    MUL BX\n"
+                                                                   + "    MOV BX,"+id.lexemeRank(10)+"\n"
+                                                                   + "    MUL BX\n"
+                                                                   + "    MOV "+id.lexemeRank(13)+",AX\n");
                                                 }
                                             }else{
                                                 Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" * "+id.lexemeRank(4)+"\n");
@@ -22548,6 +22903,16 @@ public class Interfaz extends javax.swing.JFrame {
                                                 temporal++;
                                                 Tripletas.append("T"+temporal+" := T"+(temporal-1)+" * "+id.lexemeRank(10)+"\n");
                                                 cuadruplos("*","T"+(temporal-1),id.lexemeRank(10),"T"+temporal);
+                                                CodigoObjeto.add("    MOV AX,"+id.lexemeRank(2)+"\n"
+                                                               + "    MOV BX,"+id.lexemeRank(4)+"\n"
+                                                               + "    MUL BX\n"        
+                                                               + "    MOV BX,"+id.lexemeRank(6)+"\n"
+                                                               + "    MUL BX\n"
+                                                               + "    MOV BX,"+id.lexemeRank(8)+"\n"
+                                                               + "    MUL BX\n"
+                                                               + "    MOV BX,"+id.lexemeRank(10)+"\n"
+                                                               + "    MUL BX\n"
+                                                               + "    MOV "+id.lexemeRank(13)+",AX\n");
                                             }
                                         }
                                         if(identDataType.get(id.lexemeRank(2)).equals("Numero_Entero")){
@@ -22568,6 +22933,10 @@ public class Interfaz extends javax.swing.JFrame {
                                                     if(identDataTemp.containsKey(Integer.toString(res))){
                                                         Tripletas.append("T"+temporal+" := "+identDataTemp.get(Integer.toString(res))+" * "+id.lexemeRank(10)+"\n");
                                                         cuadruplos("*",identDataTemp.get(Integer.toString(res)),id.lexemeRank(10),"T"+temporal);
+                                                        CodigoObjeto.add("    MOV AX,"+identDataTypeR2.get(res)+"\n"        
+                                                                       + "    MOV BX,"+id.lexemeRank(10)+"\n"
+                                                                       + "    MUL BX\n"
+                                                                       + "    MOV "+id.lexemeRank(13)+",AX\n");
                                                     }else{
                                                         num1 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(2)));
                                                         num2 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(4)));
@@ -22578,6 +22947,12 @@ public class Interfaz extends javax.swing.JFrame {
                                                         temporal++;
                                                         Tripletas.append("T"+temporal+" := T"+(temporal-1)+" * "+id.lexemeRank(10)+"\n");
                                                         cuadruplos("*","T"+(temporal-1),id.lexemeRank(10),"T"+temporal);
+                                                        CodigoObjeto.add("    MOV AX,"+identDataTypeR2.get(res)+"\n"        
+                                                                       + "    MOV BX,"+id.lexemeRank(8)+"\n"
+                                                                       + "    MUL AX,BX\n"
+                                                                       + "    MOV BX,"+id.lexemeRank(10)+"\n"
+                                                                       + "    MUL AX,BX\n"
+                                                                       + "    MOV "+id.lexemeRank(13)+",AX\n");
                                                     }
                                                 }else{
                                                     num1 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(2)));
@@ -22594,6 +22969,14 @@ public class Interfaz extends javax.swing.JFrame {
                                                     temporal++;
                                                     Tripletas.append("T"+temporal+" := T"+(temporal-1)+" * "+id.lexemeRank(10)+"\n");
                                                     cuadruplos("*","T"+(temporal-1),id.lexemeRank(10),"T"+temporal);
+                                                    CodigoObjeto.add("    MOV AX,"+identDataTypeR2.get(res)+"\n"
+                                                                   + "    MOV BX,"+id.lexemeRank(6)+"\n"
+                                                                   + "    MUL BX\n"        
+                                                                   + "    MOV BX,"+id.lexemeRank(8)+"\n"
+                                                                   + "    MUL BX\n"
+                                                                   + "    MOV BX,"+id.lexemeRank(10)+"\n"
+                                                                   + "    MUL BX\n"
+                                                                   + "    MOV "+id.lexemeRank(13)+",AX\n");
                                                 }
                                             }else{
                                                 Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" * "+id.lexemeRank(4)+"\n");
@@ -22611,6 +22994,16 @@ public class Interfaz extends javax.swing.JFrame {
                                                 temporal++;
                                                 Tripletas.append("T"+temporal+" := T"+(temporal-1)+" * "+id.lexemeRank(10)+"\n");
                                                 cuadruplos("*","T"+(temporal-1),id.lexemeRank(10),"T"+temporal);
+                                                CodigoObjeto.add("    MOV AX,"+id.lexemeRank(2)+"\n"
+                                                               + "    MOV BX,"+id.lexemeRank(4)+"\n"
+                                                               + "    MUL BX\n"        
+                                                               + "    MOV BX,"+id.lexemeRank(6)+"\n"
+                                                               + "    MUL BX\n"
+                                                               + "    MOV BX,"+id.lexemeRank(8)+"\n"
+                                                               + "    MUL BX\n"
+                                                               + "    MOV BX,"+id.lexemeRank(10)+"\n"
+                                                               + "    MUL BX\n"
+                                                               + "    MOV "+id.lexemeRank(13)+",AX\n");
                                             }
                                         }
                                         identDataTemp.put(identDataTypeR.get(id.lexemeRank(13)),"T"+temporal);
@@ -22624,6 +23017,8 @@ public class Interfaz extends javax.swing.JFrame {
                                     if(identDataTemp.containsKey(identDataTypeR.get(id.lexemeRank(13)))){
                                         Tripletas.append(id.lexemeRank(13)+" := "+identDataTemp.get(identDataTypeR.get(id.lexemeRank(13)))+"\n");
                                         cuadruplos("=",identDataTemp.get(identDataTypeR.get(id.lexemeRank(13))),"",id.lexemeRank(13));
+                                        CodigoObjeto.add("    MOV AX,"+identDataTypeR2.get(identDataTypeR.get(id.lexemeRank(13)))+"\n"
+                                                       + "    MOV "+id.lexemeRank(13)+",AX\n");
                                     }else{
                                         if(identDataType.get(id.lexemeRank(2)).equals("Numero_Decimal")){
                                             double num1 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(2)));
@@ -22643,6 +23038,10 @@ public class Interfaz extends javax.swing.JFrame {
                                                     if(identDataTemp.containsKey(Double.toString(res))){
                                                         Tripletas.append("T"+temporal+" := "+identDataTemp.get(Double.toString(res))+" / "+id.lexemeRank(10)+"\n");
                                                         cuadruplos("/",identDataTemp.get(Double.toString(res)),id.lexemeRank(10),"T"+temporal);
+                                                        CodigoObjeto.add("    MOV AX,"+identDataTypeR2.get(res)+"\n"        
+                                                                       + "    MOV BX,"+id.lexemeRank(10)+"\n"
+                                                                       + "    DIV BX\n"
+                                                                       + "    MOV "+id.lexemeRank(13)+",AX\n");
                                                     }else{
                                                         num1 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(2)));
                                                         num2 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(4)));
@@ -22653,6 +23052,12 @@ public class Interfaz extends javax.swing.JFrame {
                                                         temporal++;
                                                         Tripletas.append("T"+temporal+" := T"+(temporal-1)+" / "+id.lexemeRank(10)+"\n");
                                                         cuadruplos("/","T"+(temporal-1),id.lexemeRank(10),"T"+temporal);
+                                                        CodigoObjeto.add("    MOV AX,"+identDataTypeR2.get(res)+"\n"        
+                                                                       + "    MOV BX,"+id.lexemeRank(8)+"\n"
+                                                                       + "    DIV AX,BX\n"
+                                                                       + "    MOV BX,"+id.lexemeRank(10)+"\n"
+                                                                       + "    DIV AX,BX\n"
+                                                                       + "    MOV "+id.lexemeRank(13)+",AX\n");
                                                     }
                                                 }else{
                                                     num1 = Double.parseDouble(identDataTypeV2.get(id.lexemeRank(2)));
@@ -22669,6 +23074,14 @@ public class Interfaz extends javax.swing.JFrame {
                                                     temporal++;
                                                     Tripletas.append("T"+temporal+" := T"+(temporal-1)+" / "+id.lexemeRank(10)+"\n");
                                                     cuadruplos("/","T"+(temporal-1),id.lexemeRank(10),"T"+temporal);
+                                                    CodigoObjeto.add("    MOV AX,"+identDataTypeR2.get(res)+"\n"
+                                                                   + "    MOV BX,"+id.lexemeRank(6)+"\n"
+                                                                   + "    DIV BX\n"        
+                                                                   + "    MOV BX,"+id.lexemeRank(8)+"\n"
+                                                                   + "    DIV BX\n"
+                                                                   + "    MOV BX,"+id.lexemeRank(10)+"\n"
+                                                                   + "    DIV BX\n"
+                                                                   + "    MOV "+id.lexemeRank(13)+",AX\n");
                                                 }
                                             }else{
                                                 Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" / "+id.lexemeRank(4)+"\n");
@@ -22686,6 +23099,16 @@ public class Interfaz extends javax.swing.JFrame {
                                                 temporal++;
                                                 Tripletas.append("T"+temporal+" := T"+(temporal-1)+" / "+id.lexemeRank(10)+"\n");
                                                 cuadruplos("/","T"+(temporal-1),id.lexemeRank(10),"T"+temporal);
+                                                CodigoObjeto.add("    MOV AX,"+id.lexemeRank(2)+"\n"
+                                                               + "    MOV BX,"+id.lexemeRank(4)+"\n"
+                                                               + "    DIV BX\n"        
+                                                               + "    MOV BX,"+id.lexemeRank(6)+"\n"
+                                                               + "    DIV BX\n"
+                                                               + "    MOV BX,"+id.lexemeRank(8)+"\n"
+                                                               + "    DIV BX\n"
+                                                               + "    MOV BX,"+id.lexemeRank(10)+"\n"
+                                                               + "    DIV BX\n"
+                                                               + "    MOV "+id.lexemeRank(13)+",AX\n");
                                             }
                                         }
                                         if(identDataType.get(id.lexemeRank(2)).equals("Numero_Entero")){
@@ -22706,6 +23129,10 @@ public class Interfaz extends javax.swing.JFrame {
                                                     if(identDataTemp.containsKey(Integer.toString(res))){
                                                         Tripletas.append("T"+temporal+" := "+identDataTemp.get(Integer.toString(res))+" / "+id.lexemeRank(10)+"\n");
                                                         cuadruplos("/",identDataTemp.get(Integer.toString(res)),id.lexemeRank(10),"T"+temporal);
+                                                        CodigoObjeto.add("    MOV AX,"+identDataTypeR2.get(res)+"\n"        
+                                                                       + "    MOV BX,"+id.lexemeRank(10)+"\n"
+                                                                       + "    DIV BX\n"
+                                                                       + "    MOV "+id.lexemeRank(13)+",AX\n");
                                                     }else{
                                                         num1 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(2)));
                                                         num2 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(4)));
@@ -22716,6 +23143,12 @@ public class Interfaz extends javax.swing.JFrame {
                                                         temporal++;
                                                         Tripletas.append("T"+temporal+" := T"+(temporal-1)+" / "+id.lexemeRank(10)+"\n");
                                                         cuadruplos("/","T"+(temporal-1),id.lexemeRank(10),"T"+temporal);
+                                                        CodigoObjeto.add("    MOV AX,"+identDataTypeR2.get(res)+"\n"        
+                                                                       + "    MOV BX,"+id.lexemeRank(8)+"\n"
+                                                                       + "    DIV AX,BX\n"
+                                                                       + "    MOV BX,"+id.lexemeRank(10)+"\n"
+                                                                       + "    DIV AX,BX\n"
+                                                                       + "    MOV "+id.lexemeRank(13)+",AX\n");
                                                     }
                                                 }else{
                                                     num1 = Integer.parseInt(identDataTypeV2.get(id.lexemeRank(2)));
@@ -22732,6 +23165,14 @@ public class Interfaz extends javax.swing.JFrame {
                                                     temporal++;
                                                     Tripletas.append("T"+temporal+" := T"+(temporal-1)+" / "+id.lexemeRank(10)+"\n");
                                                     cuadruplos("/","T"+(temporal-1),id.lexemeRank(10),"T"+temporal);
+                                                    CodigoObjeto.add("    MOV AX,"+identDataTypeR2.get(res)+"\n"
+                                                                   + "    MOV BX,"+id.lexemeRank(6)+"\n"
+                                                                   + "    DIV BX\n"        
+                                                                   + "    MOV BX,"+id.lexemeRank(8)+"\n"
+                                                                   + "    DIV BX\n"
+                                                                   + "    MOV BX,"+id.lexemeRank(10)+"\n"
+                                                                   + "    DIV BX\n"
+                                                                   + "    MOV "+id.lexemeRank(13)+",AX\n");
                                                 }
                                             }else{
                                                 Tripletas.append("T"+temporal+" := "+id.lexemeRank(2)+" / "+id.lexemeRank(4)+"\n");
@@ -22749,6 +23190,16 @@ public class Interfaz extends javax.swing.JFrame {
                                                 temporal++;
                                                 Tripletas.append("T"+temporal+" := T"+(temporal-1)+" / "+id.lexemeRank(10)+"\n");
                                                 cuadruplos("/","T"+(temporal-1),id.lexemeRank(10),"T"+temporal);
+                                                CodigoObjeto.add("    MOV AX,"+id.lexemeRank(2)+"\n"
+                                                               + "    MOV BX,"+id.lexemeRank(4)+"\n"
+                                                               + "    DIV BX\n"        
+                                                               + "    MOV BX,"+id.lexemeRank(6)+"\n"
+                                                               + "    DIV BX\n"
+                                                               + "    MOV BX,"+id.lexemeRank(8)+"\n"
+                                                               + "    DIV BX\n"
+                                                               + "    MOV BX,"+id.lexemeRank(10)+"\n"
+                                                               + "    DIV BX\n"
+                                                               + "    MOV "+id.lexemeRank(13)+",AX\n");
                                             }
                                         }
                                         identDataTemp.put(identDataTypeR.get(id.lexemeRank(13)),"T"+temporal);
@@ -22955,7 +23406,16 @@ public class Interfaz extends javax.swing.JFrame {
                 }
             }
         }
-        CodObjeto.append(".model small\n"
+        CodObjeto.append(";***********************************************************\n"
+                       + ";*                 LENGUAJES Y AUTOMATAS II                *\n"
+                       + ";*                   COMPILADOR - M4THEC                   *\n"
+                       + ";*                     DESARROLLADORES:                    *\n"
+                       + ";* NL - 14 MARLETT ALESSANDRA MARIN BAUTISTA - SEMESTRE 7  *\n"
+                       + ";* NL - 21 JESUS ALBERTO PARTIDA MICHEL      - SEMESTRE 7  *\n"
+                       + ";* NL - 22 JOSE DE JESUS RAMIREZ ORTEGA      - SEMESTRE 11 *\n"
+                       + ";* NL - 1  MARTIN ERNESTO BARRON DOROTEO     - SEMESTRE 7  *\n"
+                       + ";***********************************************************\n"
+                       + ".model small\n"
                        + ".stack\n"
                        + ".data\n");
         for(int i = 0; i < Variables.size(); i++){
@@ -22974,6 +23434,7 @@ public class Interfaz extends javax.swing.JFrame {
                        + "    MOV AX,4C00H\n"
                        + "    INT 21H\n"
                        + "END");
+        co.rellenaObjeto(CodObjeto.getText());
     }
     /**
      * @param args the command line arguments
@@ -23062,6 +23523,8 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem34;
     private javax.swing.JMenuItem jMenuItem35;
     private javax.swing.JMenuItem jMenuItem36;
+    private javax.swing.JMenuItem jMenuItem37;
+    private javax.swing.JMenuItem jMenuItem38;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
