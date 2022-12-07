@@ -88,6 +88,10 @@ public class Interfaz extends javax.swing.JFrame {
     private ArrayList<String> CodigoObjeto;
     private ArrayList<String> Variables;
     
+    JFileChooser selecciona = new JFileChooser();
+    File archivo;
+    FileInputStream entrada;
+    FileOutputStream salida;
     /**
      * Creates new form Interfaz
      */
@@ -19787,9 +19791,11 @@ public class Interfaz extends javax.swing.JFrame {
 
         jPanel5.setBackground(new java.awt.Color(204, 204, 255));
 
+        CodObjeto.setBackground(new java.awt.Color(255, 255, 255));
         CodObjeto.setColumns(20);
         CodObjeto.setRows(5);
         CodObjeto.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        CodObjeto.setEnabled(false);
         jScrollPane7.setViewportView(CodObjeto);
 
         jLabel7.setBackground(new java.awt.Color(0, 0, 0));
@@ -19811,8 +19817,18 @@ public class Interfaz extends javax.swing.JFrame {
         });
 
         jButton14.setText("Abrir");
+        jButton14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton14ActionPerformed(evt);
+            }
+        });
 
         jButton15.setText("Guardar Como");
+        jButton15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton15ActionPerformed(evt);
+            }
+        });
 
         jButton16.setText("Guardar");
         jButton16.addActionListener(new java.awt.event.ActionListener() {
@@ -19865,7 +19881,7 @@ public class Interfaz extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jTabbedPane2.addTab("Código Objeto", jPanel5);
+        jTabbedPane2.addTab("Ensamblador", jPanel5);
 
         jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENES/MasZoom.png"))); // NOI18N
         jButton6.addActionListener(new java.awt.event.ActionListener() {
@@ -20236,7 +20252,7 @@ public class Interfaz extends javax.swing.JFrame {
             }
         });
 
-        jMenuItem37.setText("Código Objeto");
+        jMenuItem37.setText("Ensamblador");
         jMenuItem37.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem37ActionPerformed(evt);
@@ -20840,7 +20856,16 @@ public class Interfaz extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton13ActionPerformed
 
     private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
-        
+       try {
+            salida = new FileOutputStream("D:/ARCHIVOS/"+this.getTitle().replaceAll(".MTC","")+".asm");
+            char ch[] = CodObjeto.getText().toCharArray();
+            for(int j = 0; j<CodObjeto.getText().length(); j++){
+                    salida.write(ch[j]);
+            } 
+            salida.close();
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(this, ex, "ERROR", JOptionPane.ERROR_MESSAGE);
+        }   
     }//GEN-LAST:event_jButton16ActionPerformed
 
     private void jMenuItem36ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem36ActionPerformed
@@ -20873,6 +20898,31 @@ public class Interfaz extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }//GEN-LAST:event_jMenuItem38ActionPerformed
+
+    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
+        try{
+            File f = new File("D:/ARCHIVOS/"+this.getTitle().replaceAll(".MTC","")+".asm");
+            Desktop.getDesktop().open(f);
+        }catch(IOException ex){
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_jButton14ActionPerformed
+
+    private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
+        String nombre = "";
+        try {
+            String name = JOptionPane.showInputDialog("Ingresa nombre de archivo");
+            nombre = name;
+            salida = new FileOutputStream("D:/ARCHIVOS/"+name+".asm");
+            char ch[] = CodObjeto.getText().toCharArray();
+            for(int j = 0; j<CodObjeto.getText().length(); j++){
+                    salida.write(ch[j]);
+            } 
+            salida.close();
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(this, ex, "ERROR", JOptionPane.ERROR_MESSAGE);
+        }   
+    }//GEN-LAST:event_jButton15ActionPerformed
     
     private void executeCode(ArrayList<String> blocksOfCode,int repeats){
         int temporal = 0;
