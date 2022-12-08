@@ -19557,7 +19557,9 @@ public class Interfaz extends javax.swing.JFrame {
         jMenu14 = new javax.swing.JMenu();
         jMenuItem37 = new javax.swing.JMenuItem();
         jMenu9 = new javax.swing.JMenu();
-        jMenuItem35 = new javax.swing.JMenuItem();
+        jMenu15 = new javax.swing.JMenu();
+        jMenuItem39 = new javax.swing.JMenuItem();
+        jMenuItem40 = new javax.swing.JMenuItem();
         jMenuItem17 = new javax.swing.JMenuItem();
         jMenuItem18 = new javax.swing.JMenuItem();
         jMenuItem19 = new javax.swing.JMenuItem();
@@ -19727,7 +19729,6 @@ public class Interfaz extends javax.swing.JFrame {
 
         jPanel4.setBackground(new java.awt.Color(204, 204, 255));
 
-        Tripletas.setBackground(new java.awt.Color(255, 255, 255));
         Tripletas.setColumns(20);
         Tripletas.setRows(5);
         Tripletas.setDisabledTextColor(new java.awt.Color(0, 0, 0));
@@ -19791,7 +19792,6 @@ public class Interfaz extends javax.swing.JFrame {
 
         jPanel5.setBackground(new java.awt.Color(204, 204, 255));
 
-        CodObjeto.setBackground(new java.awt.Color(255, 255, 255));
         CodObjeto.setColumns(20);
         CodObjeto.setRows(5);
         CodObjeto.setDisabledTextColor(new java.awt.Color(0, 0, 0));
@@ -20264,8 +20264,25 @@ public class Interfaz extends javax.swing.JFrame {
 
         jMenu9.setText("Ayuda");
 
-        jMenuItem35.setText("Manual");
-        jMenu9.add(jMenuItem35);
+        jMenu15.setText("Manual");
+
+        jMenuItem39.setText("Usuario");
+        jMenuItem39.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem39ActionPerformed(evt);
+            }
+        });
+        jMenu15.add(jMenuItem39);
+
+        jMenuItem40.setText("Técnico");
+        jMenuItem40.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem40ActionPerformed(evt);
+            }
+        });
+        jMenu15.add(jMenuItem40);
+
+        jMenu9.add(jMenu15);
 
         jMenuItem17.setText("Documentación");
         jMenuItem17.addActionListener(new java.awt.event.ActionListener() {
@@ -20923,6 +20940,28 @@ public class Interfaz extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, ex, "ERROR", JOptionPane.ERROR_MESSAGE);
         }   
     }//GEN-LAST:event_jButton15ActionPerformed
+
+    private void jMenuItem39ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem39ActionPerformed
+        try{
+            URL ruta = getClass().getResource("/DOCUMENTACION/M4TH3C_MANUAL_USUARIO.docx.pdf");
+            String rutaNueva = ruta.getFile();
+            File ruta2 = new File(rutaNueva.replaceAll("%20"," "));
+            Desktop.getDesktop().open(ruta2);
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jMenuItem39ActionPerformed
+
+    private void jMenuItem40ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem40ActionPerformed
+        try{
+            URL ruta = getClass().getResource("/DOCUMENTACION/M4TH3C_MANUAL_TECNICO.docx.pdf");
+            String rutaNueva = ruta.getFile();
+            File ruta2 = new File(rutaNueva.replaceAll("%20"," "));
+            Desktop.getDesktop().open(ruta2);
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jMenuItem40ActionPerformed
     
     private void executeCode(ArrayList<String> blocksOfCode,int repeats){
         int temporal = 0;
@@ -23534,6 +23573,7 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu12;
     private javax.swing.JMenu jMenu13;
     private javax.swing.JMenu jMenu14;
+    private javax.swing.JMenu jMenu15;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
@@ -23571,11 +23611,12 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem32;
     private javax.swing.JMenuItem jMenuItem33;
     private javax.swing.JMenuItem jMenuItem34;
-    private javax.swing.JMenuItem jMenuItem35;
     private javax.swing.JMenuItem jMenuItem36;
     private javax.swing.JMenuItem jMenuItem37;
     private javax.swing.JMenuItem jMenuItem38;
+    private javax.swing.JMenuItem jMenuItem39;
     private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem40;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
